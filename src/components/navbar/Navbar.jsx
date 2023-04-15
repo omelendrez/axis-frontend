@@ -3,7 +3,12 @@ import { useContext, useRef } from "react"
 import { SP } from '../../services'
 import { UserContext } from "../../context"
 import { Divider } from "../shared"
-import { HomeIcon, DashboardIcon, KeyIcon, LogoutIcon } from '../../assets'
+import HomeIcon from '../../assets/home_black_24dp.svg'
+import DashboardIcon from '../../assets/dashboard_black_24dp.svg'
+import UserIcon from '../../assets/person_black_24dp.svg'
+import KeyIcon from '../../assets/key_black_24dp.svg'
+import LogoutIcon from '../../assets/logout_black_24dp.svg'
+
 import './navbar.css'
 
 const LiElement = ({ route, path, label, icon, onClick }) => (
