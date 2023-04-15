@@ -48,7 +48,8 @@ export const Navbar = () => {
     {
       path: '/users',
       label: 'Users',
-      icon: 'group'
+      icon: 'group',
+      role: 1
     }
   ]
 
@@ -80,16 +81,18 @@ export const Navbar = () => {
             <summary aria-haspopup="listbox" role="link">
             </summary>
             <ul>
-              {appRoutes.map((r) =>
-                <LiElement
-                  route={route}
-                  path={r.path}
-                  icon={r.icon}
-                  key={r.label}
-                  label={r.label}
-                  onClick={handleClick}
-                />
-              )}
+              {appRoutes
+                .filter((r) => !r.role || r.role === user.role)
+                .map((r) =>
+                  <LiElement
+                    route={route}
+                    path={r.path}
+                    icon={r.icon}
+                    key={r.label}
+                    label={r.label}
+                    onClick={handleClick}
+                  />
+                )}
               <Divider />
               {userRoutes.map((r) =>
                 <LiElement
