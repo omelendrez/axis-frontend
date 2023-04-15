@@ -34,11 +34,7 @@ export const Navbar = () => {
     setUser(null)
   }
 
-  const routes = [
-    {
-      label: user.name,
-      icon: 'person'
-    },
+  const appRoutes = [
     {
       path: '/',
       label: 'Home',
@@ -48,6 +44,18 @@ export const Navbar = () => {
       path: '/dashboard',
       label: 'Dashboard',
       icon: 'dashboard'
+    },
+    {
+      path: '/users',
+      label: 'Users',
+      icon: 'group'
+    }
+  ]
+
+  const userRoutes = [
+    {
+      label: user.name,
+      icon: 'person'
     },
     {
       path: '/change-password',
@@ -72,7 +80,18 @@ export const Navbar = () => {
             <summary aria-haspopup="listbox" role="link">
             </summary>
             <ul>
-              {routes.map((r) =>
+              {appRoutes.map((r) =>
+                <LiElement
+                  route={route}
+                  path={r.path}
+                  icon={r.icon}
+                  key={r.label}
+                  label={r.label}
+                  onClick={handleClick}
+                />
+              )}
+              <Divider />
+              {userRoutes.map((r) =>
                 <LiElement
                   route={route}
                   path={r.path}
@@ -82,7 +101,6 @@ export const Navbar = () => {
                   onClick={r.label === 'Logout' ? handleLogout : handleClick}
                 />
               )}
-              <Divider />
             </ul>
 
           </details>
