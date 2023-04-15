@@ -1,7 +1,13 @@
-import { Login as LoginComponent } from "../components";
+import { Login as LoginComponent } from "../components"
 
 export const Login = () => {
   return (
-    <LoginComponent />
-  );
-};
+    <main className="container-fluid">
+      <hgroup>
+        <h2>Login</h2>
+        <h3>Credentials validation</h3>
+      </hgroup>
+      <LoginComponent />
+    </main>
+  )
+}

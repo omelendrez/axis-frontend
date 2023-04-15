@@ -1,12 +1,12 @@
-import { useRef, useState, useContext } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { validateUserName, validateNotEmpty, validatePasswordLength } from "../../helpers"
+import { useContext, useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { InputField, Modal } from "../shared"
-import { login, SP, KEYS } from "../../services"
+import { validatePasswordLength, validateNotEmpty, validateConfirmPassword } from "../../helpers"
+import { changePassword } from "../../services"
 import { UserContext } from "../../context"
 
 const initialValues = {
-  name: {
+  prevPass: {
     value: '',
     error: ''
   },
@@ -14,11 +14,15 @@ const initialValues = {
     value: '',
     error: ''
   },
+  verPass: {
+    value: '',
+    error: ''
+  },
 }
 
-export const Login = () => {
-  const { setUser } = useContext(UserContext)
+export const ChangePassword = () => {
   const navigate = useNavigate()
+  const { user } = useContext(UserContext)
   const [values, setValues] = useState(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorModalMessage, setErrorModalMessage] = useState(false)
@@ -36,36 +40,26 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const session = new SP()
-    errorsCount.current = 0
+    isMounted.current = true
+    validateNotEmpty(['prevPass', 'password', 'verPass'], setValues, values, errorsCount)
     validatePasswordLength(['password'], 5, setValues, values, errorsCount)
-    validateUserName(['name'], setValues, values, errorsCount)
-    validateNotEmpty(['name', 'password'], setValues, values, errorsCount)
+    validateConfirmPassword(['verPass'], setValues, values, errorsCount)
 
     if (!errorsCount.current) {
       const payload = {
-        name: values.name.value,
+        prevPass: values.prevPass.value,
         password: values.password.value
       }
 
       setIsSubmitting(true)
 
-      login(payload)
+      changePassword(user.id, payload)
         .then((res) => {
-          const token = res.data.token
-          session.save(KEYS.token, token)
-          const user = { ...res.data, token: undefined }
-          session.save(KEYS.user, user)
-          isMounted.current = false
-          setUser(res.data)
           navigate('/')
         })
         .catch((e) => {
-          const message = e.code === "ERR_BAD_REQUEST"
-            ? 'You have entered an invalid username or password. Please double-check and try again.'
-            : e.message
-
-          setErrorModalMessage(message)
+          console.dir(e)
+          setErrorModalMessage(e.response.data.message)
         })
         .finally(() => {
           if (isMounted.current) {
@@ -75,40 +69,46 @@ export const Login = () => {
     }
   }
 
-  const { name, password } = values
+  const { prevPass, password, verPass } = values
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-
         <InputField
           type="text"
-          id="name"
-          label="Email"
-          placeholder="Enter name"
-          value={name}
+          id="prevPass"
+          label="Current password"
+          placeholder="Enter your current password"
+          value={prevPass}
           onChange={handleChange}
         />
 
         <InputField
-          type="password"
+          type="text"
           id="password"
-          label="Password"
-          placeholder="Enter password"
+          label="New password"
+          placeholder="Enter the new password"
           value={password}
           onChange={handleChange}
         />
 
+        <InputField
+          type="text"
+          id="verPass"
+          label="Retype password"
+          placeholder="Retype the new password"
+          value={verPass}
+          onChange={handleChange}
+        />
+
         <button type="submit" aria-busy={isSubmitting}        >
-          Login
+          Change
         </button>
 
-
       </form>
-
       <Modal
         open={!!errorModalMessage}
-        title="Wrong credentials!"
+        title="Error"
         type="error"
         message={errorModalMessage}
         toggle={setErrorModalMessage}
