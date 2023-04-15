@@ -1,4 +1,4 @@
-import { Loading, Logo } from '../shared'
+import { Loading } from '../shared'
 import './home.css'
 
 export const Home = ({ loading }) => {
@@ -8,13 +8,13 @@ export const Home = ({ loading }) => {
       :
       <article className='home'>
         <figure>
-          <Logo />
+          <img src="assets/logo.jpg" alt="logo" />
         </figure>
-        <h2>
+        <article>
           <center>
             Work in progress...
           </center>
-        </h2>
+        </article>
       </article>
   )
 }

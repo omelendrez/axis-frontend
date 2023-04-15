@@ -2,45 +2,40 @@ nav {
   background-color: var(--primary-hover);
 }
 
-nav > * {
+nav>* {
   color: #fff;
 }
 
 summary {
-  content: url(../);
+  content: url(../../assets/menu_white_24dp.svg);
 }
 
 @keyframes details-show {
   from {
-    opacity:0;
+    opacity: 0;
     transform: var(--details-translate, translateY(-0.5em));
   }
 }
 
-details[open] > *:not(summary) {
+details[open]>*:not(summary) {
   animation: details-show 150ms ease-in-out;
 }
 
-nav .user-info {
-  display: flex;
-  justify-content: space-between;
+details ul {
+  background-color: #fff !important;
+}
+
+nav li a.link-option {
+  display: flex !important;
+  flex-direction: row;
   align-items: center;
-  cursor: pointer;
+  color: #111 !important;
 }
 
-nav .user-info:hover {
-  background-color: hsl(205deg, 20%, 94%);
-}
-
-nav .logout-div {
-  content: url(../../assets/logout.svg);
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  margin-left: .5rem;
+nav li a.link-option img {
+  margin-right: 1rem;
 }
 
 nav li.active {
   background-color: hsl(205deg, 18%, 86%);
 }
-
