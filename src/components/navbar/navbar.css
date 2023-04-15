@@ -39,3 +39,7 @@ nav li a.link-option img {
 nav li.active {
   background-color: hsl(205deg, 18%, 86%);
 }
+
+label span.material-icons>* {
+  margin-top: -10px;
+}
