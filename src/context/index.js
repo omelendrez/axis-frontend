@@ -1,1 +1,2 @@
-export * from './UserContext'
+export * from './theme-provider'
+export * from './user-context'

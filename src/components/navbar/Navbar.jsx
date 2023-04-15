@@ -1,29 +1,27 @@
 import { Link, useLocation } from "react-router-dom"
 import { useContext, useRef } from "react"
 import { SP } from '../../services'
-import { UserContext } from "../../context"
+import { UserContext, ThemeContext } from "../../context"
 import { Divider } from "../shared"
-import HomeIcon from '../../assets/home_black_24dp.svg'
-import DashboardIcon from '../../assets/dashboard_black_24dp.svg'
-import UserIcon from '../../assets/person_black_24dp.svg'
-import KeyIcon from '../../assets/key_black_24dp.svg'
-import LogoutIcon from '../../assets/logout_black_24dp.svg'
 
 import './navbar.css'
 
 const LiElement = ({ route, path, label, icon, onClick }) => (
-
   <li className={route === `${path}` ? 'active' : ''}>
     <Link to={path} onClick={onClick} className="link-option">
-      <img src={icon} alt={label} />
-      <div>{label}</div>
+      <span className="material-icons">
+        {icon}
+      </span>
+      {label}
     </Link>
   </li>
 )
 
 export const Navbar = () => {
-  const detailsRef = useRef(null)
+  const { theme, toggle } = useContext(ThemeContext)
   const { user, setUser } = useContext(UserContext)
+
+  const detailsRef = useRef(null)
 
   const handleClick = () => {
     detailsRef.current.removeAttribute('open')
@@ -38,27 +36,27 @@ export const Navbar = () => {
 
   const routes = [
     {
-      label: user.full_name,
-      icon: UserIcon
+      label: user.name,
+      icon: 'person'
     },
     {
       path: '/',
       label: 'Home',
-      icon: HomeIcon
+      icon: 'home'
     },
     {
       path: '/dashboard',
       label: 'Dashboard',
-      icon: DashboardIcon
+      icon: 'dashboard'
     },
     {
       path: '/change-password',
       label: 'Change Password',
-      icon: KeyIcon
+      icon: 'key'
     },
     {
       label: 'Logout',
-      icon: LogoutIcon,
+      icon: 'logout',
       onClick: handleLogout
     }
   ]
@@ -71,8 +69,8 @@ export const Navbar = () => {
       <ul>
         <li>
           <details ref={detailsRef} role="list" dir="ltr">
-            <summary aria-haspopup="listbox" role="link"></summary>
-
+            <summary aria-haspopup="listbox" role="link">
+            </summary>
             <ul>
               {routes.map((r) =>
                 <LiElement
@@ -91,7 +89,14 @@ export const Navbar = () => {
         </li>
       </ul>
       <ul>
-        <li><strong>{routes.find((r) => r.path === route)?.label}</strong></li>
+        <li>
+          <label htmlFor="theme">
+            <span className="material-icons">
+              {theme === 'dark' ? 'sunny' : 'bedtime'}
+              <input type="checkbox" id="theme" role="switch" onChange={toggle}></input>
+            </span>
+          </label>
+        </li>
       </ul>
     </nav>
   )
