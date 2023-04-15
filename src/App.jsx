@@ -4,6 +4,7 @@ import { Navbar } from "./components"
 import { AppRoutes } from "./routes"
 import { UserContext } from "./context"
 import { KEYS, SP } from "./services/session"
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
 
 const errorHandler = (error, info) => {
