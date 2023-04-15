@@ -81,7 +81,6 @@ export const ChangePassword = () => {
   return (
     <>
       <ToastContainer
-        hideProgressBar
         position="top-left"
       />
 

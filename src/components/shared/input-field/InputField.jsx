@@ -11,6 +11,8 @@ export const InputField = (props) => {
           placeholder={placeholder}
           value={value.value}
           onChange={onChange}
+          autoCapitalize="off"
+          autoCorrect="off"
         />
         <small>{value.error}</small>
       </div>
