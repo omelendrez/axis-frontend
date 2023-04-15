@@ -1,0 +1,46 @@
+nav {
+  background-color: var(--primary-hover);
+}
+
+nav > * {
+  color: #fff;
+}
+
+summary {
+  content: url(../);
+}
+
+@keyframes details-show {
+  from {
+    opacity:0;
+    transform: var(--details-translate, translateY(-0.5em));
+  }
+}
+
+details[open] > *:not(summary) {
+  animation: details-show 150ms ease-in-out;
+}
+
+nav .user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+nav .user-info:hover {
+  background-color: hsl(205deg, 20%, 94%);
+}
+
+nav .logout-div {
+  content: url(../../assets/logout.svg);
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  margin-left: .5rem;
+}
+
+nav li.active {
+  background-color: hsl(205deg, 18%, 86%);
+}
+
