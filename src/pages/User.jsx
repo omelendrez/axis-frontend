@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { useLocation } from "react-router-dom"
 import { User as UserComponent } from "../components/users"
 import { getUser } from '../services'
@@ -17,10 +18,13 @@ export const User = () => {
 
   return (
     <main className="container-fluid">
-      <hgroup>
-        <h2>User</h2>
-        <h3>User management</h3>
-      </hgroup>
+      <nav aria-label="breadcrumb" className="breadcrumb">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/users">Users</Link></li>
+          <li>User</li>
+        </ul>
+      </nav>
       <UserComponent user={user} />
     </main>
   )

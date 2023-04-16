@@ -16,3 +16,12 @@ form {
   max-width: 600px;
   margin: 0 auto;
 }
+
+
+.breadcrumb {
+  background-color: unset;
+}
+
+.breadcrumb li {
+  color: #111;
+}

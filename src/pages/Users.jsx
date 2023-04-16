@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { Users as UsersComponent } from "../components/users"
 import { getUsers } from "../services"
 
@@ -14,10 +15,12 @@ export const Users = () => {
 
   return (
     <main className="container-fluid">
-      <hgroup>
-        <h2>Users</h2>
-        <h3>Users management</h3>
-      </hgroup>
+      <nav aria-label="breadcrumb" className="breadcrumb">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li>Users</li>
+        </ul>
+      </nav>
       <UsersComponent
         users={users}
       />
