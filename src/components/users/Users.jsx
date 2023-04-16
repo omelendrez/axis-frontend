@@ -7,6 +7,7 @@ const Row = ({ user, onEdit }) => {
       <td>{user.name}</td>
       <td>{user.full_name}</td>
       <td>{user.role_name}</td>
+      <td>{user.status_name}</td>
       <td><button type="button" className="small" onClick={() => onEdit(user)}>Edit</button></td>
     </tr>
   )
@@ -27,6 +28,7 @@ export const Users = ({ users }) => {
           <th scope="col">Name</th>
           <th scope="col">Full name</th>
           <th scope="col">Role</th>
+          <th scope="col">Status</th>
           <th></th>
         </tr>
       </thead>
