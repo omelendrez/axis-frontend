@@ -15,14 +15,26 @@ const menuOptions = [
     description: 'Manage user roles',
     path: '/roles',
     role: 1
+  },
+  {
+    title: 'Courses',
+    description: 'Manage safety courses',
+    path: '/courses',
+    role: 1
+  },
+  {
+    title: 'Nationalities',
+    description: 'Manage nationalities master table',
+    path: '/courses',
+    role: 1
   }
 ]
 
 const MenuOption = ({ title, description, path }) =>
   <article>
     <hgroup>
-      <h2>{title}</h2>
       <Link to={path} role="button">Go</Link>
+      <h2>{title}</h2>
       <h3>{description}</h3>
     </hgroup>
   </article>
@@ -32,7 +44,7 @@ export const Dashboard = () => {
   const { user } = useContext(UserContext)
 
   return (
-    <main className="container dashboard grid">
+    <main className="container dashboard">
       {menuOptions
         .filter((r) => !r.role || r.role === user.role)
         .map((o) =>

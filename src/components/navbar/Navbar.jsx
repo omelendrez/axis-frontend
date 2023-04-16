@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom"
 import { useContext, useRef } from "react"
 import { SP } from '../../services'
 import { UserContext, ThemeContext } from "../../context"
+import { Divider } from "../shared"
 
 import './navbar.css'
 
@@ -33,6 +34,19 @@ export const Navbar = () => {
     setUser(null)
   }
 
+  const appRoutes = [
+    {
+      path: '/',
+      label: 'Home',
+      icon: 'home'
+    },
+    {
+      path: '/dashboard',
+      label: 'Dashboard',
+      icon: 'dashboard'
+    },
+  ]
+
   const userRoutes = [
     {
       label: user.name,
@@ -61,6 +75,19 @@ export const Navbar = () => {
             <summary aria-haspopup="listbox" role="link">
             </summary>
             <ul>
+              {appRoutes
+                .filter((r) => !r.role || r.role === user.role)
+                .map((r) =>
+                  <LiElement
+                    route={route}
+                    path={r.path}
+                    icon={r.icon}
+                    key={r.label}
+                    label={r.label}
+                    onClick={handleClick}
+                  />
+                )}
+              <Divider />
               {userRoutes.map((r) =>
                 <LiElement
                   route={route}
