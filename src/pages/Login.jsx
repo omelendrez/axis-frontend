@@ -7,7 +7,9 @@ export const Login = () => {
         <h2>Login</h2>
         <h3>Credentials validation</h3>
       </hgroup>
-      <LoginComponent />
+      <div className="container">
+        <LoginComponent />
+      </div>
     </main>
   )
 }

@@ -2,10 +2,9 @@ import { useRef, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import useNoficication from "../../hooks/useNotification"
 import { validateUserName, validateNotEmpty, validatePasswordLength } from "../../helpers"
-import { InputField, Modal } from "../shared"
+import { InputField } from "../shared"
 import { login, SP, KEYS } from "../../services"
 import { UserContext } from "../../context"
-import { setMessage } from "../../reducers/notification/notificationSlice"
 
 const initialValues = {
   name: {
@@ -24,7 +23,6 @@ export const Login = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [errorModalMessage, setErrorModalMessage] = useState(false)
   const errorsCount = useRef(0)
   const isMounted = useRef(true)
 
@@ -55,11 +53,11 @@ export const Login = () => {
 
       login(payload)
         .then((res) => {
-          const payload = {
+          const notification = {
             type: 'success',
             message: 'Welcome'
           }
-          set(payload)
+          set(notification)
           const token = res.data.token
           session.save(KEYS.token, token)
           const user = { ...res.data, token: undefined }
@@ -69,16 +67,17 @@ export const Login = () => {
           navigate('/')
         })
         .catch((e) => {
+
           const message = e.code === "ERR_BAD_REQUEST"
-            ? 'You have entered an invalid username or password. Please double-check and try again.'
+            ? 'You have entered an invalid credentials. Please double-check and try again.'
             : e.message
 
-          const payload = {
+          const notification = {
             type: 'error',
             message
           }
 
-          set(payload)
+          set(notification)
 
         })
         .finally(() => {
@@ -92,42 +91,30 @@ export const Login = () => {
   const { name, password } = values
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
 
-        <InputField
-          type="text"
-          id="name"
-          label="Email"
-          placeholder="Enter name"
-          value={name}
-          onChange={handleChange}
-        />
-
-        <InputField
-          type="password"
-          id="password"
-          label="Password"
-          placeholder="Enter password"
-          value={password}
-          onChange={handleChange}
-        />
-
-        <button type="submit" aria-busy={isSubmitting}        >
-          Login
-        </button>
-
-
-      </form>
-
-      <Modal
-        open={!!errorModalMessage}
-        title="Wrong credentials!"
-        type="error"
-        message={errorModalMessage}
-        toggle={setErrorModalMessage}
-        label="Try again"
+      <InputField
+        type="text"
+        id="name"
+        label="Email"
+        placeholder="Enter name"
+        value={name}
+        onChange={handleChange}
       />
-    </>
+
+      <InputField
+        type="password"
+        id="password"
+        label="Password"
+        placeholder="Enter password"
+        value={password}
+        onChange={handleChange}
+      />
+
+      <button type="submit" aria-busy={isSubmitting}        >
+        Login
+      </button>
+
+    </form>
   )
 }

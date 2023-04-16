@@ -7,7 +7,9 @@ export const ChangePassword = () => {
         <h2>Change password</h2>
         <h3>Update credentials</h3>
       </hgroup>
-      <ChangePasswordComponent />
+      <div className="container">
+        <ChangePasswordComponent />
+      </div>
     </main>
   )
 }
