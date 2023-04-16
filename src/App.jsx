@@ -45,7 +45,9 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        theme={window.localStorage.getItem('theme') || 'light'}
+      />
       <ErrorBoundary
         FallbackComponent={ErrorFallback}
         onError={errorHandler}
