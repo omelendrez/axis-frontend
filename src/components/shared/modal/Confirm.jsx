@@ -8,8 +8,8 @@ export const Confirm = ({ open, onCofirm, onCancel, message }) =>
         {message}
       </p>
       <footer>
-        <button className="secondary" onClick={onCancel}>Cancel</button>
-        <button onClick={onCofirm}>Confirm</button>
+        <a href='#' className="secondary" role='button' onClick={onCancel}>Cancel</a>
+        <a href='#' onClick={onCofirm} role='button'>Confirm</a>
       </footer>
     </article>
   </dialog>
