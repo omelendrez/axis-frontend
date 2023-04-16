@@ -1,5 +1,3 @@
-import './modal.css'
-
 export const Modal = ({ type = 'info', open, toggle, title, message, label }) => {
   const handleClose = (e) => {
     e.preventDefault()

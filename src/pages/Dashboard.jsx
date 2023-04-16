@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { Dashboard as DashboardComponent } from "../components"
 
 export const Dashboard = () => {
   return (
@@ -9,9 +10,7 @@ export const Dashboard = () => {
           <li>Dashboard</li>
         </ul>
       </nav>
-      <p>
-        Work in progress...
-      </p>
+      <DashboardComponent />
     </main>
   )
 }

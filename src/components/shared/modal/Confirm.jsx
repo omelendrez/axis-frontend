@@ -1,5 +1,3 @@
-import './modal.css'
-
 export const Confirm = ({ open, onCofirm, onCancel, message }) =>
   <dialog open={open} >
     <article>
