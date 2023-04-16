@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ErrorBoundary } from 'react-error-boundary'
+import { ToastContainer, toast } from 'react-toastify'
+import useNoficication from "./hooks/useNotification"
 import { Navbar } from "./components"
 import { AppRoutes } from "./routes"
 import { UserContext } from "./context"
@@ -23,6 +25,16 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
+
+  const { data } = useNoficication()
+
+  useEffect(() => {
+    if (data.type && data.message) {
+      const delay = data.message.split(' ').length * 500
+      toast[data.type](data.message, { autoClose: delay })
+    }
+  }, [data])
+
   const session = new SP()
   const currentUser = session.get(KEYS.user) || null
   const [user, setUser] = useState(currentUser)
@@ -32,15 +44,18 @@ function App() {
   }
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onError={errorHandler}
-    >
-      <UserContext.Provider value={contextValues}>
-        {user?.id && <Navbar />}
-        <AppRoutes />
-      </UserContext.Provider>
-    </ErrorBoundary>
+    <>
+      <ToastContainer />
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onError={errorHandler}
+      >
+        <UserContext.Provider value={contextValues}>
+          {user?.id && <Navbar />}
+          <AppRoutes />
+        </UserContext.Provider>
+      </ErrorBoundary>
+    </>
   )
 }
 

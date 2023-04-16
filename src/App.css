@@ -5,3 +5,9 @@
 .form-control small {
   color: red;
 }
+
+/* Picocss affects the way buttons are displayed */
+.Toastify__close-button {
+  width: 1rem;
+  height: 1rem;
+}

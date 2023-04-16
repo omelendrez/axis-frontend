@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { ToastContainer, toast } from 'react-toastify'
 import { InputField, Modal } from "../shared"
 import { validatePasswordLength, validateNotEmpty, validateConfirmPassword } from "../../helpers"
 import { changePassword } from "../../services"
@@ -56,17 +55,12 @@ export const ChangePassword = () => {
 
       changePassword(user.id, payload)
         .then((res) => {
-          toast.success('Password changed')
-          setTimeout(() => {
-            navigate('/')
-          }, 4000)
+          navigate('/')
         })
         .catch((e) => {
-          toast.error(e.response.data.message
-            || 'An error has ocurred while trying to change the passowrd. Please try again later')
           console.log(e)
-          // setErrorModalMessage(e.response?.data?.message
-          //   || 'An error has ocurred while trying to change the passowrd. Please try again later')
+          setErrorModalMessage(e.response?.data?.message
+            || 'An error has ocurred while trying to change the passowrd. Please try again later')
         })
         .finally(() => {
           if (isMounted.current) {
@@ -80,10 +74,6 @@ export const ChangePassword = () => {
 
   return (
     <>
-      <ToastContainer
-        position="top-left"
-      />
-
       <form onSubmit={handleSubmit}>
         <InputField
           type="text"

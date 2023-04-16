@@ -1,9 +1,11 @@
 import { useRef, useState, useContext } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import useNoficication from "../../hooks/useNotification"
 import { validateUserName, validateNotEmpty, validatePasswordLength } from "../../helpers"
 import { InputField, Modal } from "../shared"
 import { login, SP, KEYS } from "../../services"
 import { UserContext } from "../../context"
+import { setMessage } from "../../reducers/notification/notificationSlice"
 
 const initialValues = {
   name: {
@@ -17,6 +19,7 @@ const initialValues = {
 }
 
 export const Login = () => {
+  const { set } = useNoficication()
   const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
@@ -52,6 +55,11 @@ export const Login = () => {
 
       login(payload)
         .then((res) => {
+          const payload = {
+            type: 'success',
+            message: 'Welcome'
+          }
+          set(payload)
           const token = res.data.token
           session.save(KEYS.token, token)
           const user = { ...res.data, token: undefined }
@@ -65,7 +73,13 @@ export const Login = () => {
             ? 'You have entered an invalid username or password. Please double-check and try again.'
             : e.message
 
-          setErrorModalMessage(message)
+          const payload = {
+            type: 'error',
+            message
+          }
+
+          set(payload)
+
         })
         .finally(() => {
           if (isMounted.current) {
