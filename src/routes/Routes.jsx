@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom"
-import { Home, Login, ChangePassword, Dashboard, Users } from '../pages'
+import { Home, Login, ChangePassword, Dashboard, Users, User } from '../pages'
 import { NotFound } from '../components'
 import { useContext } from "react"
 import { UserContext } from "../context"
@@ -19,6 +19,11 @@ export const AppRoutes = () => {
       <Route path="/users" element={
         <ProtectedRoute user={user}>
           <Users />
+        </ProtectedRoute>}
+      />
+      <Route path="/user" element={
+        <ProtectedRoute user={user}>
+          <User />
         </ProtectedRoute>}
       />
       <Route path="/change-password" element={

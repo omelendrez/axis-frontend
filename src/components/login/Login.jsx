@@ -96,7 +96,7 @@ export const Login = () => {
       <InputField
         type="text"
         id="name"
-        label="Email"
+        label="Username"
         placeholder="Enter name"
         value={name}
         onChange={handleChange}

@@ -1,16 +1,24 @@
-const Row = ({ user }) => {
+import { useNavigate } from "react-router-dom"
+
+const Row = ({ user, onEdit }) => {
   return (
     <tr>
       <td>{user.id}</td>
       <td>{user.name}</td>
       <td>{user.full_name}</td>
       <td>{user.role_name}</td>
-      <td><button type="button" className="small">Edit</button></td>
+      <td><button type="button" className="small" onClick={() => onEdit(user)}>Edit</button></td>
     </tr>
   )
 }
 
 export const Users = ({ users }) => {
+  const navigate = useNavigate()
+
+  const handleClick = (user) => {
+    navigate(`/user`, { state: user })
+  }
+
   return (
     <table role="grid">
       <thead>
@@ -24,12 +32,19 @@ export const Users = ({ users }) => {
       </thead>
       <tbody>
         {users.map((user) =>
-          <Row user={user} key={user.id} />
+          <Row user={user}
+            key={user.id}
+            onEdit={handleClick}
+          />
         )}
       </tbody>
       <tfoot>
         <tr>
-          <td colSpan={5}><center>{`${users.length} records found`}</center></td>
+          <td colSpan={5}>
+            <center>
+              {`${users.length} records found`}
+            </center>
+          </td>
         </tr>
       </tfoot>
     </table>
