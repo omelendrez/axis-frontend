@@ -9,6 +9,18 @@ export const Users = () => {
   const navigate = useNavigate();
   const { set } = useNoficication();
 
+  const handleApiSuccess = (message) => {
+    const notification = { type: "success", message };
+    set(notification);
+    getUsers()
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((e) => {
+        handleApiError(e);
+      });
+  };
+
   const handleApiError = (e) => {
     const notification = {
       type: "error",
@@ -24,9 +36,7 @@ export const Users = () => {
   const handleDelete = (user) => {
     deleteUser(user.id)
       .then(() => {
-        getUsers().then((res) => {
-          setUsers(res.data);
-        });
+        handleApiSuccess("User deleted successfully");
       })
       .catch((e) => {
         handleApiError(e);
@@ -34,9 +44,13 @@ export const Users = () => {
   };
 
   useEffect(() => {
-    getUsers().then((res) => {
-      setUsers(res.data);
-    });
+    getUsers()
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((e) => {
+        handleApiError(e);
+      });
   }, []);
 
   return (

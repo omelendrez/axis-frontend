@@ -10,6 +10,7 @@ import {
 } from "../shared";
 import { createUser, updateUser } from "../../services";
 import useNoficication from "../../hooks/useNotification";
+import statusList from "../../data/status.json";
 
 const initialValues = {
   name: {
@@ -33,11 +34,6 @@ const initialValues = {
     error: "",
   },
 };
-
-const statusList = [
-  { id: 1, name: "Active" },
-  { id: 0, name: "Inactive" },
-];
 
 export const User = ({ user }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
