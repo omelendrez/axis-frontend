@@ -1,95 +1,102 @@
-import { useContext, useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import useNoficication from "../../hooks/useNotification"
-import { InputField } from "../shared"
-import { validatePasswordLength, validateNotEmpty, validateConfirmPassword } from "../../helpers"
-import { changePassword } from "../../services"
-import { UserContext } from "../../context"
+import { useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useNoficication from "../../hooks/useNotification";
+import { InputField } from "../shared";
+import {
+  validatePasswordLength,
+  validateNotEmpty,
+  validateConfirmPassword,
+} from "../../helpers";
+import { changePassword } from "../../services";
+import { UserContext } from "../../context";
 
 const initialValues = {
   prevPass: {
-    value: '',
-    error: ''
+    value: "",
+    error: "",
   },
   password: {
-    value: '',
-    error: ''
+    value: "",
+    error: "",
   },
   verPass: {
-    value: '',
-    error: ''
+    value: "",
+    error: "",
   },
-}
+};
 
 export const ChangePassword = () => {
-  const { set } = useNoficication()
-  const navigate = useNavigate()
-  const { user } = useContext(UserContext)
-  const [values, setValues] = useState(initialValues)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const errorsCount = useRef(0)
-  const isMounted = useRef(true)
+  const { set } = useNoficication();
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const [values, setValues] = useState(initialValues);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const errorsCount = useRef(0);
+  const isMounted = useRef(true);
 
   const handleChange = (e) => {
-    const { id, value } = e.target
+    const { id, value } = e.target;
     const data = {
       value,
-      error: ''
-    }
-    setValues(values => ({ ...values, [id]: data }))
-  }
+      error: "",
+    };
+    setValues((values) => ({ ...values, [id]: data }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    errorsCount.current = 0
-    isMounted.current = true
-    validateNotEmpty(['prevPass', 'password', 'verPass'], setValues, values, errorsCount)
-    validatePasswordLength(['password'], 5, setValues, values, errorsCount)
-    validateConfirmPassword(['verPass'], setValues, values, errorsCount)
+    e.preventDefault();
+    errorsCount.current = 0;
+    isMounted.current = true;
+    validateNotEmpty(
+      ["prevPass", "password", "verPass"],
+      setValues,
+      values,
+      errorsCount
+    );
+    validatePasswordLength(["password"], 5, setValues, values, errorsCount);
+    validateConfirmPassword(["verPass"], setValues, values, errorsCount);
 
     if (!errorsCount.current) {
       const payload = {
         prevPass: values.prevPass.value,
-        password: values.password.value
-      }
+        password: values.password.value,
+      };
 
-      setIsSubmitting(true)
+      setIsSubmitting(true);
 
       changePassword(user.id, payload)
         .then((res) => {
-
           const notification = {
-            type: 'success',
-            message: 'Password successfully changed!'
-          }
-          set(notification)
+            type: "success",
+            message: "Password successfully changed!",
+          };
+          set(notification);
 
-          navigate('/')
+          navigate("/");
         })
         .catch((e) => {
-
-          const message = e.response?.data?.message
-            || 'An error has ocurred while trying to change the passowrd. Please try again later'
+          const message =
+            e.response?.data?.message ||
+            "An error has ocurred while trying to change the passowrd. Please try again later";
 
           const notification = {
-            type: 'error',
-            message
-          }
+            type: "error",
+            message,
+          };
 
-          set(notification)
+          set(notification);
 
-          console.log(e)
-
+          console.error(e);
         })
         .finally(() => {
           if (isMounted.current) {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
           }
-        })
+        });
     }
-  }
+  };
 
-  const { prevPass, password, verPass } = values
+  const { prevPass, password, verPass } = values;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -126,10 +133,9 @@ export const ChangePassword = () => {
         required
       />
 
-      <button type="submit" aria-busy={isSubmitting}        >
+      <button type="submit" aria-busy={isSubmitting}>
         Change
       </button>
-
     </form>
-  )
-}
+  );
+};

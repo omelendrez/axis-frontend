@@ -3,7 +3,7 @@
 }
 
 .form-control small {
-  color: red;
+  color: #e53935;
 }
 
 /* Picocss affects the way buttons are displayed */
@@ -29,7 +29,8 @@ form {
 .table-button-row {
   display: flex;
   justify-content: right;
-  padding: 1rem;
+  padding: 0 1rem 1rem 0;
+  margin: 0;
   border: none;
   box-shadow: none;
   border-bottom: 1px solid #cdcdcd;
@@ -45,7 +46,15 @@ form {
   padding: 0px;
 }
 
+.form-button-row button:not(:last-child) {
+  margin-right: 1rem;
+}
+
 .error-fallback footer {
   display: flex;
   justify-content: space-around;
+}
+
+.error {
+  background-color: #e53935;
 }

@@ -1,19 +1,15 @@
-import { Loading } from '../shared'
+import { Loading } from "../shared";
+import { Logo } from "./Logo";
+import { Text } from "./Text";
 
 export const Home = ({ loading }) => {
   if (loading) {
-    return <Loading />
+    return <Loading />;
   }
   return (
-    <main className='home'>
-      <figure>
-        <img src="assets/logo.jpg" alt="logo" />
-      </figure>
-      <article>
-        <center>
-          Work in progress...
-        </center>
-      </article>
-    </main>
-  )
-}
+    <article className="home">
+      <Logo />
+      <Text />
+    </article>
+  );
+};
