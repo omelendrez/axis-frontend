@@ -36,11 +36,6 @@ export const Navbar = () => {
 
   const appRoutes = [
     {
-      path: '/',
-      label: 'Home',
-      icon: 'home'
-    },
-    {
       path: '/dashboard',
       label: 'Dashboard',
       icon: 'dashboard'

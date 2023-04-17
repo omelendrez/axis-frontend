@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Users as UsersComponent } from "../components/users"
+import { Users as UsersComponent, TableAddButton } from "../components"
 import { getUsers } from "../services"
 
 export const Users = () => {
@@ -18,9 +18,13 @@ export const Users = () => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li><Link to="/">Home</Link></li>
+          <li><Link to="/dashboard">Dashboard</Link></li>
           <li>Users</li>
         </ul>
       </nav>
+
+      <TableAddButton url="/user" />
+
       <UsersComponent
         users={users}
       />

@@ -1,12 +1,6 @@
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export const NotFound = () => {
-  const navigate = useNavigate()
-
-  const handleClick = (e) => {
-    e.preventDefault()
-    navigate('/')
-  }
 
   return (
     <div className="container">
@@ -16,9 +10,9 @@ export const NotFound = () => {
           The page you are looking for does not exist.
         </p>
         <footer>
-          <button onClick={handleClick}>
-            Back to Home
-          </button>
+          <Link to="/dashboard" role="button">
+            Back to Dashboard
+          </Link>
         </footer>
       </article>
     </div>

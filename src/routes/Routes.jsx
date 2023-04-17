@@ -16,9 +16,14 @@ export const AppRoutes = () => {
           <Dashboard />
         </ProtectedRoute>}
       />
-      <Route path="/users" element={
+      <Route path="/users/" element={
         <ProtectedRoute user={user}>
           <Users />
+        </ProtectedRoute>}
+      />
+      <Route path="/user/:id" element={
+        <ProtectedRoute user={user}>
+          <User />
         </ProtectedRoute>}
       />
       <Route path="/user" element={

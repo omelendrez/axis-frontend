@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { InputField, Confirm } from "../shared"
-import { updateUser } from "../../services"
+import { createUser, updateUser } from "../../services"
 import useNoficication from "../../hooks/useNotification"
 
 const initialValues = {
@@ -83,6 +83,59 @@ export const User = ({ user }) => {
     setIsConfirmOpen(false)
   }
 
+  const handleApiSuccess = () => {
+    isMounted.current = false
+    const notification = {
+      type: 'success',
+      message: 'User added successfully!'
+    }
+    set(notification)
+    navigate('/users')
+  }
+
+  const handleApiError = (e) => {
+    const message = e.code === "ERR_BAD_REQUEST"
+      ? 'Some fields have wrong information. Please double-check and try again.'
+      : e.message
+    const notification = {
+      type: 'error',
+      message
+    }
+    set(notification)
+  }
+
+  const handleFinally = () => {
+    if (isMounted.current) {
+      setIsSubmitting(false)
+    }
+  }
+
+  const create = (payload) => {
+    createUser(payload)
+      .then((res) => {
+        handleApiSuccess()
+      })
+      .catch((e) => {
+        handleApiError(e)
+      })
+      .finally(() => {
+        handleFinally()
+      })
+  }
+
+  const update = (id, payload) => {
+    updateUser(user.id, payload)
+      .then((res) => {
+        handleApiSuccess()
+      })
+      .catch((e) => {
+        handleApiError(e)
+      })
+      .finally(() => {
+        handleFinally()
+      })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -90,35 +143,11 @@ export const User = ({ user }) => {
       .filter((id) => id !== 'id')
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
 
-    updateUser(user.id, payload)
-      .then((res) => {
-        isMounted.current = false
-        const notification = {
-          type: 'success',
-          message: 'User updated!'
-        }
-        set(notification)
-        navigate('/users')
-      })
-      .catch((e) => {
-        const message = e.code === "ERR_BAD_REQUEST"
-          ? 'You have entered an invalid credentials. Please double-check and try again.'
-          : e.message
-
-        const notification = {
-          type: 'error',
-          message
-        }
-
-        set(notification)
-
-      })
-      .finally(() => {
-        if (isMounted.current) {
-          setIsSubmitting(false)
-        }
-      })
-
+    if (user?.id) {
+      update(user.id, payload)
+    } else {
+      create(payload)
+    }
   }
 
   const { name, full_name, email, role } = values
@@ -172,16 +201,14 @@ export const User = ({ user }) => {
 
         <select id="status" onChange={handleChange} value={values.status.value}>
           {statusList.map((s) =>
-            <option
-              key={s.id}
-              value={s.id}
-            >
+            <option key={s.id} value={s.id}>
               {s.name}
             </option>
           )}
         </select>
+
         <button type="submit" aria-busy={isSubmitting}>
-          Save changes
+          Save
         </button>
 
       </form >

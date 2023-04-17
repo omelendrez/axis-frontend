@@ -25,3 +25,13 @@ form {
 .breadcrumb li {
   color: #111;
 }
+
+.table-add-button-container {
+  display: flex;
+  justify-content: right;
+  padding: 1rem;
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #cdcdcd;
+  border-radius: 0;
+}

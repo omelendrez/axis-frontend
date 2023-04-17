@@ -17,38 +17,37 @@ export const Users = ({ users }) => {
   const navigate = useNavigate()
 
   const handleClick = (user) => {
-    navigate(`/user`, { state: user })
+    navigate(`/user/${user.id}`)
   }
 
   return (
-    <table role="grid">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Full name</th>
-          <th scope="col">Role</th>
-          <th scope="col">Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) =>
-          <Row user={user}
-            key={user.id}
-            onEdit={handleClick}
-          />
-        )}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan={5}>
-            <center>
-              {`${users.length} records found`}
-            </center>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+    <>
+      <table role="grid">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Full name</th>
+            <th scope="col">Role</th>
+            <th scope="col">Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) =>
+            <Row user={user} key={user.id} onEdit={handleClick} />
+          )}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={5}>
+              <center>
+                {`${users.length} records found`}
+              </center>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </>
   )
 }

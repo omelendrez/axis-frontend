@@ -13,19 +13,19 @@ const menuOptions = [
   {
     title: 'Roles',
     description: 'Manage user roles',
-    path: '/roles',
+    path: '/role',
     role: 1
   },
   {
     title: 'Courses',
     description: 'Manage safety courses',
-    path: '/courses',
+    path: '/course',
     role: 1
   },
   {
     title: 'Nationalities',
     description: 'Manage nationalities master table',
-    path: '/courses',
+    path: '/nationality',
     role: 1
   }
 ]
@@ -49,6 +49,7 @@ export const Dashboard = () => {
         .filter((r) => !r.role || r.role === user.role)
         .map((o) =>
           <MenuOption
+            key={o.path}
             title={o.title}
             description={o.description}
             path={o.path}
