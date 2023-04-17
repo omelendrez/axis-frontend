@@ -26,7 +26,7 @@ form {
   color: #111;
 }
 
-.table-add-button-container {
+.table-button-row {
   display: flex;
   justify-content: right;
   padding: 1rem;
@@ -34,4 +34,18 @@ form {
   box-shadow: none;
   border-bottom: 1px solid #cdcdcd;
   border-radius: 0;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: none;
+  padding: 0px;
+}
+
+.error-fallback footer {
+  display: flex;
+  justify-content: space-around;
 }

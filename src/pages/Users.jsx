@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Users as UsersComponent, TableAddButton } from "../components"
+import { Users as UsersComponent, TableButtonRow } from "../components"
 import { getUsers } from "../services"
 
 export const Users = () => {
@@ -23,7 +23,7 @@ export const Users = () => {
         </ul>
       </nav>
 
-      <TableAddButton url="/user" />
+      <TableButtonRow url="/user" label="Add user" />
 
       <UsersComponent
         users={users}

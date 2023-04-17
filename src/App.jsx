@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify'
 import useNoficication from "./hooks/useNotification"
@@ -16,11 +17,14 @@ const errorHandler = (error, info) => {
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
-    <div role="alert">
-      <p>Something went wrong:</p>
+    <article role="alert" className="error-fallback">
+      <h3>Something went wrong:</h3>
       <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
+      <footer>
+        <Link to="/" role="button">Back to Home</Link>
+        <a href="#" role="button" onClick={(e) => { e.preventDefault(); resetErrorBoundary() }}>Continue</a>
+      </footer>
+    </article >
   )
 }
 

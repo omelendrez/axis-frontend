@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { InputField, Confirm } from "../shared"
+import { InputField, Confirm, ButtonRow } from "../shared"
 import { createUser, updateUser } from "../../services"
 import useNoficication from "../../hooks/useNotification"
 
@@ -83,12 +83,9 @@ export const User = ({ user }) => {
     setIsConfirmOpen(false)
   }
 
-  const handleApiSuccess = () => {
+  const handleApiSuccess = (message) => {
     isMounted.current = false
-    const notification = {
-      type: 'success',
-      message: 'User added successfully!'
-    }
+    const notification = { type: 'success', message }
     set(notification)
     navigate('/users')
   }
@@ -113,7 +110,7 @@ export const User = ({ user }) => {
   const create = (payload) => {
     createUser(payload)
       .then((res) => {
-        handleApiSuccess()
+        handleApiSuccess('User added successfully!')
       })
       .catch((e) => {
         handleApiError(e)
@@ -126,7 +123,7 @@ export const User = ({ user }) => {
   const update = (id, payload) => {
     updateUser(user.id, payload)
       .then((res) => {
-        handleApiSuccess()
+        handleApiSuccess('User saved successfully')
       })
       .catch((e) => {
         handleApiError(e)
@@ -150,6 +147,11 @@ export const User = ({ user }) => {
     }
   }
 
+  const handleCancelSubmit = (e) => {
+    e.preventDefault()
+    navigate('/users')
+  }
+
   const { name, full_name, email, role } = values
 
   return (
@@ -170,6 +172,7 @@ export const User = ({ user }) => {
           placeholder="Enter name"
           value={name}
           onChange={handleChange}
+          required
         />
 
         <InputField
@@ -179,6 +182,7 @@ export const User = ({ user }) => {
           placeholder="Enter full name"
           value={full_name}
           onChange={handleChange}
+          required
         />
 
         <InputField
@@ -188,6 +192,7 @@ export const User = ({ user }) => {
           placeholder="Enter email"
           value={email}
           onChange={handleChange}
+          required
         />
 
         <InputField
@@ -197,9 +202,10 @@ export const User = ({ user }) => {
           placeholder="Enter role"
           value={role}
           onChange={handleChange}
+          required
         />
 
-        <select id="status" onChange={handleChange} value={values.status.value}>
+        <select id="status" onChange={handleChange} value={values.status.value} required>
           {statusList.map((s) =>
             <option key={s.id} value={s.id}>
               {s.name}
@@ -207,9 +213,14 @@ export const User = ({ user }) => {
           )}
         </select>
 
-        <button type="submit" aria-busy={isSubmitting}>
-          Save
-        </button>
+        <ButtonRow>
+          <a href="#" role="button" aria-busy={isSubmitting} onClick={handleSubmit}>
+            Save
+          </a>
+          <a href="#" role="button" className="secondary" aria-busy={isSubmitting} onClick={handleCancelSubmit} >
+            Go back
+          </a>
+        </ButtonRow>
 
       </form >
     </>
