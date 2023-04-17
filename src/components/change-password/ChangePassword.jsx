@@ -100,6 +100,8 @@ export const ChangePassword = () => {
         placeholder="Enter your current password"
         value={prevPass}
         onChange={handleChange}
+        autoCapitalize="off"
+        required
       />
 
       <InputField
@@ -109,6 +111,8 @@ export const ChangePassword = () => {
         placeholder="Enter the new password"
         value={password}
         onChange={handleChange}
+        autoCapitalize="off"
+        required
       />
 
       <InputField
@@ -118,6 +122,8 @@ export const ChangePassword = () => {
         placeholder="Retype the new password"
         value={verPass}
         onChange={handleChange}
+        autoCapitalize="off"
+        required
       />
 
       <button type="submit" aria-busy={isSubmitting}        >

@@ -1,2 +1,2 @@
-export * from './ButtonRow'
+export * from './FormButtonRow'
 export * from './TableButtonRow'

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { InputField, Confirm, ButtonRow } from "../shared"
+import { InputField, Confirm, FormButtonRow, Dropdown } from "../shared"
 import { createUser, updateUser } from "../../services"
 import useNoficication from "../../hooks/useNotification"
 
@@ -193,6 +193,7 @@ export const User = ({ user }) => {
           value={email}
           onChange={handleChange}
           required
+          autoCapitalize="off"
         />
 
         <InputField
@@ -205,22 +206,20 @@ export const User = ({ user }) => {
           required
         />
 
-        <select id="status" onChange={handleChange} value={values.status.value} required>
-          {statusList.map((s) =>
-            <option key={s.id} value={s.id}>
-              {s.name}
-            </option>
-          )}
-        </select>
+        <Dropdown
+          onChange={handleChange}
+          value={values.status.value}
+          options={statusList}
+        />
 
-        <ButtonRow>
+        <FormButtonRow>
           <a href="#" role="button" aria-busy={isSubmitting} onClick={handleSubmit}>
             Save
           </a>
           <a href="#" role="button" className="secondary" aria-busy={isSubmitting} onClick={handleCancelSubmit} >
             Go back
           </a>
-        </ButtonRow>
+        </FormButtonRow>
 
       </form >
     </>

@@ -36,7 +36,7 @@ form {
   border-radius: 0;
 }
 
-.button-row {
+.form-button-row {
   display: flex;
   justify-content: space-between;
   align-items: center;

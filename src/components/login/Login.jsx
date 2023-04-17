@@ -100,6 +100,8 @@ export const Login = () => {
         placeholder="Enter name"
         value={name}
         onChange={handleChange}
+        autoCapitalize="off"
+        required
       />
 
       <InputField
@@ -109,6 +111,8 @@ export const Login = () => {
         placeholder="Enter password"
         value={password}
         onChange={handleChange}
+        autoCapitalize="off"
+        required
       />
 
       <button type="submit" aria-busy={isSubmitting}        >

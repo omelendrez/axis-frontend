@@ -7,7 +7,6 @@ export const InputField = (props) => {
       <label htmlFor={id}>{label}</label>
       <input
         {...inputProps}
-        autoCapitalize="off"
         autoCorrect="off"
       />
       <small>{value.error}</small>
