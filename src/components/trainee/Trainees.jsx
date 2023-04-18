@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import useUser from "../../hooks/useUser";
 import { PAGE_SIZE } from "../../helpers";
-import { FormButtonRow, Search } from "../shared";
+import { PaginationButtons, Search } from "../shared";
 import { formatShortDate } from "../../helpers";
 
-const Row = ({ trainee, onEdit, onDelete }) => {
+const Row = ({ trainee, onEdit }) => {
   const { user } = useUser();
   return (
     <tr>
@@ -95,7 +95,7 @@ export const Trainees = ({ trainees, onEdit, onDelete }) => {
         </thead>
 
         <tbody>
-          {pagedTrainees.length == 0 && (
+          {pagedTrainees.length === 0 && (
             <tr>
               <td colSpan={9}>
                 <article>No records found</article>
@@ -117,25 +117,12 @@ export const Trainees = ({ trainees, onEdit, onDelete }) => {
           <tfoot>
             <tr>
               <td colSpan={9}>
-                <FormButtonRow>
-                  <a
-                    href="#"
-                    role="button"
-                    onClick={handlePrev}
-                    disabled={curPage === 1}
-                  >
-                    <span className="material-icons">arrow_back</span>
-                  </a>
-                  <center>{`Page ${curPage} of ${lastPage} `}</center>
-                  <a
-                    href="#"
-                    role="button"
-                    onClick={handleNext}
-                    disabled={curPage === lastPage}
-                  >
-                    <span className="material-icons">arrow_forward_ios</span>
-                  </a>
-                </FormButtonRow>
+                <PaginationButtons
+                  onPrev={handlePrev}
+                  onNext={handleNext}
+                  curPage={curPage}
+                  lastPage={lastPage}
+                />
               </td>
             </tr>
           </tfoot>

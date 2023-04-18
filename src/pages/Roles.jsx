@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Trainees as TraineesComponent,
+  Roles as RolesComponent,
   TableButtonRow,
   Loading,
 } from "../components";
-import { getTrainees, deleteTrainee } from "../services";
+import { getRoles } from "../services";
 import useNoficication from "../hooks/useNotification";
 
-export const Trainees = () => {
-  const [trainees, setTrainees] = useState([]);
+export const Roles = () => {
+  const [roles, setRoles] = useState([]);
   const navigate = useNavigate();
   const { set } = useNoficication();
   const [isLoading, setIsLoading] = useState(false);
@@ -26,41 +26,15 @@ export const Trainees = () => {
     setIsLoading(false);
   };
 
-  const handleApiSuccess = (message) => {
-    const notification = { type: "success", message };
-    set(notification);
-    setIsLoading(true);
-    getTrainees()
-      .then((res) => {
-        setTrainees(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
-
-  const handleEdit = (trainee) => {
-    navigate(`/trainee/${trainee.id}`);
-  };
-
-  const handleDelete = (trainee) => {
-    deleteTrainee(trainee.id)
-      .then(() => {
-        handleApiSuccess("Trainee deleted successfully");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      });
+  const handleEdit = (role) => {
+    navigate(`/role/${role.id}`);
   };
 
   useEffect(() => {
     setIsLoading(true);
-    getTrainees()
+    getRoles()
       .then((res) => {
-        setTrainees(res.data);
+        setRoles(res.data);
       })
       .catch((e) => {
         handleApiError(e);
@@ -82,16 +56,12 @@ export const Trainees = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>Trainees</li>
+          <li>Roles</li>
         </ul>
       </nav>
-      <TableButtonRow url="/trainee" label="Add trainee" />
+      <TableButtonRow url="/role" label="Add role" />
 
-      <TraineesComponent
-        trainees={trainees}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <RolesComponent roles={roles} onEdit={handleEdit} />
     </main>
   );
 };

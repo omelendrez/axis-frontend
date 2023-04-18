@@ -48,7 +48,7 @@ export const User = ({ user }) => {
 
   useEffect(() => {
     if (user) {
-      Object.entries(user).map((f) => {
+      Object.entries(user).forEach((f) => {
         const [id, value] = f;
         const data = { value, error: "" };
         setValues((values) => ({ ...values, [id]: data }));

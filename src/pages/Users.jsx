@@ -5,7 +5,7 @@ import {
   TableButtonRow,
   Loading,
 } from "../components";
-import { getUsers, deleteUser } from "../services";
+import { getUsers } from "../services";
 import useNoficication from "../hooks/useNotification";
 
 export const Users = () => {
@@ -16,22 +16,6 @@ export const Users = () => {
 
   const handleFinally = () => {
     setIsLoading(false);
-  };
-
-  const handleApiSuccess = (message) => {
-    const notification = { type: "success", message };
-    set(notification);
-    setIsLoading(true);
-    getUsers()
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
   };
 
   const handleApiError = (e) => {
@@ -46,16 +30,6 @@ export const Users = () => {
     navigate(`/user/${user.id}`);
   };
 
-  const handleDelete = (user) => {
-    deleteUser(user.id)
-      .then(() => {
-        handleApiSuccess("User deleted successfully");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      });
-  };
-
   useEffect(() => {
     setIsLoading(true);
     getUsers()
@@ -68,6 +42,7 @@ export const Users = () => {
       .finally(() => {
         handleFinally();
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -87,11 +62,7 @@ export const Users = () => {
 
       <TableButtonRow url="/user" label="Add user" />
 
-      <UsersComponent
-        users={users}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <UsersComponent users={users} onEdit={handleEdit} />
     </main>
   );
 };

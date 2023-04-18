@@ -8,6 +8,8 @@ import {
   User,
   Trainees,
   Trainee,
+  Roles,
+  Role,
 } from "../pages";
 import { NotFound } from "../components";
 import { ProtectedRoute } from "../guard";
@@ -76,6 +78,32 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/roles"
+        element={
+          <ProtectedRoute user={user}>
+            <Roles />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/role/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <Role />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/role"
+        element={
+          <ProtectedRoute user={user}>
+            <Role />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/change-password"
         element={

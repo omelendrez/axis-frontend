@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { ErrorBoundary } from 'react-error-boundary'
-import { ToastContainer, toast } from 'react-toastify'
-import useNoficication from "./hooks/useNotification"
-import { Navbar } from "./components"
-import { AppRoutes } from "./routes"
-import { UserContext } from "./context"
-import { KEYS, SP } from "./services/session"
-import 'react-toastify/dist/ReactToastify.css'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+import { ToastContainer, toast } from "react-toastify";
+import useNoficication from "./hooks/useNotification";
+import { Navbar } from "./components";
+import { AppRoutes } from "./routes";
+import { UserContext } from "./context";
+import { KEYS, SP } from "./services/session";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 const errorHandler = (error, info) => {
-  console.info(info.componentStack)
-  console.error(error)
-}
+  console.info(info.componentStack);
+  console.error(error);
+};
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -21,48 +21,53 @@ function ErrorFallback({ error, resetErrorBoundary }) {
       <h3>Something went wrong:</h3>
       <pre>{error.message}</pre>
       <footer>
-        <Link to="/" role="button">Back to Home</Link>
-        <a href="#" role="button" onClick={(e) => { e.preventDefault(); resetErrorBoundary() }}>Continue</a>
+        <Link to="/" role="button">
+          Back to Home
+        </Link>
+        <a
+          href="/#"
+          role="button"
+          onClick={(e) => {
+            e.preventDefault();
+            resetErrorBoundary();
+          }}
+        >
+          Continue
+        </a>
       </footer>
-    </article >
-  )
+    </article>
+  );
 }
 
 function App() {
-
-  const { data } = useNoficication()
+  const { data } = useNoficication();
 
   useEffect(() => {
     if (data.type && data.message) {
-      const delay = data.message.split(' ').length * 500
-      toast[data.type](data.message, { autoClose: delay })
+      const delay = data.message.split(" ").length * 500;
+      toast[data.type](data.message, { autoClose: delay });
     }
-  }, [data])
+  }, [data]);
 
-  const session = new SP()
-  const currentUser = session.get(KEYS.user) || null
-  const [user, setUser] = useState(currentUser)
+  const session = new SP();
+  const currentUser = session.get(KEYS.user) || null;
+  const [user, setUser] = useState(currentUser);
   const contextValues = {
     user,
-    setUser
-  }
+    setUser,
+  };
 
   return (
     <>
-      <ToastContainer
-        theme={window.localStorage.getItem('theme') || 'light'}
-      />
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onError={errorHandler}
-      >
+      <ToastContainer theme={window.localStorage.getItem("theme") || "light"} />
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
         <UserContext.Provider value={contextValues}>
           {user?.id && <Navbar />}
           <AppRoutes />
         </UserContext.Provider>
       </ErrorBoundary>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

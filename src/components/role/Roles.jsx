@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 import useUser from "../../hooks/useUser";
-import { PaginationButtons } from "../shared";
+import { EditButton, PaginationButtons } from "../shared";
 import { PAGE_SIZE } from "../../helpers";
 
-const Row = ({ user, onEdit }) => {
+const Row = ({ role, onEdit }) => {
   const { user: me } = useUser();
 
   return (
     <tr>
-      <td>{user.name}</td>
-      <td>{user.full_name}</td>
-      <td>{user.role_name}</td>
+      <td>{role.name}</td>
       <td>
-        <button
-          type="button"
-          onClick={() => onEdit(user)}
-          disabled={user.id === 1 || (user.role === 1 && user.id !== me.id)}
-        >
-          Edit
-        </button>
+        <EditButton
+          label="Edit"
+          disable={me.role !== 1}
+          onEdit={() => onEdit(role)}
+        />
       </td>
     </tr>
   );
 };
 
-export const Users = ({ users, onEdit, onDelete }) => {
-  const [pagedUsers, setPagedUsers] = useState([]);
+export const Roles = ({ roles, onEdit }) => {
+  const [pagedRoles, setPagedRoles] = useState([]);
   const [lastPage, setLastPage] = useState(1);
   const [curPage, setCurPage] = useState(1);
   const [curRow, setCurRow] = useState(0);
@@ -43,36 +39,34 @@ export const Users = ({ users, onEdit, onDelete }) => {
   };
 
   useEffect(() => {
-    const rows = Array.from(users).slice(curRow, curRow + PAGE_SIZE);
+    const rows = Array.from(roles).slice(curRow, curRow + PAGE_SIZE);
 
     const lastPage =
-      Math.floor(users.length / PAGE_SIZE) !== users.length / PAGE_SIZE
-        ? Math.floor(users.length / PAGE_SIZE) + 1
-        : users.length / PAGE_SIZE;
+      Math.floor(roles.length / PAGE_SIZE) !== roles.length / PAGE_SIZE
+        ? Math.floor(roles.length / PAGE_SIZE) + 1
+        : roles.length / PAGE_SIZE;
 
-    setPagedUsers(rows);
+    setPagedRoles(rows);
     setLastPage(lastPage);
-  }, [curRow, users]);
+  }, [curRow, roles]);
 
   return (
     <table role="grid">
       <thead>
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">Full name</th>
-          <th scope="col">Role</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        {pagedUsers.map((user) => (
-          <Row user={user} key={user.id} onEdit={onEdit} onDelete={onDelete} />
+        {pagedRoles.map((role) => (
+          <Row role={role} key={role.id} onEdit={onEdit} />
         ))}
       </tbody>
-      {pagedUsers.length > 0 && (
+      {pagedRoles.length > 0 && (
         <tfoot>
           <tr>
-            <td colSpan={9}>
+            <td colSpan={2}>
               <PaginationButtons
                 onPrev={handlePrev}
                 onNext={handleNext}

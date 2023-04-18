@@ -76,7 +76,7 @@ export const Trainee = ({ trainee }) => {
 
   useEffect(() => {
     if (trainee) {
-      Object.entries(trainee).map((f) => {
+      Object.entries(trainee).forEach((f) => {
         const [id, value] = f;
         const data = { value, error: "" };
         setValues((values) => ({ ...values, [id]: data }));

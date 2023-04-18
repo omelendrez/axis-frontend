@@ -13,7 +13,7 @@ const menuOptions = [
   {
     title: "Roles",
     description: "Manage user roles",
-    path: "/role",
+    path: "/roles",
     role: 1,
   },
   {
