@@ -179,7 +179,7 @@ export const User = ({ user }) => {
           id="name"
           label="Username"
           placeholder="Enter name"
-          value={name}
+          value={name.value}
           onChange={handleChange}
           required
           autoCapitalize="off"
@@ -190,7 +190,7 @@ export const User = ({ user }) => {
           id="full_name"
           label="Full name"
           placeholder="Enter full name"
-          value={full_name}
+          value={full_name.value}
           onChange={handleChange}
           required
         />
@@ -200,7 +200,7 @@ export const User = ({ user }) => {
           id="email"
           label="Email"
           placeholder="Enter email"
-          value={email}
+          value={email.value}
           onChange={handleChange}
           required
           autoCapitalize="off"

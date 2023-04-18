@@ -1,6 +1,6 @@
 export const InputField = (props) => {
   const { id, label, value } = props;
-  const inputProps = { ...props, value: value.value };
+  const inputProps = { ...props };
   return (
     <div className={`form-control ${value.error ? "error" : ""}`}>
       <label htmlFor={id}>{label}</label>

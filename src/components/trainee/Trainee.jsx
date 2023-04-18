@@ -228,7 +228,7 @@ export const Trainee = ({ trainee }) => {
           id="badge"
           label="Badge"
           placeholder="Enter badge"
-          value={badge}
+          value={badge.value}
           onChange={handleChange}
         />
 
@@ -237,7 +237,7 @@ export const Trainee = ({ trainee }) => {
           id="last_name"
           label="Last name"
           placeholder="Enter last name"
-          value={last_name}
+          value={last_name.value}
           onChange={handleChange}
           required
         />
@@ -247,7 +247,7 @@ export const Trainee = ({ trainee }) => {
           id="first_name"
           label="First name"
           placeholder="Enter first name"
-          value={first_name}
+          value={first_name.value}
           onChange={handleChange}
           required
         />
@@ -281,7 +281,7 @@ export const Trainee = ({ trainee }) => {
           id="birth_date"
           label="Birth date"
           placeholder="Enter birth date"
-          value={birth_date}
+          value={birth_date.value}
           onChange={handleChange}
           required
         />
