@@ -105,7 +105,7 @@ export const Login = () => {
         id="name"
         label="Username"
         placeholder="Enter name"
-        value={name}
+        value={name.value}
         onChange={handleChange}
         autoCapitalize="off"
         required
@@ -116,7 +116,7 @@ export const Login = () => {
         id="password"
         label="Password"
         placeholder="Enter password"
-        value={password}
+        value={password.value}
         onChange={handleChange}
         autoCapitalize="off"
         required

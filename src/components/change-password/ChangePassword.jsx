@@ -105,7 +105,7 @@ export const ChangePassword = () => {
         id="prevPass"
         label="Current password"
         placeholder="Enter your current password"
-        value={prevPass}
+        value={prevPass.value}
         onChange={handleChange}
         autoCapitalize="off"
         required
@@ -116,7 +116,7 @@ export const ChangePassword = () => {
         id="password"
         label="New password"
         placeholder="Enter the new password"
-        value={password}
+        value={password.value}
         onChange={handleChange}
         autoCapitalize="off"
         required
@@ -127,7 +127,7 @@ export const ChangePassword = () => {
         id="verPass"
         label="Retype password"
         placeholder="Retype the new password"
-        value={verPass}
+        value={verPass.value}
         onChange={handleChange}
         autoCapitalize="off"
         required
