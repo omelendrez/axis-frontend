@@ -86,6 +86,7 @@ export const Login = () => {
           };
 
           set(notification);
+          setIsSubmitting(false);
         })
         .finally(() => {
           if (isMounted.current) {
