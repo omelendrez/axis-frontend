@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "update": "git pull && npm run build",
     "start": "nodemon ./server.js"
   },
   "dependencies": {
