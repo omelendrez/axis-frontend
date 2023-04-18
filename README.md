@@ -55,7 +55,7 @@ cd webserver
 Now you have to clone the GitHub repository by runing the following command:
 
 ```bash
-git clone https://github.com/omelendrez/axis-backend.git
+git clone https://github.com/omelendrez/axis-frontend.git
 ```
 
 Now you have to move inside the new folder created by the clone action as follows:
