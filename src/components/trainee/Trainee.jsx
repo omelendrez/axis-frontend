@@ -10,22 +10,50 @@ import {
 } from "../shared";
 import { createTrainee, updateTrainee } from "../../services";
 import useNoficication from "../../hooks/useNotification";
-import statusList from "../../data/status.json";
+
+import {
+  company as companyList,
+  nationality as nationalityList,
+  sex as sexList,
+  state as stateList,
+  status as statusList,
+  type as typeList,
+} from "../../data";
 
 const initialValues = {
-  name: {
+  type: {
     value: "",
     error: "",
   },
-  full_name: {
+  badge: {
     value: "",
     error: "",
   },
-  email: {
+  last_name: {
     value: "",
     error: "",
   },
-  role: {
+  first_name: {
+    value: "",
+    error: "",
+  },
+  sex: {
+    value: "",
+    error: "",
+  },
+  state: {
+    value: "",
+    error: "",
+  },
+  nationality: {
+    value: "",
+    error: "",
+  },
+  birth_date: {
+    value: "",
+    error: "",
+  },
+  company: {
     value: "",
     error: "",
   },
@@ -58,11 +86,13 @@ export const Trainee = ({ trainee }) => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+
     if (id === "status") {
-      setTempValue({ id, value, prev: trainee.status });
+      setTempValue({ id, value, prev: trainee?.status });
       setConfirmMessage("Are you sure you want to change trainee status?");
       return setIsConfirmOpen(true);
     }
+
     const data = { value, error: "" };
     setValues((values) => ({ ...values, [id]: data }));
   };
@@ -162,7 +192,18 @@ export const Trainee = ({ trainee }) => {
     navigate("/trainees");
   };
 
-  const { name, full_name, email, role } = values;
+  const {
+    type,
+    badge,
+    last_name,
+    first_name,
+    sex,
+    state,
+    nationality,
+    birth_date,
+    company,
+    status,
+  } = values;
 
   return (
     <>
@@ -174,51 +215,84 @@ export const Trainee = ({ trainee }) => {
       />
 
       <form onSubmit={handleFormSubmit} ref={formRef}>
-        <InputField
-          type="traineename"
-          id="name"
-          label="Traineename"
-          placeholder="Enter name"
-          value={name}
+        <Dropdown
+          id="type"
           onChange={handleChange}
-          required
-          autoCapitalize="off"
+          value={type.value}
+          options={typeList}
         />
 
         <InputField
           type="text"
-          id="full_name"
-          label="Full name"
-          placeholder="Enter full name"
-          value={full_name}
+          id="badge"
+          label="Badge"
+          placeholder="Enter badge"
+          value={badge}
           onChange={handleChange}
-          required
-        />
-
-        <InputField
-          type="email"
-          id="email"
-          label="Email"
-          placeholder="Enter email"
-          value={email}
-          onChange={handleChange}
-          required
-          autoCapitalize="off"
         />
 
         <InputField
           type="text"
-          id="role"
-          label="Role"
-          placeholder="Enter role"
-          value={role}
+          id="last_name"
+          label="Last name"
+          placeholder="Enter last name"
+          value={last_name}
+          onChange={handleChange}
+          required
+        />
+
+        <InputField
+          type="text"
+          id="first_name"
+          label="First name"
+          placeholder="Enter first name"
+          value={first_name}
           onChange={handleChange}
           required
         />
 
         <Dropdown
+          id="sex"
           onChange={handleChange}
-          value={values.status.value}
+          value={sex.value}
+          options={sexList}
+        />
+
+        <Dropdown
+          id="state"
+          onChange={handleChange}
+          value={state.value}
+          options={stateList}
+        />
+
+        <Dropdown
+          id="nationality"
+          onChange={handleChange}
+          value={nationality.value}
+          options={nationalityList}
+        />
+
+        <InputField
+          type="date"
+          id="birth_date"
+          label="Birth date"
+          placeholder="Enter birth date"
+          value={birth_date}
+          onChange={handleChange}
+          required
+        />
+
+        <Dropdown
+          id="company"
+          onChange={handleChange}
+          value={company.value}
+          options={companyList}
+        />
+
+        <Dropdown
+          id="status"
+          onChange={handleChange}
+          value={status.value}
           options={statusList}
         />
 

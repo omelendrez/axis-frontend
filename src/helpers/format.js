@@ -1,2 +1,2 @@
 export const formatShortDate = (date) =>
-  new Intl.DateTimeFormat(['ban', 'id']).format(new Date(date))
+  new Intl.DateTimeFormat("en-GB").format(new Date(date));

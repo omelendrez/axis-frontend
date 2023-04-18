@@ -7,6 +7,7 @@ import {
   Users,
   User,
   Trainees,
+  Trainee,
 } from "../pages";
 import { NotFound } from "../components";
 import { ProtectedRoute } from "../guard";
@@ -63,7 +64,7 @@ export const AppRoutes = () => {
         path="/trainee/:id"
         element={
           <ProtectedRoute user={user}>
-            <User />
+            <Trainee />
           </ProtectedRoute>
         }
       />
@@ -71,7 +72,7 @@ export const AppRoutes = () => {
         path="/trainee"
         element={
           <ProtectedRoute user={user}>
-            <User />
+            <Trainee />
           </ProtectedRoute>
         }
       />

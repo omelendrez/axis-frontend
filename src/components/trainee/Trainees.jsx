@@ -16,7 +16,11 @@ const Row = ({ trainee, onEdit, onDelete }) => {
       <td>{trainee.company_name}</td>
       <td>{trainee.nationality_name}</td>
       <td>
-        <button type="button" onClick={() => onEdit(trainee)} disabled={true}>
+        <button
+          type="button"
+          onClick={() => onEdit(trainee)}
+          disabled={user.role !== 1}
+        >
           Edit
         </button>
       </td>
@@ -90,9 +94,15 @@ export const Trainees = ({ trainees, onEdit, onDelete }) => {
           </tr>
         </thead>
 
-        {pagedTrainees.length == 0 && <article>No records found</article>}
-
         <tbody>
+          {pagedTrainees.length == 0 && (
+            <tr>
+              <td colSpan={9}>
+                <article>No records found</article>
+              </td>
+            </tr>
+          )}
+
           {pagedTrainees.map((trainee) => (
             <Row
               trainee={trainee}

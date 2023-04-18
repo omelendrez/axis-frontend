@@ -10,7 +10,7 @@ import {
 } from "../shared";
 import { createUser, updateUser } from "../../services";
 import useNoficication from "../../hooks/useNotification";
-import statusList from "../../data/status.json";
+import { role as roleList, status as statusList } from "../../data";
 
 const initialValues = {
   name: {
@@ -162,7 +162,7 @@ export const User = ({ user }) => {
     navigate("/users");
   };
 
-  const { name, full_name, email, role } = values;
+  const { name, full_name, email, role, status } = values;
 
   return (
     <>
@@ -206,19 +206,17 @@ export const User = ({ user }) => {
           autoCapitalize="off"
         />
 
-        <InputField
-          type="text"
+        <Dropdown
           id="role"
-          label="Role"
-          placeholder="Enter role"
-          value={role}
           onChange={handleChange}
-          required
+          value={role.value}
+          options={roleList}
         />
 
         <Dropdown
+          id="status"
           onChange={handleChange}
-          value={values.status.value}
+          value={status.value}
           options={statusList}
         />
 

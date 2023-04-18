@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name":"System Admin"
+  },
+  {
+    "id":2,
+    "name": "Admin user"
+  },
+  {
+    "id":3,
+    "name": "Frond desk"
+  },
+  {
+    "id":4,
+    "name":  "Finance"
+  },
+  {
+    "id":5,
+    "name":  "Medic"
+  },
+  {
+    "id":6,
+    "name":  "Training Coordinator"
+  },
+  {
+    "id":7,
+    "name":   "Instructor"
+  },
+  {
+    "id":8,
+    "name":  "QC"
+  },
+  {
+    "id":9,
+    "name":   "MD"
+  },
+  {
+    "id":10,
+    "name":   "Printer"
+  }
+]
