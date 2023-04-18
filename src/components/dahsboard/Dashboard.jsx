@@ -17,6 +17,24 @@ const menuOptions = [
     role: 1,
   },
   {
+    title: "States",
+    description: "Manage states master table",
+    path: "/state",
+    role: 1,
+  },
+  {
+    title: "Nationalities",
+    description: "Manage nationalities master table",
+    path: "/nationality",
+    role: 1,
+  },
+  {
+    title: "Companies",
+    description: "Manage companies master table",
+    path: "/company",
+    role: 1,
+  },
+  {
     title: "Trainees",
     description: "Manage trainees",
     path: "/trainees",
@@ -26,12 +44,6 @@ const menuOptions = [
     title: "Courses",
     description: "Manage safety courses",
     path: "/course",
-    role: 1,
-  },
-  {
-    title: "Nationalities",
-    description: "Manage nationalities master table",
-    path: "/nationality",
     role: 1,
   },
 ];
