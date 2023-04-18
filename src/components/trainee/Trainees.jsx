@@ -20,7 +20,7 @@ const Row = ({ trainee, onEdit, onDelete }) => {
           Edit
         </button>
       </td>
-      <td>
+      {/* <td>
         <button
           type="button"
           className="error"
@@ -29,7 +29,7 @@ const Row = ({ trainee, onEdit, onDelete }) => {
         >
           Delete
         </button>
-      </td>
+      </td> */}
     </tr>
   );
 };
