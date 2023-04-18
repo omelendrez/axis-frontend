@@ -16,24 +16,20 @@ const Row = ({ trainee, onEdit, onDelete }) => {
       <td>{trainee.company_name}</td>
       <td>{trainee.nationality_name}</td>
       <td>
-        <button
-          type="button"
-          onClick={() => onEdit(trainee)}
-          disabled={![1].includes(user.role)}
-        >
+        <button type="button" onClick={() => onEdit(trainee)} disabled={true}>
           Edit
         </button>
       </td>
-      {/* <td>
+      <td>
         <button
           type="button"
           className="error"
           disabled={trainee.status === 1}
-          onClick={() => onDelete(trainee)}
+          onClick={true}
         >
           Delete
         </button>
-      </td> */}
+      </td>
     </tr>
   );
 };
@@ -58,12 +54,13 @@ export const Trainees = ({ trainees, onEdit, onDelete }) => {
   };
 
   useEffect(() => {
+    const text = search.toLocaleLowerCase();
+
     const filtered = Array.from(trainees).filter(
       (t) =>
-        !search ||
-        `${t.last_name}, ${t.first_name}`
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase())
+        !text ||
+        `${t.last_name}, ${t.first_name}`.toLocaleLowerCase().includes(text) ||
+        t.badge.toLocaleLowerCase().includes(text)
     );
 
     const paginated = filtered.slice(curRow, curRow + PAGE_SIZE);
