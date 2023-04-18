@@ -44,10 +44,6 @@ export const Navbar = () => {
 
   const userRoutes = [
     {
-      label: user.name,
-      icon: "person",
-    },
-    {
       path: "/change-password",
       label: "Change Password",
       icon: "key",

@@ -92,6 +92,9 @@ export const Trainees = ({ trainees, onEdit, onDelete }) => {
             <th></th>
           </tr>
         </thead>
+
+        {pagedTrainees.length == 0 && <article>No records found</article>}
+
         <tbody>
           {pagedTrainees.map((trainee) => (
             <Row
