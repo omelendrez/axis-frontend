@@ -208,6 +208,7 @@ export const User = ({ user }) => {
 
         <Dropdown
           id="role"
+          label="Role"
           onChange={handleChange}
           value={role.value}
           options={roleList}
@@ -215,6 +216,7 @@ export const User = ({ user }) => {
 
         <Dropdown
           id="status"
+          label="Status"
           onChange={handleChange}
           value={status.value}
           options={statusList}

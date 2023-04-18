@@ -217,6 +217,7 @@ export const Trainee = ({ trainee }) => {
       <form onSubmit={handleFormSubmit} ref={formRef}>
         <Dropdown
           id="type"
+          label="Type"
           onChange={handleChange}
           value={type.value}
           options={typeList}
@@ -253,6 +254,7 @@ export const Trainee = ({ trainee }) => {
 
         <Dropdown
           id="sex"
+          label="Sex"
           onChange={handleChange}
           value={sex.value}
           options={sexList}
@@ -260,6 +262,7 @@ export const Trainee = ({ trainee }) => {
 
         <Dropdown
           id="state"
+          label="State"
           onChange={handleChange}
           value={state.value}
           options={stateList}
@@ -267,6 +270,7 @@ export const Trainee = ({ trainee }) => {
 
         <Dropdown
           id="nationality"
+          label="Nationality"
           onChange={handleChange}
           value={nationality.value}
           options={nationalityList}
@@ -284,6 +288,7 @@ export const Trainee = ({ trainee }) => {
 
         <Dropdown
           id="company"
+          label="Company"
           onChange={handleChange}
           value={company.value}
           options={companyList}
@@ -291,6 +296,7 @@ export const Trainee = ({ trainee }) => {
 
         <Dropdown
           id="status"
+          label="Status"
           onChange={handleChange}
           value={status.value}
           options={statusList}
