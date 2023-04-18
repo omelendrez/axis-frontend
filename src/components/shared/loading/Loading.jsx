@@ -1,9 +1,5 @@
-import './loading.css';
-
-export const Loading = () => {
-  return (
-    <section className='loading'>
-      <div aria-busy></div>
-    </section>
-  );
-};
+export const Loading = () => (
+  <div className="loading-container">
+    <progress />
+  </div>
+);

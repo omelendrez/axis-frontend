@@ -1,5 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, ChangePassword, Dashboard, Users, User } from "../pages";
+import {
+  Home,
+  Login,
+  ChangePassword,
+  Dashboard,
+  Users,
+  User,
+  Trainees,
+} from "../pages";
 import { NotFound } from "../components";
 import { ProtectedRoute } from "../guard";
 import useUser from "../hooks/useUser";
@@ -19,7 +27,7 @@ export const AppRoutes = () => {
         }
       />
       <Route
-        path="/users/"
+        path="/users"
         element={
           <ProtectedRoute user={user}>
             <Users />
@@ -36,6 +44,31 @@ export const AppRoutes = () => {
       />
       <Route
         path="/user"
+        element={
+          <ProtectedRoute user={user}>
+            <User />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/trainees"
+        element={
+          <ProtectedRoute user={user}>
+            <Trainees />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainee/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <User />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainee"
         element={
           <ProtectedRoute user={user}>
             <User />

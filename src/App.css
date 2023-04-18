@@ -29,11 +29,10 @@ form {
 .table-button-row {
   display: flex;
   justify-content: right;
-  padding: 0 1rem 1rem 0;
+  padding: 0 1rem 0 0;
   margin: 0;
   border: none;
   box-shadow: none;
-  border-bottom: 1px solid #cdcdcd;
   border-radius: 0;
 }
 

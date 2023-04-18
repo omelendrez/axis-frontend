@@ -17,6 +17,12 @@ const menuOptions = [
     role: 1,
   },
   {
+    title: "Trainees",
+    description: "Manage trainees",
+    path: "/trainees",
+    role: 1,
+  },
+  {
     title: "Courses",
     description: "Manage safety courses",
     path: "/course",

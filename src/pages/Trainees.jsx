@@ -1,38 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Users as UsersComponent,
+  Trainees as TraineesComponent,
   TableButtonRow,
   Loading,
 } from "../components";
-import { getUsers, deleteUser } from "../services";
+import { getTrainees, deleteTrainee } from "../services";
 import useNoficication from "../hooks/useNotification";
 
-export const Users = () => {
-  const [users, setUsers] = useState([]);
+export const Trainees = () => {
+  const [trainees, setTrainees] = useState([]);
   const navigate = useNavigate();
   const { set } = useNoficication();
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleFinally = () => {
-    setIsLoading(false);
-  };
-
-  const handleApiSuccess = (message) => {
-    const notification = { type: "success", message };
-    set(notification);
-    setIsLoading(true);
-    getUsers()
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
 
   const handleApiError = (e) => {
     const notification = {
@@ -42,14 +22,34 @@ export const Users = () => {
     set(notification);
   };
 
-  const handleEdit = (user) => {
-    navigate(`/user/${user.id}`);
+  const handleFinally = () => {
+    setIsLoading(false);
   };
 
-  const handleDelete = (user) => {
-    deleteUser(user.id)
+  const handleApiSuccess = (message) => {
+    const notification = { type: "success", message };
+    set(notification);
+    setIsLoading(true);
+    getTrainees()
+      .then((res) => {
+        setTrainees(res.data);
+      })
+      .catch((e) => {
+        handleApiError(e);
+      })
+      .finally(() => {
+        handleFinally();
+      });
+  };
+
+  const handleEdit = (trainee) => {
+    navigate(`/trainee/${trainee.id}`);
+  };
+
+  const handleDelete = (trainee) => {
+    deleteTrainee(trainee.id)
       .then(() => {
-        handleApiSuccess("User deleted successfully");
+        handleApiSuccess("Trainee deleted successfully");
       })
       .catch((e) => {
         handleApiError(e);
@@ -58,9 +58,9 @@ export const Users = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getUsers()
+    getTrainees()
       .then((res) => {
-        setUsers(res.data);
+        setTrainees(res.data);
       })
       .catch((e) => {
         handleApiError(e);
@@ -81,14 +81,13 @@ export const Users = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>Users</li>
+          <li>Trainees</li>
         </ul>
       </nav>
+      <TableButtonRow url="/trainee" label="Add trainee" />
 
-      <TableButtonRow url="/user" label="Add user" />
-
-      <UsersComponent
-        users={users}
+      <TraineesComponent
+        trainees={trainees}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
