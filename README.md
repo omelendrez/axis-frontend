@@ -68,9 +68,10 @@ You should run now:
 
 ```bash
 npm ci
+npm run build
 ```
 
-This command line will install all the app dependencies.
+This command lines will install all the app dependencies and then build the package for execution in production.
 
 You will find a file called `.env.example` in that folder.
 
