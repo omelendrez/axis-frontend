@@ -4,7 +4,7 @@ This React app is the Axis UI and integrates with our axis-backend.
 
 ---
 
-## 🔵 Tolmann - Axis 2.0 Server setup
+## 🔵 Tolmann - Axis 2.0 Front-end Server setup
 
 You should have Nodejs version 16 or higher installed in the server.
 
