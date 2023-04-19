@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useUser from "../../hooks/useUser";
 import { ActionButton, Search } from "../shared";
 import { formatShortDate } from "../../helpers";
