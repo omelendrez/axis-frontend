@@ -14,11 +14,14 @@ const Row = ({ user, onEdit, onDelete }) => {
       <td className="action-cell">
         <ActionButton
           label="Edit"
-          disable={me.role !== 1}
-          onEdit={() => onEdit(user)}
+          // disable={me.role !== 1}
+          onEdit={() => {
+            console.log(user);
+            onEdit(user);
+          }}
         />
       </td>
-      {user.role === 1 && (
+      {me.role === 1 && (
         <td className="action-cell">
           <ActionButton
             label="Delete"
@@ -32,14 +35,16 @@ const Row = ({ user, onEdit, onDelete }) => {
   );
 };
 
-export const Users = ({ users, onEdit, onDelete }) => {
+export const Users = ({ users, onEdit, onDelete, isLoading }) => {
   const [pagedUsers, setPagedUsers] = useState([]);
   const [lastPage, setLastPage] = useState(1);
   const [curPage, setCurPage] = useState(1);
   const [curRow, setCurRow] = useState(0);
 
   const handlePrev = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     setCurRow((r) => r - PAGE_SIZE);
     setCurPage((p) => p - 1);
   };
@@ -62,22 +67,39 @@ export const Users = ({ users, onEdit, onDelete }) => {
     setLastPage(lastPage);
   }, [curRow, users]);
 
+  if (curPage && curPage > lastPage) {
+    handlePrev();
+  }
+
   return (
-    <table role="grid">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Full name</th>
-          <th scope="col">Role</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {pagedUsers.map((user) => (
-          <Row user={user} key={user.id} onEdit={onEdit} onDelete={onDelete} />
-        ))}
-      </tbody>
-      {pagedUsers.length > 0 && (
+    <figure>
+      <table role="grid">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Full name</th>
+            <th scope="col">Role</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {!isLoading && pagedUsers.length === 0 && (
+            <tr>
+              <td colSpan={9}>
+                <article>No records found</article>
+              </td>
+            </tr>
+          )}
+
+          {pagedUsers.map((user) => (
+            <Row
+              user={user}
+              key={user.id}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))}
+        </tbody>
         <tfoot>
           <tr>
             <td colSpan={9}>
@@ -90,7 +112,7 @@ export const Users = ({ users, onEdit, onDelete }) => {
             </td>
           </tr>
         </tfoot>
-      )}
-    </table>
+      </table>
+    </figure>
   );
 };

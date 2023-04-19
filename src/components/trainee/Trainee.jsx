@@ -8,8 +8,8 @@ import {
   SaveButton,
   CancelButton,
 } from "../shared";
-import { createTrainee, updateTrainee } from "../../services";
-import useNoficication from "../../hooks/useNotification";
+
+import useTrainees from "../../hooks/useTrainees";
 
 import {
   company as companyList,
@@ -64,13 +64,13 @@ const initialValues = {
 };
 
 export const Trainee = ({ trainee }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { trainees, add, modify } = useTrainees();
+  const { isLoading, isSuccess } = trainees;
+
   const [values, setValues] = useState(initialValues);
   const [confirmMessage, setConfirmMessage] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [tempValue, setTempValue] = useState(null);
-  const { set } = useNoficication();
-  const isMounted = useRef(true);
   const navigate = useNavigate();
   const formRef = useRef();
 
@@ -82,6 +82,13 @@ export const Trainee = ({ trainee }) => {
       });
     }
   }, [trainee]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/trainees");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -116,68 +123,16 @@ export const Trainee = ({ trainee }) => {
     setIsConfirmOpen(false);
   };
 
-  const handleApiSuccess = (message) => {
-    isMounted.current = false;
-    const notification = { type: "success", message };
-    set(notification);
-    navigate("/trainees");
-  };
-
-  const handleApiError = (e) => {
-    const message =
-      e.code === "ERR_BAD_REQUEST"
-        ? "Some fields have wrong information. Please double-check and try again."
-        : e.message;
-    const notification = {
-      type: "error",
-      message,
-    };
-    set(notification);
-  };
-
-  const handleFinally = () => {
-    if (isMounted.current) {
-      setIsSubmitting(false);
-    }
-  };
-
-  const create = (payload) => {
-    createTrainee(payload)
-      .then((res) => {
-        handleApiSuccess("Trainee added successfully!");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
-
-  const update = (payload) => {
-    updateTrainee(trainee.id, payload)
-      .then((res) => {
-        handleApiSuccess("Trainee saved successfully");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     const payload = Object.entries(values)
       .filter((id) => id !== "id")
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
 
     if (trainee?.id) {
-      update(payload);
+      modify(trainee.id, payload);
     } else {
-      create(payload);
+      add(payload);
     }
   };
 
@@ -302,12 +257,9 @@ export const Trainee = ({ trainee }) => {
         />
 
         <FormButtonRow>
-          <SaveButton isSubmitting={isSubmitting} onSave={handleSave} />
+          <SaveButton isSubmitting={isLoading} onSave={handleSave} />
 
-          <CancelButton
-            isSubmitting={isSubmitting}
-            onCancel={handleFormCancel}
-          />
+          <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
         </FormButtonRow>
       </form>
     </>

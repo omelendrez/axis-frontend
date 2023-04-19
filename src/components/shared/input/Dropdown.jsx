@@ -1,8 +1,8 @@
 export const Dropdown = ({ id, label, onChange, value, options }) => (
   <div className={`form-control ${value.error ? "error" : ""}`}>
     <label htmlFor={id}>{label}</label>
-    <select id={id} onChange={onChange} value={value} required>
-      <option value="" disabled selected>
+    <select id={id} onChange={onChange} required value={value}>
+      <option value="" disabled>
         Choose a {id}
       </option>
       {options.map((s) => (

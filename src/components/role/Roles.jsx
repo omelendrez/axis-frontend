@@ -36,7 +36,9 @@ export const Roles = ({ roles, onEdit, onDelete }) => {
   const [curRow, setCurRow] = useState(0);
 
   const handlePrev = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     setCurRow((r) => r - PAGE_SIZE);
     setCurPage((p) => p - 1);
   };
@@ -58,6 +60,10 @@ export const Roles = ({ roles, onEdit, onDelete }) => {
     setPagedRoles(rows);
     setLastPage(lastPage);
   }, [curRow, roles]);
+
+  if (curPage > lastPage) {
+    handlePrev();
+  }
 
   return (
     <table role="grid">

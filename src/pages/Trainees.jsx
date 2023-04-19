@@ -1,75 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Trainees as TraineesComponent,
   TableButtonRow,
   Loading,
 } from "../components";
-import { getTrainees, deleteTrainee } from "../services";
+import useUsers from "../hooks/useTrainees";
 import useNoficication from "../hooks/useNotification";
 
 export const Trainees = () => {
-  const [trainees, setTrainees] = useState([]);
+  const { trainees, load: loadTrainees, remove: removeTrainee } = useUsers();
   const navigate = useNavigate();
   const { set } = useNoficication();
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isLoading, isSuccess, isError, error } = trainees;
 
-  const handleApiError = (e) => {
-    const notification = {
-      type: "error",
-      message: e.response.data.message,
-    };
-    set(notification);
-  };
+  useEffect(() => {
+    if (!data.length) {
+      loadTrainees();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trainees]);
 
-  const handleFinally = () => {
-    setIsLoading(false);
-  };
-
-  const handleApiSuccess = (message) => {
-    const notification = { type: "success", message };
-    set(notification);
-    setIsLoading(true);
-    getTrainees()
-      .then((res) => {
-        setTrainees(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
+  useEffect(() => {
+    if (isError) {
+      const notification = {
+        type: "error",
+        message: error.message,
+      };
+      set(notification);
+    }
+    if (isSuccess) {
+      const notification = {
+        type: "success",
+        message: "Operation completed successfully",
+      };
+      set(notification);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isSuccess]);
 
   const handleEdit = (trainee) => {
     navigate(`/trainee/${trainee.id}`);
   };
 
   const handleDelete = (trainee) => {
-    deleteTrainee(trainee.id)
-      .then(() => {
-        handleApiSuccess("Trainee deleted successfully");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      });
+    removeTrainee(trainee.id);
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    getTrainees()
-      .then((res) => {
-        setTrainees(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <main className="container-fluid">
@@ -88,10 +64,11 @@ export const Trainees = () => {
       <TableButtonRow url="/trainee" label="Add trainee" />
 
       <TraineesComponent
-        trainees={trainees}
+        trainees={data}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
+        loadTrainees={loadTrainees}
       />
     </main>
   );

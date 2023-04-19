@@ -1,3 +1,4 @@
+import "./loading.css";
 export const Loading = () => (
   <div className="loading-container">
     <progress />

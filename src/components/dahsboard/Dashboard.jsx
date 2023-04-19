@@ -20,7 +20,7 @@ const menuOptions = [
     title: "States",
     description: "Manage states master table",
     path: "/state",
-    roles: [1,],
+    roles: [1],
   },
   {
     title: "Nationalities",

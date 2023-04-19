@@ -1,14 +1,13 @@
 import "./search.css";
 
-export const Search = ({ onChange, value }) => (
+export const Search = (props) => (
   <section>
     <input
       type="search"
       id="search"
       name="search"
       placeholder="Search"
-      onChange={onChange}
-      value={value}
+      {...props}
     />
   </section>
 );

@@ -8,8 +8,7 @@ import {
   SaveButton,
   CancelButton,
 } from "../shared";
-import { createUser, updateUser } from "../../services";
-import useNoficication from "../../hooks/useNotification";
+import useUsers from "../../hooks/useUsers.js";
 import { role as roleList, status as statusList } from "../../data";
 
 const initialValues = {
@@ -30,19 +29,18 @@ const initialValues = {
     error: "",
   },
   status: {
-    value: "",
+    value: "1",
     error: "",
   },
 };
 
 export const User = ({ user }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { users, add, modify } = useUsers();
+  const { isLoading, isSuccess } = users;
   const [values, setValues] = useState(initialValues);
   const [confirmMessage, setConfirmMessage] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [tempValue, setTempValue] = useState(null);
-  const { set } = useNoficication();
-  const isMounted = useRef(true);
   const navigate = useNavigate();
   const formRef = useRef();
 
@@ -55,10 +53,17 @@ export const User = ({ user }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/users");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === "status") {
-      setTempValue({ id, value, prev: user.status });
+      setTempValue({ id, value, prev: user?.status });
       setConfirmMessage("Are you sure you want to change user status?");
       return setIsConfirmOpen(true);
     }
@@ -86,68 +91,16 @@ export const User = ({ user }) => {
     setIsConfirmOpen(false);
   };
 
-  const handleApiSuccess = (message) => {
-    isMounted.current = false;
-    const notification = { type: "success", message };
-    set(notification);
-    navigate("/users");
-  };
-
-  const handleApiError = (e) => {
-    const message =
-      e.code === "ERR_BAD_REQUEST"
-        ? "Some fields have wrong information. Please double-check and try again."
-        : e.message;
-    const notification = {
-      type: "error",
-      message,
-    };
-    set(notification);
-  };
-
-  const handleFinally = () => {
-    if (isMounted.current) {
-      setIsSubmitting(false);
-    }
-  };
-
-  const create = (payload) => {
-    createUser(payload)
-      .then((res) => {
-        handleApiSuccess("User added successfully!");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
-
-  const update = (payload) => {
-    updateUser(user.id, payload)
-      .then((res) => {
-        handleApiSuccess("User saved successfully");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     const payload = Object.entries(values)
       .filter((id) => id !== "id")
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
 
     if (user?.id) {
-      update(payload);
+      modify(user.id, payload);
     } else {
-      create(payload);
+      add(payload);
     }
   };
 
@@ -212,22 +165,20 @@ export const User = ({ user }) => {
           value={role.value}
           options={roleList}
         />
-
-        <Dropdown
-          id="status"
-          label="Status"
-          onChange={handleChange}
-          value={status.value}
-          options={statusList}
-        />
+        {user?.id && (
+          <Dropdown
+            id="status"
+            label="Status"
+            onChange={handleChange}
+            value={status.value}
+            options={statusList}
+          />
+        )}
 
         <FormButtonRow>
-          <SaveButton isSubmitting={isSubmitting} onSave={handleSave} />
+          <SaveButton isSubmitting={isLoading} onSave={handleSave} />
 
-          <CancelButton
-            isSubmitting={isSubmitting}
-            onCancel={handleFormCancel}
-          />
+          <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
         </FormButtonRow>
       </form>
     </>

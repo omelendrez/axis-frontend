@@ -1,75 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Users as UsersComponent,
   TableButtonRow,
   Loading,
 } from "../components";
-import { deleteUser, getUsers } from "../services";
+import useUsers from "../hooks/useUsers";
 import useNoficication from "../hooks/useNotification";
 
 export const Users = () => {
-  const [users, setUsers] = useState([]);
+  const { users, load: loadUsers, remove: removeUser } = useUsers();
   const navigate = useNavigate();
   const { set } = useNoficication();
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isLoading, isSuccess, isError, error } = users;
 
-  const handleFinally = () => {
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    if (!data.length) {
+      loadUsers();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleApiSuccess = (message) => {
-    const notification = { type: "success", message };
-    set(notification);
-    setIsLoading(true);
-    getUsers()
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-  };
-
-  const handleApiError = (e) => {
-    const notification = {
-      type: "error",
-      message: e.response.data.message,
-    };
-    set(notification);
-  };
+  useEffect(() => {
+    if (isError) {
+      const notification = {
+        type: "error",
+        message: error.message,
+      };
+      set(notification);
+    }
+    if (isSuccess) {
+      const notification = {
+        type: "success",
+        message: "Operation completed successfully",
+      };
+      set(notification);
+    }
+  }, [isError, isSuccess]);
 
   const handleEdit = (user) => {
     navigate(`/user/${user.id}`);
   };
 
   const handleDelete = (user) => {
-    deleteUser(user.id)
-      .then(() => {
-        handleApiSuccess("User deleted successfully");
-      })
-      .catch((e) => {
-        handleApiError(e);
-      });
+    removeUser(user.id);
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    getUsers()
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((e) => {
-        handleApiError(e);
-      })
-      .finally(() => {
-        handleFinally();
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <main className="container-fluid">
@@ -89,9 +64,10 @@ export const Users = () => {
       <TableButtonRow url="/user" label="Add user" />
 
       <UsersComponent
-        users={users}
+        users={data}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        isLoading={isLoading}
       />
     </main>
   );
