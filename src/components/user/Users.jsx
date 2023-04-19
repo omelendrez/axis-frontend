@@ -65,7 +65,7 @@ export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
           <tbody>
             {!isLoading && users.length === 0 && (
               <tr>
-                <td colSpan={9}>
+                <td colSpan={6}>
                   <article>No records found</article>
                 </td>
               </tr>

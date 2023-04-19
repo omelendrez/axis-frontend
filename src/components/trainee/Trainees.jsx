@@ -74,7 +74,7 @@ export const Trainees = ({
           <tbody>
             {!isLoading && trainees.length === 0 && (
               <tr>
-                <td colSpan={9}>
+                <td colSpan={7}>
                   <article>No records found</article>
                 </td>
               </tr>

@@ -57,7 +57,7 @@ export const States = ({ loadStates, states, onEdit, onDelete, isLoading }) => {
           <tbody>
             {!isLoading && states.length === 0 && (
               <tr>
-                <td colSpan={9}>
+                <td colSpan={3}>
                   <article>No records found</article>
                 </td>
               </tr>
