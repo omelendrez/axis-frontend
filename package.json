@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "update": "git pull && npm run build",
     "start": "nodemon ./server.js",
-    "linter": "eslint **/*.jsx --ignore-pattern node_modules/"
+    "lint": "eslint ./src --ext .js,.jsx"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
