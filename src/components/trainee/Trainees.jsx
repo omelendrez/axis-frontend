@@ -51,12 +51,6 @@ export const Trainees = ({
     }
   };
 
-  useEffect(() => {
-    if (!search) {
-      loadTrainees(search);
-    }
-  }, [search]);
-
   return (
     <main className="container-fluid">
       <Search

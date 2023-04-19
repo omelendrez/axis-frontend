@@ -1,32 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useUser from "../../hooks/useUser";
 import { ActionButton, Search } from "../shared";
 
-const Row = ({ user, onEdit, onDelete }) => {
-  const { user: me } = useUser();
-
+const Row = ({ state, onEdit, onDelete }) => {
+  const { user } = useUser();
   return (
     <tr>
-      <td>{user.name}</td>
-      <td>{user.full_name}</td>
-      <td>{user.email}</td>
-      <td>{user.role_name}</td>
+      <td>{state.name}</td>
       <td className="action-cell">
         <ActionButton
           label="Edit"
-          // disable={me.role !== 1}
-          onEdit={() => {
-            onEdit(user);
-          }}
+          className="primary"
+          disabled={user.role !== 1}
+          onClick={() => onEdit(state)}
         />
       </td>
-      {me.role === 1 && (
+      {user.role === 1 && (
         <td className="action-cell">
           <ActionButton
             label="Delete"
             className="secondary"
             disabled={user.role !== 1}
-            onClick={() => onDelete(user)}
+            onClick={() => onDelete(state)}
           />
         </td>
       )}
@@ -34,12 +29,12 @@ const Row = ({ user, onEdit, onDelete }) => {
   );
 };
 
-export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
+export const States = ({ loadStates, states, onEdit, onDelete, isLoading }) => {
   const [search, setSearch] = useState("");
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      loadUsers(search);
+      loadStates(search);
     }
   };
 
@@ -50,20 +45,17 @@ export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
         value={search}
         onKeyDown={handleKeyDown}
       />
-
       <figure>
         <table role="grid">
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Full name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
               <th></th>
             </tr>
           </thead>
+
           <tbody>
-            {!isLoading && users.length === 0 && (
+            {!isLoading && states.length === 0 && (
               <tr>
                 <td colSpan={9}>
                   <article>No records found</article>
@@ -71,10 +63,10 @@ export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
               </tr>
             )}
 
-            {users.map((user) => (
+            {states.map((state) => (
               <Row
-                user={user}
-                key={user.id}
+                state={state}
+                key={state.id}
                 onEdit={onEdit}
                 onDelete={onDelete}
               />

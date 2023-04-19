@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser, updateUser, getUsers, deleteUser } from "../../services";
+import {
+  createState,
+  updateState,
+  getStates,
+  deleteState,
+} from "../../services";
 
 const initialState = {
   data: [],
@@ -10,7 +15,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "users",
+  name: "states",
   initialState: initialState,
   reducers: {
     setLoading(state, action) {
@@ -41,13 +46,13 @@ export const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export function loadUsers(search) {
+export function loadStates(search) {
   const { setLoading, setSuccess, setError, reset } = userSlice.actions;
 
   return async (dispatch) => {
     dispatch(setLoading());
     try {
-      const { data } = await getUsers(search);
+      const { data } = await getStates(search);
       dispatch(setSuccess(data));
       setTimeout(() => {
         dispatch(reset());
@@ -59,42 +64,42 @@ export function loadUsers(search) {
   };
 }
 
-export function removeUser(id) {
+export function removeState(id) {
   const { setLoading, setError } = userSlice.actions;
 
   return async (dispatch) => {
     dispatch(setLoading());
     try {
-      await deleteUser(id);
-      dispatch(loadUsers());
+      await deleteState(id);
+      dispatch(loadStates());
     } catch (error) {
       dispatch(setError(error.response.data));
     }
   };
 }
 
-export function addUser(payload) {
+export function addState(payload) {
   const { setLoading, setError } = userSlice.actions;
 
   return async (dispatch) => {
     dispatch(setLoading());
     try {
-      await createUser(payload);
-      dispatch(loadUsers());
+      await createState(payload);
+      dispatch(loadStates());
     } catch (error) {
       dispatch(setError(error.response.data));
     }
   };
 }
 
-export function modifyUser(id, payload) {
+export function modifyState(id, payload) {
   const { setLoading, setError } = userSlice.actions;
 
   return async (dispatch) => {
     dispatch(setLoading());
     try {
-      await updateUser(id, payload);
-      dispatch(loadUsers());
+      await updateState(id, payload);
+      dispatch(loadStates());
     } catch (error) {
       dispatch(setError(error.response.data));
     }

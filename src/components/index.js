@@ -5,5 +5,6 @@ export * from "./login";
 export * from "./navbar";
 export * from "./role";
 export * from "./shared";
+export * from "./state";
 export * from "./trainee";
 export * from "./user";

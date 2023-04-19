@@ -10,9 +10,10 @@ import useNoficication from "../hooks/useNotification";
 
 export const Trainees = () => {
   const { trainees, load: loadTrainees, remove: removeTrainee } = useUsers();
+  const { data, isLoading, isSuccess, isError, error } = trainees;
+
   const navigate = useNavigate();
   const { set } = useNoficication();
-  const { data, isLoading, isSuccess, isError, error } = trainees;
 
   useEffect(() => {
     if (!data.length) {
@@ -61,6 +62,7 @@ export const Trainees = () => {
           <li>Trainees</li>
         </ul>
       </nav>
+
       <TableButtonRow url="/trainee" label="Add trainee" />
 
       <TraineesComponent

@@ -10,6 +10,8 @@ import {
   Trainee,
   Roles,
   Role,
+  States,
+  State,
 } from "../pages";
 import { NotFound } from "../components";
 import { ProtectedRoute } from "../guard";
@@ -100,6 +102,31 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute user={user}>
             <Role />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/states"
+        element={
+          <ProtectedRoute user={user}>
+            <States />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/state/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <State />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/state"
+        element={
+          <ProtectedRoute user={user}>
+            <State />
           </ProtectedRoute>
         }
       />

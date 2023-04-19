@@ -1,26 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Users as UsersComponent,
+  States as StatesComponent,
   TableButtonRow,
   Loading,
 } from "../components";
-import useUsers from "../hooks/useUsers";
+
+import useStates from "../hooks/useStates";
 import useNoficication from "../hooks/useNotification";
 
-export const Users = () => {
-  const { users, load: loadUsers, remove: removeUser } = useUsers();
-  const { data, isLoading, isSuccess, isError, error } = users;
+export const States = () => {
+  const { states, load: loadStates, remove: removeState } = useStates();
+  const { data, isLoading, isSuccess, isError, error } = states;
 
   const navigate = useNavigate();
   const { set } = useNoficication();
 
   useEffect(() => {
     if (!data.length) {
-      loadUsers();
+      loadStates();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [states]);
 
   useEffect(() => {
     if (isError) {
@@ -40,12 +41,12 @@ export const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess]);
 
-  const handleEdit = (user) => {
-    navigate(`/user/${user.id}`);
+  const handleEdit = (state) => {
+    navigate(`/state/${state.id}`);
   };
 
-  const handleDelete = (user) => {
-    removeUser(user.id);
+  const handleDelete = (state) => {
+    removeState(state.id);
   };
 
   return (
@@ -59,18 +60,16 @@ export const Users = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>Users</li>
+          <li>States</li>
         </ul>
       </nav>
+      <TableButtonRow url="/state" label="Add state" />
 
-      <TableButtonRow url="/user" label="Add user" />
-
-      <UsersComponent
-        users={data}
+      <StatesComponent
+        states={data}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        isLoading={isLoading}
-        loadUsers={loadUsers}
+        loadStates={loadStates}
       />
     </main>
   );

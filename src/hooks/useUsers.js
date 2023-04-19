@@ -12,7 +12,7 @@ const useUsers = () => {
 
   const add = (payload) => dispatch(addUser(payload));
   const modify = (id, payload) => dispatch(modifyUser(id, payload));
-  const load = () => dispatch(loadUsers());
+  const load = (search) => dispatch(loadUsers(search));
   const remove = (id) => dispatch(removeUser(id));
 
   return {
