@@ -76,8 +76,7 @@ export const Trainee = ({ trainee }) => {
 
   useEffect(() => {
     if (trainee) {
-      Object.entries(trainee).forEach((f) => {
-        const [id, value] = f;
+      Object.entries(trainee).forEach(([id, value]) => {
         const data = { value, error: "" };
         setValues((values) => ({ ...values, [id]: data }));
       });
@@ -155,7 +154,7 @@ export const Trainee = ({ trainee }) => {
       });
   };
 
-  const update = (id, payload) => {
+  const update = (payload) => {
     updateTrainee(trainee.id, payload)
       .then((res) => {
         handleApiSuccess("Trainee saved successfully");
@@ -176,7 +175,7 @@ export const Trainee = ({ trainee }) => {
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
 
     if (trainee?.id) {
-      update(trainee.id, payload);
+      update(payload);
     } else {
       create(payload);
     }

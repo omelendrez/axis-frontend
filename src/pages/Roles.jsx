@@ -5,7 +5,7 @@ import {
   TableButtonRow,
   Loading,
 } from "../components";
-import { getRoles } from "../services";
+import { deleteRole, getRoles } from "../services";
 import useNoficication from "../hooks/useNotification";
 
 export const Roles = () => {
@@ -13,6 +13,22 @@ export const Roles = () => {
   const navigate = useNavigate();
   const { set } = useNoficication();
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleApiSuccess = (message) => {
+    const notification = { type: "success", message };
+    set(notification);
+    setIsLoading(true);
+    getRoles()
+      .then((res) => {
+        setRoles(res.data);
+      })
+      .catch((e) => {
+        handleApiError(e);
+      })
+      .finally(() => {
+        handleFinally();
+      });
+  };
 
   const handleApiError = (e) => {
     const notification = {
@@ -28,6 +44,16 @@ export const Roles = () => {
 
   const handleEdit = (role) => {
     navigate(`/role/${role.id}`);
+  };
+
+  const handleDelete = (role) => {
+    deleteRole(role.id)
+      .then(() => {
+        handleApiSuccess("Role deleted successfully");
+      })
+      .catch((e) => {
+        handleApiError(e);
+      });
   };
 
   useEffect(() => {
@@ -61,7 +87,11 @@ export const Roles = () => {
       </nav>
       <TableButtonRow url="/role" label="Add role" />
 
-      <RolesComponent roles={roles} onEdit={handleEdit} />
+      <RolesComponent
+        roles={roles}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </main>
   );
 };

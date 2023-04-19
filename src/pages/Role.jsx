@@ -6,7 +6,7 @@ import { getRole } from "../services";
 
 export const Role = () => {
   const params = useParams();
-  const [Role, setRole] = useState(null);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
     const id = params?.id;
@@ -33,7 +33,7 @@ export const Role = () => {
           <li>Role</li>
         </ul>
       </nav>
-      <RoleComponent Role={Role} />
+      <RoleComponent role={role} />
     </main>
   );
 };

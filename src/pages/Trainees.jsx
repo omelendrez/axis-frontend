@@ -91,6 +91,7 @@ export const Trainees = () => {
         trainees={trainees}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        isLoading={isLoading}
       />
     </main>
   );

@@ -5,7 +5,7 @@ import {
   TableButtonRow,
   Loading,
 } from "../components";
-import { getUsers } from "../services";
+import { deleteUser, getUsers } from "../services";
 import useNoficication from "../hooks/useNotification";
 
 export const Users = () => {
@@ -18,6 +18,22 @@ export const Users = () => {
     setIsLoading(false);
   };
 
+  const handleApiSuccess = (message) => {
+    const notification = { type: "success", message };
+    set(notification);
+    setIsLoading(true);
+    getUsers()
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((e) => {
+        handleApiError(e);
+      })
+      .finally(() => {
+        handleFinally();
+      });
+  };
+
   const handleApiError = (e) => {
     const notification = {
       type: "error",
@@ -28,6 +44,16 @@ export const Users = () => {
 
   const handleEdit = (user) => {
     navigate(`/user/${user.id}`);
+  };
+
+  const handleDelete = (user) => {
+    deleteUser(user.id)
+      .then(() => {
+        handleApiSuccess("User deleted successfully");
+      })
+      .catch((e) => {
+        handleApiError(e);
+      });
   };
 
   useEffect(() => {
@@ -62,7 +88,11 @@ export const Users = () => {
 
       <TableButtonRow url="/user" label="Add user" />
 
-      <UsersComponent users={users} onEdit={handleEdit} />
+      <UsersComponent
+        users={users}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </main>
   );
 };

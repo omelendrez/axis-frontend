@@ -48,8 +48,7 @@ export const User = ({ user }) => {
 
   useEffect(() => {
     if (user) {
-      Object.entries(user).forEach((f) => {
-        const [id, value] = f;
+      Object.entries(user).forEach(([id, value]) => {
         const data = { value, error: "" };
         setValues((values) => ({ ...values, [id]: data }));
       });
@@ -125,7 +124,7 @@ export const User = ({ user }) => {
       });
   };
 
-  const update = (id, payload) => {
+  const update = (payload) => {
     updateUser(user.id, payload)
       .then((res) => {
         handleApiSuccess("User saved successfully");
@@ -146,7 +145,7 @@ export const User = ({ user }) => {
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
 
     if (user?.id) {
-      update(user.id, payload);
+      update(payload);
     } else {
       create(payload);
     }

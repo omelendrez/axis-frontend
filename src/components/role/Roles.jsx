@@ -1,26 +1,35 @@
 import { useEffect, useState } from "react";
 import useUser from "../../hooks/useUser";
-import { EditButton, PaginationButtons } from "../shared";
+import { ActionButton, PaginationButtons } from "../shared";
 import { PAGE_SIZE } from "../../helpers";
 
-const Row = ({ role, onEdit }) => {
+const Row = ({ role, onEdit, onDelete }) => {
   const { user: me } = useUser();
 
   return (
     <tr>
       <td>{role.name}</td>
-      <td>
-        <EditButton
+      <td className="action-cell">
+        <ActionButton
           label="Edit"
+          className="primary"
           disable={me.role !== 1}
-          onEdit={() => onEdit(role)}
+          onClick={() => onEdit(role)}
+        />
+      </td>
+      <td className="action-cell">
+        <ActionButton
+          label="Delete"
+          className="secondary"
+          disable={me.role !== 1}
+          onClick={() => onDelete(role)}
         />
       </td>
     </tr>
   );
 };
 
-export const Roles = ({ roles, onEdit }) => {
+export const Roles = ({ roles, onEdit, onDelete }) => {
   const [pagedRoles, setPagedRoles] = useState([]);
   const [lastPage, setLastPage] = useState(1);
   const [curPage, setCurPage] = useState(1);
@@ -60,7 +69,7 @@ export const Roles = ({ roles, onEdit }) => {
       </thead>
       <tbody>
         {pagedRoles.map((role) => (
-          <Row role={role} key={role.id} onEdit={onEdit} />
+          <Row role={role} key={role.id} onEdit={onEdit} onDelete={onDelete} />
         ))}
       </tbody>
       {pagedRoles.length > 0 && (

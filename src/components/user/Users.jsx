@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import useUser from "../../hooks/useUser";
-import { PaginationButtons } from "../shared";
+import { ActionButton, PaginationButtons } from "../shared";
 import { PAGE_SIZE } from "../../helpers";
 
-const Row = ({ user, onEdit }) => {
+const Row = ({ user, onEdit, onDelete }) => {
   const { user: me } = useUser();
 
   return (
@@ -11,15 +11,23 @@ const Row = ({ user, onEdit }) => {
       <td>{user.name}</td>
       <td>{user.full_name}</td>
       <td>{user.role_name}</td>
-      <td>
-        <button
-          type="button"
-          onClick={() => onEdit(user)}
-          disabled={user.id === 1 || (user.role === 1 && user.id !== me.id)}
-        >
-          Edit
-        </button>
+      <td className="action-cell">
+        <ActionButton
+          label="Edit"
+          disable={me.role !== 1}
+          onEdit={() => onEdit(user)}
+        />
       </td>
+      {user.role === 1 && (
+        <td className="action-cell">
+          <ActionButton
+            label="Delete"
+            className="secondary"
+            disabled={user.role !== 1}
+            onClick={() => onDelete(user)}
+          />
+        </td>
+      )}
     </tr>
   );
 };

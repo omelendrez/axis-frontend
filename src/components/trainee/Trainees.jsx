@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import useUser from "../../hooks/useUser";
 import { PAGE_SIZE } from "../../helpers";
-import { PaginationButtons, Search } from "../shared";
+import { ActionButton, PaginationButtons, Search } from "../shared";
 import { formatShortDate } from "../../helpers";
 
-const Row = ({ trainee, onEdit }) => {
+const Row = ({ trainee, onEdit, onDelete }) => {
   const { user } = useUser();
   return (
     <tr>
@@ -15,30 +15,29 @@ const Row = ({ trainee, onEdit }) => {
       <td>{formatShortDate(trainee.birth_date)}</td>
       <td>{trainee.company_name}</td>
       <td>{trainee.nationality_name}</td>
-      <td>
-        <button
-          type="button"
-          onClick={() => onEdit(trainee)}
+      <td className="action-cell">
+        <ActionButton
+          label="Edit"
+          className="primary"
           disabled={user.role !== 1}
-        >
-          Edit
-        </button>
+          onClick={() => onEdit(trainee)}
+        />
       </td>
-      {/* <td>
-        <button
-          type="button"
-          className="error"
-          disabled={trainee.status === 1}
-          onClick={true}
-        >
-          Delete
-        </button>
-      </td> */}
+      {user.role === 1 && (
+        <td className="action-cell">
+          <ActionButton
+            label="Delete"
+            className="secondary"
+            disabled={user.role !== 1}
+            onClick={() => onDelete(trainee)}
+          />
+        </td>
+      )}
     </tr>
   );
 };
 
-export const Trainees = ({ trainees, onEdit, onDelete }) => {
+export const Trainees = ({ trainees, onEdit, onDelete, isLoading }) => {
   const [pagedTrainees, setPagedTrainees] = useState([]);
   const [lastPage, setLastPage] = useState(1);
   const [curPage, setCurPage] = useState(1);
@@ -95,7 +94,7 @@ export const Trainees = ({ trainees, onEdit, onDelete }) => {
         </thead>
 
         <tbody>
-          {pagedTrainees.length === 0 && (
+          {!isLoading && pagedTrainees.length === 0 && (
             <tr>
               <td colSpan={9}>
                 <article>No records found</article>

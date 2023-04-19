@@ -71,3 +71,7 @@ form {
 .error {
   background-color: #e53935;
 }
+
+.action-cell {
+  width: 1rem;
+}

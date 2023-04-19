@@ -8,43 +8,43 @@ const menuOptions = [
     title: "Users",
     description: "Manage Axis users",
     path: "/users",
-    role: 1,
+    roles: [1],
   },
   {
     title: "Roles",
     description: "Manage user roles",
     path: "/roles",
-    role: 1,
+    roles: [1],
   },
   {
     title: "States",
     description: "Manage states master table",
     path: "/state",
-    role: 1,
+    roles: [1,],
   },
   {
     title: "Nationalities",
     description: "Manage nationalities master table",
     path: "/nationality",
-    role: 1,
+    roles: [1],
   },
   {
     title: "Companies",
     description: "Manage companies master table",
     path: "/company",
-    role: 1,
+    roles: [1],
   },
   {
     title: "Trainees",
     description: "Manage trainees",
     path: "/trainees",
-    role: 1,
+    roles: [1],
   },
   {
     title: "Courses",
     description: "Manage safety courses",
     path: "/course",
-    role: 1,
+    roles: [1],
   },
 ];
 
@@ -66,7 +66,7 @@ export const Dashboard = () => {
   return (
     <main className="container dashboard">
       {menuOptions
-        .filter((r) => !r.role || r.role === user.role)
+        .filter((r) => r.roles.length === 0 || r.roles.includes(user.role))
         .map((o) => (
           <MenuOption
             key={o.path}

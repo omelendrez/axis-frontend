@@ -21,8 +21,7 @@ export const Role = ({ role }) => {
 
   useEffect(() => {
     if (role) {
-      Object.entries(role).forEach((f) => {
-        const [id, value] = f;
+      Object.entries(role).forEach(([id, value]) => {
         const data = { value, error: "" };
         setValues((values) => ({ ...values, [id]: data }));
       });
@@ -73,7 +72,7 @@ export const Role = ({ role }) => {
       });
   };
 
-  const update = (id, payload) => {
+  const update = (payload) => {
     updateRole(role.id, payload)
       .then((res) => {
         handleApiSuccess("Role saved successfully");
@@ -94,7 +93,7 @@ export const Role = ({ role }) => {
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
 
     if (role?.id) {
-      update(role.id, payload);
+      update(payload);
     } else {
       create(payload);
     }
