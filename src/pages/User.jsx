@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { User as UserComponent } from "../components";
-import { getUser } from "../services";
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { User as UserComponent } from '../components'
+import { getUser } from '../services'
 
-export const User = () => {
-  const params = useParams();
-  const [user, setUser] = useState(null);
+const User = () => {
+  const params = useParams()
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const id = params?.id;
+    const id = params?.id
     if (id) {
       getUser(id).then((res) => {
-        setUser(res.data);
-      });
+        setUser(res.data)
+      })
     }
-  }, [params]);
+  }, [params])
 
   return (
     <main className="container-fluid">
@@ -35,5 +35,7 @@ export const User = () => {
       </nav>
       <UserComponent user={user} />
     </main>
-  );
-};
+  )
+}
+
+export default User

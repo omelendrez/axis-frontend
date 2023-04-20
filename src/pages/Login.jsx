@@ -1,6 +1,6 @@
-import { Login as LoginComponent } from "../components"
+import { Login as LoginComponent } from '../components'
 
-export const Login = () => {
+const Login = () => {
   return (
     <main className="container-fluid">
       <hgroup>
@@ -13,3 +13,5 @@ export const Login = () => {
     </main>
   )
 }
+
+export default Login

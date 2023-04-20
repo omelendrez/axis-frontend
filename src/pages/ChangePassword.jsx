@@ -1,6 +1,6 @@
-import { ChangePassword as ChangePasswordComponent } from "../components"
+import { ChangePassword as ChangePasswordComponent } from '../components'
 
-export const ChangePassword = () => {
+const ChangePassword = () => {
   return (
     <main className="container-fluid">
       <hgroup>
@@ -13,3 +13,5 @@ export const ChangePassword = () => {
     </main>
   )
 }
+
+export default ChangePassword

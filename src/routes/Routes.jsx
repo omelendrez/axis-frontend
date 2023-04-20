@@ -1,24 +1,30 @@
-import { Routes, Route } from "react-router-dom";
-import {
-  Home,
-  Login,
-  ChangePassword,
-  Dashboard,
-  Users,
-  User,
-  Trainees,
-  Trainee,
-  Roles,
-  Role,
-  States,
-  State,
-} from "../pages";
-import { NotFound } from "../components";
-import { ProtectedRoute } from "../guard";
-import useUser from "../hooks/useUser";
+import { lazy } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { ProtectedRoute } from '../guard'
+import useUser from '../hooks/useUser'
+
+const NotFound = lazy(() => import('../components/navbar/NotFound'))
+const ChangePassword = lazy(() => import('../pages/ChangePassword'))
+
+const Home = lazy(() => import('../pages/Home'))
+const Login = lazy(() => import('../pages/Login'))
+
+const Dashboard = lazy(() => import('../pages/Dashboard'))
+
+const Users = lazy(() => import('../pages/Users'))
+const User = lazy(() => import('../pages/User'))
+
+const Trainees = lazy(() => import('../pages/Trainees'))
+const Trainee = lazy(() => import('../pages/Trainee'))
+
+const Roles = lazy(() => import('../pages/Roles'))
+const Role = lazy(() => import('../pages/Role'))
+
+const States = lazy(() => import('../pages/States'))
+const State = lazy(() => import('../pages/State'))
 
 export const AppRoutes = () => {
-  const { user } = useUser();
+  const { user } = useUser()
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -148,5 +154,5 @@ export const AppRoutes = () => {
         }
       />
     </Routes>
-  );
-};
+  )
+}

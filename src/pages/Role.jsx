@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { Role as RoleComponent } from "../components";
-import { getRole } from "../services";
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Role as RoleComponent } from '../components'
+import { getRole } from '../services'
 
-export const Role = () => {
-  const params = useParams();
-  const [role, setRole] = useState(null);
+const Role = () => {
+  const params = useParams()
+  const [role, setRole] = useState(null)
 
   useEffect(() => {
-    const id = params?.id;
+    const id = params?.id
     if (id) {
       getRole(id).then((res) => {
-        setRole(res.data);
-      });
+        setRole(res.data)
+      })
     }
-  }, [params]);
+  }, [params])
 
   return (
     <main className="container-fluid">
@@ -35,5 +35,7 @@ export const Role = () => {
       </nav>
       <RoleComponent role={role} />
     </main>
-  );
-};
+  )
+}
+
+export default Role

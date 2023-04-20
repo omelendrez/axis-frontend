@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { State as StateComponent } from "../components";
-import { getState } from "../services";
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { State as StateComponent } from '../components'
+import { getState } from '../services'
 
-export const State = () => {
-  const params = useParams();
-  const [state, setState] = useState(null);
+const State = () => {
+  const params = useParams()
+  const [state, setState] = useState(null)
 
   useEffect(() => {
-    const id = params?.id;
+    const id = params?.id
     if (id) {
       getState(id).then((res) => {
-        setState(res.data);
-      });
+        setState(res.data)
+      })
     }
-  }, [params]);
+  }, [params])
 
   return (
     <main className="container-fluid">
@@ -35,5 +35,7 @@ export const State = () => {
       </nav>
       <StateComponent state={state} />
     </main>
-  );
-};
+  )
+}
+
+export default State

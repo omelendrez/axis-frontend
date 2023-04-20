@@ -1,52 +1,52 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Trainees as TraineesComponent,
   TableButtonRow,
-  Loading,
-} from "../components";
-import useUsers from "../hooks/useTrainees";
-import useNoficication from "../hooks/useNotification";
+  Loading
+} from '../components'
+import useUsers from '../hooks/useTrainees'
+import useNoficication from '../hooks/useNotification'
 
-export const Trainees = () => {
-  const { trainees, load: loadTrainees, remove: removeTrainee } = useUsers();
-  const { data, isLoading, isSuccess, isError, error } = trainees;
+const Trainees = () => {
+  const { trainees, load: loadTrainees, remove: removeTrainee } = useUsers()
+  const { data, isLoading, isSuccess, isError, error } = trainees
 
-  const navigate = useNavigate();
-  const { set } = useNoficication();
+  const navigate = useNavigate()
+  const { set } = useNoficication()
 
   useEffect(() => {
     if (!data.length) {
-      loadTrainees();
+      loadTrainees()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trainees]);
+  }, [trainees])
 
   useEffect(() => {
     if (isError) {
       const notification = {
-        type: "error",
-        message: error.message,
-      };
-      set(notification);
+        type: 'error',
+        message: error.message
+      }
+      set(notification)
     }
     if (isSuccess) {
       const notification = {
-        type: "success",
-        message: "Operation completed successfully",
-      };
-      set(notification);
+        type: 'success',
+        message: 'Operation completed successfully'
+      }
+      set(notification)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess])
 
   const handleEdit = (trainee) => {
-    navigate(`/trainee/${trainee.id}`);
-  };
+    navigate(`/trainee/${trainee.id}`)
+  }
 
   const handleDelete = (trainee) => {
-    removeTrainee(trainee.id);
-  };
+    removeTrainee(trainee.id)
+  }
 
   return (
     <main className="container-fluid">
@@ -73,5 +73,7 @@ export const Trainees = () => {
         loadTrainees={loadTrainees}
       />
     </main>
-  );
-};
+  )
+}
+
+export default Trainees

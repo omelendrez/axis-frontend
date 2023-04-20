@@ -1,53 +1,53 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   States as StatesComponent,
   TableButtonRow,
-  Loading,
-} from "../components";
+  Loading
+} from '../components'
 
-import useStates from "../hooks/useStates";
-import useNoficication from "../hooks/useNotification";
+import useStates from '../hooks/useStates'
+import useNoficication from '../hooks/useNotification'
 
-export const States = () => {
-  const { states, load: loadStates, remove: removeState } = useStates();
-  const { data, isLoading, isSuccess, isError, error } = states;
+const States = () => {
+  const { states, load: loadStates, remove: removeState } = useStates()
+  const { data, isLoading, isSuccess, isError, error } = states
 
-  const navigate = useNavigate();
-  const { set } = useNoficication();
+  const navigate = useNavigate()
+  const { set } = useNoficication()
 
   useEffect(() => {
     if (!data.length) {
-      loadStates();
+      loadStates()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [states]);
+  }, [states])
 
   useEffect(() => {
     if (isError) {
       const notification = {
-        type: "error",
-        message: error.message,
-      };
-      set(notification);
+        type: 'error',
+        message: error.message
+      }
+      set(notification)
     }
     if (isSuccess) {
       const notification = {
-        type: "success",
-        message: "Operation completed successfully",
-      };
-      set(notification);
+        type: 'success',
+        message: 'Operation completed successfully'
+      }
+      set(notification)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess])
 
   const handleEdit = (state) => {
-    navigate(`/state/${state.id}`);
-  };
+    navigate(`/state/${state.id}`)
+  }
 
   const handleDelete = (state) => {
-    removeState(state.id);
-  };
+    removeState(state.id)
+  }
 
   return (
     <main className="container-fluid">
@@ -72,5 +72,7 @@ export const States = () => {
         loadStates={loadStates}
       />
     </main>
-  );
-};
+  )
+}
+
+export default States

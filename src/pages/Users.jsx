@@ -1,52 +1,48 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Users as UsersComponent,
-  TableButtonRow,
-  Loading,
-} from "../components";
-import useUsers from "../hooks/useUsers";
-import useNoficication from "../hooks/useNotification";
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Users as UsersComponent, TableButtonRow, Loading } from '../components'
+import useUsers from '../hooks/useUsers'
+import useNoficication from '../hooks/useNotification'
 
-export const Users = () => {
-  const { users, load: loadUsers, remove: removeUser } = useUsers();
-  const { data, isLoading, isSuccess, isError, error } = users;
+const Users = () => {
+  const { users, load: loadUsers, remove: removeUser } = useUsers()
+  const { data, isLoading, isSuccess, isError, error } = users
 
-  const navigate = useNavigate();
-  const { set } = useNoficication();
+  const navigate = useNavigate()
+  const { set } = useNoficication()
 
   useEffect(() => {
     if (!data.length) {
-      loadUsers();
+      loadUsers()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (isError) {
       const notification = {
-        type: "error",
-        message: error.message,
-      };
-      set(notification);
+        type: 'error',
+        message: error.message
+      }
+      set(notification)
     }
     if (isSuccess) {
       const notification = {
-        type: "success",
-        message: "Operation completed successfully",
-      };
-      set(notification);
+        type: 'success',
+        message: 'Operation completed successfully'
+      }
+      set(notification)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess])
 
   const handleEdit = (user) => {
-    navigate(`/user/${user.id}`);
-  };
+    navigate(`/user/${user.id}`)
+  }
 
   const handleDelete = (user) => {
-    removeUser(user.id);
-  };
+    removeUser(user.id)
+  }
 
   return (
     <main className="container-fluid">
@@ -73,5 +69,7 @@ export const Users = () => {
         loadUsers={loadUsers}
       />
     </main>
-  );
-};
+  )
+}
+
+export default Users

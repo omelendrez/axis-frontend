@@ -1,75 +1,71 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Roles as RolesComponent,
-  TableButtonRow,
-  Loading,
-} from "../components";
-import { deleteRole, getRoles } from "../services";
-import useNoficication from "../hooks/useNotification";
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Roles as RolesComponent, TableButtonRow, Loading } from '../components'
+import { deleteRole, getRoles } from '../services'
+import useNoficication from '../hooks/useNotification'
 
-export const Roles = () => {
-  const [roles, setRoles] = useState([]);
-  const navigate = useNavigate();
-  const { set } = useNoficication();
-  const [isLoading, setIsLoading] = useState(false);
+const Roles = () => {
+  const [roles, setRoles] = useState([])
+  const navigate = useNavigate()
+  const { set } = useNoficication()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleApiSuccess = (message) => {
-    const notification = { type: "success", message };
-    set(notification);
-    setIsLoading(true);
+    const notification = { type: 'success', message }
+    set(notification)
+    setIsLoading(true)
     getRoles()
       .then((res) => {
-        setRoles(res.data);
+        setRoles(res.data)
       })
       .catch((e) => {
-        handleApiError(e);
+        handleApiError(e)
       })
       .finally(() => {
-        handleFinally();
-      });
-  };
+        handleFinally()
+      })
+  }
 
   const handleApiError = (e) => {
     const notification = {
-      type: "error",
-      message: e.response.data.message,
-    };
-    set(notification);
-  };
+      type: 'error',
+      message: e.response.data.message
+    }
+    set(notification)
+  }
 
   const handleFinally = () => {
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   const handleEdit = (role) => {
-    navigate(`/role/${role.id}`);
-  };
+    navigate(`/role/${role.id}`)
+  }
 
   const handleDelete = (role) => {
     deleteRole(role.id)
       .then(() => {
-        handleApiSuccess("Role deleted successfully");
+        handleApiSuccess('Role deleted successfully')
       })
       .catch((e) => {
-        handleApiError(e);
-      });
-  };
+        handleApiError(e)
+      })
+  }
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     getRoles()
       .then((res) => {
-        setRoles(res.data);
+        setRoles(res.data)
       })
       .catch((e) => {
-        handleApiError(e);
+        handleApiError(e)
       })
       .finally(() => {
-        handleFinally();
-      });
+        handleFinally()
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <main className="container-fluid">
@@ -93,5 +89,7 @@ export const Roles = () => {
         onDelete={handleDelete}
       />
     </main>
-  );
-};
+  )
+}
+
+export default Roles

@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom"
-import { Dashboard as DashboardComponent } from "../components"
+import { Link } from 'react-router-dom'
+import { Dashboard as DashboardComponent } from '../components'
 
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <main className="container-fluid">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
-          <li><Link to="/">Home</Link></li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
           <li>Dashboard</li>
         </ul>
       </nav>
@@ -14,3 +16,5 @@ export const Dashboard = () => {
     </main>
   )
 }
+
+export default Dashboard
