@@ -4,7 +4,7 @@ import { ActionButton, Search } from '../shared'
 
 const Row = ({ user, onEdit, onDelete }) => {
   const { user: me } = useUser()
-  console.log(user)
+
   return (
     <tr>
       <td>{user.name}</td>

@@ -234,15 +234,15 @@ export const Trainee = ({ trainee }) => {
           value={values.company.value}
           options={companyList}
         />
-
-        <Dropdown
-          id="status"
-          label="Status"
-          onChange={handleChange}
-          value={values.status.value}
-          options={statusList}
-        />
-
+        {trainee?.id && (
+          <Dropdown
+            id="status"
+            label="Status"
+            onChange={handleChange}
+            value={values.status.value}
+            options={statusList}
+          />
+        )}
         <FormButtonRow>
           <SaveButton isSubmitting={isLoading} onSave={handleSave} />
 
