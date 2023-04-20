@@ -1,12 +1,14 @@
-export * from "./ChangePassword";
-export * from "./Dashboard";
-export * from "./Home";
-export * from "./Login";
-export * from "./Role";
-export * from "./Roles";
-export * from "./State";
-export * from "./States";
-export * from "./Trainee";
-export * from "./Trainees";
-export * from "./User";
-export * from "./Users";
+export { default as ChangePassword } from './ChangePassword'
+export { default as Dashboard } from './Dashboard'
+export { default as Home } from './Home'
+export { default as Login } from './Login'
+export { default as Nationalities } from './Nationalities'
+export { default as Nationality } from './Nationality'
+export { default as Role } from './Role'
+export { default as Roles } from './Roles'
+export { default as State } from './State'
+export { default as States } from './States'
+export { default as Trainee } from './Trainee'
+export { default as Trainees } from './Trainees'
+export { default as User } from './User'
+export { default as Users } from './Users'

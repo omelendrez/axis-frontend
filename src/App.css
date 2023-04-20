@@ -42,32 +42,6 @@ form {
   border-radius: 0;
 }
 
-.form-button-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  box-shadow: none;
-  padding: 0px;
-}
-
-.form-button-row button:not(:last-child) {
-  margin-right: 1rem;
-}
-
-.pagination-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  box-shadow: none;
-  padding: 0px;
-}
-
-.pagination-row button:not(:last-child) {
-  margin-right: 1rem;
-}
-
 .error-fallback footer {
   display: flex;
   justify-content: space-around;
@@ -75,8 +49,4 @@ form {
 
 .error {
   background-color: #e53935;
-}
-
-.action-cell {
-  width: 1rem;
 }

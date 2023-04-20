@@ -1,4 +1,7 @@
+.action-button {
+  width: fit-content;
+}
 
-.action-button{
-  width:fit-content;
+.action-cell {
+  width: 1rem;
 }

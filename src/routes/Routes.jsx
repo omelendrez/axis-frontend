@@ -23,6 +23,9 @@ const Role = lazy(() => import('../pages/Role'))
 const States = lazy(() => import('../pages/States'))
 const State = lazy(() => import('../pages/State'))
 
+const Nationalities = lazy(() => import('../pages/Nationalities'))
+const Nationality = lazy(() => import('../pages/Nationality'))
+
 export const AppRoutes = () => {
   const { user } = useUser()
   return (
@@ -133,6 +136,31 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute user={user}>
             <State />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/nationalities"
+        element={
+          <ProtectedRoute user={user}>
+            <Nationalities />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/nationality/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <Nationality />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/nationality"
+        element={
+          <ProtectedRoute user={user}>
+            <Nationality />
           </ProtectedRoute>
         }
       />
