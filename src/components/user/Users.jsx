@@ -1,10 +1,10 @@
-import { useState } from "react";
-import useUser from "../../hooks/useUser";
-import { ActionButton, Search } from "../shared";
+import { useState } from 'react'
+import useUser from '../../hooks/useUser'
+import { ActionButton, Search } from '../shared'
 
 const Row = ({ user, onEdit, onDelete }) => {
-  const { user: me } = useUser();
-
+  const { user: me } = useUser()
+  console.log(user)
   return (
     <tr>
       <td>{user.name}</td>
@@ -14,9 +14,9 @@ const Row = ({ user, onEdit, onDelete }) => {
       <td className="action-cell">
         <ActionButton
           label="Edit"
-          // disable={me.role !== 1}
-          onEdit={() => {
-            onEdit(user);
+          disable={me.role !== 1}
+          onClick={() => {
+            onEdit(user)
           }}
         />
       </td>
@@ -31,17 +31,17 @@ const Row = ({ user, onEdit, onDelete }) => {
         </td>
       )}
     </tr>
-  );
-};
+  )
+}
 
 export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('')
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      loadUsers(search);
+    if (event.key === 'Enter') {
+      loadUsers(search)
     }
-  };
+  }
 
   return (
     <main className="container-fluid">
@@ -83,5 +83,5 @@ export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
         </table>
       </figure>
     </main>
-  );
-};
+  )
+}
