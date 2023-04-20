@@ -1,120 +1,118 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   InputField,
   Confirm,
   FormButtonRow,
   Dropdown,
   SaveButton,
-  CancelButton,
-} from "../shared";
-import useUsers from "../../hooks/useUsers.js";
-import { role as roleList, status as statusList } from "../../data";
+  CancelButton
+} from '../shared'
+import useUsers from '../../hooks/useUsers.js'
+import { role as roleList, status as statusList } from '../../data'
 
 const initialValues = {
   name: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   full_name: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   email: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   role: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   status: {
-    value: "1",
-    error: "",
-  },
-};
+    value: '1',
+    error: ''
+  }
+}
 
 export const User = ({ user }) => {
-  const { users, add, modify } = useUsers();
-  const { isLoading, isSuccess } = users;
-  const [values, setValues] = useState(initialValues);
-  const [confirmMessage, setConfirmMessage] = useState("");
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [tempValue, setTempValue] = useState(null);
-  const navigate = useNavigate();
-  const formRef = useRef();
+  const { users, add, modify } = useUsers()
+  const { isLoading, isSuccess } = users
+  const [values, setValues] = useState(initialValues)
+  const [confirmMessage, setConfirmMessage] = useState('')
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [tempValue, setTempValue] = useState(null)
+  const navigate = useNavigate()
+  const formRef = useRef()
 
   useEffect(() => {
     if (user) {
       Object.entries(user).forEach(([id, value]) => {
-        const data = { value, error: "" };
-        setValues((values) => ({ ...values, [id]: data }));
-      });
+        const data = { value, error: '' }
+        setValues((values) => ({ ...values, [id]: data }))
+      })
     }
-  }, [user]);
+  }, [user])
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/users");
+      navigate('/users')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+  }, [isSuccess])
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    if (id === "status") {
-      setTempValue({ id, value, prev: user?.status });
-      setConfirmMessage("Are you sure you want to change user status?");
-      return setIsConfirmOpen(true);
+    const { id, value } = e.target
+    if (id === 'status') {
+      setTempValue({ id, value, prev: user?.status })
+      setConfirmMessage('Are you sure you want to change user status?')
+      return setIsConfirmOpen(true)
     }
-    const data = { value, error: "" };
-    setValues((values) => ({ ...values, [id]: data }));
-  };
+    const data = { value, error: '' }
+    setValues((values) => ({ ...values, [id]: data }))
+  }
 
   const handleConfirm = (e) => {
-    e.preventDefault();
-    const { id, value } = tempValue;
-    const data = { value, error: "" };
-    setValues((values) => ({ ...values, [id]: data }));
-    setIsConfirmOpen(false);
-  };
+    e.preventDefault()
+    const { id, value } = tempValue
+    const data = { value, error: '' }
+    setValues((values) => ({ ...values, [id]: data }))
+    setIsConfirmOpen(false)
+  }
 
   const handleCancel = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const { id, prev } = tempValue;
-    const value = prev;
-    const data = { value, error: "" };
-    setValues((values) => ({ ...values, [id]: data }));
+    const { id, prev } = tempValue
+    const value = prev
+    const data = { value, error: '' }
+    setValues((values) => ({ ...values, [id]: data }))
 
-    setTempValue(null);
-    setIsConfirmOpen(false);
-  };
+    setTempValue(null)
+    setIsConfirmOpen(false)
+  }
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const payload = Object.entries(values)
-      .filter((id) => id !== "id")
-      .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
+      .filter((id) => id !== 'id')
+      .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
 
     if (user?.id) {
-      modify(user.id, payload);
+      modify(user.id, payload)
     } else {
-      add(payload);
+      add(payload)
     }
-  };
+  }
 
   const handleSave = (e) => {
-    e.preventDefault();
-    formRef.current.submit();
-  };
+    e.preventDefault()
+    formRef.current.submit()
+  }
 
   const handleFormCancel = (e) => {
-    e.preventDefault();
-    navigate("/users");
-  };
-
-  const { name, full_name, email, role, status } = values;
+    e.preventDefault()
+    navigate('/users')
+  }
 
   return (
     <>
@@ -131,7 +129,7 @@ export const User = ({ user }) => {
           id="name"
           label="Username"
           placeholder="Enter name"
-          value={name.value}
+          value={values.name.value}
           onChange={handleChange}
           required
           autoCapitalize="off"
@@ -142,7 +140,7 @@ export const User = ({ user }) => {
           id="full_name"
           label="Full name"
           placeholder="Enter full name"
-          value={full_name.value}
+          value={values.full_name.value}
           onChange={handleChange}
           required
         />
@@ -152,7 +150,7 @@ export const User = ({ user }) => {
           id="email"
           label="Email"
           placeholder="Enter email"
-          value={email.value}
+          value={values.email.value}
           onChange={handleChange}
           required
           autoCapitalize="off"
@@ -162,7 +160,7 @@ export const User = ({ user }) => {
           id="role"
           label="Role"
           onChange={handleChange}
-          value={role.value}
+          value={values.role.value}
           options={roleList}
         />
         {user?.id && (
@@ -170,7 +168,7 @@ export const User = ({ user }) => {
             id="status"
             label="Status"
             onChange={handleChange}
-            value={status.value}
+            value={values.status.value}
             options={statusList}
           />
         )}
@@ -182,5 +180,5 @@ export const User = ({ user }) => {
         </FormButtonRow>
       </form>
     </>
-  );
-};
+  )
+}

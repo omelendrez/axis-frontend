@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   InputField,
   Confirm,
   FormButtonRow,
   Dropdown,
   SaveButton,
-  CancelButton,
-} from "../shared";
+  CancelButton
+} from '../shared'
 
-import useTrainees from "../../hooks/useTrainees";
+import useTrainees from '../../hooks/useTrainees'
 
 import {
   company as companyList,
@@ -17,147 +17,134 @@ import {
   sex as sexList,
   state as stateList,
   status as statusList,
-  type as typeList,
-} from "../../data";
+  type as typeList
+} from '../../data'
 
 const initialValues = {
   type: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   badge: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   last_name: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   first_name: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   sex: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   state: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   nationality: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   birth_date: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   company: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   status: {
-    value: "",
-    error: "",
-  },
-};
+    value: '',
+    error: ''
+  }
+}
 
 export const Trainee = ({ trainee }) => {
-  const { trainees, add, modify } = useTrainees();
-  const { isLoading, isSuccess } = trainees;
+  const { trainees, add, modify } = useTrainees()
+  const { isLoading, isSuccess } = trainees
 
-  const [values, setValues] = useState(initialValues);
-  const [confirmMessage, setConfirmMessage] = useState("");
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [tempValue, setTempValue] = useState(null);
-  const navigate = useNavigate();
-  const formRef = useRef();
+  const [values, setValues] = useState(initialValues)
+  const [confirmMessage, setConfirmMessage] = useState('')
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [tempValue, setTempValue] = useState(null)
+  const navigate = useNavigate()
+  const formRef = useRef()
 
   useEffect(() => {
     if (trainee) {
       Object.entries(trainee).forEach(([id, value]) => {
-        const data = { value, error: "" };
-        setValues((values) => ({ ...values, [id]: data }));
-      });
+        const data = { value, error: '' }
+        setValues((values) => ({ ...values, [id]: data }))
+      })
     }
-  }, [trainee]);
+  }, [trainee])
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/trainees");
+      navigate('/trainees')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+  }, [isSuccess])
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, value } = e.target
 
-    if (id === "status") {
-      setTempValue({ id, value, prev: trainee?.status });
-      setConfirmMessage("Are you sure you want to change trainee status?");
-      return setIsConfirmOpen(true);
+    if (id === 'status') {
+      setTempValue({ id, value, prev: trainee?.status })
+      setConfirmMessage('Are you sure you want to change trainee status?')
+      return setIsConfirmOpen(true)
     }
 
-    const data = { value, error: "" };
-    setValues((values) => ({ ...values, [id]: data }));
-  };
+    const data = { value, error: '' }
+    setValues((values) => ({ ...values, [id]: data }))
+  }
 
   const handleConfirm = (e) => {
-    e.preventDefault();
-    const { id, value } = tempValue;
-    const data = { value, error: "" };
-    setValues((values) => ({ ...values, [id]: data }));
-    setIsConfirmOpen(false);
-  };
+    e.preventDefault()
+    const { id, value } = tempValue
+    const data = { value, error: '' }
+    setValues((values) => ({ ...values, [id]: data }))
+    setIsConfirmOpen(false)
+  }
 
   const handleCancel = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const { id, prev } = tempValue;
-    const value = prev;
-    const data = { value, error: "" };
-    setValues((values) => ({ ...values, [id]: data }));
+    const { id, prev } = tempValue
+    const value = prev
+    const data = { value, error: '' }
+    setValues((values) => ({ ...values, [id]: data }))
 
-    setTempValue(null);
-    setIsConfirmOpen(false);
-  };
+    setTempValue(null)
+    setIsConfirmOpen(false)
+  }
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const payload = Object.entries(values)
-      .filter((id) => id !== "id")
-      .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {});
+      .filter((id) => id !== 'id')
+      .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
 
     if (trainee?.id) {
-      modify(trainee.id, payload);
+      modify(trainee.id, payload)
     } else {
-      add(payload);
+      add(payload)
     }
-  };
+  }
 
   const handleSave = (e) => {
-    e.preventDefault();
-    formRef.current.submit();
-  };
+    e.preventDefault()
+    formRef.current.submit()
+  }
 
   const handleFormCancel = (e) => {
-    e.preventDefault();
-    navigate("/trainees");
-  };
-
-  const {
-    type,
-    badge,
-    last_name,
-    first_name,
-    sex,
-    state,
-    nationality,
-    birth_date,
-    company,
-    status,
-  } = values;
+    e.preventDefault()
+    navigate('/trainees')
+  }
 
   return (
     <>
@@ -173,7 +160,7 @@ export const Trainee = ({ trainee }) => {
           id="type"
           label="Type"
           onChange={handleChange}
-          value={type.value}
+          value={values.type.value}
           options={typeList}
         />
 
@@ -182,7 +169,7 @@ export const Trainee = ({ trainee }) => {
           id="badge"
           label="Badge"
           placeholder="Enter badge"
-          value={badge.value}
+          value={values.badge.value}
           onChange={handleChange}
         />
 
@@ -191,7 +178,7 @@ export const Trainee = ({ trainee }) => {
           id="last_name"
           label="Last name"
           placeholder="Enter last name"
-          value={last_name.value}
+          value={values.last_name.value}
           onChange={handleChange}
           required
         />
@@ -201,7 +188,7 @@ export const Trainee = ({ trainee }) => {
           id="first_name"
           label="First name"
           placeholder="Enter first name"
-          value={first_name.value}
+          value={values.first_name.value}
           onChange={handleChange}
           required
         />
@@ -210,7 +197,7 @@ export const Trainee = ({ trainee }) => {
           id="sex"
           label="Sex"
           onChange={handleChange}
-          value={sex.value}
+          value={values.sex.value}
           options={sexList}
         />
 
@@ -218,7 +205,7 @@ export const Trainee = ({ trainee }) => {
           id="state"
           label="State"
           onChange={handleChange}
-          value={state.value}
+          value={values.state.value}
           options={stateList}
         />
 
@@ -226,7 +213,7 @@ export const Trainee = ({ trainee }) => {
           id="nationality"
           label="Nationality"
           onChange={handleChange}
-          value={nationality.value}
+          value={values.nationality.value}
           options={nationalityList}
         />
 
@@ -235,7 +222,7 @@ export const Trainee = ({ trainee }) => {
           id="birth_date"
           label="Birth date"
           placeholder="Enter birth date"
-          value={birth_date.value}
+          value={values.birth_date.value}
           onChange={handleChange}
           required
         />
@@ -244,7 +231,7 @@ export const Trainee = ({ trainee }) => {
           id="company"
           label="Company"
           onChange={handleChange}
-          value={company.value}
+          value={values.company.value}
           options={companyList}
         />
 
@@ -252,7 +239,7 @@ export const Trainee = ({ trainee }) => {
           id="status"
           label="Status"
           onChange={handleChange}
-          value={status.value}
+          value={values.status.value}
           options={statusList}
         />
 
@@ -263,5 +250,5 @@ export const Trainee = ({ trainee }) => {
         </FormButtonRow>
       </form>
     </>
-  );
-};
+  )
+}
