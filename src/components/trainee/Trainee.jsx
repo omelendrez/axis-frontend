@@ -162,16 +162,19 @@ export const Trainee = ({ trainee }) => {
           onChange={handleChange}
           value={values.type.value}
           options={typeList}
+          required
         />
-
-        <InputField
-          type="text"
-          id="badge"
-          label="Badge"
-          placeholder="Enter badge"
-          value={values.badge.value}
-          onChange={handleChange}
-        />
+        {trainee?.id && (
+          <InputField
+            type="text"
+            id="badge"
+            label="Badge"
+            placeholder="Enter badge"
+            value={values.badge.value}
+            onChange={handleChange}
+            required
+          />
+        )}
 
         <InputField
           type="text"
@@ -199,6 +202,7 @@ export const Trainee = ({ trainee }) => {
           onChange={handleChange}
           value={values.sex.value}
           options={sexList}
+          required
         />
 
         <Dropdown
@@ -207,6 +211,7 @@ export const Trainee = ({ trainee }) => {
           onChange={handleChange}
           value={values.state.value}
           options={stateList}
+          required
         />
 
         <Dropdown
@@ -215,6 +220,7 @@ export const Trainee = ({ trainee }) => {
           onChange={handleChange}
           value={values.nationality.value}
           options={nationalityList}
+          required
         />
 
         <InputField
@@ -233,6 +239,7 @@ export const Trainee = ({ trainee }) => {
           onChange={handleChange}
           value={values.company.value}
           options={companyList}
+          required
         />
         {trainee?.id && (
           <Dropdown

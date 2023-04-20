@@ -74,6 +74,7 @@ export const State = ({ state }) => {
           placeholder="Enter name"
           value={values.name.value}
           onChange={handleChange}
+          required
         />
 
         <FormButtonRow>

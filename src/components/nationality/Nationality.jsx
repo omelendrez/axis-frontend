@@ -83,6 +83,7 @@ export const Nationality = ({ nationality }) => {
           placeholder="Enter code"
           value={values.code.value}
           onChange={handleChange}
+          required
         />
 
         <InputField
@@ -92,6 +93,7 @@ export const Nationality = ({ nationality }) => {
           placeholder="Enter country"
           value={values.country.value}
           onChange={handleChange}
+          required
         />
         <InputField
           type="text"
@@ -100,6 +102,7 @@ export const Nationality = ({ nationality }) => {
           placeholder="Enter nationality"
           value={values.nationality.value}
           onChange={handleChange}
+          required
         />
 
         <FormButtonRow>
