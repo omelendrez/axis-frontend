@@ -1,4 +1,4 @@
-import { useEffect, useNationality } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Nationality as NationalityComponent } from '../components'
@@ -6,7 +6,7 @@ import { getNationality } from '../services'
 
 const Nationality = () => {
   const params = useParams()
-  const [nationality, setNationality] = useNationality(null)
+  const [nationality, setNationality] = useState(null)
 
   useEffect(() => {
     const id = params?.id

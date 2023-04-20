@@ -5,7 +5,15 @@ import { InputField, FormButtonRow, SaveButton, CancelButton } from '../shared'
 import useNationalities from '../../hooks/useNationalities'
 
 const initialValues = {
-  name: {
+  code: {
+    value: '',
+    error: ''
+  },
+  country: {
+    value: '',
+    error: ''
+  },
+  nationality: {
     value: '',
     error: ''
   }
@@ -70,10 +78,27 @@ export const Nationality = ({ nationality }) => {
       <form onSubmit={handleFormSubmit} ref={formRef}>
         <InputField
           type="text"
-          id="name"
-          label="Name"
-          placeholder="Enter name"
-          value={values.name.value}
+          id="code"
+          label="Code"
+          placeholder="Enter code"
+          value={values.code.value}
+          onChange={handleChange}
+        />
+
+        <InputField
+          type="text"
+          id="country"
+          label="Country"
+          placeholder="Enter country"
+          value={values.country.value}
+          onChange={handleChange}
+        />
+        <InputField
+          type="text"
+          id="nationality"
+          label="Nationality"
+          placeholder="Enter nationality"
+          value={values.nationality.value}
           onChange={handleChange}
         />
 
