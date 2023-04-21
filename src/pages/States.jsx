@@ -7,21 +7,19 @@ import {
 } from '../components'
 
 import useStates from '../hooks/useStates'
-import useNoficication from '../hooks/useNotification'
+import useNotification from '../hooks/useNotification'
 
 const States = () => {
   const { states, load: loadStates, remove: removeState } = useStates()
   const { data, isLoading, isSuccess, isError, error } = states
 
   const navigate = useNavigate()
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   useEffect(() => {
-    if (!data.length) {
-      loadStates()
-    }
+    loadStates()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [states])
+  }, [])
 
   useEffect(() => {
     if (isError) {

@@ -1,107 +1,145 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 import {
   createState,
   updateState,
   getStates,
-  deleteState,
-} from "../../services";
+  deleteState
+} from '../../services'
+import { getApiErrorMessage, log } from '../../helpers'
+import { setMessage } from '../notification/notificationSlice'
 
 const initialState = {
   data: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
-  error: null,
-};
+  error: null
+}
 
 export const userSlice = createSlice({
-  name: "states",
+  name: 'states',
   initialState: initialState,
   reducers: {
-    setLoading(state, action) {
-      state.isLoading = true;
-      state.isSuccess = false;
-      state.isError = false;
-      state.error = null;
+    setLoading(state) {
+      state.isLoading = true
+      state.isSuccess = false
+      state.isError = false
+      state.error = null
     },
-    setSuccess(state, action) {
-      state.data = action.payload;
-      state.isSuccess = true;
-      state.isLoading = false;
-      state.isError = false;
+    setData(state, action) {
+      state.data = action.payload
+    },
+    setSuccess(state) {
+      state.isSuccess = true
+      state.isLoading = false
+      state.isError = false
     },
     setError(state, action) {
-      state.isSuccess = false;
-      state.isLoading = false;
-      state.isError = true;
-      state.error = action.payload;
+      state.isSuccess = false
+      state.isLoading = false
+      state.isError = true
+      state.error = action.payload
     },
     reset(state) {
-      state.isSuccess = false;
-      state.isLoading = false;
-      state.isError = false;
-    },
-  },
-});
+      state.isSuccess = false
+      state.isLoading = false
+      state.isError = false
+    }
+  }
+})
 
-export default userSlice.reducer;
+export default userSlice.reducer
 
 export function loadStates(search) {
-  const { setLoading, setSuccess, setError, reset } = userSlice.actions;
+  const { setLoading, setData, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      const { data } = await getStates(search);
-      dispatch(setSuccess(data));
+      const { data } = await getStates(search)
+      dispatch(setData(data))
       setTimeout(() => {
-        dispatch(reset());
-      }, 1000);
+        dispatch(reset())
+      }, 1000)
     } catch (error) {
-      console.log(error);
-      dispatch(setError(error.response.data));
+      const message = {
+        type: 'error',
+        message: getApiErrorMessage(error)
+      }
+      log.error(error)
+      dispatch(setMessage(message))
+      setTimeout(() => {
+        dispatch(reset())
+      }, 1000)
     }
-  };
+  }
 }
 
 export function removeState(id) {
-  const { setLoading, setError } = userSlice.actions;
+  const { setLoading, setSuccess, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      await deleteState(id);
-      dispatch(loadStates());
+      await deleteState(id)
+      dispatch(loadStates())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data));
+      const message = {
+        type: 'error',
+        message: getApiErrorMessage(error)
+      }
+      log.error(error)
+      dispatch(setMessage(message))
+      setTimeout(() => {
+        dispatch(reset())
+      }, 1000)
     }
-  };
+  }
 }
 
 export function addState(payload) {
-  const { setLoading, setError } = userSlice.actions;
+  const { setLoading, setSuccess, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      await createState(payload);
-      dispatch(loadStates());
+      await createState(payload)
+      dispatch(loadStates())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data));
+      const message = {
+        type: 'error',
+        message: getApiErrorMessage(error)
+      }
+      log.error(error)
+      dispatch(setMessage(message))
+      setTimeout(() => {
+        dispatch(reset())
+      }, 1000)
     }
-  };
+  }
 }
 
 export function modifyState(id, payload) {
-  const { setLoading, setError } = userSlice.actions;
+  const { setLoading, setSuccess, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      await updateState(id, payload);
-      dispatch(loadStates());
+      await updateState(id, payload)
+      dispatch(loadStates())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data));
+      const message = {
+        type: 'error',
+        message: error?.message
+      }
+      log.error(error)
+      dispatch(setMessage(message))
+      setTimeout(() => {
+        dispatch(reset())
+      }, 1000)
     }
-  };
+  }
 }

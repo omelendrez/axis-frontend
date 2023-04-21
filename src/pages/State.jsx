@@ -3,19 +3,34 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { State as StateComponent } from '../components'
 import { getState } from '../services'
+import { getApiErrorMessage, log } from '../helpers'
+import useNoficication from '../hooks/useNotification'
 
 const State = () => {
   const params = useParams()
+  const { id } = params
+
   const [state, setState] = useState(null)
+  const { set } = useNoficication()
 
   useEffect(() => {
-    const id = params?.id
     if (id) {
-      getState(id).then((res) => {
-        setState(res.data)
-      })
+      getState(id)
+        .then((res) => {
+          setState(res.data)
+        })
+        .catch((e) => {
+          log.error(e)
+          const message = getApiErrorMessage(e)
+          const notification = {
+            type: 'error',
+            message
+          }
+          set(notification)
+        })
     }
-  }, [params])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <main className="container-fluid">
