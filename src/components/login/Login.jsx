@@ -1,102 +1,97 @@
-import { useRef, useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import useNoficication from "../../hooks/useNotification";
+import { useRef, useState, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useNoficication from '../../hooks/useNotification'
 import {
   validateUserName,
   validateNotEmpty,
   validatePasswordLength,
-} from "../../helpers";
-import { InputField } from "../shared";
-import { login, SP, KEYS } from "../../services";
-import { UserContext } from "../../context";
+  getApiErrorMessage
+} from '../../helpers'
+import { InputField } from '../shared'
+import { login, SP, KEYS } from '../../services'
+import { UserContext } from '../../context'
 
 const initialValues = {
   name: {
-    value: "",
-    error: "",
+    value: '',
+    error: ''
   },
   password: {
-    value: "",
-    error: "",
-  },
-};
+    value: '',
+    error: ''
+  }
+}
 
 export const Login = () => {
-  const { set } = useNoficication();
-  const { setUser } = useContext(UserContext);
-  const navigate = useNavigate();
-  const [values, setValues] = useState(initialValues);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const errorsCount = useRef(0);
-  const isMounted = useRef();
+  const { set } = useNoficication()
+  const { setUser: setUserContext } = useContext(UserContext)
+  const navigate = useNavigate()
+  const [values, setValues] = useState(initialValues)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const errorsCount = useRef(0)
+  const isMounted = useRef()
 
   useEffect(() => {
-    document.getElementsByTagName("input")[0].focus();
-  }, []);
+    document.getElementsByTagName('input')[0].focus()
+  }, [])
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, value } = e.target
     const data = {
       value,
-      error: "",
-    };
-    setValues((values) => ({ ...values, [id]: data }));
-  };
+      error: ''
+    }
+    setValues((values) => ({ ...values, [id]: data }))
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const session = new SP();
-    errorsCount.current = 0;
-    validatePasswordLength(["password"], 5, setValues, values, errorsCount);
-    validateUserName(["name"], setValues, values, errorsCount);
-    validateNotEmpty(["name", "password"], setValues, values, errorsCount);
+    e.preventDefault()
+    const session = new SP()
+    errorsCount.current = 0
+    validatePasswordLength(['password'], 5, setValues, values, errorsCount)
+    validateUserName(['name'], setValues, values, errorsCount)
+    validateNotEmpty(['name', 'password'], setValues, values, errorsCount)
 
     if (!errorsCount.current) {
       const payload = {
         name: values.name.value,
-        password: values.password.value,
-      };
+        password: values.password.value
+      }
 
-      setIsSubmitting(true);
+      setIsSubmitting(true)
 
       login(payload)
         .then((res) => {
           const notification = {
-            type: "success",
-            message: "Welcome",
-          };
-          set(notification);
-          const token = res.data.token;
-          session.save(KEYS.token, token);
-          const user = { ...res.data, token: undefined };
-          session.save(KEYS.user, user);
-          isMounted.current = false;
-          setUser(res.data);
-          navigate("/");
+            type: 'success',
+            message: 'Welcome'
+          }
+          set(notification)
+          const token = res.data.token
+          session.save(KEYS.token, token)
+          const user = { ...res.data, token: undefined }
+          session.save(KEYS.user, user)
+          isMounted.current = false
+          setUserContext(res.data)
+          navigate('/')
         })
         .catch((e) => {
-          const message =
-            e.code === "ERR_BAD_REQUEST"
-              ? "You have entered an invalid credentials. Please double-check and try again."
-              : e.message;
-
           const notification = {
-            type: "error",
-            message,
-          };
-
-          set(notification);
-          setIsSubmitting(false);
+            type: 'error',
+            message: getApiErrorMessage(e)
+          }
+          set(notification)
+          setIsSubmitting(false)
         })
         .finally(() => {
           if (isMounted.current) {
-            setIsSubmitting(false);
+            setIsSubmitting(false)
           }
-        });
+        })
     }
-  };
+  }
 
-  const { name, password } = values;
+  const { name, password } = values
 
   return (
     <form onSubmit={handleSubmit}>
@@ -126,5 +121,5 @@ export const Login = () => {
         Login
       </button>
     </form>
-  );
-};
+  )
+}

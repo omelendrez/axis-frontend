@@ -6,13 +6,13 @@ const session = new SP()
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json'
   }
 })
 
 api.interceptors.request.use(
-  config => {
+  (config) => {
     const token = session.get(KEYS.token)
     config.headers['Content-Type'] = 'application/json'
     if (token) {
@@ -20,9 +20,10 @@ api.interceptors.request.use(
     }
     return config
   },
-  error => {
+  (error) => {
     Promise.reject(error)
-  })
+  }
+)
 
 api.interceptors.response.use(
   function (response) {
@@ -33,5 +34,4 @@ api.interceptors.response.use(
     console.error(`Looks like there was a problem.Status Code: ${res.status}`)
     return Promise.reject(error)
   }
-);
-
+)
