@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-  createNationality,
-  updateNationality,
-  getNationalities,
-  deleteNationality
+  createCompany,
+  updateCompany,
+  getCompanies,
+  deleteCompany
 } from '../../services'
 
 const initialState = {
@@ -14,8 +14,8 @@ const initialState = {
   error: null
 }
 
-export const nationalitySlice = createSlice({
-  name: 'nationalities',
+export const companySlice = createSlice({
+  name: 'companies',
   initialState: initialState,
   reducers: {
     setLoading(state, action) {
@@ -44,15 +44,15 @@ export const nationalitySlice = createSlice({
   }
 })
 
-export default nationalitySlice.reducer
+export default companySlice.reducer
 
-export function loadNationalities(search) {
-  const { setLoading, setSuccess, setError, reset } = nationalitySlice.actions
+export function loadCompanies(search) {
+  const { setLoading, setSuccess, setError, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getNationalities(search)
+      const { data } = await getCompanies(search)
       dispatch(setSuccess(data))
       setTimeout(() => {
         dispatch(reset())
@@ -64,42 +64,42 @@ export function loadNationalities(search) {
   }
 }
 
-export function removeNationality(id) {
-  const { setLoading, setError } = nationalitySlice.actions
+export function removeCompany(id) {
+  const { setLoading, setError } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await deleteNationality(id)
-      dispatch(loadNationalities())
+      await deleteCompany(id)
+      dispatch(loadCompanies())
     } catch (error) {
       dispatch(setError(error.response.data))
     }
   }
 }
 
-export function addNationality(payload) {
-  const { setLoading, setError } = nationalitySlice.actions
+export function addCompany(payload) {
+  const { setLoading, setError } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await createNationality(payload)
-      dispatch(loadNationalities())
+      await createCompany(payload)
+      dispatch(loadCompanies())
     } catch (error) {
       dispatch(setError(error.response.data))
     }
   }
 }
 
-export function modifyNationality(id, payload) {
-  const { setLoading, setError } = nationalitySlice.actions
+export function modifyCompany(id, payload) {
+  const { setLoading, setError } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await updateNationality(id, payload)
-      dispatch(loadNationalities())
+      await updateCompany(id, payload)
+      dispatch(loadCompanies())
     } catch (error) {
       dispatch(setError(error.response.data))
     }

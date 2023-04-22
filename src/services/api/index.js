@@ -1,4 +1,5 @@
 export * from './apiClient'
+export * from './company'
 export * from './nationality'
 export * from './role'
 export * from './state'

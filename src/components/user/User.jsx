@@ -10,7 +10,7 @@ import {
 } from '../shared'
 import useUsers from '../../hooks/useUsers.js'
 import useRoles from '../../hooks/useRoles'
-import { status as statusList } from '../../data'
+import { status as statusList } from '../../static-data'
 
 const initialValues = {
   name: {
@@ -38,8 +38,10 @@ const initialValues = {
 export const User = ({ user }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
+
   const { roles, load: loadRoles } = useRoles()
   const { data: rolesList } = roles
+
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)

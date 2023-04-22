@@ -10,15 +10,15 @@ import {
 } from '../shared'
 
 import useTrainees from '../../hooks/useTrainees'
+import useStates from '../../hooks/useStates'
+import useNationalities from '../../hooks/useNationalities'
+import useCompanies from '../../hooks/useCompanies'
 
 import {
-  company as companyList,
-  nationality as nationalityList,
   sex as sexList,
-  state as stateList,
   status as statusList,
   type as typeList
-} from '../../data'
+} from '../../static-data'
 
 const initialValues = {
   type: {
@@ -67,6 +67,18 @@ export const Trainee = ({ trainee }) => {
   const { trainees, add, modify } = useTrainees()
   const { isLoading, isSuccess } = trainees
 
+  const { states, load: loadStates } = useStates()
+  const { data: statesList } = states
+
+  const { nationalities, load: loadNationalities } = useNationalities()
+  const { data: natList } = nationalities
+
+  const { companies, load: loadCompanies } = useCompanies()
+  const { data: compList } = companies
+
+  const [nationalitiesList, setNationalitiesList] = useState([])
+  const [companiesList, setCompaniesList] = useState([])
+
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
@@ -82,6 +94,41 @@ export const Trainee = ({ trainee }) => {
       })
     }
   }, [trainee])
+
+  useEffect(() => {
+    if (!statesList.length) {
+      loadStates()
+    }
+    if (!natList.length) {
+      loadNationalities()
+    }
+    if (!compList.length) {
+      loadCompanies()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(
+    () =>
+      setNationalitiesList(
+        natList.map((n) => ({
+          id: n.id,
+          name: n.nationality
+        }))
+      ),
+    [natList]
+  )
+
+  useEffect(
+    () =>
+      setCompaniesList(
+        compList.map((c) => ({
+          id: c.code,
+          name: c.name
+        }))
+      ),
+    [compList]
+  )
 
   useEffect(() => {
     if (isSuccess) {
@@ -210,7 +257,7 @@ export const Trainee = ({ trainee }) => {
           label="State"
           onChange={handleChange}
           value={values.state.value}
-          options={stateList}
+          options={statesList}
           required
         />
 
@@ -219,7 +266,7 @@ export const Trainee = ({ trainee }) => {
           label="Nationality"
           onChange={handleChange}
           value={values.nationality.value}
-          options={nationalityList}
+          options={nationalitiesList}
           required
         />
 
@@ -238,7 +285,7 @@ export const Trainee = ({ trainee }) => {
           label="Company"
           onChange={handleChange}
           value={values.company.value}
-          options={companyList}
+          options={companiesList}
           required
         />
         {trainee?.id && (
