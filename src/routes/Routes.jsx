@@ -29,6 +29,9 @@ const Nationality = lazy(() => import('../pages/Nationality'))
 const Companies = lazy(() => import('../pages/Companies'))
 const Company = lazy(() => import('../pages/Company'))
 
+const Courses = lazy(() => import('../pages/Courses'))
+const Course = lazy(() => import('../pages/Course'))
+
 export const AppRoutes = () => {
   const { user } = useUser()
   return (
@@ -43,6 +46,9 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* Users  */}
+
       <Route
         path="/users"
         element={
@@ -67,6 +73,8 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* Trainees */}
 
       <Route
         path="/trainees"
@@ -93,6 +101,8 @@ export const AppRoutes = () => {
         }
       />
 
+      {/* Roles  */}
+
       <Route
         path="/roles"
         element={
@@ -117,6 +127,8 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* States  */}
 
       <Route
         path="/states"
@@ -143,6 +155,8 @@ export const AppRoutes = () => {
         }
       />
 
+      {/* Nationalities */}
+
       <Route
         path="/nationalities"
         element={
@@ -168,6 +182,8 @@ export const AppRoutes = () => {
         }
       />
 
+      {/* Companies */}
+
       <Route
         path="/companies"
         element={
@@ -192,6 +208,35 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* Courses */}
+
+      <Route
+        path="/courses"
+        element={
+          <ProtectedRoute user={user}>
+            <Courses />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/course/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <Course />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/course"
+        element={
+          <ProtectedRoute user={user}>
+            <Course />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Change password */}
 
       <Route
         path="/change-password"

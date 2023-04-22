@@ -1,5 +1,6 @@
 export * from './apiClient'
 export * from './company'
+export * from './course'
 export * from './nationality'
 export * from './role'
 export * from './state'
