@@ -2,8 +2,6 @@ import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from '../guard'
 import useUser from '../hooks/useUser'
-import Companies from '../pages/Companies'
-import Company from '../pages/Company'
 
 const NotFound = lazy(() => import('../components/navbar/NotFound'))
 const ChangePassword = lazy(() => import('../pages/ChangePassword'))
@@ -27,6 +25,9 @@ const State = lazy(() => import('../pages/State'))
 
 const Nationalities = lazy(() => import('../pages/Nationalities'))
 const Nationality = lazy(() => import('../pages/Nationality'))
+
+const Companies = lazy(() => import('../pages/Companies'))
+const Company = lazy(() => import('../pages/Company'))
 
 export const AppRoutes = () => {
   const { user } = useUser()

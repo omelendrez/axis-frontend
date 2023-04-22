@@ -1,11 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  Users as UsersComponent,
-  TableButtonRow,
-  Loading,
-  ListView
-} from '../components'
+import { TableButtonRow, Loading, ListView } from '../components'
 import useUsers from '../hooks/useUsers'
 import useNoficication from '../hooks/useNotification'
 
