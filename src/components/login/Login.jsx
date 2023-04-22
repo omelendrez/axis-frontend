@@ -4,13 +4,11 @@ import useNoficication from '../../hooks/useNotification'
 import {
   validateUserName,
   validateNotEmpty,
-  validatePasswordLength,
-  getApiErrorMessage
+  validatePasswordLength
 } from '../../helpers'
-import { InputField } from '../shared'
+import { FormButtonRow, InputField } from '../shared'
 import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
-import './login.css'
 
 const initialValues = {
   name: {
@@ -96,7 +94,7 @@ export const Login = () => {
   const { name, password } = values
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleSubmit}>
       <InputField
         type="text"
         id="name"
@@ -119,9 +117,14 @@ export const Login = () => {
         required
       />
 
-      <button type="submit" aria-busy={isSubmitting}>
-        Login
-      </button>
+      <FormButtonRow>
+        <button type="submit" aria-busy={isSubmitting}>
+          Login
+        </button>
+        <button type="submit" aria-busy={isSubmitting}>
+          Register
+        </button>
+      </FormButtonRow>
     </form>
   )
 }
