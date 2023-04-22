@@ -1,0 +1,10 @@
+.login-component {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 640px) {
+  .login-component {
+    width: 40vw;
+    margin: 3rem auto;
+  }
+}
