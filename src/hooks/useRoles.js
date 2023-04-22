@@ -12,7 +12,7 @@ const useRoles = () => {
 
   const add = (payload) => dispatch(addRole(payload))
   const modify = (id, payload) => dispatch(modifyRole(id, payload))
-  const load = () => dispatch(loadRoles())
+  const load = (search) => dispatch(loadRoles(search))
   const remove = (id) => dispatch(removeRole(id))
 
   return {

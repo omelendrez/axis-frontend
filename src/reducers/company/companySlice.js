@@ -5,6 +5,7 @@ import {
   getCompanies,
   deleteCompany
 } from '../../services'
+import { handleError } from '../error'
 
 const initialState = {
   data: [],
@@ -18,17 +19,19 @@ export const companySlice = createSlice({
   name: 'companies',
   initialState: initialState,
   reducers: {
-    setLoading(state, action) {
+    setLoading(state) {
       state.isLoading = true
       state.isSuccess = false
       state.isError = false
       state.error = null
     },
-    setSuccess(state, action) {
-      state.data = action.payload
+    setSuccess(state) {
       state.isSuccess = true
       state.isLoading = false
       state.isError = false
+    },
+    setData(state, action) {
+      state.data = action.payload
     },
     setError(state, action) {
       state.isSuccess = false
@@ -47,61 +50,62 @@ export const companySlice = createSlice({
 export default companySlice.reducer
 
 export function loadCompanies(search) {
-  const { setLoading, setSuccess, setError, reset } = companySlice.actions
+  const { setLoading, setData, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
       const { data } = await getCompanies(search)
-      dispatch(setSuccess(data))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      dispatch(setData(data))
+      dispatch(reset())
     } catch (error) {
+      handleError(error, dispatch, reset)
       console.log(error)
-      dispatch(setError(error.response.data))
     }
   }
 }
 
 export function removeCompany(id) {
-  const { setLoading, setError } = companySlice.actions
+  const { setLoading, setSuccess, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
       await deleteCompany(id)
       dispatch(loadCompanies())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data))
+      handleError(error, dispatch, reset)
     }
   }
 }
 
 export function addCompany(payload) {
-  const { setLoading, setError } = companySlice.actions
+  const { setLoading, setSuccess, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
       await createCompany(payload)
       dispatch(loadCompanies())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data))
+      handleError(error, dispatch, reset)
     }
   }
 }
 
 export function modifyCompany(id, payload) {
-  const { setLoading, setError } = companySlice.actions
+  const { setLoading, setSuccess, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
       await updateCompany(id, payload)
       dispatch(loadCompanies())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data))
+      handleError(error, dispatch, reset)
     }
   }
 }

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createRole, updateRole, getRoles, deleteRole } from '../../services'
-import { getApiErrorMessage, log } from '../../helpers'
-import { setMessage } from '../notification/notificationSlice'
+import { handleError } from '../error'
 
 const initialState = {
   data: [],
@@ -53,19 +52,9 @@ export function loadRoles(search) {
     try {
       const { data } = await getRoles(search)
       dispatch(setData(data))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      dispatch(reset())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: getApiErrorMessage(error)
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }
@@ -80,15 +69,7 @@ export function removeRole(id) {
       dispatch(loadRoles())
       dispatch(setSuccess())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: getApiErrorMessage(error)
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }
@@ -103,15 +84,7 @@ export function addRole(payload) {
       dispatch(loadRoles())
       dispatch(setSuccess())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: getApiErrorMessage(error)
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }
@@ -126,15 +99,7 @@ export function modifyRole(id, payload) {
       dispatch(loadRoles())
       dispatch(setSuccess())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: error?.message
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }

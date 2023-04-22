@@ -40,13 +40,17 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
-  const { data } = useNoficication()
+  const { data, clear } = useNoficication()
 
   useEffect(() => {
     if (data.type && data.message) {
       const delay = data.message.split(' ').length * 500
       toast[data.type](data.message, { autoClose: delay })
+      setTimeout(() => {
+        clear()
+      }, delay)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   const session = new SP()

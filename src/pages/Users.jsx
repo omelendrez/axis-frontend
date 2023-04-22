@@ -1,6 +1,11 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Users as UsersComponent, TableButtonRow, Loading } from '../components'
+import {
+  Users as UsersComponent,
+  TableButtonRow,
+  Loading,
+  ListView
+} from '../components'
 import useUsers from '../hooks/useUsers'
 import useNoficication from '../hooks/useNotification'
 
@@ -44,6 +49,13 @@ const Users = () => {
     removeUser(user.id)
   }
 
+  const fields = [
+    { name: 'name', label: 'Name' },
+    { name: 'full_name', label: 'Username' },
+    { name: 'email', label: 'Email' },
+    { name: 'role_name', label: 'Role' }
+  ]
+
   return (
     <main className="container-fluid">
       {isLoading && <Loading />}
@@ -61,12 +73,13 @@ const Users = () => {
 
       <TableButtonRow url="/user" label="Add user" />
 
-      <UsersComponent
-        users={data}
+      <ListView
+        items={data}
+        fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadUsers={loadUsers}
+        loadItems={loadUsers}
       />
     </main>
   )

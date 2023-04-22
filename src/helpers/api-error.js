@@ -6,7 +6,7 @@
 // }
 
 export const getApiErrorMessage = (e) => {
-  return e.message
+  return e.response.data.message || e.message
   // log.error(
   //   e?.code
   //     ? e

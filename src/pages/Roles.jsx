@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Roles as RolesComponent, TableButtonRow, Loading } from '../components'
+import { TableButtonRow, Loading, ListView } from '../components'
 
 import useRoles from '../hooks/useRoles'
 import useNoficication from '../hooks/useNotification'
@@ -44,6 +44,8 @@ const Roles = () => {
     removeRole(role.id)
   }
 
+  const fields = [{ name: 'name', label: 'Name' }]
+
   return (
     <main className="container-fluid">
       {isLoading && <Loading />}
@@ -60,10 +62,13 @@ const Roles = () => {
       </nav>
       <TableButtonRow url="/role" label="Add role" />
 
-      <RolesComponent
-        roles={data}
+      <ListView
+        items={data}
+        fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        isLoading={isLoading}
+        loadItems={loadRoles}
       />
     </main>
   )

@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  Companies as CompaniesComponent,
-  TableButtonRow,
-  Loading
-} from '../components'
+import { ListView, TableButtonRow, Loading } from '../components'
 import useUsers from '../hooks/useCompanies'
 import useNoficication from '../hooks/useNotification'
 
@@ -48,6 +44,11 @@ const Companies = () => {
     removeCompany(company.id)
   }
 
+  const fields = [
+    { name: 'code', label: 'Code' },
+    { name: 'name', label: 'Name' }
+  ]
+
   return (
     <main className="container-fluid">
       {isLoading && <Loading />}
@@ -65,12 +66,13 @@ const Companies = () => {
 
       <TableButtonRow url="/company" label="Add company" />
 
-      <CompaniesComponent
-        companies={data}
+      <ListView
+        items={data}
+        fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadCompanies={loadCompanies}
+        loadItems={loadCompanies}
       />
     </main>
   )

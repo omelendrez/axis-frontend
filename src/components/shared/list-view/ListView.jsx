@@ -1,20 +1,40 @@
 import { useState } from 'react'
-import useUser from '../../hooks/useUser'
-import { ActionButton, Search } from '../shared'
+import useUser from '../../../hooks/useUser'
+import { ActionButton, Search } from '../'
 
-const Row = ({ company, onEdit, onDelete }) => {
+const Row = ({ item, fields, onEdit, onDelete }) => {
   const { user } = useUser()
   return (
     <tr>
-      <td>{company.code}</td>
-      <td>{company.name}</td>
+      {fields.map((f) => {
+        let style = {}
+
+        if (f.noWrap) {
+          style = { ...style, whiteSpace: 'nowrap' }
+        }
+
+        if (f.ellipsis) {
+          style = {
+            ...style,
+            maxWidth: f.maxWidth,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }
+        }
+
+        return (
+          <td key={f.name} style={style}>
+            {item[f.name]}
+          </td>
+        )
+      })}
 
       <td className="action-cell">
         <ActionButton
           label="Edit"
           className="primary"
           disabled={user.role !== 1}
-          onClick={() => onEdit(company)}
+          onClick={() => onEdit(item)}
         />
       </td>
       {user.role === 1 && (
@@ -23,7 +43,7 @@ const Row = ({ company, onEdit, onDelete }) => {
             label="Delete"
             className="secondary"
             disabled={user.role !== 1}
-            onClick={() => onDelete(company)}
+            onClick={() => onDelete(item)}
           />
         </td>
       )}
@@ -31,9 +51,10 @@ const Row = ({ company, onEdit, onDelete }) => {
   )
 }
 
-export const Companies = ({
-  loadCompanies,
-  companies,
+export const ListView = ({
+  loadItems,
+  items,
+  fields,
   onEdit,
   onDelete,
   isLoading
@@ -42,7 +63,7 @@ export const Companies = ({
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      loadCompanies(search)
+      loadItems(search)
     }
   }
 
@@ -57,14 +78,17 @@ export const Companies = ({
         <table role="grid">
           <thead>
             <tr>
-              <th scope="col">Code</th>
-              <th scope="col">Name</th>
+              {fields.map((f) => (
+                <th key={f.name} scope="col">
+                  {f.label}
+                </th>
+              ))}
               <th></th>
             </tr>
           </thead>
 
           <tbody>
-            {!isLoading && companies.length === 0 && (
+            {!isLoading && items.length === 0 && (
               <tr>
                 <td colSpan={4}>
                   <article>No records found</article>
@@ -72,10 +96,11 @@ export const Companies = ({
               </tr>
             )}
 
-            {companies.map((company) => (
+            {items.map((item) => (
               <Row
-                company={company}
-                key={company.id}
+                item={item}
+                fields={fields}
+                key={item.id}
                 onEdit={onEdit}
                 onDelete={onDelete}
               />

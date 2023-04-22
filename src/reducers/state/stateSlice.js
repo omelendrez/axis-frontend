@@ -5,8 +5,7 @@ import {
   getStates,
   deleteState
 } from '../../services'
-import { getApiErrorMessage, log } from '../../helpers'
-import { setMessage } from '../notification/notificationSlice'
+import { handleError } from '../error'
 
 const initialState = {
   data: [],
@@ -58,19 +57,9 @@ export function loadStates(search) {
     try {
       const { data } = await getStates(search)
       dispatch(setData(data))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      dispatch(reset())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: getApiErrorMessage(error)
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }
@@ -85,15 +74,7 @@ export function removeState(id) {
       dispatch(loadStates())
       dispatch(setSuccess())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: getApiErrorMessage(error)
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }
@@ -108,15 +89,7 @@ export function addState(payload) {
       dispatch(loadStates())
       dispatch(setSuccess())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: getApiErrorMessage(error)
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }
@@ -131,15 +104,7 @@ export function modifyState(id, payload) {
       dispatch(loadStates())
       dispatch(setSuccess())
     } catch (error) {
-      const message = {
-        type: 'error',
-        message: error?.message
-      }
-      log.error(error)
-      dispatch(setMessage(message))
-      setTimeout(() => {
-        dispatch(reset())
-      }, 1000)
+      handleError(error, dispatch, reset)
     }
   }
 }

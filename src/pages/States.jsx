@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  States as StatesComponent,
-  TableButtonRow,
-  Loading
-} from '../components'
+import { TableButtonRow, Loading, ListView } from '../components'
 
 import useStates from '../hooks/useStates'
 import useNotification from '../hooks/useNotification'
@@ -47,6 +43,8 @@ const States = () => {
     removeState(state.id)
   }
 
+  const fields = [{ name: 'name', id: 'Name' }]
+
   return (
     <main className="container-fluid">
       {isLoading && <Loading />}
@@ -63,11 +61,13 @@ const States = () => {
       </nav>
       <TableButtonRow url="/state" label="Add state" />
 
-      <StatesComponent
-        states={data}
+      <ListView
+        items={data}
+        fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        loadStates={loadStates}
+        isLoading={isLoading}
+        loadItems={loadStates}
       />
     </main>
   )

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   data: {
@@ -13,10 +13,13 @@ export const notificationSlice = createSlice({
   reducers: {
     setMessage(state, action) {
       state.data = action.payload
+    },
+    reset(state) {
+      state.data = initialState.data
     }
   }
 })
 
-export const { setMessage } = notificationSlice.actions
+export const { setMessage, reset } = notificationSlice.actions
 
 export default notificationSlice.reducer

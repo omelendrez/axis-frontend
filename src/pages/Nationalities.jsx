@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  Nationalities as NationalitiesComponent,
-  TableButtonRow,
-  Loading
-} from '../components'
+import { TableButtonRow, Loading, ListView } from '../components'
 
 import useNationalities from '../hooks/useNationalities'
 import useNotification from '../hooks/useNotification'
@@ -53,6 +49,12 @@ const Nationalities = () => {
     removeNationality(nationality.id)
   }
 
+  const fields = [
+    { name: 'code', label: 'Code' },
+    { name: 'country', label: 'Country' },
+    { name: 'nationality', label: 'Nationality' }
+  ]
+
   return (
     <main className="container-fluid">
       {isLoading && <Loading />}
@@ -69,11 +71,13 @@ const Nationalities = () => {
       </nav>
       <TableButtonRow url="/nationality" label="Add nationality" />
 
-      <NationalitiesComponent
-        nationalities={data}
+      <ListView
+        items={data}
+        fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        loadNationalities={loadNationalities}
+        isLoading={isLoading}
+        loadItems={loadNationalities}
       />
     </main>
   )

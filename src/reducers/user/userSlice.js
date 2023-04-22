@@ -1,102 +1,105 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createUser, updateUser, getUsers, deleteUser } from "../../services";
+import { createSlice } from '@reduxjs/toolkit'
+import { createUser, updateUser, getUsers, deleteUser } from '../../services'
+import { handleError } from '../error'
 
 const initialState = {
   data: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
-  error: null,
-};
+  error: null
+}
 
 export const userSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState: initialState,
   reducers: {
-    setLoading(state, action) {
-      state.isLoading = true;
-      state.isSuccess = false;
-      state.isError = false;
-      state.error = null;
+    setLoading(state) {
+      state.isLoading = true
+      state.isSuccess = false
+      state.isError = false
+      state.error = null
     },
-    setSuccess(state, action) {
-      state.data = action.payload;
-      state.isSuccess = true;
-      state.isLoading = false;
-      state.isError = false;
+    setSuccess(state) {
+      state.isSuccess = true
+      state.isLoading = false
+      state.isError = false
+    },
+    setData(state, action) {
+      state.data = action.payload
     },
     setError(state, action) {
-      state.isSuccess = false;
-      state.isLoading = false;
-      state.isError = true;
-      state.error = action.payload;
+      state.isSuccess = false
+      state.isLoading = false
+      state.isError = true
+      state.error = action.payload
     },
     reset(state) {
-      state.isSuccess = false;
-      state.isLoading = false;
-      state.isError = false;
-    },
-  },
-});
+      state.isSuccess = false
+      state.isLoading = false
+      state.isError = false
+    }
+  }
+})
 
-export default userSlice.reducer;
+export default userSlice.reducer
 
 export function loadUsers(search) {
-  const { setLoading, setSuccess, setError, reset } = userSlice.actions;
+  const { setLoading, setData, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      const { data } = await getUsers(search);
-      dispatch(setSuccess(data));
-      setTimeout(() => {
-        dispatch(reset());
-      }, 1000);
+      const { data } = await getUsers(search)
+      dispatch(setData(data))
+      dispatch(reset())
     } catch (error) {
-      console.log(error);
-      dispatch(setError(error.response.data));
+      handleError(error, dispatch, reset)
     }
-  };
+  }
 }
 
 export function removeUser(id) {
-  const { setLoading, setError } = userSlice.actions;
+  const { setLoading, setSuccess, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      await deleteUser(id);
-      dispatch(loadUsers());
+      await deleteUser(id)
+      dispatch(loadUsers())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data));
+      handleError(error, dispatch, reset)
     }
-  };
+  }
 }
 
 export function addUser(payload) {
-  const { setLoading, setError } = userSlice.actions;
+  const { setLoading, setSuccess, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      await createUser(payload);
-      dispatch(loadUsers());
+      await createUser(payload)
+      dispatch(loadUsers())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data));
+      handleError(error, dispatch, reset)
     }
-  };
+  }
 }
 
 export function modifyUser(id, payload) {
-  const { setLoading, setError } = userSlice.actions;
+  const { setLoading, setSuccess, reset } = userSlice.actions
 
   return async (dispatch) => {
-    dispatch(setLoading());
+    dispatch(setLoading())
     try {
-      await updateUser(id, payload);
-      dispatch(loadUsers());
+      await updateUser(id, payload)
+      dispatch(loadUsers())
+      dispatch(setSuccess())
     } catch (error) {
-      dispatch(setError(error.response.data));
+      handleError(error, dispatch, reset)
     }
-  };
+  }
 }
