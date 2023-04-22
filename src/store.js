@@ -5,6 +5,7 @@ import userSlice from './reducers/user/userSlice'
 import traineeSlice from './reducers/trainee/traineeSlice'
 import stateSlice from './reducers/state/stateSlice'
 import nationalitySlice from './reducers/nationality/nationalitySlice'
+import roleSlice from './reducers/role/roleSlice'
 
 export default configureStore({
   reducer: {
@@ -12,7 +13,8 @@ export default configureStore({
     users: userSlice,
     trainees: traineeSlice,
     states: stateSlice,
-    nationalities: nationalitySlice
+    nationalities: nationalitySlice,
+    roles: roleSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

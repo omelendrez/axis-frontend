@@ -1,62 +1,81 @@
-import { Link, useLocation } from "react-router-dom";
-import { useContext, useRef } from "react";
-import { SP } from "../../services";
-import { UserContext, ThemeContext } from "../../context";
-import { Divider } from "../shared";
-import useUser from "../../hooks/useUser";
+import { Link, useLocation } from 'react-router-dom'
+import { useContext, useRef } from 'react'
+import { SP } from '../../services'
+import { UserContext, ThemeContext } from '../../context'
+import { Divider } from '../shared'
 
-import "./navbar.css";
+import './navbar.css'
 
 const LiElement = ({ route, path, label, icon, onClick }) => (
-  <li className={route === `${path}` ? "active" : ""}>
+  <li className={route === `${path}` ? 'active' : ''}>
     <Link to={path} onClick={onClick} className="link-option">
       <span className="material-icons">{icon}</span>
       {label}
     </Link>
   </li>
-);
+)
 
-export const Navbar = () => {
-  const { theme, toggle } = useContext(ThemeContext);
-  const { user, setUser } = useContext(UserContext);
-  const { user: me } = useUser();
+export const Navbar = ({ me }) => {
+  const { theme, toggle } = useContext(ThemeContext)
+  const { user, setUser } = useContext(UserContext)
 
-  const detailsRef = useRef(null);
+  const detailsRef = useRef(null)
 
   const handleClick = () => {
-    detailsRef.current.removeAttribute("open");
-  };
+    detailsRef.current.removeAttribute('open')
+  }
 
   const handleLogout = (e) => {
-    e.preventDefault();
-    const session = new SP();
-    session.clear();
-    setUser(null);
-  };
+    e.preventDefault()
+    const session = new SP()
+    session.clear()
+    setUser(null)
+  }
 
-  const appRoutes = [
-    {
-      path: "/dashboard",
-      label: "Dashboard",
-      icon: "dashboard",
+  const links = {
+    appRoutes: {
+      authorized: [
+        {
+          path: '/dashboard',
+          label: 'Dashboard',
+          icon: 'dashboard'
+        }
+      ],
+      notAuthorized: []
     },
-  ];
+    userRoutes: {
+      authorized: [
+        {
+          path: '/change-password',
+          label: 'Change Password',
+          icon: 'key'
+        },
+        {
+          label: 'Logout',
+          icon: 'logout',
+          onClick: handleLogout
+        }
+      ],
+      notAuthorized: [
+        {
+          path: '/login',
+          label: 'Login',
+          icon: 'key'
+        }
+      ]
+    }
+  }
 
-  const userRoutes = [
-    {
-      path: "/change-password",
-      label: "Change Password",
-      icon: "key",
-    },
-    {
-      label: "Logout",
-      icon: "logout",
-      onClick: handleLogout,
-    },
-  ];
+  const appRoutes = me?.id
+    ? links.appRoutes.authorized
+    : links.appRoutes.notAuthorized
 
-  const location = useLocation();
-  const route = location.pathname;
+  const userRoutes = me?.id
+    ? links.userRoutes.authorized
+    : links.userRoutes.notAuthorized
+
+  const location = useLocation()
+  const route = location.pathname
 
   return (
     <nav className="container-fluid">
@@ -85,7 +104,7 @@ export const Navbar = () => {
                   icon={r.icon}
                   key={r.label}
                   label={r.label}
-                  onClick={r.label === "Logout" ? handleLogout : handleClick}
+                  onClick={r.label === 'Logout' ? handleLogout : handleClick}
                 />
               ))}
             </ul>
@@ -93,13 +112,13 @@ export const Navbar = () => {
         </li>
       </ul>
       <ul>
-        <li>{me.full_name}</li>
+        <li>{me?.full_name || 'Not logged in'}</li>
       </ul>
       <ul>
         <li>
           <label htmlFor="theme">
             <span className="material-icons">
-              {theme === "dark" ? "sunny" : "bedtime"}
+              {theme === 'dark' ? 'sunny' : 'bedtime'}
               <input
                 type="checkbox"
                 id="theme"
@@ -111,5 +130,5 @@ export const Navbar = () => {
         </li>
       </ul>
     </nav>
-  );
-};
+  )
+}

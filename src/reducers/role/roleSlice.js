@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-  createState,
-  updateState,
-  getStates,
-  deleteState
-} from '../../services'
+import { createRole, updateRole, getRoles, deleteRole } from '../../services'
 import { getApiErrorMessage, log } from '../../helpers'
 import { setMessage } from '../notification/notificationSlice'
 
@@ -16,8 +11,8 @@ const initialState = {
   error: null
 }
 
-export const stateSlice = createSlice({
-  name: 'states',
+export const roleSlice = createSlice({
+  name: 'roles',
   initialState: initialState,
   reducers: {
     setLoading(state) {
@@ -48,15 +43,15 @@ export const stateSlice = createSlice({
   }
 })
 
-export default stateSlice.reducer
+export default roleSlice.reducer
 
-export function loadStates(search) {
-  const { setLoading, setData, reset } = stateSlice.actions
+export function loadRoles(search) {
+  const { setLoading, setData, reset } = roleSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getStates(search)
+      const { data } = await getRoles(search)
       dispatch(setData(data))
       setTimeout(() => {
         dispatch(reset())
@@ -75,14 +70,14 @@ export function loadStates(search) {
   }
 }
 
-export function removeState(id) {
-  const { setLoading, setSuccess, reset } = stateSlice.actions
+export function removeRole(id) {
+  const { setLoading, setSuccess, reset } = roleSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await deleteState(id)
-      dispatch(loadStates())
+      await deleteRole(id)
+      dispatch(loadRoles())
       dispatch(setSuccess())
     } catch (error) {
       const message = {
@@ -98,14 +93,14 @@ export function removeState(id) {
   }
 }
 
-export function addState(payload) {
-  const { setLoading, setSuccess, reset } = stateSlice.actions
+export function addRole(payload) {
+  const { setLoading, setSuccess, reset } = roleSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await createState(payload)
-      dispatch(loadStates())
+      await createRole(payload)
+      dispatch(loadRoles())
       dispatch(setSuccess())
     } catch (error) {
       const message = {
@@ -121,14 +116,14 @@ export function addState(payload) {
   }
 }
 
-export function modifyState(id, payload) {
-  const { setLoading, setSuccess, reset } = stateSlice.actions
+export function modifyRole(id, payload) {
+  const { setLoading, setSuccess, reset } = roleSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await updateState(id, payload)
-      dispatch(loadStates())
+      await updateRole(id, payload)
+      dispatch(loadRoles())
       dispatch(setSuccess())
     } catch (error) {
       const message = {

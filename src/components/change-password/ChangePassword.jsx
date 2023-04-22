@@ -5,8 +5,7 @@ import { InputField } from '../shared'
 import {
   validatePasswordLength,
   validateNotEmpty,
-  validateConfirmPassword,
-  getApiErrorMessage
+  validateConfirmPassword
 } from '../../helpers'
 import { changePassword } from '../../services'
 import { UserContext } from '../../context'

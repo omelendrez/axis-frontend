@@ -62,7 +62,7 @@ function App() {
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
       <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
         <UserContext.Provider value={contextValues}>
-          {user?.id && <Navbar />}
+          <Navbar me={user} />
           <AppRoutes />
         </UserContext.Provider>
       </ErrorBoundary>

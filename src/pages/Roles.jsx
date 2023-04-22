@@ -1,71 +1,48 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Roles as RolesComponent, TableButtonRow, Loading } from '../components'
-import { deleteRole, getRoles } from '../services'
+
+import useRoles from '../hooks/useRoles'
 import useNoficication from '../hooks/useNotification'
 
 const Roles = () => {
-  const [roles, setRoles] = useState([])
+  const { roles, load: loadRoles, remove: removeRole } = useRoles()
+  const { data, isLoading, isSuccess, isError, error } = roles
+
   const navigate = useNavigate()
   const { set } = useNoficication()
-  const [isLoading, setIsLoading] = useState(false)
 
-  const handleApiSuccess = (message) => {
-    const notification = { type: 'success', message }
-    set(notification)
-    setIsLoading(true)
-    getRoles()
-      .then((res) => {
-        setRoles(res.data)
-      })
-      .catch((e) => {
-        handleApiError(e)
-      })
-      .finally(() => {
-        handleFinally()
-      })
-  }
-
-  const handleApiError = (e) => {
-    const notification = {
-      type: 'error',
-      message: e.response.data.message
+  useEffect(() => {
+    if (!data.length) {
+      loadRoles()
     }
-    set(notification)
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const handleFinally = () => {
-    setIsLoading(false)
-  }
+  useEffect(() => {
+    if (isError) {
+      const notification = {
+        type: 'error',
+        message: error.message
+      }
+      set(notification)
+    }
+    if (isSuccess) {
+      const notification = {
+        type: 'success',
+        message: 'Operation completed successfully'
+      }
+      set(notification)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isSuccess])
 
   const handleEdit = (role) => {
     navigate(`/role/${role.id}`)
   }
-
   const handleDelete = (role) => {
-    deleteRole(role.id)
-      .then(() => {
-        handleApiSuccess('Role deleted successfully')
-      })
-      .catch((e) => {
-        handleApiError(e)
-      })
+    removeRole(role.id)
   }
-
-  useEffect(() => {
-    setIsLoading(true)
-    getRoles()
-      .then((res) => {
-        setRoles(res.data)
-      })
-      .catch((e) => {
-        handleApiError(e)
-      })
-      .finally(() => {
-        handleFinally()
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <main className="container-fluid">
@@ -84,7 +61,7 @@ const Roles = () => {
       <TableButtonRow url="/role" label="Add role" />
 
       <RolesComponent
-        roles={roles}
+        roles={data}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
