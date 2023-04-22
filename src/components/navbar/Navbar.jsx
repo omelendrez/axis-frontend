@@ -58,7 +58,7 @@ export const Navbar = ({ me }) => {
       ],
       notAuthorized: [
         {
-          path: '/',
+          path: '/login',
           label: 'Login',
           icon: 'key'
         }
