@@ -9,7 +9,8 @@ import {
   CancelButton
 } from '../shared'
 import useUsers from '../../hooks/useUsers.js'
-import { role as roleList, status as statusList } from '../../data'
+import useRoles from '../../hooks/useRoles'
+import { status as statusList } from '../../data'
 
 const initialValues = {
   name: {
@@ -37,12 +38,21 @@ const initialValues = {
 export const User = ({ user }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
+  const { roles, load: loadRoles } = useRoles()
+  const { data: rolesList } = roles
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [tempValue, setTempValue] = useState(null)
   const navigate = useNavigate()
   const formRef = useRef()
+
+  useEffect(() => {
+    if (!rolesList.length) {
+      loadRoles()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (user) {
@@ -161,7 +171,7 @@ export const User = ({ user }) => {
           label="Role"
           onChange={handleChange}
           value={values.role.value}
-          options={roleList}
+          options={rolesList}
         />
         {user?.id && (
           <Dropdown
