@@ -1,4 +1,5 @@
 export * from './change-password'
+export * from './company'
 export * from './dahsboard'
 export * from './home'
 export * from './login'
