@@ -6,7 +6,7 @@ import {
   removeRole
 } from '../reducers/role/roleSlice'
 
-const userRoles = () => {
+const useRoles = () => {
   const dispatch = useDispatch()
   const roles = useSelector((state) => state.roles)
 
@@ -24,4 +24,4 @@ const userRoles = () => {
   }
 }
 
-export default userRoles
+export default useRoles
