@@ -4,7 +4,10 @@
 
 @media screen and (min-width: 640px) {
   .login-component {
-    width: 40vw;
+    width: 60vw;
     margin: 3rem auto;
+  }
+  .login-component form {
+    width: 100%;
   }
 }

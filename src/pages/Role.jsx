@@ -33,7 +33,9 @@ const Role = () => {
           <li>Role</li>
         </ul>
       </nav>
-      <RoleComponent role={role} />
+      <article className="form-container">
+        <RoleComponent role={role} />
+      </article>
     </main>
   )
 }

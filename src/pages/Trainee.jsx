@@ -33,7 +33,9 @@ const Trainee = () => {
           <li>Trainee</li>
         </ul>
       </nav>
-      <TraineeComponent trainee={trainee} />
+      <article className="form-container">
+        <TraineeComponent trainee={trainee} />
+      </article>
     </main>
   )
 }

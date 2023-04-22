@@ -44,7 +44,7 @@ export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
   }
 
   return (
-    <main className="container-fluid">
+    <>
       <Search
         onChange={(e) => setSearch(e.target.value)}
         value={search}
@@ -82,6 +82,6 @@ export const Users = ({ loadUsers, users, onEdit, onDelete, isLoading }) => {
           </tbody>
         </table>
       </figure>
-    </main>
+    </>
   )
 }

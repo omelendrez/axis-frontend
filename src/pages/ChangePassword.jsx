@@ -7,9 +7,9 @@ const ChangePassword = () => {
         <h2>Change password</h2>
         <h3>Update credentials</h3>
       </hgroup>
-      <div className="container">
+      <article className="form-container">
         <ChangePasswordComponent />
-      </div>
+      </article>
     </main>
   )
 }

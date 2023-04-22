@@ -77,9 +77,10 @@ export const Login = () => {
           navigate('/')
         })
         .catch((e) => {
+          console.log(e)
           const notification = {
             type: 'error',
-            message: getApiErrorMessage(e)
+            message: e.response.data.message
           }
           set(notification)
           setIsSubmitting(false)

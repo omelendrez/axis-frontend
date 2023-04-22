@@ -7,7 +7,7 @@ const Login = () => {
         <div>
           <hgroup>
             <h1>Login</h1>
-            <hd2>Enter your credentials</hd2>
+            <h2>Enter your credentials</h2>
           </hgroup>
           <LoginComponent />
         </div>

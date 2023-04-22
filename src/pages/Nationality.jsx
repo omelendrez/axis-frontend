@@ -33,7 +33,9 @@ const Nationality = () => {
           <li>Nationality</li>
         </ul>
       </nav>
-      <NationalityComponent nationality={nationality} />
+      <article className="form-container">
+        <NationalityComponent nationality={nationality} />
+      </article>
     </main>
   )
 }

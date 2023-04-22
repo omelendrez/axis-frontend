@@ -48,7 +48,9 @@ const State = () => {
           <li>State</li>
         </ul>
       </nav>
-      <StateComponent state={state} />
+      <article className="form-container">
+        <StateComponent state={state} />
+      </article>
     </main>
   )
 }

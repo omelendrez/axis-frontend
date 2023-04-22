@@ -78,7 +78,7 @@ export const ChangePassword = () => {
         .catch((e) => {
           const notification = {
             type: 'error',
-            message: getApiErrorMessage(e)
+            message: e.response.data.message
           }
           set(notification)
           setIsSubmitting(false)
