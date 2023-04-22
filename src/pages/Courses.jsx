@@ -47,10 +47,11 @@ const Courses = () => {
   const fields = [
     { name: 'code', label: 'Code' },
     { name: 'name', label: 'Name' },
+    { name: 'validity', label: 'Validity' },
+    { name: 'duration', label: 'Duration' },
+    { name: 'id_card', label: 'Card?' },
     { name: 'front_id', label: 'ID front' },
     { name: 'back_id', label: 'ID back' },
-    { name: 'id_card', label: 'Card?' },
-    { name: 'validity', label: 'Validity' },
     { name: 'cert_type_name', label: 'Type' },
     { name: 'cert_id_card', label: 'Cert. card?' },
     { name: 'opito_reg_code', label: 'Reg. code' }
