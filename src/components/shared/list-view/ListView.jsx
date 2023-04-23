@@ -8,7 +8,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
   fields.forEach((f) => {
     const lock = f.lock
     if (lock) {
-      if (item[lock.field] === lock.value) {
+      if (lock.values.includes(item[f.name])) {
         isLocked = true
       }
     }

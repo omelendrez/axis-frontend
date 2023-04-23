@@ -47,7 +47,7 @@ const States = () => {
     {
       name: 'name',
       id: 'Name',
-      lock: { field: 'name', value: '- Foreigner -' }
+      lock: { values: ['- Foreigner -'] }
     }
   ]
 
