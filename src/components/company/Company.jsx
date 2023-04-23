@@ -34,7 +34,7 @@ export const Company = ({ company }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/companies')
+      navigate(-1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -65,7 +65,7 @@ export const Company = ({ company }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/companies')
+    navigate(-1)
   }
 
   return (

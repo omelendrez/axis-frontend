@@ -30,7 +30,7 @@ export const State = ({ state }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/states')
+      navigate(-1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -61,7 +61,7 @@ export const State = ({ state }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/states')
+    navigate(-1)
   }
 
   return (

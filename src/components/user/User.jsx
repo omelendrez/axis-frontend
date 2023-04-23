@@ -67,7 +67,7 @@ export const User = ({ user }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/users')
+      navigate(-1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -123,7 +123,7 @@ export const User = ({ user }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/users')
+    navigate(-1)
   }
 
   return (

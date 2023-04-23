@@ -38,7 +38,7 @@ export const Role = ({ role }) => {
     isMounted.current = false
     const notification = { type: 'success', message }
     set(notification)
-    navigate('/roles')
+    navigate(-1)
   }
 
   const handleApiError = (e) => {
@@ -106,7 +106,7 @@ export const Role = ({ role }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/roles')
+    navigate(-1)
   }
 
   return (

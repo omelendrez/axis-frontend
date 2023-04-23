@@ -39,7 +39,7 @@ export const Nationality = ({ nationality }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/nationalities')
+      navigate(-1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -70,7 +70,7 @@ export const Nationality = ({ nationality }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/nationalities')
+    navigate(-1)
   }
 
   return (

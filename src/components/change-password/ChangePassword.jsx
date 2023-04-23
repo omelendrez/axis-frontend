@@ -72,7 +72,7 @@ export const ChangePassword = () => {
           }
           set(notification)
 
-          navigate('/')
+          navigate(-1)
         })
         .catch((e) => {
           const notification = {

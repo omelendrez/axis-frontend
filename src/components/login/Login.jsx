@@ -72,7 +72,7 @@ export const Login = () => {
           session.save(KEYS.user, user)
           isMounted.current = false
           setUserContext(res.data)
-          navigate('/')
+          navigate(-1)
         })
         .catch((e) => {
           console.log(e)

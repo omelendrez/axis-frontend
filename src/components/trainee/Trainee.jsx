@@ -132,7 +132,7 @@ export const Trainee = ({ trainee }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/trainees')
+      navigate(-1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -190,7 +190,7 @@ export const Trainee = ({ trainee }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/trainees')
+    navigate(-1)
   }
 
   return (
