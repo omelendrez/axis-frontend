@@ -121,7 +121,12 @@ export const Login = () => {
         <button type="submit" aria-busy={isSubmitting}>
           Login
         </button>
-        <button type="button" aria-busy={isSubmitting}>
+        <button
+          type="button"
+          aria-busy={isSubmitting}
+          className="secondary"
+          disabled
+        >
           Register
         </button>
       </FormButtonRow>

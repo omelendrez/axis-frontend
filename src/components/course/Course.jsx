@@ -93,13 +93,13 @@ export const Course = ({ course }) => {
 
   const handleSwitchChange = (e) => {
     const { id, checked } = e.target
-    const data = { value: checked, error: '' }
-    console.log(data)
+    const data = { value: checked ? 1 : 0, error: '' }
     setValues((values) => ({ ...values, [id]: data }))
   }
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
+
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
@@ -192,14 +192,14 @@ export const Course = ({ course }) => {
       <Switch
         id="id_card"
         label="Course with ID card?"
-        checked={values.id_card.value}
+        value={values.id_card.value}
         onChange={handleSwitchChange}
       />
 
       <Switch
         id="cert_id_card"
         label="Certificate with ID card?"
-        checked={values.cert_id_card.value}
+        value={values.cert_id_card.value}
         onChange={handleSwitchChange}
       />
 
