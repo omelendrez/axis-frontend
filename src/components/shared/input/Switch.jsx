@@ -1,4 +1,4 @@
-export const Switch = ({ id, label, onChange, value }) => (
+export const Switch = ({ id, label, onChange, checked }) => (
   <div
     className="form-control"
     style={{
@@ -19,7 +19,7 @@ export const Switch = ({ id, label, onChange, value }) => (
       style={{
         fontSize: '1.3rem'
       }}
-      checked={value}
+      checked={checked}
     />
   </div>
 )

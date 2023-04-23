@@ -42,12 +42,12 @@ const initialValues = {
     error: ''
   },
   id_card: {
-    value: '',
-    error: false
+    value: false,
+    error: 0
   },
   cert_id_card: {
-    value: '',
-    error: false
+    value: false,
+    error: 0
   }
 }
 
@@ -93,7 +93,8 @@ export const Course = ({ course }) => {
 
   const handleSwitchChange = (e) => {
     const { id, checked } = e.target
-    const data = { checked: checked ? 1 : 0, error: '' }
+    const data = { value: checked, error: '' }
+    console.log(data)
     setValues((values) => ({ ...values, [id]: data }))
   }
 
