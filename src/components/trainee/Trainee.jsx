@@ -13,6 +13,7 @@ import useTrainees from '../../hooks/useTrainees'
 import useStates from '../../hooks/useStates'
 import useNationalities from '../../hooks/useNationalities'
 import useCompanies from '../../hooks/useCompanies'
+import useNotification from '../../hooks/useNotification'
 
 import {
   sex as sexList,
@@ -64,6 +65,8 @@ const initialValues = {
 }
 
 export const Trainee = ({ trainee }) => {
+  const { set } = useNotification()
+
   const { trainees, add, modify } = useTrainees()
   const { isLoading, isSuccess } = trainees
 
@@ -78,6 +81,7 @@ export const Trainee = ({ trainee }) => {
 
   const [nationalitiesList, setNationalitiesList] = useState([])
   const [companiesList, setCompaniesList] = useState([])
+  const [prevState, setPrevState] = useState(null)
 
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')
@@ -144,6 +148,48 @@ export const Trainee = ({ trainee }) => {
       setTempValue({ id, value, prev: trainee?.status })
       setConfirmMessage('Are you sure you want to change trainee status?')
       return setIsConfirmOpen(true)
+    }
+
+    const foreigner = statesList.find((s) => s.name === '- Foreigner -')
+    const nigerian = nationalitiesList.find((n) => n.name.includes('Nigerian'))
+
+    if (id === 'state') {
+      if (
+        parseInt(values.nationality.value, 10) === nigerian.id &&
+        parseInt(value, 10) === foreigner.id
+      ) {
+        const message = {
+          type: 'error',
+          message: 'Nigerians cannot have state Foreigner'
+        }
+        set(message)
+      }
+      if (
+        parseInt(values.nationality.value, 10) !== nigerian.id &&
+        parseInt(value, 10) !== foreigner.id
+      ) {
+        const data = { value: foreigner.id, error: '' }
+        setValues((values) => ({ ...values, state: data }))
+        const message = {
+          type: 'error',
+          message: 'Foreigners cannot have Nigerian state'
+        }
+        set(message)
+      }
+    }
+
+    if (id === 'nationality') {
+      if (parseInt(value, 10) !== nigerian.id) {
+        setPrevState(() => values.state.value)
+        const data = { value: foreigner.id, error: '' }
+        setValues((values) => ({ ...values, state: data }))
+      } else {
+        if (prevState) {
+          const data = { value: prevState, error: '' }
+          setValues((values) => ({ ...values, state: data }))
+          setPrevState(null)
+        }
+      }
     }
 
     const data = { value, error: '' }
@@ -253,20 +299,20 @@ export const Trainee = ({ trainee }) => {
         />
 
         <Dropdown
-          id="state"
-          label="State"
-          onChange={handleChange}
-          value={values.state.value}
-          options={statesList}
-          required
-        />
-
-        <Dropdown
           id="nationality"
           label="Nationality"
           onChange={handleChange}
           value={values.nationality.value}
           options={nationalitiesList}
+          required
+        />
+
+        <Dropdown
+          id="state"
+          label="State"
+          onChange={handleChange}
+          value={values.state.value}
+          options={statesList}
           required
         />
 
