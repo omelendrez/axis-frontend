@@ -1,11 +1,11 @@
-import "./actionButton.css";
-export const ActionButton = ({ label, onClick, disable, className }) => (
+import './actionButton.css'
+export const ActionButton = ({ label, onClick, disabled, className }) => (
   <button
     type="button"
-    className={`action-button ${className ? className : ""}`}
+    className={`action-button ${className ? className : ''}`}
     onClick={onClick}
-    disabled={disable}
+    disabled={disabled}
   >
     {label}
   </button>
-);
+)

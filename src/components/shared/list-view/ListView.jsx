@@ -4,6 +4,16 @@ import { ActionButton, Search } from '../'
 
 const Row = ({ item, fields, onEdit, onDelete }) => {
   const { user } = useUser()
+  let isLocked = false
+  fields.forEach((f) => {
+    const lock = f.lock
+    if (lock) {
+      if (item[lock.field] === lock.value) {
+        isLocked = true
+      }
+    }
+  })
+
   return (
     <tr>
       {fields.map((f) => {
@@ -33,20 +43,19 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
         <ActionButton
           label="Edit"
           className="primary"
-          disabled={user.role !== 1}
+          disabled={user.role !== 1 || isLocked}
           onClick={() => onEdit(item)}
         />
       </td>
-      {user.role === 1 && (
-        <td className="action-cell">
-          <ActionButton
-            label="Delete"
-            className="secondary"
-            disabled={user.role !== 1}
-            onClick={() => onDelete(item)}
-          />
-        </td>
-      )}
+
+      <td className="action-cell">
+        <ActionButton
+          label="Delete"
+          className="secondary"
+          disabled={user.role !== 1 || isLocked}
+          onClick={() => onDelete(item)}
+        />
+      </td>
     </tr>
   )
 }

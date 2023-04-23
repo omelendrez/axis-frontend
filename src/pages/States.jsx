@@ -43,7 +43,13 @@ const States = () => {
     removeState(state.id)
   }
 
-  const fields = [{ name: 'name', id: 'Name' }]
+  const fields = [
+    {
+      name: 'name',
+      id: 'Name',
+      lock: { field: 'name', value: '- Foreigner -' }
+    }
+  ]
 
   return (
     <main className="container-fluid">
