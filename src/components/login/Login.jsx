@@ -1,11 +1,6 @@
 import { useRef, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNoficication from '../../hooks/useNotification'
-import {
-  validateUserName,
-  validateNotEmpty,
-  validatePasswordLength
-} from '../../helpers'
 import { FormButtonRow, InputField } from '../shared'
 import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
@@ -46,49 +41,43 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const session = new SP()
-    errorsCount.current = 0
-    validatePasswordLength(['password'], 5, setValues, values, errorsCount)
-    validateUserName(['name'], setValues, values, errorsCount)
-    validateNotEmpty(['name', 'password'], setValues, values, errorsCount)
 
-    if (!errorsCount.current) {
-      const payload = {
-        name: values.name.value,
-        password: values.password.value
-      }
-
-      setIsSubmitting(true)
-
-      login(payload)
-        .then((res) => {
-          const notification = {
-            type: 'success',
-            message: 'Welcome'
-          }
-          set(notification)
-          const token = res.data.token
-          session.save(KEYS.token, token)
-          const user = { ...res.data, token: undefined }
-          session.save(KEYS.user, user)
-          isMounted.current = false
-          setUserContext(res.data)
-          navigate(-1)
-        })
-        .catch((e) => {
-          console.log(e)
-          const notification = {
-            type: 'error',
-            message: e.response.data.message
-          }
-          set(notification)
-          setIsSubmitting(false)
-        })
-        .finally(() => {
-          if (isMounted.current) {
-            setIsSubmitting(false)
-          }
-        })
+    const payload = {
+      name: values.name.value,
+      password: values.password.value
     }
+
+    setIsSubmitting(true)
+
+    login(payload)
+      .then((res) => {
+        const notification = {
+          type: 'success',
+          message: 'Welcome'
+        }
+        set(notification)
+        const token = res.data.token
+        session.save(KEYS.token, token)
+        const user = { ...res.data, token: undefined }
+        session.save(KEYS.user, user)
+        isMounted.current = false
+        setUserContext(res.data)
+        navigate(-1)
+      })
+      .catch((e) => {
+        console.log(e)
+        const notification = {
+          type: 'error',
+          message: e.response.data.message
+        }
+        set(notification)
+        setIsSubmitting(false)
+      })
+      .finally(() => {
+        if (isMounted.current) {
+          setIsSubmitting(false)
+        }
+      })
   }
 
   const { name, password } = values
