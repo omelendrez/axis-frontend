@@ -8,6 +8,7 @@ import nationalitySlice from './reducers/nationality/nationalitySlice'
 import roleSlice from './reducers/role/roleSlice'
 import companySlice from './reducers/company/companySlice'
 import courseSlice from './reducers/course/courseSlice'
+import certificateTypeSlice from './reducers/certificate-type/certificateTypeSlice'
 
 export default configureStore({
   reducer: {
@@ -18,7 +19,8 @@ export default configureStore({
     nationalities: nationalitySlice,
     roles: roleSlice,
     companies: companySlice,
-    courses: courseSlice
+    courses: courseSlice,
+    certificateTypes: certificateTypeSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

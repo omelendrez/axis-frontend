@@ -3,7 +3,7 @@ export const Dropdown = ({ id, label, onChange, value, options }) => (
     <label htmlFor={id}>{label}</label>
     <select id={id} onChange={onChange} required value={value}>
       <option value="" disabled>
-        Choose a {id}
+        Choose a {label}
       </option>
       {options.map((s) => (
         <option key={s.id} value={s.id}>

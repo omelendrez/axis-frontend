@@ -5,10 +5,12 @@ import {
   FormButtonRow,
   SaveButton,
   CancelButton,
-  Switch
+  Switch,
+  Dropdown
 } from '../shared'
 
 import useCourses from '../../hooks/useCourses'
+import useCertificateTypes from '../../hooks/useCertificateTypes'
 
 const initialValues = {
   code: {
@@ -35,6 +37,10 @@ const initialValues = {
     value: '',
     error: ''
   },
+  cert_type: {
+    value: '',
+    error: ''
+  },
   id_card: {
     value: '',
     error: false
@@ -49,9 +55,19 @@ export const Course = ({ course }) => {
   const { courses, add, modify } = useCourses()
   const { isLoading, isSuccess } = courses
 
+  const { certificateTypes, load: loadCertificateTypes } = useCertificateTypes()
+  const { data: typesList } = certificateTypes
+
   const [values, setValues] = useState(initialValues)
   const navigate = useNavigate()
   const formRef = useRef()
+
+  useEffect(() => {
+    if (!typesList.length) {
+      loadCertificateTypes()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typesList])
 
   useEffect(() => {
     if (course) {
@@ -153,7 +169,6 @@ export const Course = ({ course }) => {
         placeholder="Enter ID card front text"
         value={values.front_id.value}
         onChange={handleChange}
-        required
       />
 
       <InputField
@@ -163,7 +178,14 @@ export const Course = ({ course }) => {
         placeholder="Enter ID card back text"
         value={values.back_id.value}
         onChange={handleChange}
-        required
+      />
+
+      <Dropdown
+        id="cert_type"
+        label="Certificate type"
+        onChange={handleChange}
+        value={values.cert_type.value}
+        options={typesList}
       />
 
       <Switch
