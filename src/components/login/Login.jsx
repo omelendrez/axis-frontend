@@ -22,7 +22,6 @@ export const Login = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const errorsCount = useRef(0)
   const isMounted = useRef()
 
   useEffect(() => {
