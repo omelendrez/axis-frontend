@@ -1,0 +1,6 @@
+details.dropdown-search summary:not([role]) {
+  color: rgb(85, 85, 85);
+}
+details.dropdown-search ul li.active {
+  background-color: hsl(205deg, 18%, 86%);
+}

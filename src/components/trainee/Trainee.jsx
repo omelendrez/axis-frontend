@@ -5,6 +5,7 @@ import {
   Confirm,
   FormButtonRow,
   Dropdown,
+  DropdownSearch,
   SaveButton,
   CancelButton
 } from '../shared'
@@ -155,7 +156,7 @@ export const Trainee = ({ trainee }) => {
 
     if (id === 'state') {
       if (
-        parseInt(values.nationality.value, 10) === nigerian.id &&
+        parseInt(values.nationality.value, 10) === nigerian?.id &&
         parseInt(value, 10) === foreigner.id
       ) {
         const message = {
@@ -165,7 +166,7 @@ export const Trainee = ({ trainee }) => {
         set(message)
       }
       if (
-        parseInt(values.nationality.value, 10) !== nigerian.id &&
+        parseInt(values.nationality.value, 10) !== nigerian?.id &&
         parseInt(value, 10) !== foreigner.id
       ) {
         const data = { value: foreigner.id, error: '' }
@@ -179,7 +180,7 @@ export const Trainee = ({ trainee }) => {
     }
 
     if (id === 'nationality') {
-      if (parseInt(value, 10) !== nigerian.id) {
+      if (parseInt(value, 10) !== nigerian?.id) {
         setPrevState(() => values.state.value)
         const data = { value: foreigner.id, error: '' }
         setValues((values) => ({ ...values, state: data }))
@@ -307,7 +308,7 @@ export const Trainee = ({ trainee }) => {
           required
         />
 
-        <Dropdown
+        <DropdownSearch
           id="state"
           label="State"
           onChange={handleChange}

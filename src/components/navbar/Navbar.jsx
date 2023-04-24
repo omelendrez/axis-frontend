@@ -7,7 +7,7 @@ import { Divider } from '../shared'
 import './navbar.css'
 
 const LiElement = ({ route, path, label, icon, onClick }) => (
-  <li className={route === `${path}` ? 'active' : ''}>
+  <li className={route === `${path}` ? 'active' : undefined}>
     <Link to={path} onClick={onClick} className="link-option">
       <span className="material-icons">{icon}</span>
       {label}
