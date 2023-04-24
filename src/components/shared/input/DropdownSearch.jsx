@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './dropdownSearch.css'
 
 export const DropdownSearch = ({ id, label, onChange, value, options }) => {
@@ -6,6 +6,7 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [current, setCurrent] = useState('')
+  const searchRef = useRef(null)
 
   useEffect(() => {
     setFiltered(options)
@@ -49,6 +50,12 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
     setOpen((o) => !o)
   }
 
+  useEffect(() => {
+    if (open) {
+      searchRef.current.focus()
+    }
+  }, [open])
+
   return (
     <>
       <label htmlFor={id}>{label}</label>
@@ -66,6 +73,7 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
             onChange={handleFilter}
             placeholder="Search ..."
             value={search}
+            ref={searchRef}
           />
           {filtered.map((o) => (
             <li
