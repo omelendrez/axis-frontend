@@ -299,7 +299,7 @@ export const Trainee = ({ trainee }) => {
           required
         />
 
-        <Dropdown
+        <DropdownSearch
           id="nationality"
           label="Nationality"
           onChange={handleChange}
@@ -327,7 +327,7 @@ export const Trainee = ({ trainee }) => {
           required
         />
 
-        <Dropdown
+        <DropdownSearch
           id="company"
           label="Company"
           onChange={handleChange}

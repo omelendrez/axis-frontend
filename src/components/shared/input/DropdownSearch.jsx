@@ -14,9 +14,11 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
 
   useEffect(() => {
     if (value) {
-      setCurrent(options.find((o) => o.id === parseInt(value, 10)))
+      setCurrent(
+        options.find((o) => parseInt(o.id, 10) === parseInt(value, 10))
+      )
     }
-  }, [value])
+  }, [value, options])
 
   const handleFilter = (e) => {
     e.preventDefault()
@@ -51,8 +53,12 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
     <>
       <label htmlFor={id}>{label}</label>
       <details role="list" open={open} className="dropdown-search">
-        <summary aria-haspopup="listbox" onClick={handleOpen}>
-          {current?.name || label}
+        <summary
+          aria-haspopup="listbox"
+          onClick={handleOpen}
+          className={!current.name ? 'placeholder' : undefined}
+        >
+          {current?.name || `Choose a ${label.toLowerCase()}`}
         </summary>
         <ul role="listbox">
           <input
