@@ -3,19 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { TableButtonRow, Loading, ListView } from '../components'
 import useTrainees from '../hooks/useTrainees'
 import useNoficication from '../hooks/useNotification'
-import { PAGE_SIZE } from '../helpers'
-
-const initialValues = {
-  search: '',
-  page: 1,
-  limit: PAGE_SIZE,
-  offset: 0
-}
+import { initialValues } from '../helpers'
 
 const Trainees = () => {
   const { trainees, load: loadTrainees, remove: removeTrainee } = useTrainees()
   const { data, isLoading, isSuccess, isError, error, isFirstLoad } = trainees
+
   const [pagination, setPagination] = useState(initialValues)
+
   const navigate = useNavigate()
   const { set } = useNoficication()
 

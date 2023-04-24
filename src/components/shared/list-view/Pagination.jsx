@@ -1,6 +1,11 @@
 import './pagination.css'
 
-export const Pagination = ({ onPage, page, pages }) => {
+export const Pagination = ({ onPage, page, limit, count }) => {
+  const numPages = count / limit
+  const intPages = Math.floor(count / limit)
+  const hasExtraRows = intPages !== numPages
+  const pages = intPages + (hasExtraRows ? 1 : 0)
+
   return (
     <div className="pagination">
       <button

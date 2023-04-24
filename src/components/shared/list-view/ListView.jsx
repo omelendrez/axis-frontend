@@ -94,8 +94,6 @@ export const ListView = ({
     })
   }
 
-  const pages = Math.floor(data.count / limit) + 1
-
   return (
     <main className="container-fluid">
       <Search
@@ -138,7 +136,12 @@ export const ListView = ({
           </tbody>
         </table>
       </figure>
-      <Pagination onPage={handlePageChange} page={page} pages={pages} />
+      <Pagination
+        onPage={handlePageChange}
+        page={page}
+        limit={limit}
+        count={data.count}
+      />
     </main>
   )
 }

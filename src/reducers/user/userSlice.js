@@ -3,7 +3,8 @@ import { createUser, updateUser, getUsers, deleteUser } from '../../services'
 import { handleError } from '../error'
 
 const initialState = {
-  data: [],
+  data: { rows: [], count: 0 },
+  isFirstLoad: true,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -26,6 +27,7 @@ export const userSlice = createSlice({
       state.isError = false
     },
     setData(state, action) {
+      state.isFirstLoad = false
       state.data = action.payload
     },
     setError(state, action) {
@@ -44,13 +46,13 @@ export const userSlice = createSlice({
 
 export default userSlice.reducer
 
-export function loadUsers(search) {
+export function loadUsers(pagination) {
   const { setLoading, setData, reset } = userSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getUsers(search)
+      const { data } = await getUsers(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {

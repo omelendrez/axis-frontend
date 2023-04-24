@@ -1,22 +1,29 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { TableButtonRow, Loading, ListView } from '../components'
 import useUsers from '../hooks/useUsers'
 import useNoficication from '../hooks/useNotification'
+import { initialValues } from '../helpers'
 
 const Users = () => {
   const { users, load: loadUsers, remove: removeUser } = useUsers()
-  const { data, isLoading, isSuccess, isError, error } = users
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = users
+
+  const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
   const { set } = useNoficication()
 
   useEffect(() => {
-    if (!data.length) {
-      loadUsers()
+    loadUsers(pagination)
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadUsers(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isFirstLoad])
 
   useEffect(() => {
     if (isError) {
@@ -69,7 +76,9 @@ const Users = () => {
       <TableButtonRow url="/user" label="Add user" />
 
       <ListView
-        items={data}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
