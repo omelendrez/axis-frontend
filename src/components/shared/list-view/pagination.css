@@ -1,0 +1,16 @@
+.pagination {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: fit-content;
+  margin-bottom: 2rem;
+}
+
+.pagination .pagination-button {
+  width: auto;
+  margin: 0;
+}
+
+figure {
+  margin: 0;
+}

@@ -1,22 +1,34 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { TableButtonRow, Loading, ListView } from '../components'
-import useUsers from '../hooks/useTrainees'
+import useTrainees from '../hooks/useTrainees'
 import useNoficication from '../hooks/useNotification'
+import { PAGE_SIZE } from '../helpers'
+
+const initialValues = {
+  search: '',
+  page: 1,
+  limit: PAGE_SIZE,
+  offset: 0
+}
 
 const Trainees = () => {
-  const { trainees, load: loadTrainees, remove: removeTrainee } = useUsers()
-  const { data, isLoading, isSuccess, isError, error } = trainees
-
+  const { trainees, load: loadTrainees, remove: removeTrainee } = useTrainees()
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = trainees
+  const [pagination, setPagination] = useState(initialValues)
   const navigate = useNavigate()
   const { set } = useNoficication()
 
   useEffect(() => {
-    if (!data.length) {
-      loadTrainees()
+    loadTrainees(pagination)
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadTrainees(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trainees])
+  }, [isFirstLoad])
 
   useEffect(() => {
     if (isError) {
@@ -84,7 +96,9 @@ const Trainees = () => {
       <TableButtonRow url="/trainee" label="Add trainee" />
 
       <ListView
-        items={data}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}

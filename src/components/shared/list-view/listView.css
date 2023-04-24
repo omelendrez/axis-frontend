@@ -1,0 +1,14 @@
+.list-view-table tr {
+  padding: 0;
+}
+
+.list-view-table td,
+.list-view-table th {
+  padding: 0;
+  margin: 0;
+}
+
+.list-view-table .action-cell button:last-child {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}

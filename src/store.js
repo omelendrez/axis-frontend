@@ -12,15 +12,15 @@ import certificateTypeSlice from './reducers/certificate-type/certificateTypeSli
 
 export default configureStore({
   reducer: {
-    notification: notificationReducer,
-    users: userSlice,
-    trainees: traineeSlice,
-    states: stateSlice,
-    nationalities: nationalitySlice,
-    roles: roleSlice,
+    certificateTypes: certificateTypeSlice,
     companies: companySlice,
     courses: courseSlice,
-    certificateTypes: certificateTypeSlice
+    nationalities: nationalitySlice,
+    notification: notificationReducer,
+    roles: roleSlice,
+    states: stateSlice,
+    trainees: traineeSlice,
+    users: userSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

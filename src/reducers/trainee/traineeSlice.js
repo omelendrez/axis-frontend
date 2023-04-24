@@ -8,14 +8,15 @@ import {
 import { handleError } from '../error'
 
 const initialState = {
-  data: [],
+  data: { rows: [], count: 0 },
+  isFirstLoad: true,
   isLoading: false,
   isSuccess: false,
   isError: false,
   error: null
 }
 
-export const userSlice = createSlice({
+export const traineeSlice = createSlice({
   name: 'trainees',
   initialState: initialState,
   reducers: {
@@ -31,6 +32,7 @@ export const userSlice = createSlice({
       state.isError = false
     },
     setData(state, action) {
+      state.isFirstLoad = false
       state.data = action.payload
     },
     setError(state, action) {
@@ -47,15 +49,15 @@ export const userSlice = createSlice({
   }
 })
 
-export default userSlice.reducer
+export default traineeSlice.reducer
 
-export function loadTrainees(search) {
-  const { setLoading, setData, reset } = userSlice.actions
+export function loadTrainees(pagination) {
+  const { setLoading, setData, reset } = traineeSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getTrainees(search)
+      const { data } = await getTrainees(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
@@ -65,7 +67,7 @@ export function loadTrainees(search) {
 }
 
 export function removeTrainee(id) {
-  const { setLoading, setSuccess, reset } = userSlice.actions
+  const { setLoading, setSuccess, reset } = traineeSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
@@ -80,7 +82,7 @@ export function removeTrainee(id) {
 }
 
 export function addTrainee(payload) {
-  const { setLoading, setSuccess, reset } = userSlice.actions
+  const { setLoading, setSuccess, reset } = traineeSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
@@ -95,7 +97,7 @@ export function addTrainee(payload) {
 }
 
 export function modifyTrainee(id, payload) {
-  const { setLoading, setSuccess, reset } = userSlice.actions
+  const { setLoading, setSuccess, reset } = traineeSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())

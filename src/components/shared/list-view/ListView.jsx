@@ -1,6 +1,8 @@
-import { useState } from 'react'
 import useUser from '../../../hooks/useUser'
 import { ActionButton, Search } from '../'
+import { Pagination } from './Pagination'
+import { useState } from 'react'
+import './listView.css'
 
 const Row = ({ item, fields, onEdit, onDelete }) => {
   const { user } = useUser()
@@ -61,30 +63,49 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
 }
 
 export const ListView = ({
-  loadItems,
-  items,
+  data,
+  pagination,
+  onPagination,
   fields,
   onEdit,
   onDelete,
   isLoading
 }) => {
-  const [search, setSearch] = useState('')
+  const [searchText, setSearchText] = useState('')
+  const { page, limit } = pagination
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      loadItems(search)
+      onPagination((p) => ({ ...p, search: searchText, page: 1, offset: 0 }))
     }
   }
+
+  const handleSearchChange = (e) => setSearchText(e.target.value)
+
+  const handlePageChange = (value) => {
+    const { page, limit } = { ...pagination }
+    const newPage = page + value
+    const newValues = {
+      page: newPage,
+      offset: (newPage - 1) * limit
+    }
+    onPagination((p) => {
+      return { ...p, ...newValues }
+    })
+  }
+
+  const pages = Math.floor(data.count / limit) + 1
 
   return (
     <main className="container-fluid">
       <Search
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
+        onChange={handleSearchChange}
+        value={searchText}
         onKeyDown={handleKeyDown}
       />
+
       <figure>
-        <table role="grid">
+        <table role="grid" className="list-view-table">
           <thead>
             <tr>
               {fields.map((f) => (
@@ -97,7 +118,7 @@ export const ListView = ({
           </thead>
 
           <tbody>
-            {!isLoading && items.length === 0 && (
+            {!isLoading && data?.count === 0 && (
               <tr>
                 <td colSpan={4}>
                   <article>No records found</article>
@@ -105,7 +126,7 @@ export const ListView = ({
               </tr>
             )}
 
-            {items.map((item) => (
+            {data.rows.map((item) => (
               <Row
                 item={item}
                 fields={fields}
@@ -117,6 +138,7 @@ export const ListView = ({
           </tbody>
         </table>
       </figure>
+      <Pagination onPage={handlePageChange} page={page} pages={pages} />
     </main>
   )
 }

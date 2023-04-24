@@ -1,6 +1,6 @@
-import "./loading.css";
+import './loading.css'
 export const Loading = () => (
   <div className="loading-container">
-    <progress />
+    <article aria-busy className="loading-container" />
   </div>
-);
+)
