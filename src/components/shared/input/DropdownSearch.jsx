@@ -63,7 +63,7 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
         <summary
           aria-haspopup="listbox"
           onClick={handleOpen}
-          className={!current.name ? 'placeholder' : undefined}
+          className={!current?.name ? 'placeholder' : undefined}
         >
           {current?.name || `Choose a ${label.toLowerCase()}`}
         </summary>
