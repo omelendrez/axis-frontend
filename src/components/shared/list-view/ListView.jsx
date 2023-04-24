@@ -136,12 +136,14 @@ export const ListView = ({
           </tbody>
         </table>
       </figure>
-      <Pagination
-        onPage={handlePageChange}
-        page={page}
-        limit={limit}
-        count={data.count}
-      />
+      {data.count > 0 && (
+        <Pagination
+          onPage={handlePageChange}
+          page={page}
+          limit={limit}
+          count={data.count}
+        />
+      )}
     </main>
   )
 }
