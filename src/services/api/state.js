@@ -2,8 +2,8 @@ import { api } from './apiClient'
 
 export const createState = (payload) => api.post('/state', payload)
 
-export const getStates = (search) =>
-  api.get(`/state${search ? `?search=${search}` : ''}`)
+export const getStates = ({ search, limit, offset }) =>
+  api.get(`/state?search=${search}&limit=${limit}&offset=${offset}`)
 
 export const getState = (id) => api.get(`/state/${id}`)
 

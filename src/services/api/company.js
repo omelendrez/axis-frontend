@@ -2,8 +2,8 @@ import { api } from './apiClient'
 
 export const createCompany = (payload) => api.post('/company', payload)
 
-export const getCompanies = (search) =>
-  api.get(`/company${search ? `?search=${search}` : ''}`)
+export const getCompanies = ({ search, limit, offset }) =>
+  api.get(`/company?search=${search}&limit=${limit}&offset=${offset}`)
 
 export const getCompany = (id) => api.get(`/company/${id}`)
 

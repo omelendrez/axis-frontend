@@ -16,6 +16,7 @@ const Users = () => {
 
   useEffect(() => {
     loadUsers(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 
   useEffect(() => {

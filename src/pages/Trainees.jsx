@@ -16,6 +16,7 @@ const Trainees = () => {
 
   useEffect(() => {
     loadTrainees(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 
   useEffect(() => {
