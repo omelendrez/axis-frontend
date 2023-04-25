@@ -9,16 +9,16 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   const searchRef = useRef(null)
 
   useEffect(() => {
-    if (options.count) {
-      setFiltered(options.rows)
+    if (options) {
+      setFiltered(options)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options])
 
   useEffect(() => {
-    if (options.count && value) {
+    if (options && value) {
       setCurrent(
-        options.rows.find((o) => parseInt(o.id, 10) === parseInt(value, 10))
+        options.find((o) => parseInt(o.id, 10) === parseInt(value, 10))
       )
     }
   }, [value, options])
@@ -29,10 +29,8 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   }
 
   useEffect(() => {
-    if (Array.isArray(options.rows)) {
-      setFiltered(
-        options.rows.filter((o) => o.name.toLowerCase().includes(search))
-      )
+    if (options) {
+      setFiltered(options.filter((o) => o.name.toLowerCase().includes(search)))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
@@ -86,13 +84,9 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
               key={o.id}
               className={o.id === parseInt(value, 10) ? 'active' : undefined}
             >
-              <button
-                onClick={handleClick}
-                data-id={o.id}
-                className="option-button"
-              >
+              <a onClick={handleClick} data-id={o.id} className="option-button">
                 {o.name}
-              </button>
+              </a>
             </li>
           ))}
         </ul>

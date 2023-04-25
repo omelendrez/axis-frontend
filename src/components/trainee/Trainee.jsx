@@ -72,7 +72,7 @@ export const Trainee = ({ trainee }) => {
   const { isLoading, isSuccess } = trainees
 
   const { states, load: loadStates } = useStates()
-  const { data: statesList } = states
+  const { data: statList } = states
 
   const { nationalities, load: loadNationalities } = useNationalities()
   const { data: natList } = nationalities
@@ -82,6 +82,8 @@ export const Trainee = ({ trainee }) => {
 
   const [nationalitiesList, setNationalitiesList] = useState([])
   const [companiesList, setCompaniesList] = useState([])
+  const [statesList, setStatesList] = useState([])
+
   const [prevState, setPrevState] = useState(null)
 
   const [values, setValues] = useState(initialValues)
@@ -101,7 +103,7 @@ export const Trainee = ({ trainee }) => {
   }, [trainee])
 
   useEffect(() => {
-    if (!statesList.count) {
+    if (!statList.count) {
       loadStates()
     }
     if (!natList.count) {
@@ -128,12 +130,14 @@ export const Trainee = ({ trainee }) => {
     () =>
       setCompaniesList(
         compList.rows.map((c) => ({
-          id: c.code,
+          id: c.id,
           name: c.name
         }))
       ),
     [compList]
   )
+
+  useEffect(() => setStatesList(statList.rows), [statList])
 
   useEffect(() => {
     if (isSuccess) {
@@ -304,7 +308,7 @@ export const Trainee = ({ trainee }) => {
           label="Nationality"
           onChange={handleChange}
           value={values.nationality.value}
-          options={{ rows: nationalitiesList }}
+          options={nationalitiesList}
           required
         />
 
@@ -313,7 +317,7 @@ export const Trainee = ({ trainee }) => {
           label="State"
           onChange={handleChange}
           value={values.state.value}
-          options={{ rows: statesList }}
+          options={statesList}
           required
         />
 
@@ -332,7 +336,7 @@ export const Trainee = ({ trainee }) => {
           label="Company"
           onChange={handleChange}
           value={values.company.value}
-          options={{ rows: { companiesList } }}
+          options={companiesList}
           required
         />
         {trainee?.id && (
