@@ -101,13 +101,13 @@ export const Trainee = ({ trainee }) => {
   }, [trainee])
 
   useEffect(() => {
-    if (!statesList.length) {
+    if (!statesList.count) {
       loadStates()
     }
-    if (!natList.length) {
+    if (!natList.count) {
       loadNationalities()
     }
-    if (!compList.length) {
+    if (!compList.count) {
       loadCompanies()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,7 +116,7 @@ export const Trainee = ({ trainee }) => {
   useEffect(
     () =>
       setNationalitiesList(
-        natList.map((n) => ({
+        natList.rows.map((n) => ({
           id: n.id,
           name: n.nationality
         }))
@@ -127,7 +127,7 @@ export const Trainee = ({ trainee }) => {
   useEffect(
     () =>
       setCompaniesList(
-        compList.map((c) => ({
+        compList.rows.map((c) => ({
           id: c.code,
           name: c.name
         }))
@@ -304,7 +304,7 @@ export const Trainee = ({ trainee }) => {
           label="Nationality"
           onChange={handleChange}
           value={values.nationality.value}
-          options={nationalitiesList}
+          options={{ rows: nationalitiesList }}
           required
         />
 
@@ -313,7 +313,7 @@ export const Trainee = ({ trainee }) => {
           label="State"
           onChange={handleChange}
           value={values.state.value}
-          options={statesList}
+          options={{ rows: statesList }}
           required
         />
 
@@ -332,7 +332,7 @@ export const Trainee = ({ trainee }) => {
           label="Company"
           onChange={handleChange}
           value={values.company.value}
-          options={companiesList}
+          options={{ rows: { companiesList } }}
           required
         />
         {trainee?.id && (

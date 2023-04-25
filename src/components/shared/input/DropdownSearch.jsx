@@ -29,9 +29,11 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   }
 
   useEffect(() => {
-    setFiltered(
-      options.rows.filter((o) => o.name.toLowerCase().includes(search))
-    )
+    if (Array.isArray(options.rows)) {
+      setFiltered(
+        options.rows.filter((o) => o.name.toLowerCase().includes(search))
+      )
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 

@@ -1,10 +1,11 @@
+import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
 export const createCertificateType = (payload) =>
   api.post('/certificate-type', payload)
 
-export const getCertificateTypes = ({ search, limit, offset }) =>
-  api.get(`/certificate-type?search=${search}&limit=${limit}&offset=${offset}`)
+export const getCertificateTypes = (pagination) =>
+  api.get(`/certificate-type${setURLParams(pagination)}`)
 
 export const getCertificateType = (id) => api.get(`/certificate-type/${id}`)
 

@@ -1,9 +1,10 @@
+import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
 export const createState = (payload) => api.post('/state', payload)
 
-export const getStates = ({ search, limit, offset }) =>
-  api.get(`/state?search=${search}&limit=${limit}&offset=${offset}`)
+export const getStates = (pagination) =>
+  api.get(`/state${setURLParams(pagination)}`)
 
 export const getState = (id) => api.get(`/state/${id}`)
 

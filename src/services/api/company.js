@@ -1,9 +1,11 @@
 import { api } from './apiClient'
 
+import { setURLParams } from '../../helpers'
+
 export const createCompany = (payload) => api.post('/company', payload)
 
-export const getCompanies = ({ search, limit, offset }) =>
-  api.get(`/company?search=${search}&limit=${limit}&offset=${offset}`)
+export const getCompanies = (pagination) =>
+  api.get(`/company${setURLParams(pagination)}`)
 
 export const getCompany = (id) => api.get(`/company/${id}`)
 

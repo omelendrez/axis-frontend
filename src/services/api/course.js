@@ -1,9 +1,10 @@
+import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
 export const createCourse = (payload) => api.post('/course', payload)
 
-export const getCourses = ({ search, limit, offset }) =>
-  api.get(`/course?search=${search}&limit=${limit}&offset=${offset}`)
+export const getCourses = (pagination) =>
+  api.get(`/course${setURLParams(pagination)}`)
 
 export const getCourse = (id) => api.get(`/course/${id}`)
 
