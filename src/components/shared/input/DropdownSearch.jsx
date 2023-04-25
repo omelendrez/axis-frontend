@@ -84,9 +84,13 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
               key={o.id}
               className={o.id === parseInt(value, 10) ? 'active' : undefined}
             >
-              <a onClick={handleClick} data-id={o.id} className="option-button">
+              <span
+                onClick={handleClick}
+                data-id={o.id}
+                className="option-button"
+              >
                 {o.name}
-              </a>
+              </span>
             </li>
           ))}
         </ul>
