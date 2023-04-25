@@ -51,13 +51,13 @@ export const stateSlice = createSlice({
 
 export default stateSlice.reducer
 
-export function loadStates(search) {
+export function loadStates(pagination) {
   const { setLoading, setData, reset } = stateSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getStates(search)
+      const { data } = await getStates(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {

@@ -1,10 +1,12 @@
-[
-  {
-    "id": 1,
-    "name": "Active"
-  },
-  {
-    "id": 0,
-    "name": "Inactive"
-  }
-]
+{
+  "rows": [
+    {
+      "id": 1,
+      "name": "Active"
+    },
+    {
+      "id": 0,
+      "name": "Inactive"
+    }
+  ]
+}

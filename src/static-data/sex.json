@@ -1,10 +1,12 @@
-[
-  {
-    "id": "F",
-    "name": "Female"
-  },
-  {
-    "id": "M",
-    "name": "Male"
-  }
-]
+{
+  "rows": [
+    {
+      "id": "F",
+      "name": "Female"
+    },
+    {
+      "id": "M",
+      "name": "Male"
+    }
+  ]
+}

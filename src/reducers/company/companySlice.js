@@ -51,13 +51,13 @@ export const companySlice = createSlice({
 
 export default companySlice.reducer
 
-export function loadCompanies(search) {
+export function loadCompanies(pagination) {
   const { setLoading, setData, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getCompanies(search)
+      const { data } = await getCompanies(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {

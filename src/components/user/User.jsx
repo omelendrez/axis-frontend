@@ -50,8 +50,8 @@ export const User = ({ user }) => {
   const formRef = useRef()
 
   useEffect(() => {
-    if (!rolesList.length) {
-      loadRoles()
+    if (!rolesList.count) {
+      loadRoles({ search: '' })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

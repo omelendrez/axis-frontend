@@ -1,22 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ListView, TableButtonRow, Loading } from '../components'
+
 import useUsers from '../hooks/useCompanies'
 import useNoficication from '../hooks/useNotification'
 
+import { initialValues } from '../helpers'
+
 const Companies = () => {
   const { companies, load: loadCompanies, remove: removeCompany } = useUsers()
-  const { data, isLoading, isSuccess, isError, error } = companies
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = companies
+
+  const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
   const { set } = useNoficication()
 
   useEffect(() => {
-    if (!data.length) {
-      loadCompanies()
+    loadCompanies(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadCompanies(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [companies])
+  }, [isFirstLoad])
 
   useEffect(() => {
     if (isError) {
@@ -44,10 +54,7 @@ const Companies = () => {
     removeCompany(company.id)
   }
 
-  const fields = [
-    { name: 'code', label: 'Code' },
-    { name: 'name', label: 'Name' }
-  ]
+  const fields = [{ name: 'name', label: 'Name' }]
 
   return (
     <main className="container-fluid">
@@ -67,7 +74,9 @@ const Companies = () => {
       <TableButtonRow url="/company" label="Add company" />
 
       <ListView
-        items={data}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}

@@ -5,7 +5,7 @@ export const Dropdown = ({ id, label, onChange, value, options }) => (
       <option value="" disabled>
         Choose a {label}
       </option>
-      {options.map((s) => (
+      {options.rows.map((s) => (
         <option key={s.id} value={s.id}>
           {s.name}
         </option>

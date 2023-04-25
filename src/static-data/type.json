@@ -1,14 +1,16 @@
-[
-  {
-    "id": "LCL",
-    "name": "Staff"
-  },
-  {
-    "id": "SUB",
-    "name": "Sub-Contractor"
-  },
-  {
-    "id": "TRN",
-    "name": "Trainee"
-  }
-]
+{
+  "rows": [
+    {
+      "id": "LCL",
+      "name": "Staff"
+    },
+    {
+      "id": "SUB",
+      "name": "Sub-Contractor"
+    },
+    {
+      "id": "TRN",
+      "name": "Trainee"
+    }
+  ]
+}

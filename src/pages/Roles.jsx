@@ -1,23 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { TableButtonRow, Loading, ListView } from '../components'
 
 import useRoles from '../hooks/useRoles'
 import useNoficication from '../hooks/useNotification'
 
+import { initialValues } from '../helpers'
+
 const Roles = () => {
   const { roles, load: loadRoles, remove: removeRole } = useRoles()
-  const { data, isLoading, isSuccess, isError, error } = roles
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = roles
+
+  const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
   const { set } = useNoficication()
 
   useEffect(() => {
-    if (!data.length) {
-      loadRoles()
+    loadRoles(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadRoles(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isFirstLoad])
 
   useEffect(() => {
     if (isError) {
@@ -63,7 +72,9 @@ const Roles = () => {
       <TableButtonRow url="/role" label="Add role" />
 
       <ListView
-        items={data}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}

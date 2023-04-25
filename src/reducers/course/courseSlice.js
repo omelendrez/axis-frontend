@@ -51,13 +51,13 @@ export const courseSlice = createSlice({
 
 export default courseSlice.reducer
 
-export function loadCourses(search) {
+export function loadCourses(pagination) {
   const { setLoading, setData, reset } = courseSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getCourses(search)
+      const { data } = await getCourses(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {

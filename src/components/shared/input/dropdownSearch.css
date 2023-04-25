@@ -9,3 +9,7 @@ details.dropdown-search summary.placeholder:not([role]) {
 details.dropdown-search ul li.active {
   background-color: hsl(205deg, 18%, 86%);
 }
+
+details.dropdown-search button.option-button {
+  width: auto;
+}

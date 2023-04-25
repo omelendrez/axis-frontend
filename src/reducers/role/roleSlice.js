@@ -46,13 +46,13 @@ export const roleSlice = createSlice({
 
 export default roleSlice.reducer
 
-export function loadRoles(search) {
+export function loadRoles(pagination) {
   const { setLoading, setData, reset } = roleSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getRoles(search)
+      const { data } = await getRoles(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {

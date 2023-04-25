@@ -1,22 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ListView, TableButtonRow, Loading } from '../components'
+
 import useCourses from '../hooks/useCourses'
 import useNoficication from '../hooks/useNotification'
 
+import { initialValues } from '../helpers'
+
 const Courses = () => {
   const { courses, load: loadCourses, remove: removeCourse } = useCourses()
-  const { data, isLoading, isSuccess, isError, error } = courses
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = courses
+
+  const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
   const { set } = useNoficication()
 
   useEffect(() => {
-    if (!data.length) {
-      loadCourses()
+    loadCourses(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadCourses(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courses])
+  }, [isFirstLoad])
 
   useEffect(() => {
     if (isError) {
@@ -45,16 +55,12 @@ const Courses = () => {
   }
 
   const fields = [
-    { name: 'code', label: 'Code' },
     { name: 'name', label: 'Name' },
     { name: 'validity', label: 'Validity' },
     { name: 'duration', label: 'Duration' },
     { name: 'id_card', label: 'Card?' },
-    { name: 'front_id', label: 'ID front' },
-    { name: 'back_id', label: 'ID back' },
     { name: 'cert_type_name', label: 'Type' },
-    { name: 'cert_id_card', label: 'Cert. card?' },
-    { name: 'opito_reg_code', label: 'Reg. code' }
+    { name: 'cert_id_card', label: 'Cert. card?' }
   ]
 
   return (
@@ -75,7 +81,9 @@ const Courses = () => {
       <TableButtonRow url="/course" label="Add course" />
 
       <ListView
-        items={data}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}

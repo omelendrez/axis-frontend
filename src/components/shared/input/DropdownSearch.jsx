@@ -9,14 +9,16 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   const searchRef = useRef(null)
 
   useEffect(() => {
-    setFiltered(options)
+    if (options.count) {
+      setFiltered(options.rows)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options])
 
   useEffect(() => {
-    if (value) {
+    if (options.count && value) {
       setCurrent(
-        options.find((o) => parseInt(o.id, 10) === parseInt(value, 10))
+        options.rows.find((o) => parseInt(o.id, 10) === parseInt(value, 10))
       )
     }
   }, [value, options])
@@ -27,7 +29,9 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   }
 
   useEffect(() => {
-    setFiltered(options.filter((o) => o.name.toLowerCase().includes(search)))
+    setFiltered(
+      options.rows.filter((o) => o.name.toLowerCase().includes(search))
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
@@ -80,9 +84,13 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
               key={o.id}
               className={o.id === parseInt(value, 10) ? 'active' : undefined}
             >
-              <a onClick={handleClick} data-id={o.id} className="option-button">
+              <button
+                onClick={handleClick}
+                data-id={o.id}
+                className="option-button"
+              >
                 {o.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>

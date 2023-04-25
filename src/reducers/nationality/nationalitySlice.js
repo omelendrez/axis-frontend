@@ -51,13 +51,13 @@ export const nationalitySlice = createSlice({
 
 export default nationalitySlice.reducer
 
-export function loadNationalities(search) {
+export function loadNationalities(pagination) {
   const { setLoading, setData, reset } = nationalitySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getNationalities(search)
+      const { data } = await getNationalities(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {

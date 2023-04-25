@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { TableButtonRow, Loading, ListView } from '../components'
 
 import useNationalities from '../hooks/useNationalities'
 import useNotification from '../hooks/useNotification'
+
+import { initialValues } from '../helpers'
 
 const Nationalities = () => {
   const {
@@ -11,17 +13,25 @@ const Nationalities = () => {
     load: loadNationalities,
     remove: removeNationality
   } = useNationalities()
-  const { data, isLoading, isSuccess, isError, error } = nationalities
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } =
+    nationalities
+
+  const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
   const { set } = useNotification()
 
   useEffect(() => {
-    if (!data.length) {
-      loadNationalities()
+    loadNationalities(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadNationalities(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nationalities])
+  }, [isFirstLoad])
 
   useEffect(() => {
     if (isError) {
@@ -72,7 +82,9 @@ const Nationalities = () => {
       <TableButtonRow url="/nationality" label="Add nationality" />
 
       <ListView
-        items={data}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}

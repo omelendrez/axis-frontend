@@ -51,13 +51,13 @@ export const companySlice = createSlice({
 
 export default companySlice.reducer
 
-export function loadCertificateTypes(search) {
+export function loadCertificateTypes(pagination) {
   const { setLoading, setData, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getCertificateTypes(search)
+      const { data } = await getCertificateTypes(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
