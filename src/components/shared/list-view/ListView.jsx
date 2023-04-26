@@ -25,6 +25,13 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
           style = { ...style, whiteSpace: 'nowrap' }
         }
 
+        if (f.maxWidth) {
+          style = {
+            ...style,
+            maxWidth: f.maxWidth
+          }
+        }
+
         if (f.ellipsis) {
           style = {
             ...style,

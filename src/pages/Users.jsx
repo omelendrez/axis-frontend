@@ -57,7 +57,6 @@ const Users = () => {
   const fields = [
     { name: 'name', label: 'Name', lock: { values: ['omar', 'Axis'] } },
     { name: 'full_name', label: 'Username' },
-    { name: 'email', label: 'Email' },
     { name: 'role_name', label: 'Role' }
   ]
 

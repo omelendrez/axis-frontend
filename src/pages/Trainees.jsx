@@ -60,17 +60,14 @@ const Trainees = () => {
       label: 'Full name',
       noWrap: true,
       ellipsis: true,
-      maxWidth: 150
+      maxWidth: '12.5rem'
     },
-    { name: 'state_name', label: 'State' },
-    { name: 'nationality_name', label: 'Nationality' },
-    { name: 'birth_date', label: 'Birth date', noWrap: true },
     {
       name: 'company_name',
       label: 'Company',
       noWrap: true,
       ellipsis: true,
-      maxWidth: 150
+      maxWidth: '9.375rem'
     }
   ]
 

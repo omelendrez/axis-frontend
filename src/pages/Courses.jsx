@@ -56,11 +56,7 @@ const Courses = () => {
 
   const fields = [
     { name: 'name', label: 'Name' },
-    { name: 'validity', label: 'Validity' },
-    { name: 'duration', label: 'Duration' },
-    { name: 'id_card', label: 'Card?' },
-    { name: 'cert_type_name', label: 'Type' },
-    { name: 'cert_id_card', label: 'Cert. card?' }
+    { name: 'cert_type_name', label: 'Type' }
   ]
 
   return (
