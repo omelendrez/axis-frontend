@@ -7,7 +7,8 @@ import {
   Dropdown,
   DropdownSearch,
   SaveButton,
-  CancelButton
+  CancelButton,
+  Loading
 } from '../shared'
 
 import useTrainees from '../../hooks/useTrainees'
@@ -115,29 +116,29 @@ export const Trainee = ({ trainee }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(
-    () =>
+  useEffect(() => {
+    if (natList.count) {
       setNationalitiesList(
         natList.rows.map((n) => ({
           id: n.id,
           name: n.nationality
         }))
-      ),
-    [natList]
-  )
+      )
+    }
 
-  useEffect(
-    () =>
+    if (compList.count) {
       setCompaniesList(
         compList.rows.map((c) => ({
           id: c.id,
           name: c.name
         }))
-      ),
-    [compList]
-  )
+      )
+    }
 
-  useEffect(() => setStatesList(statList.rows), [statList])
+    if (statList.count) {
+      setStatesList(statList.rows)
+    }
+  }, [natList, compList, statList])
 
   useEffect(() => {
     if (isSuccess) {
@@ -242,6 +243,14 @@ export const Trainee = ({ trainee }) => {
   const handleFormCancel = (e) => {
     e.preventDefault()
     navigate(-1)
+  }
+
+  if (
+    !nationalitiesList.length ||
+    !statesList.length ||
+    !companiesList.length
+  ) {
+    return <Loading />
   }
 
   return (
