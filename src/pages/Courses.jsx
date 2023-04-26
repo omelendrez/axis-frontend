@@ -54,6 +54,11 @@ const Courses = () => {
     removeCourse(course.id)
   }
 
+  const handleBack = (e) => {
+    e.preventDefault()
+    navigate(-1)
+  }
+
   const fields = [
     { name: 'name', label: 'Name' },
     { name: 'cert_type_name', label: 'Type' }
@@ -68,7 +73,9 @@ const Courses = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" onClick={handleBack}>
+              Dashboard
+            </Link>
           </li>
           <li>Courses</li>
         </ul>

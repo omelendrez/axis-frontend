@@ -52,6 +52,11 @@ const Trainees = () => {
     removeTrainee(trainee.id)
   }
 
+  const handleBack = (e) => {
+    e.preventDefault()
+    navigate(-1)
+  }
+
   const fields = [
     { name: 'type', label: 'Type' },
     { name: 'badge', label: 'Badge' },
@@ -80,7 +85,9 @@ const Trainees = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" onClick={handleBack}>
+              Dashboard
+            </Link>
           </li>
           <li>Trainees</li>
         </ul>

@@ -54,6 +54,11 @@ const Companies = () => {
     removeCompany(company.id)
   }
 
+  const handleBack = (e) => {
+    e.preventDefault()
+    navigate(-1)
+  }
+
   const fields = [{ name: 'name', label: 'Name' }]
 
   return (
@@ -65,7 +70,9 @@ const Companies = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" onClick={handleBack}>
+              Dashboard
+            </Link>
           </li>
           <li>Companies</li>
         </ul>
