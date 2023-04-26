@@ -36,18 +36,40 @@
   background-color: #e53935;
 }
 
-.form-container {
+article.form-container {
   margin: 0;
   width: 100%;
 }
 
 @media screen and (min-width: 768px) {
-  .form-container {
-    margin: 0 auto;
+  article.form-container {
     width: fit-content;
+    margin: 0 auto;
   }
 
-  .form-control {
+  article.form-container form div.form-control {
     width: 60vw;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  article.form-container {
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  article.form-container form div.form-control {
+    width: 50vw;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  article.form-container {
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  article.form-container form div.form-control {
+    width: 30vw;
   }
 }
