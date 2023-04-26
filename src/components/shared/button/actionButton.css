@@ -2,30 +2,39 @@ td.action-cell {
   width: 1rem;
 }
 
-td.action-cell div.action-button {
+div.action-button {
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
 
-td.action-cell div.action-button span {
+div.action-button.small {
+  padding: 0;
+}
+
+div.action-button span.small {
+  font-size: 1.5rem;
+}
+
+div.action-button span {
   font-size: 2rem;
   position: relative;
   top: 3px;
 }
 
-td.action-cell div.action-button span.primary {
+div.action-button span.primary {
   color: var(--primary);
   transition: color var(--transition);
 }
-td.action-cell div.action-button span.primary:hover {
+
+div.action-button span.primary:hover {
   color: var(--primary-hover);
 }
 
-td.action-cell div.action-button span.delete {
+div.action-button span.delete {
   color: hsl(0, 66%, 60%);
   transition: color var(--transition);
 }
 
-td.action-cell div.action-button span.delete:hover {
+div.action-button span.delete:hover {
   color: hsl(0, 66%, 40%);
 }

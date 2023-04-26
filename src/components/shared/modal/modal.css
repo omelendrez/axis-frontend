@@ -1,0 +1,10 @@
+dialog.modal article.modal-container {
+  padding: 1rem;
+  max-width: fit-content;
+  height: auto;
+}
+
+div.modal-close-button {
+  width: auto;
+  float: right;
+}

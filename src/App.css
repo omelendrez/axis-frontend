@@ -40,6 +40,12 @@ article.form-container {
   margin: 0;
 }
 
+article.form-container div.form-container-header {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media screen and (min-width: 768px) {
   article.form-container {
     width: fit-content;
