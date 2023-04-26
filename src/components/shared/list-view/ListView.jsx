@@ -59,7 +59,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
 
       <td className="action-cell">
         <ActionButton
-          label="delete"
+          label="remove_circle_outline"
           className="secondary"
           disabled={user.role !== 1 || isLocked}
           onClick={() => onDelete(item)}
@@ -79,7 +79,7 @@ export const ListView = ({
   isLoading
 }) => {
   const [searchText, setSearchText] = useState('')
-  const { page, limit } = pagination
+  const { page, limit, search } = pagination
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -127,10 +127,8 @@ export const ListView = ({
               <tr>
                 <td colSpan={fields.length + 1}>
                   <article>
-                    <strong>
-                      No records found
-                      {searchText ? ` matching: "${searchText}"` : ''}.
-                    </strong>
+                    No records found
+                    {search ? ` matching: "${search}"` : ''}.
                   </article>
                 </td>
               </tr>

@@ -1,0 +1,14 @@
+div.add-button-container {
+  display: flex;
+  justify-content: right;
+  margin-right: 1rem;
+}
+
+div.add-button-container a {
+  border-radius: 50%;
+}
+
+div.add-button-container a span {
+  position: relative;
+  top: 3px;
+}

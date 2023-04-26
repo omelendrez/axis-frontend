@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ListView, TableButtonRow, Loading } from '../components'
+import { ListView, Loading, AddButton } from '../components'
 
 import useCourses from '../hooks/useCourses'
 import useNoficication from '../hooks/useNotification'
@@ -74,7 +74,7 @@ const Courses = () => {
         </ul>
       </nav>
 
-      <TableButtonRow url="/course" label="Add course" />
+      <AddButton url="/course" />
 
       <ListView
         data={data}

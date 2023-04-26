@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { TableButtonRow, Loading, ListView } from '../components'
+import { Loading, ListView, AddButton } from '../components'
 
 import useRoles from '../hooks/useRoles'
 import useNoficication from '../hooks/useNotification'
@@ -69,7 +69,7 @@ const Roles = () => {
           <li>Roles</li>
         </ul>
       </nav>
-      <TableButtonRow url="/role" label="Add role" />
+      <AddButton url="/role" />
 
       <ListView
         data={data}

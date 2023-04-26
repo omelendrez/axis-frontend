@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { TableButtonRow, Loading, ListView } from '../components'
+import { Loading, ListView, AddButton } from '../components'
 import useTrainees from '../hooks/useTrainees'
 import useNoficication from '../hooks/useNotification'
 import { initialValues } from '../helpers'
@@ -86,7 +86,7 @@ const Trainees = () => {
         </ul>
       </nav>
 
-      <TableButtonRow url="/trainee" label="Add trainee" />
+      <AddButton url="/trainee" />
 
       <ListView
         data={data}
