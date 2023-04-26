@@ -13,10 +13,6 @@ import useCourses from '../../hooks/useCourses'
 import useCertificateTypes from '../../hooks/useCertificateTypes'
 
 const initialValues = {
-  code: {
-    value: '',
-    error: ''
-  },
   name: {
     value: '',
     error: ''
@@ -123,16 +119,6 @@ export const Course = ({ course }) => {
 
   return (
     <form onSubmit={handleFormSubmit} ref={formRef}>
-      <InputField
-        type="text"
-        id="code"
-        label="Code"
-        placeholder="Enter code"
-        value={values.code.value}
-        onChange={handleChange}
-        required
-      />
-
       <InputField
         type="text"
         id="name"

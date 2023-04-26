@@ -5,10 +5,6 @@ import { InputField, FormButtonRow, SaveButton, CancelButton } from '../shared'
 import useCompanies from '../../hooks/useCompanies'
 
 const initialValues = {
-  code: {
-    value: '',
-    error: ''
-  },
   name: {
     value: '',
     error: ''
@@ -70,16 +66,6 @@ export const Company = ({ company }) => {
 
   return (
     <form onSubmit={handleFormSubmit} ref={formRef}>
-      <InputField
-        type="text"
-        id="code"
-        label="Code"
-        placeholder="Enter code"
-        value={values.code.value}
-        onChange={handleChange}
-        required
-      />
-
       <InputField
         type="text"
         id="name"
