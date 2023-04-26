@@ -3,10 +3,8 @@ td.action-cell {
 }
 
 td.action-cell div.action-button {
-  padding: 0.5rem;
-  border-radius: 50%;
-  background: none;
-  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 td.action-cell div.action-button span {
@@ -17,8 +15,17 @@ td.action-cell div.action-button span {
 
 td.action-cell div.action-button span.primary {
   color: var(--primary);
+  transition: color var(--transition);
+}
+td.action-cell div.action-button span.primary:hover {
+  color: var(--primary-hover);
 }
 
 td.action-cell div.action-button span.delete {
-  color: var(--del-color);
+  color: hsl(0, 66%, 60%);
+  transition: color var(--transition);
+}
+
+td.action-cell div.action-button span.delete:hover {
+  color: hsl(0, 66%, 40%);
 }

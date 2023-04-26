@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 1rem;
   box-shadow: none;
   padding: 0px;
 }
@@ -12,4 +11,6 @@
 }
 .form-button-row button {
   width: auto;
+  display: flex;
+  align-items: center;
 }
