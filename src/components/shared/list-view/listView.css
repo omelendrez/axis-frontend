@@ -1,3 +1,7 @@
+.list-view {
+  margin-top: 5rem;
+}
+
 .list-view-table td,
 .list-view-table th {
   padding: 0.5rem;

@@ -1,12 +1,13 @@
 section {
-  margin: 1rem 1rem 0 1rem;
-  padding: 0;
+  position: absolute;
+  left: 2rem;
+  top: 8rem;
+  width: 60vw;
 }
 
 @media screen and (min-width: 640px) {
   section {
-    margin: 0 0 0 1rem;
-    max-width: 30vw;
     padding: 0;
+    width: 40vw;
   }
 }

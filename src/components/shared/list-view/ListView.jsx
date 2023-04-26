@@ -102,7 +102,7 @@ export const ListView = ({
   }
 
   return (
-    <main className="container-fluid">
+    <main className="container-fluid list-view">
       <Search
         onChange={handleSearchChange}
         value={searchText}
