@@ -19,6 +19,6 @@ td.action-cell div.action-button span.primary {
   color: var(--primary);
 }
 
-td.action-cell div.action-button span.secondary {
-  color: var(--secondary);
+td.action-cell div.action-button span.delete {
+  color: var(--del-color);
 }
