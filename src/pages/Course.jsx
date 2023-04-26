@@ -11,9 +11,7 @@ const Course = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getCourse(id).then((res) => {
-        setCourse(res.data)
-      })
+      getCourse(id).then((res) => setCourse(res.data))
     }
   }, [params])
 

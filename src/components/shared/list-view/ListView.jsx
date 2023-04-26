@@ -50,7 +50,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
 
       <td className="action-cell">
         <ActionButton
-          label="Edit"
+          label="edit"
           className="primary"
           disabled={user.role !== 1 || isLocked}
           onClick={() => onEdit(item)}
@@ -59,7 +59,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
 
       <td className="action-cell">
         <ActionButton
-          label="Delete"
+          label="delete"
           className="secondary"
           disabled={user.role !== 1 || isLocked}
           onClick={() => onDelete(item)}
@@ -125,8 +125,13 @@ export const ListView = ({
           <tbody>
             {!isLoading && data?.count === 0 && (
               <tr>
-                <td colSpan={4}>
-                  <article>No records found</article>
+                <td colSpan={fields.length + 1}>
+                  <article>
+                    <strong>
+                      No records found
+                      {searchText ? ` matching: "${searchText}"` : ''}.
+                    </strong>
+                  </article>
                 </td>
               </tr>
             )}

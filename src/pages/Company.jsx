@@ -11,9 +11,7 @@ const Company = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getCompany(id).then((res) => {
-        setCompany(res.data)
-      })
+      getCompany(id).then((res) => setCompany(res.data))
     }
   }, [params])
 

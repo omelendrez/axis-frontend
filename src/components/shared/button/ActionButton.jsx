@@ -6,6 +6,6 @@ export const ActionButton = ({ label, onClick, disabled, className }) => (
     onClick={onClick}
     disabled={disabled}
   >
-    {label}
+    <span className="material-icons">{label}</span>
   </button>
 )

@@ -11,9 +11,7 @@ const User = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getUser(id).then((res) => {
-        setUser(res.data)
-      })
+      getUser(id).then((res) => setUser(res.data))
     }
   }, [params])
 

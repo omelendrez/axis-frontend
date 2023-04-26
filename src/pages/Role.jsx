@@ -11,9 +11,7 @@ const Role = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getRole(id).then((res) => {
-        setRole(res.data)
-      })
+      getRole(id).then((res) => setRole(res.data))
     }
   }, [params])
 

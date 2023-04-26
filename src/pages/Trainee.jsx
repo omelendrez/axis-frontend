@@ -11,9 +11,7 @@ const Trainee = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getTrainee(id).then((res) => {
-        setTrainee(res.data)
-      })
+      getTrainee(id).then((res) => setTrainee(res.data))
     }
   }, [params])
 

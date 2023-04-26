@@ -11,9 +11,7 @@ const Nationality = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getNationality(id).then((res) => {
-        setNationality(res.data)
-      })
+      getNationality(id).then((res) => setNationality(res.data))
     }
   }, [params])
 
