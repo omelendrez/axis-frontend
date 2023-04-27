@@ -1,7 +1,7 @@
 import { ActionButton } from '../button'
 import './modal.css'
 
-export const Modal = ({ open, onClose, children }) => (
+export const Modal = ({ open, title, onClose, children }) => (
   <dialog open={open} className="modal">
     <article className="modal-container">
       <ActionButton
@@ -9,7 +9,8 @@ export const Modal = ({ open, onClose, children }) => (
         onClick={onClose}
         className="modal-close-button"
       />
-      {children}
+      <h5>{title}</h5>
+      <div>{children}</div>
     </article>
   </dialog>
 )

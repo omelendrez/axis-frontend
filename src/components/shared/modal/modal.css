@@ -1,3 +1,7 @@
+dialog.modal {
+  align-items: flex-start;
+}
+
 dialog.modal article.modal-container {
   padding: 1rem;
   max-width: fit-content;

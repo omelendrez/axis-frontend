@@ -22,10 +22,28 @@ const Trainee = () => {
     setIsModalOpen((o) => !o)
   }
 
+  const handleAdd = (e) => {
+    e.preventDefault()
+    console.log('Adding', e)
+  }
+
+  const handleEdit = (trainee) => console.log('Editing', trainee)
+
+  const handleDelete = (trainee) => console.log('Deleting', trainee)
+
   return (
     <>
-      <Modal open={isModalOpen} onClose={handleToggleModal}>
-        <Training trainee={trainee} />
+      <Modal
+        open={isModalOpen}
+        title={`${trainee?.badge} - ${trainee?.last_name}, ${trainee?.first_name}`}
+        onClose={handleToggleModal}
+      >
+        <Training
+          trainee={trainee}
+          onAdd={handleAdd}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </Modal>
       <main className="container-fluid">
         <nav aria-label="breadcrumb" className="breadcrumb">
@@ -50,7 +68,7 @@ const Trainee = () => {
               onClick={handleToggleModal}
               className="training-data-button"
             >
-              See Training data
+              Training
             </a>
           </div>
           <TraineeComponent trainee={trainee} />
