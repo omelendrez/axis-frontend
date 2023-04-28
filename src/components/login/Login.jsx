@@ -64,10 +64,10 @@ export const Login = () => {
         navigate(-1)
       })
       .catch((e) => {
-        console.log(e)
+        console.error(e)
         const notification = {
           type: 'error',
-          message: e.response.data.message
+          message: e.response.data.message || e.message
         }
         set(notification)
         setIsSubmitting(false)
