@@ -5,7 +5,7 @@ import { Loading, ListView, AddButton } from '../components'
 import useStates from '../hooks/useStates'
 import useNotification from '../hooks/useNotification'
 
-import { initialValues } from '../helpers'
+import { initialValues, FOREIGNER } from '../helpers'
 
 const States = () => {
   const { states, load: loadStates, remove: removeState } = useStates()
@@ -63,7 +63,7 @@ const States = () => {
     {
       name: 'name',
       id: 'Name',
-      lock: { values: ['- Foreigner -'] }
+      lock: { values: [FOREIGNER] }
     }
   ]
 

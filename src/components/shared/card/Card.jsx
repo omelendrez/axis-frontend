@@ -1,5 +1,6 @@
 import useUser from '../../../hooks/useUser'
 import { Tag, IconButton } from '../'
+import { FOREIGNER } from '../../../helpers'
 import './card.css'
 
 export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
@@ -28,8 +29,8 @@ export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
         <div className="small-font">{item.company}</div>
         <div className="small-font">
           <div>
-            {item.sex} - {item.state} - {item.nationality} - {item.age} years
-            old
+            {item.sex} - {item.state === FOREIGNER ? null : `${item.state} - `}
+            {item.nationality} - {item.age} years old
           </div>
         </div>
       </div>

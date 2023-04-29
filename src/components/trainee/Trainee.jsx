@@ -16,6 +16,7 @@ import useStates from '../../hooks/useStates'
 import useNationalities from '../../hooks/useNationalities'
 import useCompanies from '../../hooks/useCompanies'
 import useNotification from '../../hooks/useNotification'
+import { FOREIGNER } from '../../helpers'
 
 import {
   sex as sexList,
@@ -156,7 +157,7 @@ export const Trainee = ({ trainee }) => {
       return setIsConfirmOpen(true)
     }
 
-    const foreigner = statesList.find((s) => s.name === '- Foreigner -')
+    const foreigner = statesList.find((s) => s.name === FOREIGNER)
     const nigerian = nationalitiesList.find((n) => n.name.includes('Nigerian'))
 
     if (id === 'state') {
