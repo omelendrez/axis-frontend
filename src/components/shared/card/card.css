@@ -1,0 +1,65 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.card:hover {
+  background-color: hsl(184.2, 51.6%, 95%);
+}
+
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.card .card-body div {
+  margin-right: 6px;
+}
+
+.card .card-buttons {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  display: flex;
+}
+
+.card .card-buttons [data-tooltip] {
+  border: none;
+}
+
+.card .card-buttons div:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.card-body .small-font {
+  font-size: 14px;
+}
+
+.card-body .ellipsis {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 640px) {
+  .card .card-body div {
+    display: flex;
+    max-width: unset;
+    align-items: center;
+    overflow: unset;
+    text-overflow: unset;
+  }
+
+  .card .card-buttons {
+    top: unset;
+    bottom: 0;
+    display: flex;
+  }
+}

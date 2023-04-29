@@ -1,0 +1,28 @@
+.icon-button {
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--primary);
+  width: auto;
+}
+
+.icon-button.primary {
+  color: var(--primary);
+  transition: background-color var(--transition);
+}
+
+.icon-button.primary:hover {
+  color: var(--primary-hover);
+}
+
+.icon-button.delete {
+  color: hsl(0, 66%, 60%);
+  transition: background-color var(--transition);
+}
+
+.icon-button.delete:hover {
+  color: hsl(0, 66%, 40%);
+}
+
+.icon-button span {
+  font-size: 2rem;
+}

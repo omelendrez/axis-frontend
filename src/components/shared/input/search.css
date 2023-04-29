@@ -1,4 +1,4 @@
-section {
+section.search {
   position: absolute;
   left: 2rem;
   top: 8rem;
@@ -6,7 +6,7 @@ section {
 }
 
 @media screen and (min-width: 640px) {
-  section {
+  section.search {
     padding: 0;
     width: 40vw;
   }

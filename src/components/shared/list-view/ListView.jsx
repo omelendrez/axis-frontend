@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import useUser from '../../../hooks/useUser'
 import { ActionButton, Search } from '../'
-import { Pagination } from './Pagination'
-import { useState } from 'react'
+import { Pagination } from '../'
 import './listView.css'
 
 const Row = ({ item, fields, onEdit, onDelete }) => {

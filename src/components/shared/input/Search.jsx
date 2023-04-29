@@ -1,7 +1,7 @@
-import "./search.css";
+import './search.css'
 
 export const Search = (props) => (
-  <section>
+  <section className={`search ${props.className}`}>
     <input
       type="search"
       id="search"
@@ -10,4 +10,4 @@ export const Search = (props) => (
       {...props}
     />
   </section>
-);
+)

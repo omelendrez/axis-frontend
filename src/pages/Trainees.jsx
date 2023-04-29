@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Loading, ListView, AddButton } from '../components'
+import { Loading, CardList, AddButton } from '../components'
 import useTrainees from '../hooks/useTrainees'
 import useNoficication from '../hooks/useNotification'
 import { initialValues } from '../helpers'
@@ -52,6 +52,15 @@ const Trainees = () => {
     removeTrainee(trainee.id)
   }
 
+  const handleView = (trainee) => {
+    const notification = {
+      type: 'info',
+      message:
+        'This functionality is still in progress. Thank you for your patience.'
+    }
+    set(notification)
+  }
+
   const handleBack = (e) => {
     e.preventDefault()
     navigate(-1)
@@ -77,7 +86,7 @@ const Trainees = () => {
   ]
 
   return (
-    <main className="container-fluid">
+    <main className="container">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
@@ -95,13 +104,14 @@ const Trainees = () => {
 
       <AddButton url="/trainee" />
 
-      <ListView
+      <CardList
         data={data}
         pagination={pagination}
         onPagination={setPagination}
         fields={fields}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        onView={handleView}
         isLoading={isLoading}
         loadItems={loadTrainees}
       />
