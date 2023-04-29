@@ -9,7 +9,8 @@
 }
 
 .card:hover {
-  background-color: hsl(184.2, 51.6%, 95%);
+  background-color: var(--color);
+  color: var(--background-color);
 }
 
 .card .card-body {
