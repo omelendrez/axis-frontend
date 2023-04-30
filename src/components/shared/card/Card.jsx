@@ -3,8 +3,11 @@ import { Tag, IconButton } from '../'
 import { FOREIGNER } from '../../../helpers'
 import './card.css'
 
+import { getPhoto } from '../../../services'
+
 export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
   const { user } = useUser()
+  const photoUrl = getPhoto(item.badge)
   let isLocked = false
   fields.forEach((f) => {
     const lock = f.lock
@@ -14,8 +17,21 @@ export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
       }
     }
   })
+
+  const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
+
   return (
     <article className="card">
+      <div className="card-avatar-root">
+        <div className="card-avatar-circular">
+          <img
+            src={photoUrl}
+            alt={item.badge}
+            className="card-avatar-img"
+            onError={handleImageError}
+          />
+        </div>
+      </div>
       <div className="card-body">
         <div>
           <div>

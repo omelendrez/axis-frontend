@@ -1,11 +1,38 @@
 .card {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   margin-bottom: 1rem;
   position: relative;
+  align-items: center;
+}
+
+.card .card-avatar-root {
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.card .card-avatar-root .card-avatar-circular {
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+}
+
+.card .card-avatar-root .card-avatar-circular .card-avatar-img {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
 }
 
 .card:hover {
@@ -15,6 +42,8 @@
 
 .card .card-body {
   display: flex;
+  flex: 1 1 auto;
+  margin: 1rem;
   flex-direction: column;
   pointer-events: none;
 }
@@ -62,5 +91,10 @@
     top: unset;
     bottom: 0;
     display: flex;
+  }
+
+  .card .card-avatar-root .card-avatar-circular {
+    width: 80px;
+    height: 80px;
   }
 }

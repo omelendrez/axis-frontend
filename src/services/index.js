@@ -1,2 +1,3 @@
-export * from './api';
-export * from './session';
+export * from './api'
+export * from './assets'
+export * from './session'
