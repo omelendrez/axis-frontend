@@ -1,5 +1,22 @@
-  /* .dashboard article {} */
+/* .dashboard article {} */
 
-  .dashboard a {
-    float: right;
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-item {
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 640px) {
+  .dashboard-item {
+    width: 20rem;
   }
+}

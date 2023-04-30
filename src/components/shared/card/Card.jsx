@@ -1,6 +1,5 @@
 import useUser from '../../../hooks/useUser'
 import { Tag, IconButton } from '../'
-import { FOREIGNER } from '../../../helpers'
 import './card.css'
 
 import { getPhoto } from '../../../services'
@@ -34,20 +33,12 @@ export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
       </div>
       <div className="card-body">
         <div>
-          <div>
-            <Tag className={item.type}>{item.type}</Tag>
-          </div>
-          <div>{item.badge}</div>
-          <div>
-            <b>{item.full_name}</b>
-          </div>
+          <b>{item.full_name}</b>
         </div>
         <div className="small-font">{item.company}</div>
-        <div className="small-font">
-          <div>
-            {item.sex} - {item.state === FOREIGNER ? null : `${item.state} - `}
-            {item.nationality} - {item.age} years old
-          </div>
+        <div style={{ display: 'flex' }}>
+          <Tag className={item.type}>{item.type}</Tag>
+          <div>{item.badge}</div>
         </div>
       </div>
       <div className="card-buttons">
@@ -57,7 +48,7 @@ export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
             e.preventDefault()
             onView(item)
           }}
-          tooltip="View training data"
+          tooltip="View trainee"
         >
           visibility
         </IconButton>

@@ -3,7 +3,7 @@ import { Dashboard as DashboardComponent } from '../components'
 
 const Dashboard = () => {
   return (
-    <main className="container-fluid">
+    <main className="container">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>

@@ -6,6 +6,7 @@
   margin-bottom: 1rem;
   position: relative;
   align-items: center;
+  width: 100%;
 }
 
 .card .card-avatar-root {
@@ -21,8 +22,8 @@
   -webkit-box-pack: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 4rem;
+  height: 4rem;
   overflow: hidden;
 }
 
@@ -31,32 +32,26 @@
   height: 100%;
   text-align: center;
   object-fit: cover;
-  color: transparent;
-  text-indent: 10000px;
-}
-
-.card:hover {
-  background-color: var(--color);
-  color: var(--background-color);
 }
 
 .card .card-body {
   display: flex;
-  flex: 1 1 auto;
+  flex: auto;
   margin: 1rem;
   flex-direction: column;
   pointer-events: none;
 }
 
 .card .card-body div {
-  margin-right: 6px;
+  margin-right: 3px;
+  width: fit-content;
 }
 
 .card .card-buttons {
   position: absolute;
-  right: 1rem;
-  top: 1rem;
   display: flex;
+  right: 6px;
+  bottom: 0;
 }
 
 .card .card-buttons [data-tooltip] {
@@ -64,7 +59,7 @@
 }
 
 .card .card-buttons div:not(:last-child) {
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 
 .card-body .small-font {
@@ -79,21 +74,13 @@
 }
 
 @media screen and (min-width: 640px) {
-  .card .card-body div {
-    display: flex;
-    max-width: unset;
-    align-items: center;
-    overflow: unset;
-    text-overflow: unset;
-  }
-
-  .card .card-buttons {
-    top: unset;
-    position: relative;
+  .card {
+    max-width: 34rem;
+    min-width: 34rem;
   }
 
   .card .card-avatar-root .card-avatar-circular {
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
   }
 }

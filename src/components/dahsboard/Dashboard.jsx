@@ -1,70 +1,70 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { UserContext } from "../../context";
-import "./dashboard.css";
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../context'
+import './dashboard.css'
 
 const menuOptions = [
   {
-    title: "Users",
-    description: "Manage Axis users",
-    path: "/users",
-    roles: [1],
+    title: 'Users',
+    description: 'Manage Axis users',
+    path: '/users',
+    roles: [1]
   },
   {
-    title: "Roles",
-    description: "Manage user roles",
-    path: "/roles",
-    roles: [1],
+    title: 'Roles',
+    description: 'Manage user roles',
+    path: '/roles',
+    roles: [1]
   },
   {
-    title: "States",
-    description: "Manage states master table",
-    path: "/states",
-    roles: [1],
+    title: 'States',
+    description: 'Manage states master table',
+    path: '/states',
+    roles: [1]
   },
   {
-    title: "Nationalities",
-    description: "Manage nationalities master table",
-    path: "/nationalities",
-    roles: [1],
+    title: 'Nationalities',
+    description: 'Manage nationalities master table',
+    path: '/nationalities',
+    roles: [1]
   },
   {
-    title: "Companies",
-    description: "Manage companies master table",
-    path: "/companies",
-    roles: [1],
+    title: 'Companies',
+    description: 'Manage companies master table',
+    path: '/companies',
+    roles: [1]
   },
   {
-    title: "Trainees",
-    description: "Manage trainees",
-    path: "/trainees",
-    roles: [1],
+    title: 'Trainees',
+    description: 'Manage trainees',
+    path: '/trainees',
+    roles: [1]
   },
   {
-    title: "Courses",
-    description: "Manage safety courses",
-    path: "/courses",
-    roles: [1],
-  },
-];
+    title: 'Courses',
+    description: 'Manage safety courses',
+    path: '/courses',
+    roles: [1]
+  }
+]
 
-const MenuOption = ({ title, description, path }) => (
-  <article>
+const MenuOption = ({ title, description, path, onNavigate }) => (
+  <article className="dashboard-item" onClick={() => onNavigate(path)}>
     <hgroup>
-      <Link to={path} role="button">
-        Go
-      </Link>
-      <h2>{title}</h2>
-      <h3>{description}</h3>
+      <h3>{title}</h3>
+      <h4>{description}</h4>
     </hgroup>
   </article>
-);
+)
 
 export const Dashboard = () => {
-  const { user } = useContext(UserContext);
+  const navigate = useNavigate()
+  const { user } = useContext(UserContext)
+
+  const handleNavigate = (link) => navigate(link)
 
   return (
-    <main className="container dashboard">
+    <main className="dashboard">
       {menuOptions
         .filter((r) => r.roles.length === 0 || r.roles.includes(user.role))
         .map((o) => (
@@ -73,8 +73,9 @@ export const Dashboard = () => {
             title={o.title}
             description={o.description}
             path={o.path}
+            onNavigate={handleNavigate}
           />
         ))}
     </main>
-  );
-};
+  )
+}
