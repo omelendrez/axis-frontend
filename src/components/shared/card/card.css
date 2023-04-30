@@ -89,8 +89,7 @@
 
   .card .card-buttons {
     top: unset;
-    bottom: 0;
-    display: flex;
+    position: relative;
   }
 
   .card .card-avatar-root .card-avatar-circular {
