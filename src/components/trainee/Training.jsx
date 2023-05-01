@@ -34,24 +34,28 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
         <thead>
           <tr>
             <th scope="col">Course</th>
-            <th scope="col">Start</th>
-            <th scope="col">Expiry</th>
-            {!isReadOnly && <th scope="col">Certificate</th>}
             <th scope="col">Status</th>
-            {!isReadOnly && <th scope="col" colSpan={2}></th>}
+            {!isReadOnly && (
+              <>
+                <th scope="col">Start</th>
+                <th scope="col">Expiry</th>
+                <th scope="col">Certificate</th>
+                <th scope="col" colSpan={2}></th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
           {trainings.map((t) => (
             <tr key={t.id}>
               <td>{t.course}</td>
-              <td>{t.start}</td>
-              <td>{t.expiry}</td>
-              {!isReadOnly && <td>{t.certificate}</td>}
               <td>{t.status}</td>
 
               {!isReadOnly && (
                 <>
+                  <td>{t.start}</td>
+                  <td>{t.expiry}</td>
+                  <td>{t.certificate}</td>
                   <td className="action-cell">
                     <ActionButton
                       label="edit"
@@ -59,7 +63,6 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
                       onClick={() => onEdit(t)}
                     />
                   </td>
-
                   <td className="action-cell">
                     <ActionButton
                       label="remove_circle_outline"
