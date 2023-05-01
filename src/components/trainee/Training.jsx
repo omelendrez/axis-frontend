@@ -3,8 +3,12 @@ import { getTrainings } from '../../services'
 import { ActionButton, AddButton } from '../shared'
 import './training.css'
 
-export const Training = ({ trainee, onAdd, onEdit, onDelete }) => {
+const isMobile = window.innerWidth < 992
+
+export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
   const [trainings, setTrainings] = useState([])
+
+  const isReadOnly = isMobile && noMobile
 
   useEffect(() => {
     const id = trainee?.id
@@ -23,7 +27,7 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete }) => {
             <th scope="col">Expiry</th>
             <th scope="col">Certificate</th>
             <th scope="col">Status</th>
-            <th scope="col" colSpan={2}></th>
+            {!isReadOnly && <th scope="col" colSpan={2}></th>}
           </tr>
         </thead>
         <tbody>
@@ -35,26 +39,30 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete }) => {
               <td>{t.certificate}</td>
               <td>{t.status}</td>
 
-              <td className="action-cell">
-                <ActionButton
-                  label="edit"
-                  className="primary small"
-                  onClick={() => onEdit(t)}
-                />
-              </td>
+              {!isReadOnly && (
+                <>
+                  <td className="action-cell">
+                    <ActionButton
+                      label="edit"
+                      className="primary small"
+                      onClick={() => onEdit(t)}
+                    />
+                  </td>
 
-              <td className="action-cell">
-                <ActionButton
-                  label="remove_circle_outline"
-                  className="delete small"
-                  onClick={() => onDelete(t)}
-                />
-              </td>
+                  <td className="action-cell">
+                    <ActionButton
+                      label="remove_circle_outline"
+                      className="delete small"
+                      onClick={() => onDelete(t)}
+                    />
+                  </td>
+                </>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
-      <AddButton url="/training" onClick={onAdd} />
+      {!isReadOnly && <AddButton url="/training" onClick={onAdd} />}
     </div>
   )
 }

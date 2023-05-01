@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify'
 import useNoficication from './hooks/useNotification'
@@ -41,11 +41,14 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 
 function App() {
   const { data, clear } = useNoficication()
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (data.type && data.message) {
       const delay = data.message.split(' ').length * 500
       toast[data.type](data.message, { autoClose: delay })
+      if (data.message === 'Token expired') {
+        navigate('/login')
+      }
       setTimeout(() => {
         clear()
       }, delay)

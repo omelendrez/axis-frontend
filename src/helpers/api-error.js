@@ -1,7 +1,4 @@
-// import { log } from './log'
-
 import { log } from './log'
-
 // const ERROR_CODES = {
 //   ERR_CONNECTION_REFUSED: 'ERR_CONNECTION_REFUSED',
 //   ERR_BAD_REQUEST: 'ERR_BAD_REQUEST'
@@ -9,7 +6,8 @@ import { log } from './log'
 
 export const getApiErrorMessage = (e) => {
   log.error(e)
-  return e.response?.data?.message || e.message
+  const message = e.response?.data?.message || e.message
+  return message
   // log.error(
   //   e?.code
   //     ? e

@@ -65,8 +65,9 @@ const Trainee = () => {
 
         <Divider />
 
-        <FormContainer title="Training" noMobile>
+        <FormContainer title="Training">
           <Training
+            noMobile
             trainee={trainee}
             onAdd={handleAdd}
             onEdit={handleEdit}

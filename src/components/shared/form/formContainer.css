@@ -1,3 +1,11 @@
+article.form-container .form-control {
+  width: auto;
+}
+
+article.form-container details[role='list'] {
+  width: auto;
+}
+
 article.no-mobile {
   display: none;
 }
