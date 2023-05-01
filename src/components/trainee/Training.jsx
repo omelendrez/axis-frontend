@@ -3,12 +3,21 @@ import { getTrainings } from '../../services'
 import { ActionButton, AddButton } from '../shared'
 import './training.css'
 
-const isMobile = window.innerWidth < 992
-
 export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
   const [trainings, setTrainings] = useState([])
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
-  const isReadOnly = isMobile && noMobile
+  const isMobile = windowWidth < 992
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth)
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     const id = trainee?.id
@@ -16,6 +25,8 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
       getTrainings(id).then((res) => setTrainings(res.data))
     }
   }, [trainee])
+
+  const isReadOnly = isMobile && noMobile
 
   return (
     <div className="training-table-container">
@@ -25,7 +36,7 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
             <th scope="col">Course</th>
             <th scope="col">Start</th>
             <th scope="col">Expiry</th>
-            <th scope="col">Certificate</th>
+            {!isReadOnly && <th scope="col">Certificate</th>}
             <th scope="col">Status</th>
             {!isReadOnly && <th scope="col" colSpan={2}></th>}
           </tr>
@@ -36,7 +47,7 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
               <td>{t.course}</td>
               <td>{t.start}</td>
               <td>{t.expiry}</td>
-              <td>{t.certificate}</td>
+              {!isReadOnly && <td>{t.certificate}</td>}
               <td>{t.status}</td>
 
               {!isReadOnly && (

@@ -19,7 +19,7 @@ export const ContactInfo = ({ trainee, onAdd, onEdit, onDelete }) => {
         <thead>
           <tr>
             <th scope="col">Contact type</th>
-            <th scope="col">Value</th>
+            <th scope="col">Info</th>
             <th scope="col" colSpan={2}></th>
           </tr>
         </thead>
