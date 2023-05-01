@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Trainee as TraineeComponent, Training } from '../components'
+import {
+  Divider,
+  FormContainer,
+  Trainee as TraineeComponent,
+  Training,
+  ContactInfo
+} from '../components'
 import { getTrainee } from '../services'
-import { Modal } from '../components/shared/modal/Modal'
 
 const Trainee = () => {
   const params = useParams()
   const [trainee, setTrainee] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     const id = params?.id
@@ -16,11 +20,6 @@ const Trainee = () => {
       getTrainee(id).then((res) => setTrainee(res.data))
     }
   }, [params])
-
-  const handleToggleModal = (e) => {
-    e.preventDefault()
-    setIsModalOpen((o) => !o)
-  }
 
   const handleAdd = (e) => {
     e.preventDefault()
@@ -33,19 +32,7 @@ const Trainee = () => {
 
   return (
     <>
-      <Modal
-        open={isModalOpen}
-        title={`${trainee?.badge} - ${trainee?.last_name}, ${trainee?.first_name}`}
-        onClose={handleToggleModal}
-      >
-        <Training
-          trainee={trainee}
-          onAdd={handleAdd}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      </Modal>
-      <main className="container-fluid">
+      <main className="container">
         <nav aria-label="breadcrumb" className="breadcrumb">
           <ul>
             <li>
@@ -60,19 +47,32 @@ const Trainee = () => {
             <li>Trainee</li>
           </ul>
         </nav>
-        <article className="form-container">
-          <div className="form-container-header">
-            <a
-              href="/#"
-              role="button"
-              onClick={handleToggleModal}
-              className="training-data-button"
-            >
-              Training
-            </a>
-          </div>
+
+        <FormContainer title="Trainee data">
           <TraineeComponent trainee={trainee} />
-        </article>
+        </FormContainer>
+
+        <Divider />
+
+        <FormContainer title="Contact info">
+          <ContactInfo
+            trainee={trainee}
+            onAdd={handleAdd}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </FormContainer>
+
+        <Divider />
+
+        <FormContainer title="Training" noMobile>
+          <Training
+            trainee={trainee}
+            onAdd={handleAdd}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </FormContainer>
       </main>
     </>
   )

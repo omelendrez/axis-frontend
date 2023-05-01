@@ -1,0 +1,9 @@
+article.no-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 992px) {
+  article.no-mobile {
+    display: block;
+  }
+}

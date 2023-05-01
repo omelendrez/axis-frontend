@@ -1,6 +1,3 @@
-import './divider.css';
+import './divider.css'
 
-export const Divider = () => (
-  <div className="divider" />
-);
-
+export const Divider = () => <div className="divider" />

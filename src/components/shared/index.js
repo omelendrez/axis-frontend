@@ -1,6 +1,7 @@
 export * from './button'
 export * from './card'
 export * from './divider'
+export * from './form'
 export * from './input'
 export * from './list-view'
 export * from './loading'
