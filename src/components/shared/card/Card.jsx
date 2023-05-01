@@ -22,19 +22,15 @@ export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
   return (
     <article className="card">
       <div className="card-avatar-root">
-        <div className="card-avatar-circular">
-          <img
-            src={photoUrl}
-            alt={item.badge}
-            className="card-avatar-img"
-            onError={handleImageError}
-          />
-        </div>
+        <img
+          src={photoUrl}
+          alt={item.badge}
+          className="card-avatar-img"
+          onError={handleImageError}
+        />
       </div>
       <div className="card-body">
-        <div>
-          <b>{item.full_name}</b>
-        </div>
+        <div className="ellipsis">{item.full_name}</div>
         <div className="small-font">{item.company}</div>
         <div style={{ display: 'flex' }}>
           <Tag className={item.type}>{item.type}</Tag>
