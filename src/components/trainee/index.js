@@ -1,3 +1,3 @@
-export * from './ContactInfo'
+export * from './ContactInfos'
 export * from './Trainee'
-export * from './Training'
+export * from './Trainings'

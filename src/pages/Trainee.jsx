@@ -5,8 +5,8 @@ import {
   Divider,
   FormContainer,
   Trainee as TraineeComponent,
-  Training,
-  ContactInfo
+  Trainings,
+  ContactInfos
 } from '../components'
 import { getTrainee } from '../services'
 
@@ -21,14 +21,34 @@ const Trainee = () => {
     }
   }, [params])
 
-  const handleAdd = (e) => {
+  // Contact Info
+
+  const handleAddContact = (e) => {
     e.preventDefault()
     console.log('Adding', e)
   }
 
-  const handleEdit = (trainee) => console.log('Editing', trainee)
+  const handleEditContact = (contact) => {
+    console.log('Editing', contact)
+  }
 
-  const handleDelete = (trainee) => console.log('Deleting', trainee)
+  const handleDeleteContact = (contact) => {
+    console.log('Deleting', contact)
+  }
+
+  // Trainings
+
+  const handleAddTraining = (e) => {
+    e.preventDefault()
+    console.log('Adding')
+  }
+
+  const handleEditTraining = (training) => {
+    console.log('Editing', training)
+  }
+  const handleDeleteTraining = (training) => {
+    console.log('Deleting', training)
+  }
 
   return (
     <>
@@ -55,23 +75,23 @@ const Trainee = () => {
         <Divider />
 
         <FormContainer title="Contact info">
-          <ContactInfo
+          <ContactInfos
             trainee={trainee}
-            onAdd={handleAdd}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+            onAdd={handleAddContact}
+            onEdit={handleEditContact}
+            onDelete={handleDeleteContact}
           />
         </FormContainer>
 
         <Divider />
 
-        <FormContainer title="Training">
-          <Training
+        <FormContainer title="Training records">
+          <Trainings
             noMobile
             trainee={trainee}
-            onAdd={handleAdd}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+            onAdd={handleAddTraining}
+            onEdit={handleEditTraining}
+            onDelete={handleDeleteTraining}
           />
         </FormContainer>
       </main>

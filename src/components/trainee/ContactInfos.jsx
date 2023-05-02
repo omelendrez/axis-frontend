@@ -3,7 +3,7 @@ import { getContactInfos } from '../../services'
 import { ActionButton, AddButton } from '../shared'
 import './training.css'
 
-export const ContactInfo = ({ trainee, onAdd, onEdit, onDelete }) => {
+export const ContactInfos = ({ trainee, onAdd, onEdit, onDelete }) => {
   const [contactInfos, setContactInfos] = useState([])
 
   useEffect(() => {

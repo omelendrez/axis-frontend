@@ -3,7 +3,7 @@ import { getTrainings } from '../../services'
 import { ActionButton, AddButton } from '../shared'
 import './training.css'
 
-export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
+export const Trainings = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
   const [trainings, setTrainings] = useState([])
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
