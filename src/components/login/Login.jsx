@@ -4,6 +4,7 @@ import useNoficication from '../../hooks/useNotification'
 import { FormButtonRow, InputField } from '../shared'
 import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
+import './login.css'
 
 const initialValues = {
   name: {
@@ -82,7 +83,7 @@ export const Login = () => {
   const { name, password } = values
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="login-form">
       <InputField
         type="text"
         id="name"

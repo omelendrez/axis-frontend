@@ -50,7 +50,6 @@ export const Training = ({ trainee, onAdd, onEdit, onDelete, noMobile }) => {
             <tr key={t.id}>
               <td>{t.course}</td>
               <td>{t.status}</td>
-
               {!isReadOnly && (
                 <>
                   <td>{t.start}</td>
