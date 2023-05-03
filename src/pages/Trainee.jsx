@@ -4,9 +4,10 @@ import { useParams } from 'react-router-dom'
 import {
   Divider,
   FormContainer,
-  Trainee as TraineeComponent,
-  Trainings,
-  ContactInfos
+  // Trainee as TraineeComponent,
+  // Trainings,
+  // ContactInfos
+  TraineeForm
 } from '../components'
 import { getTrainee } from '../services'
 
@@ -68,7 +69,7 @@ const Trainee = () => {
           </ul>
         </nav>
 
-        <FormContainer title="Trainee data">
+        {/* <FormContainer title="Trainee data">
           <TraineeComponent trainee={trainee} />
         </FormContainer>
 
@@ -93,7 +94,8 @@ const Trainee = () => {
             onEdit={handleEditTraining}
             onDelete={handleDeleteTraining}
           />
-        </FormContainer>
+        </FormContainer> */}
+        <TraineeForm trainee={trainee} />
       </main>
     </>
   )

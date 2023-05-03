@@ -8,6 +8,8 @@ export const getTrainees = (pagination) =>
 
 export const getTrainee = (id) => api.get(`/trainee/${id}`)
 
+export const getTraineeView = (id) => api.get(`/trainee/${id}/view`)
+
 export const updateTrainee = (id, payload) => api.put(`/trainee/${id}`, payload)
 
 export const deleteTrainee = (id) => api.delete(`/trainee/${id}`)

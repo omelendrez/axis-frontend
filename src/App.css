@@ -3,12 +3,6 @@
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-@media only screen and (min-width: 992px) {
-  :root {
-    --font-size: 1rem;
-  }
-}
-
 .form-control small {
   color: #e53935;
 }
