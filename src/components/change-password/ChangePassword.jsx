@@ -9,6 +9,7 @@ import {
 } from '../../helpers'
 import { changePassword } from '../../services'
 import { UserContext } from '../../context'
+import './changePassword.css'
 
 const initialValues = {
   prevPass: {
@@ -94,7 +95,7 @@ export const ChangePassword = () => {
   const { prevPass, password, verPass } = values
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="change-password-form">
       <InputField
         type="text"
         id="prevPass"

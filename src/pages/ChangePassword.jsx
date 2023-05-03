@@ -15,7 +15,7 @@ const ChangePassword = () => {
           <li>Roles</li>
         </ul>
       </nav>
-      <article className="form-container">
+      <article className="change-password-form-container">
         <ChangePasswordComponent />
       </article>
     </main>
