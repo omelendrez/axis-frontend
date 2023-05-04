@@ -1,0 +1,34 @@
+[
+  {
+    "label": "Badge",
+    "field": "badge"
+  },
+  {
+    "label": "Name",
+    "field": "full_name"
+  },
+  {
+    "label": "Birgth date",
+    "field": "birth_date"
+  },
+  {
+    "label": "Sex",
+    "field": "sex"
+  },
+  {
+    "label": "State",
+    "field": "state"
+  },
+  {
+    "label": "Nationality",
+    "field": "nationality"
+  },
+  {
+    "label": "Company",
+    "field": "company"
+  },
+  {
+    "label": "Status",
+    "field": "status"
+  }
+]

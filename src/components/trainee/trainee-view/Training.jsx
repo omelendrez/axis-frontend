@@ -1,40 +1,25 @@
-const fields = [
-  {
-    label: 'Course',
-    field: 'course'
-  },
-  {
-    label: 'Start',
-    field: 'start'
-  },
-  {
-    label: 'Expiry',
-    field: 'expiry'
-  },
-  {
-    label: 'Certificate',
-    field: 'certificate'
-  },
-  {
-    label: 'Status',
-    field: 'status'
-  }
-]
+import { useState } from 'react'
+import fields from './training-fields.json'
 
-const Cell = ({ value }) => <td>{value}</td>
+const Row = ({ training, selected, onSelect }) => {
+  return (
+    <tr>
+      <td>
+        <input
+          type="checkbox"
+          value={training.id}
+          checked={selected.find((s) => s === training.id)}
+          onChange={onSelect}
+        />
+      </td>
+      {fields.map((f) => (
+        <td key={f.field}>{training[f.field]}</td>
+      ))}
+    </tr>
+  )
+}
 
-const Row = ({ training }) => (
-  <tr>
-    <td>
-      <input type="checkbox" value={training.id} />
-    </td>
-    {fields.map((f) => (
-      <Cell key={f.field} value={training[f.field]} />
-    ))}
-  </tr>
-)
-
-const Header = () => (
+const Headers = () => (
   <tr>
     <th>
       <span className="material-icons">check</span>
@@ -48,19 +33,43 @@ const Header = () => (
 )
 
 export const Training = ({ trainings }) => {
+  const [selected, setSelected] = useState([])
+
+  const handleSelect = (e) => {
+    const { checked, value } = e.target
+    if (checked) {
+      setSelected((selected) => [...selected, value])
+    } else {
+      setSelected((selected) => selected.filter((s) => s !== value))
+    }
+  }
+
   return (
     <article className="training">
       <h6 className="title">Training records</h6>
+      <div className="training-buttons">
+        <button className="primary" disabled={selected.length !== 1}>
+          <span className="material-icons">edit</span>
+        </button>
+        <button className="delete" disabled={!selected.length}>
+          <span className="material-icons">delete</span>
+        </button>
+      </div>
 
       <figure>
         <table role="grid">
           <thead>
-            <Header />
+            <Headers />
           </thead>
 
           <tbody>
             {trainings.map((t) => (
-              <Row key={t.id} training={t} />
+              <Row
+                key={t.id}
+                training={t}
+                selected={selected}
+                onSelect={handleSelect}
+              />
             ))}
             {!trainings.length && (
               <tr>

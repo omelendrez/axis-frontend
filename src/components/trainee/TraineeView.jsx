@@ -20,22 +20,10 @@ export const TraineeView = () => {
     const id = params.id
     if (id) {
       getTraineeView(id).then((res) => setTrainee(res.data))
-    }
-  }, [params])
-
-  useEffect(() => {
-    const id = trainee?.id
-    if (id) {
       getContactInfos(id).then((res) => setContactInfos(res.data))
-    }
-  }, [trainee])
-
-  useEffect(() => {
-    const id = trainee?.id
-    if (id) {
       getTrainings(id).then((res) => setTrainings(res.data))
     }
-  }, [trainee])
+  }, [params])
 
   if (!trainee) {
     return <Loading />

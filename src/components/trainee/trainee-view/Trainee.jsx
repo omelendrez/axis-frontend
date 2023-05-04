@@ -1,4 +1,12 @@
 import { Tag } from '../../shared'
+import fields from './trainee-fields.json'
+
+const Row = ({ label, value }) => (
+  <div className="row-line" key={label}>
+    <span>{label}:</span>
+    <span>{value}</span>
+  </div>
+)
 
 export const Trainee = ({ trainee }) => {
   if (!trainee) {
@@ -14,34 +22,9 @@ export const Trainee = ({ trainee }) => {
             <Tag className={trainee.type}>{trainee.type}</Tag>
           </span>
         </div>
-        <div className="row-line">
-          <span>Badge:</span>
-          <span>{trainee.badge}</span>
-        </div>
-        <div className="row-line">
-          <span>Name:</span>
-          <span>{trainee.full_name}</span>
-        </div>
-        <div className="row-line">
-          <span>Birth date:</span>
-          <span>{trainee.birth_date}</span>
-        </div>
-        <div className="row-line">
-          <span>Sex: </span>
-          <span>{trainee.sex}</span>
-        </div>
-        <div className="row-line">
-          <span>State:</span>
-          <span>{trainee.state}</span>
-        </div>
-        <div className="row-line">
-          <span>Nationality:</span>
-          <span>{trainee.nationality}</span>
-        </div>
-        <div className="row-line">
-          <span>Status:</span>
-          <span>{trainee.status}</span>
-        </div>
+        {fields.map((f) => (
+          <Row key={f.label} label={f.label} value={trainee[f.field]} />
+        ))}
       </div>
     </article>
   )

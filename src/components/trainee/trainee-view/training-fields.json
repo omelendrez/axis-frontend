@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Course",
+    "field": "course"
+  },
+  {
+    "label": "Start",
+    "field": "start"
+  },
+  {
+    "label": "Expiry",
+    "field": "expiry"
+  },
+  {
+    "label": "Certificate",
+    "field": "certificate"
+  },
+  {
+    "label": "Status",
+    "field": "status"
+  }
+]

@@ -81,3 +81,34 @@
   white-space: nowrap;
   padding: 6px;
 }
+
+.trainee-view .training-buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  column-gap: 1rem;
+}
+
+.trainee-view .training-buttons button {
+  width: fit-content;
+  background: none;
+  border-radius: 50%;
+}
+
+.trainee-view .training-buttons button.primary {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.trainee-view .training-buttons button.primary:hover {
+  color: var(--primary-hover);
+}
+
+.trainee-view .training-buttons button.delete {
+  color: hsl(0, 66%, 60%);
+  border-color: hsl(0, 66%, 60%);
+}
+
+.trainee-view .training-buttons button.delete:hover {
+  color: hsl(0, 66%, 40%);
+}
