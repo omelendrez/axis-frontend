@@ -95,6 +95,11 @@
   border-radius: 50%;
 }
 
+.trainee-view .training-buttons button span.material-icons {
+  position: relative;
+  top: 3px;
+}
+
 .trainee-view .training-buttons button.primary {
   color: var(--primary);
   border-color: var(--primary);
