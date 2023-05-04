@@ -1,4 +1,4 @@
 export * from './ContactInfos'
 export * from './Trainee'
-export * from './TraineeForm'
+export * from './TraineeView'
 export * from './Trainings'

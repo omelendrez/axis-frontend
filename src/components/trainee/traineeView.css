@@ -1,0 +1,77 @@
+.trainee-view {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.trainee-view div {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.trainee-view div:last-child {
+  flex-grow: 1;
+}
+
+.trainee-view div article {
+  position: relative;
+}
+
+.trainee-view div article .title {
+  font-size: 0.8rem;
+  color: var(--background-color);
+  background-color: var(--primary);
+  padding: 0.3rem 1rem;
+  border-radius: 0 1rem 1rem 0;
+  width: fit-content;
+}
+
+.trainee-view div .trainee .tag {
+  width: fit-content;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.trainee-view div .picture img {
+  object-fit: contain;
+}
+
+@media screen and (min-width: 992px) {
+  .trainee-view div .picture img {
+    max-width: 20rem;
+  }
+  .trainee-view div:first-child {
+    flex-grow: unset;
+  }
+}
+
+.trainee-view div .row-line {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.3rem;
+}
+
+.trainee-view div .row-line span:first-child {
+  font-weight: lighter;
+}
+.trainee-view div .row-line span:last-child {
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.trainee-view div .divider {
+  margin: 1rem 0;
+}
+
+.trainee-view .training figure {
+  overflow: auto;
+  max-width: 80vw;
+}
+
+.trainee-view .training figure table tbody tr td {
+  white-space: nowrap;
+}

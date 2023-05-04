@@ -3,10 +3,6 @@
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.form-control small {
-  color: #e53935;
-}
-
 /* Picocss affects the way buttons are displayed */
 .Toastify__close-button {
   width: 1rem;

@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import {
-  Divider,
-  FormContainer,
-  // Trainee as TraineeComponent,
-  // Trainings,
-  // ContactInfos
-  TraineeForm
-} from '../components'
+import { TraineeView } from '../components'
 import { getTrainee } from '../services'
 
 const Trainee = () => {
@@ -95,7 +88,7 @@ const Trainee = () => {
             onDelete={handleDeleteTraining}
           />
         </FormContainer> */}
-        <TraineeForm trainee={trainee} />
+        <TraineeView trainee={trainee} />
       </main>
     </>
   )
