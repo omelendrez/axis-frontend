@@ -35,8 +35,9 @@ export const TraineeView = () => {
       <div>
         <Picture photoUrl={photoUrl} />
       </div>
-      <Trainee trainee={trainee} />
-      <div></div>
+      <div>
+        <Trainee trainee={trainee} />
+      </div>
       <div>
         <Training trainings={trainings} />
         <Contact contactInfos={contactInfos} />
