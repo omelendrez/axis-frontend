@@ -1,0 +1,19 @@
+.trainee-view div .trainee .tag {
+  width: fit-content;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.trainee-view div .row-line {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.3rem;
+}
+
+.trainee-view div .row-line span:first-child {
+  font-weight: lighter;
+}
+.trainee-view div .row-line span:last-child {
+  font-weight: bold;
+  margin-left: 6px;
+}

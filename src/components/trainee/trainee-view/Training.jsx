@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import fields from './training-fields.json'
+import { Buttons } from './Buttons'
 
 const Row = ({ training, selected, onSelect }) => {
   return (
@@ -45,17 +46,9 @@ export const Training = ({ trainings }) => {
   }
 
   return (
-    <article className="training">
+    <article>
       <h6 className="title">Training records</h6>
-      <div className="training-buttons">
-        <button className="primary" disabled={selected.length !== 1}>
-          <span className="material-icons">edit</span>
-        </button>
-        <button className="delete" disabled={!selected.length}>
-          <span className="material-icons">delete</span>
-        </button>
-      </div>
-
+      <Buttons selected={selected} />
       <figure>
         <table role="grid">
           <thead>

@@ -1,5 +1,7 @@
 import { Tag } from '../../shared'
+import { Buttons } from './Buttons'
 import fields from './trainee-fields.json'
+import './trainee.css'
 
 const Row = ({ label, value }) => (
   <div className="row-line" key={label}>
@@ -15,6 +17,7 @@ export const Trainee = ({ trainee }) => {
   return (
     <article className="trainee">
       <h6 className="title">Personal data</h6>
+      <Buttons />
       <div>
         <div className="row-line">
           <span>Type:</span>
