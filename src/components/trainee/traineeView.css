@@ -72,6 +72,12 @@
   max-width: 80vw;
 }
 
-.trainee-view .training figure table tbody tr td {
+.trainee-view .training figure table tbody td input[type='checkbox'] {
+  font-size: 0.8rem;
+}
+
+.trainee-view table th,
+.trainee-view table td {
   white-space: nowrap;
+  padding: 6px;
 }

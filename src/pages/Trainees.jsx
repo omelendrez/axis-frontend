@@ -53,12 +53,7 @@ const Trainees = () => {
   }
 
   const handleView = (trainee) => {
-    const notification = {
-      type: 'info',
-      message:
-        'This functionality is still in progress. Thank you for your patience.'
-    }
-    set(notification)
+    navigate(`/trainee/${trainee.id}`)
   }
 
   const handleBack = (e) => {

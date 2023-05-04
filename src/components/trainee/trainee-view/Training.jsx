@@ -25,6 +25,9 @@ const Cell = ({ value }) => <td>{value}</td>
 
 const Row = ({ training }) => (
   <tr>
+    <td>
+      <input type="checkbox" value={training.id} />
+    </td>
     {fields.map((f) => (
       <Cell key={f.field} value={training[f.field]} />
     ))}
@@ -33,6 +36,9 @@ const Row = ({ training }) => (
 
 const Header = () => (
   <tr>
+    <th>
+      <span className="material-icons">check</span>
+    </th>
     {fields.map((f) => (
       <th key={f.field} scope="col">
         {f.label}
@@ -56,6 +62,13 @@ export const Training = ({ trainings }) => {
             {trainings.map((t) => (
               <Row key={t.id} training={t} />
             ))}
+            {!trainings.length && (
+              <tr>
+                <td colSpan={fields.length + 1}>
+                  <center>No records found</center>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </figure>

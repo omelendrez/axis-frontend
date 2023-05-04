@@ -1,26 +1,15 @@
-import useUser from '../../../hooks/useUser'
-import { Tag, IconButton } from '../'
+import { Tag } from '../'
 import './card.css'
 
 import { getPhoto } from '../../../services'
 
-export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
-  const { user } = useUser()
+export const Card = ({ item, onView }) => {
   const photoUrl = getPhoto(item.badge)
-  let isLocked = false
-  fields.forEach((f) => {
-    const lock = f.lock
-    if (lock) {
-      if (lock.values.includes(item[f.name])) {
-        isLocked = true
-      }
-    }
-  })
 
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
   return (
-    <article className="card">
+    <article className="card" onClick={() => onView(item)}>
       <div className="card-avatar-root">
         <img
           src={photoUrl}
@@ -36,40 +25,6 @@ export const Card = ({ item, fields, onEdit, onDelete, onView }) => {
           <Tag className={item.type}>{item.type}</Tag>
           <div>{item.badge}</div>
         </div>
-      </div>
-      <div className="card-buttons">
-        <IconButton
-          className="primary"
-          onClick={(e) => {
-            e.preventDefault()
-            onView(item)
-          }}
-          tooltip="View trainee"
-        >
-          visibility
-        </IconButton>
-        <IconButton
-          className="primary"
-          onClick={(e) => {
-            e.preventDefault()
-            onEdit(item)
-          }}
-          disabled={user.role !== 1 || isLocked}
-          tooltip="Edit trainee"
-        >
-          edit
-        </IconButton>
-        <IconButton
-          className="delete"
-          onClick={(e) => {
-            e.preventDefault()
-            onDelete(item)
-          }}
-          disabled={user.role !== 1 || isLocked}
-          tooltip="Delete trainee"
-        >
-          delete
-        </IconButton>
       </div>
     </article>
   )
