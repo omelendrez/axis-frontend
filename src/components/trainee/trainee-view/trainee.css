@@ -17,3 +17,7 @@
   font-weight: bold;
   margin-left: 6px;
 }
+
+.trainee-view div .row-line span.highlighted {
+  color: var(--primary);
+}

@@ -34,10 +34,10 @@ export const TraineeView = () => {
     <main className="trainee-view">
       <div>
         <Picture photoUrl={photoUrl} />
-        <Contact contactInfos={contactInfos} />
       </div>
       <div>
         <Trainee trainee={trainee} />
+        <Contact contactInfos={contactInfos} />
       </div>
       <div>
         <Training trainings={trainings} />

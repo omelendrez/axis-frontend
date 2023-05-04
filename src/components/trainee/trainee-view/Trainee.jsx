@@ -3,10 +3,10 @@ import { Buttons } from './Buttons'
 import fields from './trainee-fields.json'
 import './trainee.css'
 
-const Row = ({ label, value }) => (
+const Row = ({ label, value, className }) => (
   <div className="row-line" key={label}>
     <span>{label}:</span>
-    <span>{value}</span>
+    <span className={className}>{value}</span>
   </div>
 )
 
@@ -26,7 +26,12 @@ export const Trainee = ({ trainee }) => {
           </span>
         </div>
         {fields.map((f) => (
-          <Row key={f.label} label={f.label} value={trainee[f.field]} />
+          <Row
+            key={f.label}
+            label={f.label}
+            value={trainee[f.field]}
+            className={f.className}
+          />
         ))}
       </div>
     </article>

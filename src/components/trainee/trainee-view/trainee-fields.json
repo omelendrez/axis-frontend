@@ -25,7 +25,8 @@
   },
   {
     "label": "Company",
-    "field": "company"
+    "field": "company",
+    "className": "highlighted"
   },
   {
     "label": "Status",
