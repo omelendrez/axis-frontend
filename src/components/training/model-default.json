@@ -1,0 +1,18 @@
+{
+  "course": {
+    "value": "",
+    "error": ""
+  },
+  "start": {
+    "value": null,
+    "error": ""
+  },
+  "expiry": {
+    "value": null,
+    "error": ""
+  },
+  "certificate": {
+    "value": "",
+    "error": ""
+  }
+}

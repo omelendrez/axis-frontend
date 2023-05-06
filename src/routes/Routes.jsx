@@ -32,6 +32,8 @@ const Company = lazy(() => import('../pages/Company'))
 const Courses = lazy(() => import('../pages/Courses'))
 const Course = lazy(() => import('../pages/Course'))
 
+const Training = lazy(() => import('../pages/Training'))
+
 export const AppRoutes = () => {
   const { user } = useUser()
   return (
@@ -81,6 +83,22 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute user={user}>
             <Trainees />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainee/:id/edit"
+        element={
+          <ProtectedRoute user={user}>
+            <Trainee isEditing={true} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainee/edit"
+        element={
+          <ProtectedRoute user={user}>
+            <Trainee isEditing={true} />
           </ProtectedRoute>
         }
       />
@@ -232,6 +250,17 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute user={user}>
             <Course />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Training */}
+
+      <Route
+        path="/training/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <Training />
           </ProtectedRoute>
         }
       />

@@ -10,14 +10,14 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const Trainee = ({ trainee }) => {
+export const Trainee = ({ trainee, onEdit }) => {
   if (!trainee) {
     return null
   }
   return (
     <article className="trainee">
       <h6 className="title">Personal data</h6>
-      <Buttons />
+      <Buttons onEdit={onEdit} noCheckboxes />
       <div>
         <div className="row-line">
           <span>Type:</span>

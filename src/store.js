@@ -9,6 +9,7 @@ import roleSlice from './reducers/role/roleSlice'
 import companySlice from './reducers/company/companySlice'
 import courseSlice from './reducers/course/courseSlice'
 import certificateTypeSlice from './reducers/certificate-type/certificateTypeSlice'
+import trainingSlice from './reducers/training/trainingSlice'
 
 export default configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export default configureStore({
     roles: roleSlice,
     states: stateSlice,
     trainees: traineeSlice,
+    trainings: trainingSlice,
     users: userSlice
   },
   middleware: (getDefaultMiddleware) =>

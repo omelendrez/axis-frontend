@@ -6,7 +6,7 @@ import useNoficication from '../hooks/useNotification'
 import { initialValues } from '../helpers'
 
 const Trainees = () => {
-  const { trainees, load: loadTrainees, remove: removeTrainee } = useTrainees()
+  const { trainees, load: loadTrainees } = useTrainees()
   const { data, isLoading, isSuccess, isError, error, isFirstLoad } = trainees
 
   const [pagination, setPagination] = useState(initialValues)
@@ -43,14 +43,6 @@ const Trainees = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
-
-  const handleEdit = (trainee) => {
-    navigate(`/trainee/${trainee.id}`)
-  }
-
-  const handleDelete = (trainee) => {
-    removeTrainee(trainee.id)
-  }
 
   const handleView = (trainee) => {
     navigate(`/trainee/${trainee.id}`)
@@ -104,8 +96,6 @@ const Trainees = () => {
         pagination={pagination}
         onPagination={setPagination}
         fields={fields}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
         onView={handleView}
         isLoading={isLoading}
         loadItems={loadTrainees}
