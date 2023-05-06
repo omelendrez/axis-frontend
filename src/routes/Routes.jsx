@@ -48,9 +48,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* Users  */}
-
       <Route
         path="/users"
         element={
@@ -86,6 +84,31 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/trainee/add"
+        element={
+          <ProtectedRoute user={user}>
+            <Trainee isAdding />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainee/edit"
+        element={
+          <ProtectedRoute user={user}>
+            <Trainee isEditing />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trainee/:id"
+        element={
+          <ProtectedRoute user={user}>
+            <Trainee isViewing />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/trainee/:id/edit"
         element={
@@ -94,33 +117,8 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/trainee/edit"
-        element={
-          <ProtectedRoute user={user}>
-            <Trainee isEditing={true} />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/trainee/:id"
-        element={
-          <ProtectedRoute user={user}>
-            <Trainee />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/trainee"
-        element={
-          <ProtectedRoute user={user}>
-            <Trainee />
-          </ProtectedRoute>
-        }
-      />
 
       {/* Roles  */}
-
       <Route
         path="/roles"
         element={
@@ -145,9 +143,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* States  */}
-
       <Route
         path="/states"
         element={
@@ -172,9 +168,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* Nationalities */}
-
       <Route
         path="/nationalities"
         element={
@@ -199,9 +193,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* Companies */}
-
       <Route
         path="/companies"
         element={
@@ -226,9 +218,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* Courses */}
-
       <Route
         path="/courses"
         element={
@@ -253,9 +243,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* Training */}
-
       <Route
         path="/training/:id"
         element={
@@ -264,9 +252,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
       {/* Change password */}
-
       <Route
         path="/change-password"
         element={

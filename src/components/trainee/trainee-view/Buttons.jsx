@@ -1,6 +1,12 @@
 import './buttons.css'
 
-export const Buttons = ({ selected, onDelete, onEdit, noCheckboxes }) => {
+export const Buttons = ({
+  selected,
+  onAdd,
+  onEdit,
+  onDelete,
+  noCheckboxes
+}) => {
   let forced = false
   if (noCheckboxes) {
     forced = true
@@ -8,6 +14,15 @@ export const Buttons = ({ selected, onDelete, onEdit, noCheckboxes }) => {
 
   return (
     <div className="buttons">
+      {onAdd && (
+        <button
+          className="primary"
+          disabled={!forced && selected?.length !== 0}
+          onClick={onAdd}
+        >
+          <span className="material-icons">add</span>
+        </button>
+      )}
       {onEdit && (
         <button
           className="primary"

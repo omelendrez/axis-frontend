@@ -89,7 +89,7 @@ const Trainees = () => {
         </ul>
       </nav>
 
-      <AddButton url="/trainee" />
+      <AddButton url="/trainee/add" />
 
       <CardList
         data={data}

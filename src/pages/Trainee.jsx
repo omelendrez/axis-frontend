@@ -8,7 +8,7 @@ import {
 } from '../components'
 import { getTrainee } from '../services'
 
-const Trainee = ({ isEditing }) => {
+const Trainee = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
   const [trainee, setTrainee] = useState(null)
 
@@ -37,12 +37,18 @@ const Trainee = ({ isEditing }) => {
           </ul>
         </nav>
 
+        {isViewing && <TraineeView trainee={trainee} />}
+
+        {isAdding && (
+          <FormContainer title="Adding Trainee data">
+            <TraineeComponent />
+          </FormContainer>
+        )}
         {isEditing && (
-          <FormContainer title="Trainee data">
+          <FormContainer title="Modifying Trainee data">
             <TraineeComponent trainee={trainee} />
           </FormContainer>
         )}
-        {!isEditing && <TraineeView trainee={trainee} />}
       </main>
     </>
   )
