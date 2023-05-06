@@ -10,8 +10,7 @@ import {
 
 import useTrainings from '../../hooks/useTrainings'
 import useCourses from '../../hooks/useCourses'
-
-import initialValues from './model-default.json'
+import initialValues from './training-fields.json'
 
 export const Training = ({ training }) => {
   const { trainings, add, modify } = useTrainings()
