@@ -78,7 +78,7 @@ export const Training = ({ training, onClose }) => {
     <form>
       <DropdownSearch
         id="course"
-        label="Coursess"
+        label="Courses"
         value={values.course.value}
         onChange={handleChange}
         options={coursesList}

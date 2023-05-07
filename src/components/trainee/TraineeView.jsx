@@ -15,6 +15,9 @@ import { Loading, Modal } from '../shared'
 import { Picture, Trainee, Trainings, Contacts } from './trainee-view'
 import { Trainee as TraineeForm, Training, Contact } from '../'
 import useNoficication from '../../hooks/useNotification'
+import trainingFields from './trainee-view/training-fields.json'
+import contactFields from './trainee-view/contact-fields.json'
+
 import './traineeView.css'
 
 export const TraineeView = () => {
@@ -23,7 +26,7 @@ export const TraineeView = () => {
   const [trainee, setTrainee] = useState(null)
   const [contacts, setContacts] = useState([])
   const [trainings, setTrainings] = useState([])
-  const [training, setTraining] = useState(null)
+  const [trainingEditData, setTrainingEditData] = useState(null)
   const [traineeEditData, setTraineeEditData] = useState(null)
   const [contactEditData, setContactEditData] = useState(null)
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
@@ -39,9 +42,33 @@ export const TraineeView = () => {
     })
   }
 
+  const handleAddTraining = (e) => {
+    e.preventDefault()
+
+    const fields = trainingFields.map((f) => f.field)
+
+    const fieldData = {}
+    fields.forEach((f) => (fieldData[f] = ''))
+
+    setTrainingEditData({ ...fieldData, trainee: id, id: undefined })
+    setIsTrainingEdit(true)
+  }
+
+  const handleAddContact = (e) => {
+    e.preventDefault()
+
+    const fields = contactFields.map((f) => f.field)
+
+    const fieldData = {}
+    fields.forEach((f) => (fieldData[f] = ''))
+
+    setContactEditData({ ...fieldData, trainee: id, id: undefined })
+    setIsContactEdit(true)
+  }
+
   const handleEditTraining = (id) => {
     getTraining(id).then((res) => {
-      setTraining(res.data)
+      setTrainingEditData(res.data)
       setIsTrainingEdit(true)
     })
   }
@@ -122,7 +149,7 @@ export const TraineeView = () => {
       {/* Edit modals  */}
 
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
-        <Training training={training} onClose={handleClose} />
+        <Training training={trainingEditData} onClose={handleClose} />
       </Modal>
       <Modal open={isTraineeEdit} title="Edit trainee" onClose={handleClose}>
         <TraineeForm trainee={traineeEditData} onClose={handleClose} />
@@ -146,11 +173,13 @@ export const TraineeView = () => {
       <div>
         <Trainings
           trainings={trainings}
+          onAdd={handleAddTraining}
           onEdit={handleEditTraining}
           onDelete={handleDeleteTraining}
         />
         <Contacts
           contacts={contacts}
+          onAdd={handleAddContact}
           onEdit={handleEditContact}
           onDelete={handleDeleteContact}
         />

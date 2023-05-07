@@ -10,9 +10,9 @@ import {
 
 import useContacts from '../../hooks/useContacts'
 import useContactTypes from '../../hooks/useContactTypes'
+import useNoficication from '../../hooks/useNotification'
 
 import initialValues from './contact-fields.json'
-import useNoficication from '../../hooks/useNotification'
 
 export const Contact = ({ contact, onClose }) => {
   const { set } = useNoficication()

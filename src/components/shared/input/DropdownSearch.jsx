@@ -16,7 +16,7 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
   }, [options])
 
   useEffect(() => {
-    if (options && value) {
+    if (options) {
       setCurrent(
         options.find((o) => parseInt(o.id, 10) === parseInt(value, 10))
       )

@@ -16,6 +16,7 @@ export const Buttons = ({
     <div className="buttons">
       {onAdd && (
         <button
+          data-tooltip="Add new row"
           className="primary"
           disabled={!forced && selected?.length !== 0}
           onClick={onAdd}
@@ -25,6 +26,7 @@ export const Buttons = ({
       )}
       {onEdit && (
         <button
+          data-tooltip="Edit selected row"
           className="primary"
           disabled={!forced && selected?.length !== 1}
           onClick={onEdit}
@@ -34,8 +36,9 @@ export const Buttons = ({
       )}
       {onDelete && (
         <button
+          data-tooltip="Delete selected row"
           className="delete"
-          disabled={!forced && !selected?.length}
+          disabled={!forced && selected?.length !== 1}
           onClick={onDelete}
         >
           <span className="material-icons">delete</span>
