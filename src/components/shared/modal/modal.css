@@ -4,7 +4,7 @@ dialog.modal {
 
 dialog.modal article.modal-container {
   padding: 1rem;
-  max-width: fit-content;
+  width: 100%;
   height: auto;
 }
 

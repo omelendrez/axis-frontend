@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import {
   InputField,
   Confirm,
@@ -7,10 +6,10 @@ import {
   Dropdown,
   DropdownSearch,
   SaveButton,
-  CancelButton,
-  Loading
+  Loading,
+  CloseButton
 } from '../shared'
-
+// Ok
 import useTrainees from '../../hooks/useTrainees'
 import useStates from '../../hooks/useStates'
 import useNationalities from '../../hooks/useNationalities'
@@ -24,50 +23,9 @@ import {
   type as typeList
 } from '../../static-data'
 
-const initialValues = {
-  type: {
-    value: '',
-    error: ''
-  },
-  badge: {
-    value: '',
-    error: ''
-  },
-  last_name: {
-    value: '',
-    error: ''
-  },
-  first_name: {
-    value: '',
-    error: ''
-  },
-  sex: {
-    value: '',
-    error: ''
-  },
-  state: {
-    value: '',
-    error: ''
-  },
-  nationality: {
-    value: '',
-    error: ''
-  },
-  birth_date: {
-    value: '',
-    error: ''
-  },
-  company: {
-    value: '',
-    error: ''
-  },
-  status: {
-    value: '',
-    error: ''
-  }
-}
+import initialValues from './trainee-fields.json'
 
-export const Trainee = ({ trainee }) => {
+export const Trainee = ({ trainee, onClose }) => {
   const { set } = useNotification()
 
   const { trainees, add, modify } = useTrainees()
@@ -92,8 +50,6 @@ export const Trainee = ({ trainee }) => {
   const [confirmMessage, setConfirmMessage] = useState('')
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [tempValue, setTempValue] = useState(null)
-  const navigate = useNavigate()
-  const formRef = useRef()
 
   useEffect(() => {
     if (trainee) {
@@ -143,7 +99,7 @@ export const Trainee = ({ trainee }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(-1)
+      onClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -223,7 +179,7 @@ export const Trainee = ({ trainee }) => {
     setIsConfirmOpen(false)
   }
 
-  const handleFormSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault()
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
@@ -234,16 +190,6 @@ export const Trainee = ({ trainee }) => {
     } else {
       add(payload)
     }
-  }
-
-  const handleSave = (e) => {
-    e.preventDefault()
-    formRef.current.submit()
-  }
-
-  const handleFormCancel = (e) => {
-    e.preventDefault()
-    navigate(-1)
   }
 
   if (
@@ -263,7 +209,7 @@ export const Trainee = ({ trainee }) => {
         message={confirmMessage}
       />
 
-      <form onSubmit={handleFormSubmit} ref={formRef}>
+      <form>
         <Dropdown
           id="type"
           label="Type"
@@ -361,7 +307,7 @@ export const Trainee = ({ trainee }) => {
         <FormButtonRow>
           <SaveButton isSubmitting={isLoading} onSave={handleSave} />
 
-          <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
+          <CloseButton isSubmitting={isLoading} onClose={onClose} />
         </FormButtonRow>
       </form>
     </>

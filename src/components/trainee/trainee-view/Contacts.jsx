@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import fields from './contact-fields.json'
 import { Buttons } from './Buttons'
-import { Table } from './Table'
+import { Table } from '../../shared/table/Table'
 
-export const Contact = ({ contactInfos }) => {
+export const Contacts = ({ contactInfos }) => {
   const [selected, setSelected] = useState([])
 
   const handleSelect = (e) => {

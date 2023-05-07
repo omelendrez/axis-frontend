@@ -1,20 +1,23 @@
-import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+
 import {
   InputField,
   FormButtonRow,
   SaveButton,
-  CancelButton,
-  DropdownSearch
+  DropdownSearch,
+  CloseButton
 } from '../shared'
 
 import useTrainings from '../../hooks/useTrainings'
 import useCourses from '../../hooks/useCourses'
 import initialValues from './training-fields.json'
+import useNoficication from '../../hooks/useNotification'
 
-export const Training = ({ training }) => {
+export const Training = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
   const { isLoading, isSuccess } = trainings
+
+  const { set } = useNoficication()
 
   const { courses, load: loadCourses } = useCourses()
   const { data: coursesResponse } = courses
@@ -22,8 +25,6 @@ export const Training = ({ training }) => {
   const { count: coursesCount, rows: coursesList } = coursesResponse
 
   const [values, setValues] = useState(initialValues)
-  const navigate = useNavigate()
-  const formRef = useRef()
 
   useEffect(() => {
     if (training) {
@@ -36,7 +37,12 @@ export const Training = ({ training }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(-1)
+      const notification = {
+        type: 'success',
+        message: 'Record updated successfully'
+      }
+      set(notification)
+      onClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -54,7 +60,7 @@ export const Training = ({ training }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleFormSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault()
 
     const payload = Object.entries(values)
@@ -68,21 +74,11 @@ export const Training = ({ training }) => {
     }
   }
 
-  const handleSave = (e) => {
-    e.preventDefault()
-    formRef.current.submit()
-  }
-
-  const handleFormCancel = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   return (
-    <form onSubmit={handleFormSubmit} ref={formRef}>
+    <form>
       <DropdownSearch
         id="course"
-        label="Course"
+        label="Coursess"
         value={values.course.value}
         onChange={handleChange}
         options={coursesList}
@@ -121,7 +117,7 @@ export const Training = ({ training }) => {
       <FormButtonRow>
         <SaveButton isSubmitting={isLoading} onSave={handleSave} />
 
-        <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
+        <CloseButton isSubmitting={isLoading} onClose={onClose} />
       </FormButtonRow>
     </form>
   )

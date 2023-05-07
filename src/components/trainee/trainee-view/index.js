@@ -1,4 +1,5 @@
-export * from './Contact'
+export * from './Buttons'
+export * from './Contacts'
 export * from './Picture'
 export * from './Trainee'
-export * from './Training'
+export * from './Trainings'

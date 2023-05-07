@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import fields from './training-fields.json'
 import { Buttons } from './Buttons'
-import { Table } from './Table'
+import { Table } from '../../shared'
+// Ok
 
-export const Training = ({ trainings, onEdit }) => {
+export const Trainings = ({ trainings, onEdit }) => {
   const [selected, setSelected] = useState([])
 
   const handleSelect = (e) => {
