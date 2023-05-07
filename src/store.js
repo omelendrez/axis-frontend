@@ -10,11 +10,15 @@ import companySlice from './reducers/company/companySlice'
 import courseSlice from './reducers/course/courseSlice'
 import certificateTypeSlice from './reducers/certificate-type/certificateTypeSlice'
 import trainingSlice from './reducers/training/trainingSlice'
+import contactTypeSlice from './reducers/contact-type/contactTypeSlice'
+import contactSlice from './reducers/contact/contactSlice'
 
 export default configureStore({
   reducer: {
     certificateTypes: certificateTypeSlice,
     companies: companySlice,
+    contacts: contactSlice,
+    contactTypes: contactTypeSlice,
     courses: courseSlice,
     nationalities: nationalitySlice,
     notification: notificationReducer,

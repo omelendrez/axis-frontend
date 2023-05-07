@@ -3,7 +3,7 @@ import fields from './contact-fields.json'
 import { Buttons } from './Buttons'
 import { Table } from '../../shared/table/Table'
 
-export const Contacts = ({ contactInfos }) => {
+export const Contacts = ({ contacts, onEdit }) => {
   const [selected, setSelected] = useState([])
 
   const handleSelect = (e) => {
@@ -15,12 +15,19 @@ export const Contacts = ({ contactInfos }) => {
     }
   }
 
+  const handleEdit = (e) => {
+    e.preventDefault()
+    if (selected.length) {
+      onEdit(selected[0])
+    }
+  }
+
   return (
     <article>
       <h6 className="title">Contact info</h6>
-      <Buttons selected={selected} />
+      <Buttons selected={selected} onEdit={handleEdit} />
       <Table
-        items={contactInfos}
+        items={contacts}
         fields={fields}
         selected={selected}
         onSelect={handleSelect}

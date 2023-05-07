@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
-  getContactInfos,
+  getContact,
+  getContacts,
   getPhoto,
   getTrainee,
   getTraineeView,
@@ -10,28 +11,43 @@ import {
 } from '../../services'
 import { Loading, Modal } from '../shared'
 import { Picture, Trainee, Trainings, Contacts } from './trainee-view'
-import { Trainee as TraineeForm, Training } from '../'
+import { Trainee as TraineeForm, Training, Contact } from '../'
 import './traineeView.css'
 
 export const TraineeView = () => {
   const params = useParams()
   const [trainee, setTrainee] = useState(null)
-  const [contactInfos, setContactInfos] = useState([])
+  const [contacts, setContacts] = useState([])
   const [trainings, setTrainings] = useState([])
   const [training, setTraining] = useState(null)
   const [traineeEditData, setTraineeEditData] = useState(null)
+  const [contactEditData, setContactEditData] = useState(null)
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
   const [isTraineeEdit, setIsTraineeEdit] = useState(false)
+  const [isContactEdit, setIsContactEdit] = useState(false)
   const id = params?.id
 
   const handleEditTrainee = (e) => {
-    getTrainee(id).then((res) => setTraineeEditData(res.data))
-    setIsTraineeEdit(true)
+    e?.preventDefault()
+    getTrainee(id).then((res) => {
+      setTraineeEditData(res.data)
+      setIsTraineeEdit(true)
+    })
   }
 
   const handleEditTraining = (id) => {
-    getTraining(id).then((res) => setTraining(res.data))
-    setIsTrainingEdit(true)
+    getTraining(id).then((res) => {
+      setTraining(res.data)
+      setIsTrainingEdit(true)
+    })
+  }
+
+  const handleEditContact = (id) => {
+    getContact(id).then((res) => {
+      console.log(res)
+      setContactEditData(res.data)
+      setIsContactEdit(true)
+    })
   }
 
   const handleClose = (e) => {
@@ -40,13 +56,14 @@ export const TraineeView = () => {
       setTrainee(res.data)
       setIsTrainingEdit(false)
       setIsTraineeEdit(false)
+      setIsContactEdit(false)
     })
   }
 
   useEffect(() => {
     if (id) {
       getTraineeView(id).then((res) => setTrainee(res.data))
-      getContactInfos(id).then((res) => setContactInfos(res.data))
+      getContacts(id).then((res) => setContacts(res.data))
       getTrainings(id).then((res) => setTrainings(res.data))
     }
   }, [params, id])
@@ -64,6 +81,13 @@ export const TraineeView = () => {
       <Modal open={isTraineeEdit} title="Edit trainee" onClose={handleClose}>
         <TraineeForm trainee={traineeEditData} onClose={handleClose} />
       </Modal>
+      <Modal
+        open={isContactEdit}
+        title="Edit contact info"
+        onClose={handleClose}
+      >
+        <Contact contact={contactEditData} onClose={handleClose} />
+      </Modal>
       <div>
         <Picture photoUrl={photoUrl} />
       </div>
@@ -72,7 +96,7 @@ export const TraineeView = () => {
       </div>
       <div>
         <Trainings trainings={trainings} onEdit={handleEditTraining} />
-        <Contacts contactInfos={contactInfos} />
+        <Contacts contacts={contacts} onEdit={handleEditContact} />
       </div>
     </main>
   )

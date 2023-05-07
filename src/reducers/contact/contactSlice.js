@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-  createCertificateType,
-  updateCertificateType,
-  getCertificateTypes,
-  deleteCertificateType
+  createContact,
+  updateContact,
+  getContacts,
+  deleteContact
 } from '../../services'
 import { handleError } from '../error'
+
+let trainee = null
 
 const initialState = {
   data: { rows: [], count: 0 },
@@ -16,8 +18,8 @@ const initialState = {
   error: null
 }
 
-export const certificateSlice = createSlice({
-  name: 'certificateTypes',
+export const contactSlice = createSlice({
+  name: 'contacts',
   initialState: initialState,
   reducers: {
     setLoading(state) {
@@ -49,15 +51,16 @@ export const certificateSlice = createSlice({
   }
 })
 
-export default certificateSlice.reducer
+export default contactSlice.reducer
 
-export function loadCertificateTypes(pagination) {
-  const { setLoading, setData, reset } = certificateSlice.actions
+export function loadContacts(id) {
+  const { setLoading, setData, reset } = contactSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getCertificateTypes(pagination)
+      trainee = id
+      const { data } = await getContacts(id)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
@@ -67,14 +70,14 @@ export function loadCertificateTypes(pagination) {
   }
 }
 
-export function removeCertificateType(id) {
-  const { setLoading, setSuccess, reset } = certificateSlice.actions
+export function removeContact(id) {
+  const { setLoading, setSuccess, reset } = contactSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await deleteCertificateType(id)
-      dispatch(loadCertificateTypes())
+      await deleteContact(id)
+      dispatch(loadContacts(trainee))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -82,14 +85,14 @@ export function removeCertificateType(id) {
   }
 }
 
-export function addCertificateType(payload) {
-  const { setLoading, setSuccess, reset } = certificateSlice.actions
+export function addContact(payload) {
+  const { setLoading, setSuccess, reset } = contactSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await createCertificateType(payload)
-      dispatch(loadCertificateTypes())
+      await createContact(payload)
+      dispatch(loadContacts(trainee))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -97,14 +100,14 @@ export function addCertificateType(payload) {
   }
 }
 
-export function modifyCertificateType(id, payload) {
-  const { setLoading, setSuccess, reset } = certificateSlice.actions
+export function modifyContact(id, payload) {
+  const { setLoading, setSuccess, reset } = contactSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await updateCertificateType(id, payload)
-      dispatch(loadCertificateTypes())
+      await updateContact(id, payload)
+      dispatch(loadContacts(trainee))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
