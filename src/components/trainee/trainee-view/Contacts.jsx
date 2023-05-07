@@ -3,7 +3,7 @@ import fields from './contact-fields.json'
 import { Buttons } from './Buttons'
 import { Table } from '../../shared/table/Table'
 
-export const Contacts = ({ contacts, onEdit }) => {
+export const Contacts = ({ contacts, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   const handleSelect = (e) => {
@@ -22,10 +22,20 @@ export const Contacts = ({ contacts, onEdit }) => {
     }
   }
 
+  const handleDelete = () => {
+    if (selected.length) {
+      onDelete(selected[0])
+    }
+  }
+
   return (
     <article>
       <h6 className="title">Contact info</h6>
-      <Buttons selected={selected} onEdit={handleEdit} />
+      <Buttons
+        selected={selected}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
       <Table
         items={contacts}
         fields={fields}

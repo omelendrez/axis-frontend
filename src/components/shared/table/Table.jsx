@@ -1,33 +1,5 @@
-const Row = ({ fields, item, selected, onSelect }) => {
-  return (
-    <tr>
-      <td>
-        <input
-          type="checkbox"
-          value={item.id}
-          checked={selected.find((s) => s === item.id)}
-          onChange={onSelect}
-        />
-      </td>
-      {fields.map((f) => (
-        <td key={f.field}>{item[f.field]}</td>
-      ))}
-    </tr>
-  )
-}
+import { Headers, Row } from './'
 
-const Headers = ({ fields }) => (
-  <tr>
-    <th>
-      <span className="material-icons">check</span>
-    </th>
-    {fields.map((f) => (
-      <th key={f.field} scope="col">
-        {f.label}
-      </th>
-    ))}
-  </tr>
-)
 export const Table = ({ items, fields, selected, onSelect }) => (
   <figure>
     <table role="grid">

@@ -7,15 +7,19 @@ import {
   getTrainee,
   getTraineeView,
   getTraining,
-  getTrainings
+  getTrainings,
+  deleteContact,
+  deleteTraining
 } from '../../services'
 import { Loading, Modal } from '../shared'
 import { Picture, Trainee, Trainings, Contacts } from './trainee-view'
 import { Trainee as TraineeForm, Training, Contact } from '../'
+import useNoficication from '../../hooks/useNotification'
 import './traineeView.css'
 
 export const TraineeView = () => {
   const params = useParams()
+  const { set } = useNoficication()
   const [trainee, setTrainee] = useState(null)
   const [contacts, setContacts] = useState([])
   const [trainings, setTrainings] = useState([])
@@ -44,10 +48,50 @@ export const TraineeView = () => {
 
   const handleEditContact = (id) => {
     getContact(id).then((res) => {
-      console.log(res)
       setContactEditData(res.data)
       setIsContactEdit(true)
     })
+  }
+
+  const handleDeleteTraining = (trainingId) => {
+    deleteTraining(trainingId)
+      .then((res) => {
+        const notification = {
+          type: 'success',
+          message: res.data.message
+        }
+        set(notification)
+
+        getTrainings(id)
+      })
+      .catch((e) => {
+        console.log(e)
+        const notification = {
+          type: 'error',
+          message: e.response.data.message
+        }
+        set(notification)
+      })
+  }
+
+  const handleDeleteContact = (contactId) => {
+    deleteContact(contactId)
+      .then((res) => {
+        const notification = {
+          type: 'success',
+          message: res.data.message
+        }
+        set(notification)
+
+        getContacts(id)
+      })
+      .catch((e) => {
+        const notification = {
+          type: 'error',
+          message: e.data.message
+        }
+        set(notification)
+      })
   }
 
   const handleClose = (e) => {
@@ -75,6 +119,8 @@ export const TraineeView = () => {
 
   return (
     <main className="trainee-view">
+      {/* Edit modals  */}
+
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
         <Training training={training} onClose={handleClose} />
       </Modal>
@@ -88,6 +134,9 @@ export const TraineeView = () => {
       >
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
+
+      {/* Data components */}
+
       <div>
         <Picture photoUrl={photoUrl} />
       </div>
@@ -95,8 +144,16 @@ export const TraineeView = () => {
         <Trainee trainee={trainee} onEdit={handleEditTrainee} />
       </div>
       <div>
-        <Trainings trainings={trainings} onEdit={handleEditTraining} />
-        <Contacts contacts={contacts} onEdit={handleEditContact} />
+        <Trainings
+          trainings={trainings}
+          onEdit={handleEditTraining}
+          onDelete={handleDeleteTraining}
+        />
+        <Contacts
+          contacts={contacts}
+          onEdit={handleEditContact}
+          onDelete={handleDeleteContact}
+        />
       </div>
     </main>
   )

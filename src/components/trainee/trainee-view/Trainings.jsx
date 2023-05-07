@@ -4,7 +4,7 @@ import { Buttons } from './Buttons'
 import { Table } from '../../shared'
 // Ok
 
-export const Trainings = ({ trainings, onEdit }) => {
+export const Trainings = ({ trainings, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   const handleSelect = (e) => {
@@ -21,10 +21,20 @@ export const Trainings = ({ trainings, onEdit }) => {
     }
   }
 
+  const handleDelete = () => {
+    if (selected.length) {
+      onDelete(selected[0])
+    }
+  }
+
   return (
     <article>
       <h6 className="title">Training records</h6>
-      <Buttons selected={selected} onEdit={handleEdit} />
+      <Buttons
+        selected={selected}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
       <Table
         items={trainings}
         fields={fields}
