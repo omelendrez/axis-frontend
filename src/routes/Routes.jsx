@@ -15,14 +15,23 @@ export const AppRoutes = () => {
   return (
     <Routes>
       {defaultRoutes}
+
       {dashboardRoutes}
+
       {userRoutes}
+
       {courseRoutes}
+
       {companyRoutes}
+
       {roleRoutes}
+
       {stateRoutes}
+
       {learnerRoutes}
+
       {nationalityRoutes}
+
       {trainingRoutes}
     </Routes>
   )
