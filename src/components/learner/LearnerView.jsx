@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
+  deleteContact,
+  deleteTraining,
   getContact,
   getContacts,
-  getPhoto,
   getLearner,
   getLearnerView,
+  getPhoto,
   getTraining,
-  getTrainings,
-  deleteContact,
-  deleteTraining
+  getTrainings
 } from '../../services'
 import { Loading, Modal } from '../shared'
 import { Picture, Learner, Trainings, Contacts } from './learner-view'
@@ -17,7 +17,6 @@ import { Learner as LearnerForm, Training, Contact } from '..'
 import useNoficication from '../../hooks/useNotification'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
-
 import './learnerView.css'
 
 export const LearnerView = () => {
