@@ -7,7 +7,7 @@ import {
 } from '../../services'
 import { handleError } from '../error'
 
-let trainee = null
+let learner = null
 
 const initialState = {
   data: { rows: [], count: 0 },
@@ -59,7 +59,7 @@ export function loadTrainings(id) {
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      trainee = id
+      learner = id
       const { data } = await getTrainings(id)
       dispatch(setData(data))
       dispatch(reset())
@@ -77,7 +77,7 @@ export function removeTraining(id) {
     dispatch(setLoading())
     try {
       await deleteTraining(id)
-      dispatch(loadTrainings(trainee))
+      dispatch(loadTrainings(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -92,7 +92,7 @@ export function addTraining(payload) {
     dispatch(setLoading())
     try {
       await createTraining(payload)
-      dispatch(loadTrainings(trainee))
+      dispatch(loadTrainings(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -107,7 +107,7 @@ export function modifyTraining(id, payload) {
     dispatch(setLoading())
     try {
       await updateTraining(id, payload)
-      dispatch(loadTrainings(trainee))
+      dispatch(loadTrainings(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

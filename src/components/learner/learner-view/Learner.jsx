@@ -1,7 +1,7 @@
 import { Tag } from '../../shared'
 import { Buttons } from './Buttons'
-import fields from './trainee-fields.json'
-import './trainee.css'
+import fields from './learner-fields.json'
+import './learner.css'
 
 const Row = ({ label, value, className }) => (
   <div className="row-line" key={label}>
@@ -10,27 +10,27 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const Trainee = ({ trainee, onAdd, onEdit }) => {
-  if (!trainee) {
+export const Learner = ({ learner, onAdd, onEdit }) => {
+  if (!learner) {
     return null
   }
 
   return (
-    <article className="trainee">
+    <article className="learner">
       <h6 className="title">Personal data</h6>
       <Buttons onAdd={onAdd} onEdit={onEdit} noCheckboxes />
       <div>
         <div className="row-line">
           <span>Type:</span>
           <span>
-            <Tag className={trainee.type}>{trainee.type}</Tag>
+            <Tag className={learner.type}>{learner.type}</Tag>
           </span>
         </div>
         {fields.map((f) => (
           <Row
             key={f.label}
             label={f.label}
-            value={trainee[f.field]}
+            value={learner[f.field]}
             className={f.className}
           />
         ))}

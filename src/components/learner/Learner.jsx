@@ -10,7 +10,7 @@ import {
   CloseButton
 } from '../shared'
 // Ok
-import useTrainees from '../../hooks/useTrainees'
+import useLearners from '../../hooks/useLearners'
 import useStates from '../../hooks/useStates'
 import useNationalities from '../../hooks/useNationalities'
 import useCompanies from '../../hooks/useCompanies'
@@ -23,13 +23,13 @@ import {
   type as typeList
 } from '../../static-data'
 
-import initialValues from './trainee-fields.json'
+import initialValues from './learner-fields.json'
 
-export const Trainee = ({ trainee, onClose }) => {
+export const Learner = ({ learner, onClose }) => {
   const { set } = useNotification()
 
-  const { trainees, add, modify } = useTrainees()
-  const { isLoading, isSuccess } = trainees
+  const { learners, add, modify } = useLearners()
+  const { isLoading, isSuccess } = learners
 
   const { states, load: loadStates } = useStates()
   const { data: statList } = states
@@ -52,13 +52,13 @@ export const Trainee = ({ trainee, onClose }) => {
   const [tempValue, setTempValue] = useState(null)
 
   useEffect(() => {
-    if (trainee) {
-      Object.entries(trainee).forEach(([id, value]) => {
+    if (learner) {
+      Object.entries(learner).forEach(([id, value]) => {
         const data = { value, error: '' }
         setValues((values) => ({ ...values, [id]: data }))
       })
     }
-  }, [trainee])
+  }, [learner])
 
   useEffect(() => {
     if (!statList.count) {
@@ -108,8 +108,8 @@ export const Trainee = ({ trainee, onClose }) => {
     const { id, value } = e.target
 
     if (id === 'status') {
-      setTempValue({ id, value, prev: trainee?.status })
-      setConfirmMessage('Are you sure you want to change trainee status?')
+      setTempValue({ id, value, prev: learner?.status })
+      setConfirmMessage('Are you sure you want to change learner status?')
       return setIsConfirmOpen(true)
     }
 
@@ -185,8 +185,8 @@ export const Trainee = ({ trainee, onClose }) => {
       .filter((id) => id !== 'id')
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
 
-    if (trainee?.id) {
-      modify(trainee.id, payload)
+    if (learner?.id) {
+      modify(learner.id, payload)
     } else {
       add(payload)
     }
@@ -218,7 +218,7 @@ export const Trainee = ({ trainee, onClose }) => {
           options={typeList}
           required
         />
-        {trainee?.id && (
+        {learner?.id && (
           <InputField
             type="text"
             id="badge"
@@ -295,7 +295,7 @@ export const Trainee = ({ trainee, onClose }) => {
           options={companiesList}
           required
         />
-        {trainee?.id && (
+        {learner?.id && (
           <Dropdown
             id="status"
             label="Status"

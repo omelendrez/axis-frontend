@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList, AddButton } from '../components'
-import useTrainees from '../hooks/useTrainees'
+import useLearners from '../hooks/useLearners'
 import useNoficication from '../hooks/useNotification'
 import { initialValues } from '../helpers'
 
-const Trainees = () => {
-  const { trainees, load: loadTrainees } = useTrainees()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = trainees
+const Learners = () => {
+  const { learners, load: loadLearners } = useLearners()
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = learners
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -15,13 +15,13 @@ const Trainees = () => {
   const { set } = useNoficication()
 
   useEffect(() => {
-    loadTrainees(pagination)
+    loadLearners(pagination)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 
   useEffect(() => {
     if (isFirstLoad) {
-      loadTrainees(pagination)
+      loadLearners(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFirstLoad])
@@ -44,8 +44,8 @@ const Trainees = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
-  const handleView = (trainee) => {
-    navigate(`/trainee/${trainee.id}`)
+  const handleView = (learner) => {
+    navigate(`/learner/${learner.id}`)
   }
 
   const handleBack = (e) => {
@@ -85,11 +85,11 @@ const Trainees = () => {
               Dashboard
             </Link>
           </li>
-          <li>Trainees</li>
+          <li>Learners</li>
         </ul>
       </nav>
 
-      <AddButton url="/trainee/add" />
+      <AddButton url="/learner/add" />
 
       <CardList
         data={data}
@@ -98,10 +98,10 @@ const Trainees = () => {
         fields={fields}
         onView={handleView}
         isLoading={isLoading}
-        loadItems={loadTrainees}
+        loadItems={loadLearners}
       />
     </main>
   )
 }
 
-export default Trainees
+export default Learners

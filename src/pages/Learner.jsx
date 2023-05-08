@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import {
   FormContainer,
-  TraineeView,
-  Trainee as TraineeComponent
+  LearnerView,
+  Learner as LearnerComponent
 } from '../components'
-import { getTrainee } from '../services'
+import { getLearner } from '../services'
 
-const Trainee = ({ isViewing, isAdding, isEditing }) => {
+const Learner = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
-  const [trainee, setTrainee] = useState(null)
+  const [learner, setLearner] = useState(null)
 
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getTrainee(id).then((res) => setTrainee(res.data))
+      getLearner(id).then((res) => setLearner(res.data))
     }
   }, [params])
 
@@ -31,22 +31,22 @@ const Trainee = ({ isViewing, isAdding, isEditing }) => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/trainees">Trainees</Link>
+              <Link to="/learners">Learners</Link>
             </li>
-            <li>Trainee</li>
+            <li>Learner</li>
           </ul>
         </nav>
 
-        {isViewing && <TraineeView trainee={trainee} />}
+        {isViewing && <LearnerView learner={learner} />}
 
         {isAdding && (
-          <FormContainer title="Adding Trainee data">
-            <TraineeComponent />
+          <FormContainer title="Adding Learner data">
+            <LearnerComponent />
           </FormContainer>
         )}
         {isEditing && (
-          <FormContainer title="Modifying Trainee data">
-            <TraineeComponent trainee={trainee} />
+          <FormContainer title="Modifying Learner data">
+            <LearnerComponent learner={learner} />
           </FormContainer>
         )}
       </main>
@@ -54,4 +54,4 @@ const Trainee = ({ isViewing, isAdding, isEditing }) => {
   )
 }
 
-export default Trainee
+export default Learner

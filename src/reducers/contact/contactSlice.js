@@ -7,7 +7,7 @@ import {
 } from '../../services'
 import { handleError } from '../error'
 
-let trainee = null
+let learner = null
 
 const initialState = {
   data: { rows: [], count: 0 },
@@ -59,7 +59,7 @@ export function loadContacts(id) {
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      trainee = id
+      learner = id
       const { data } = await getContacts(id)
       dispatch(setData(data))
       dispatch(reset())
@@ -77,7 +77,7 @@ export function removeContact(id) {
     dispatch(setLoading())
     try {
       await deleteContact(id)
-      dispatch(loadContacts(trainee))
+      dispatch(loadContacts(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -92,7 +92,7 @@ export function addContact(payload) {
     dispatch(setLoading())
     try {
       await createContact(payload)
-      dispatch(loadContacts(trainee))
+      dispatch(loadContacts(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -107,7 +107,7 @@ export function modifyContact(id, payload) {
     dispatch(setLoading())
     try {
       await updateContact(id, payload)
-      dispatch(loadContacts(trainee))
+      dispatch(loadContacts(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

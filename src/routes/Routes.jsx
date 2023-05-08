@@ -14,8 +14,8 @@ const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Users = lazy(() => import('../pages/Users'))
 const User = lazy(() => import('../pages/User'))
 
-const Trainees = lazy(() => import('../pages/Trainees'))
-const Trainee = lazy(() => import('../pages/Trainee'))
+const Learners = lazy(() => import('../pages/Learners'))
+const Learner = lazy(() => import('../pages/Learner'))
 
 const Roles = lazy(() => import('../pages/Roles'))
 const Role = lazy(() => import('../pages/Role'))
@@ -74,46 +74,46 @@ export const AppRoutes = () => {
         }
       />
 
-      {/* Trainees */}
+      {/* Learners */}
 
       <Route
-        path="/trainees"
+        path="/learners"
         element={
           <ProtectedRoute user={user}>
-            <Trainees />
+            <Learners />
           </ProtectedRoute>
         }
       />
 
       <Route
-        path="/trainee/add"
+        path="/learner/add"
         element={
           <ProtectedRoute user={user}>
-            <Trainee isAdding />
+            <Learner isAdding />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/trainee/edit"
+        path="/learner/edit"
         element={
           <ProtectedRoute user={user}>
-            <Trainee isEditing />
+            <Learner isEditing />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/trainee/:id"
+        path="/learner/:id"
         element={
           <ProtectedRoute user={user}>
-            <Trainee isViewing />
+            <Learner isViewing />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/trainee/:id/edit"
+        path="/learner/:id/edit"
         element={
           <ProtectedRoute user={user}>
-            <Trainee isEditing={true} />
+            <Learner isEditing={true} />
           </ProtectedRoute>
         }
       />

@@ -1,5 +1,5 @@
 export * from './Buttons'
 export * from './Contacts'
+export * from './Learner'
+export * from './Learners'
 export * from './Picture'
-export * from './Trainee'
-export * from './Trainings'

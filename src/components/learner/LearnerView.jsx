@@ -4,41 +4,41 @@ import {
   getContact,
   getContacts,
   getPhoto,
-  getTrainee,
-  getTraineeView,
+  getLearner,
+  getLearnerView,
   getTraining,
   getTrainings,
   deleteContact,
   deleteTraining
 } from '../../services'
 import { Loading, Modal } from '../shared'
-import { Picture, Trainee, Trainings, Contacts } from './trainee-view'
-import { Trainee as TraineeForm, Training, Contact } from '../'
+import { Picture, Learner, Trainings, Contacts } from './learner-view'
+import { Learner as LearnerForm, Training, Contact } from '..'
 import useNoficication from '../../hooks/useNotification'
-import trainingFields from './trainee-view/training-fields.json'
-import contactFields from './trainee-view/contact-fields.json'
+import trainingFields from './learner-view/training-fields.json'
+import contactFields from './learner-view/contact-fields.json'
 
-import './traineeView.css'
+import './learnerView.css'
 
-export const TraineeView = () => {
+export const LearnerView = () => {
   const params = useParams()
   const { set } = useNoficication()
-  const [trainee, setTrainee] = useState(null)
+  const [learner, setLearner] = useState(null)
   const [contacts, setContacts] = useState([])
   const [trainings, setTrainings] = useState([])
   const [trainingEditData, setTrainingEditData] = useState(null)
-  const [traineeEditData, setTraineeEditData] = useState(null)
+  const [learnerEditData, setLearnerEditData] = useState(null)
   const [contactEditData, setContactEditData] = useState(null)
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
-  const [isTraineeEdit, setIsTraineeEdit] = useState(false)
+  const [isLearnerEdit, setIsLearnerEdit] = useState(false)
   const [isContactEdit, setIsContactEdit] = useState(false)
   const id = params?.id
 
-  const handleEditTrainee = (e) => {
+  const handleEditLearner = (e) => {
     e?.preventDefault()
-    getTrainee(id).then((res) => {
-      setTraineeEditData(res.data)
-      setIsTraineeEdit(true)
+    getLearner(id).then((res) => {
+      setLearnerEditData(res.data)
+      setIsLearnerEdit(true)
     })
   }
 
@@ -50,7 +50,7 @@ export const TraineeView = () => {
     const fieldData = {}
     fields.forEach((f) => (fieldData[f] = ''))
 
-    setTrainingEditData({ ...fieldData, trainee: id, id: undefined })
+    setTrainingEditData({ ...fieldData, learner: id, id: undefined })
     setIsTrainingEdit(true)
   }
 
@@ -62,7 +62,7 @@ export const TraineeView = () => {
     const fieldData = {}
     fields.forEach((f) => (fieldData[f] = ''))
 
-    setContactEditData({ ...fieldData, trainee: id, id: undefined })
+    setContactEditData({ ...fieldData, learner: id, id: undefined })
     setIsContactEdit(true)
   }
 
@@ -123,36 +123,36 @@ export const TraineeView = () => {
 
   const handleClose = (e) => {
     e?.preventDefault()
-    getTraineeView(id).then((res) => {
-      setTrainee(res.data)
+    getLearnerView(id).then((res) => {
+      setLearner(res.data)
       setIsTrainingEdit(false)
-      setIsTraineeEdit(false)
+      setIsLearnerEdit(false)
       setIsContactEdit(false)
     })
   }
 
   useEffect(() => {
     if (id) {
-      getTraineeView(id).then((res) => setTrainee(res.data))
+      getLearnerView(id).then((res) => setLearner(res.data))
       getContacts(id).then((res) => setContacts(res.data))
       getTrainings(id).then((res) => setTrainings(res.data))
     }
   }, [params, id])
 
-  if (!trainee) {
+  if (!learner) {
     return <Loading />
   }
-  const photoUrl = getPhoto(trainee.badge)
+  const photoUrl = getPhoto(learner.badge)
 
   return (
-    <main className="trainee-view">
+    <main className="learner-view">
       {/* Edit modals  */}
 
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
         <Training training={trainingEditData} onClose={handleClose} />
       </Modal>
-      <Modal open={isTraineeEdit} title="Edit trainee" onClose={handleClose}>
-        <TraineeForm trainee={traineeEditData} onClose={handleClose} />
+      <Modal open={isLearnerEdit} title="Edit learner" onClose={handleClose}>
+        <LearnerForm learner={learnerEditData} onClose={handleClose} />
       </Modal>
       <Modal
         open={isContactEdit}
@@ -168,7 +168,7 @@ export const TraineeView = () => {
         <Picture photoUrl={photoUrl} />
       </div>
       <div>
-        <Trainee trainee={trainee} onEdit={handleEditTrainee} />
+        <Learner learner={learner} onEdit={handleEditLearner} />
       </div>
       <div>
         <Trainings

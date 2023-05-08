@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import notificationReducer from './reducers/notification/notificationSlice'
 import userSlice from './reducers/user/userSlice'
-import traineeSlice from './reducers/trainee/traineeSlice'
+import learnerSlice from './reducers/learner/learnerSlice'
 import stateSlice from './reducers/state/stateSlice'
 import nationalitySlice from './reducers/nationality/nationalitySlice'
 import roleSlice from './reducers/role/roleSlice'
@@ -24,7 +24,7 @@ export default configureStore({
     notification: notificationReducer,
     roles: roleSlice,
     states: stateSlice,
-    trainees: traineeSlice,
+    learners: learnerSlice,
     trainings: trainingSlice,
     users: userSlice
   },

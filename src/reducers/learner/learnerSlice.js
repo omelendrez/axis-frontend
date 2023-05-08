@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-  getTrainees,
-  deleteTrainee,
-  createTrainee,
-  updateTrainee
+  getLearners,
+  deleteLearner,
+  createLearner,
+  updateLearner
 } from '../../services'
 import { handleError } from '../error'
 
@@ -16,8 +16,8 @@ const initialState = {
   error: null
 }
 
-export const traineeSlice = createSlice({
-  name: 'trainees',
+export const learnerSlice = createSlice({
+  name: 'learners',
   initialState: initialState,
   reducers: {
     setLoading(state) {
@@ -49,15 +49,15 @@ export const traineeSlice = createSlice({
   }
 })
 
-export default traineeSlice.reducer
+export default learnerSlice.reducer
 
-export function loadTrainees(pagination) {
-  const { setLoading, setData, reset } = traineeSlice.actions
+export function loadLearners(pagination) {
+  const { setLoading, setData, reset } = learnerSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getTrainees(pagination)
+      const { data } = await getLearners(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
@@ -66,14 +66,14 @@ export function loadTrainees(pagination) {
   }
 }
 
-export function removeTrainee(id) {
-  const { setLoading, setSuccess, reset } = traineeSlice.actions
+export function removeLearner(id) {
+  const { setLoading, setSuccess, reset } = learnerSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await deleteTrainee(id)
-      dispatch(loadTrainees())
+      await deleteLearner(id)
+      dispatch(loadLearners())
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -81,14 +81,14 @@ export function removeTrainee(id) {
   }
 }
 
-export function addTrainee(payload) {
-  const { setLoading, setSuccess, reset } = traineeSlice.actions
+export function addLearner(payload) {
+  const { setLoading, setSuccess, reset } = learnerSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await createTrainee(payload)
-      dispatch(loadTrainees())
+      await createLearner(payload)
+      dispatch(loadLearners())
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -96,14 +96,14 @@ export function addTrainee(payload) {
   }
 }
 
-export function modifyTrainee(id, payload) {
-  const { setLoading, setSuccess, reset } = traineeSlice.actions
+export function modifyLearner(id, payload) {
+  const { setLoading, setSuccess, reset } = learnerSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await updateTrainee(id, payload)
-      dispatch(loadTrainees())
+      await updateLearner(id, payload)
+      dispatch(loadLearners())
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
