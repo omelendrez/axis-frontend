@@ -48,11 +48,6 @@ const Learners = () => {
     navigate(`/learner/${learner.id}`)
   }
 
-  const handleBack = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   const fields = [
     { name: 'type', label: 'Type' },
     { name: 'badge', label: 'Badge' },
@@ -81,9 +76,7 @@ const Learners = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard" onClick={handleBack}>
-              Dashboard
-            </Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>Learners</li>
         </ul>

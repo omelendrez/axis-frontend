@@ -26,7 +26,7 @@ const Training = () => {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
-            <Link to="/learners">Learners</Link>
+            <Link to="/trainings">Trainings</Link>
           </li>
           <li>Training</li>
         </ul>

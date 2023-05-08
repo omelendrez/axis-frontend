@@ -26,7 +26,7 @@ const Nationality = () => {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
-            <Link to="/Nationalitys">Nationalitys</Link>
+            <Link to="/Nationalities">Nationalities</Link>
           </li>
           <li>Nationality</li>
         </ul>

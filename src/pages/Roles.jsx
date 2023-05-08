@@ -53,11 +53,6 @@ const Roles = () => {
     removeRole(role.id)
   }
 
-  const handleBack = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   const fields = [{ name: 'name', label: 'Name' }]
 
   return (
@@ -69,9 +64,7 @@ const Roles = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard" onClick={handleBack}>
-              Dashboard
-            </Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>Roles</li>
         </ul>

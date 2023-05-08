@@ -59,11 +59,6 @@ const Nationalities = () => {
     removeNationality(nationality.id)
   }
 
-  const handleBack = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   const fields = [
     { name: 'code', label: 'Code' },
     { name: 'country', label: 'Country' },
@@ -79,9 +74,7 @@ const Nationalities = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard" onClick={handleBack}>
-              Dashboard
-            </Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>Nationalities</li>
         </ul>

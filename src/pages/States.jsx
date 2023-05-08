@@ -54,11 +54,6 @@ const States = () => {
     removeState(state.id)
   }
 
-  const handleBack = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   const fields = [
     {
       name: 'name',
@@ -76,9 +71,7 @@ const States = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard" onClick={handleBack}>
-              Dashboard
-            </Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>States</li>
         </ul>
