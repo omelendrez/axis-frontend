@@ -61,7 +61,7 @@ const Users = () => {
   ]
 
   return (
-    <main className="container-fluid">
+    <main className="container">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>

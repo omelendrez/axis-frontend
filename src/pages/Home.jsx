@@ -9,7 +9,7 @@ const Home = () => {
   }, [])
 
   return (
-    <main className="container-fluid">
+    <main className="container">
       <HomeComponent loading={loading} />
     </main>
   )

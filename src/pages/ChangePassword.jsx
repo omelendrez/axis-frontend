@@ -3,7 +3,7 @@ import { ChangePassword as ChangePasswordComponent } from '../components'
 
 const ChangePassword = () => {
   return (
-    <main className="container-fluid">
+    <main className="container">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
