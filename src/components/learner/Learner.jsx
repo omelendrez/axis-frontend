@@ -222,7 +222,7 @@ export const Learner = ({ learner, onClose }) => {
         values={values}
         options={options}
         onSave={handleSave}
-        onClose={handleCancel}
+        onClose={onClose}
       />
     </>
   )

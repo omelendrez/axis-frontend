@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import {
   FormContainer,
@@ -12,12 +12,19 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
   const [learner, setLearner] = useState(null)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const id = params?.id
     if (id) {
       getLearner(id).then((res) => setLearner(res.data))
     }
   }, [params])
+
+  const handleClose = (e) => {
+    e.preventDefault()
+    navigate('/learners')
+  }
 
   return (
     <>
@@ -41,7 +48,7 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
 
         {isAdding && (
           <FormContainer title="Adding Learner data">
-            <LearnerComponent />
+            <LearnerComponent onClose={handleClose} />
           </FormContainer>
         )}
         {isEditing && (

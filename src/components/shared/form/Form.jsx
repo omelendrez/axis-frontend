@@ -31,7 +31,6 @@ export const Form = ({
     })}
     <FormButtonRow>
       <SaveButton isSubmitting={isLoading} onSave={onSave} />
-
       <CloseButton isSubmitting={isLoading} onClose={onClose} />
     </FormButtonRow>
   </form>
