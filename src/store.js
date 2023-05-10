@@ -4,6 +4,7 @@ import certificateTypeSlice from './reducers/certificate-type/certificateTypeSli
 import companySlice from './reducers/company/companySlice'
 import contactSlice from './reducers/contact/contactSlice'
 import contactTypeSlice from './reducers/contact-type/contactTypeSlice'
+import courseItemSlice from './reducers/course-item/courseItemSlice'
 import courseSlice from './reducers/course/courseSlice'
 import learnerSlice from './reducers/learner/learnerSlice'
 import nationalitySlice from './reducers/nationality/nationalitySlice'
@@ -19,6 +20,7 @@ export default configureStore({
     companies: companySlice,
     contacts: contactSlice,
     contactTypes: contactTypeSlice,
+    courseItems: courseItemSlice,
     courses: courseSlice,
     learners: learnerSlice,
     nationalities: nationalitySlice,

@@ -42,8 +42,14 @@ const menuOptions = [
   },
   {
     title: 'Courses',
-    description: 'Manage safety courses',
+    description: 'Manage courses',
     path: '/courses',
+    roles: [1]
+  },
+  {
+    title: 'Course Items',
+    description: 'Manage courses items',
+    path: '/course-items',
     roles: [1]
   }
 ]

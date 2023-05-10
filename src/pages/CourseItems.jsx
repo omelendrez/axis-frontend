@@ -1,0 +1,98 @@
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ListView, Loading, AddButton } from '../components'
+
+import useCourseItems from '../hooks/useCourseItems'
+import useNoficication from '../hooks/useNotification'
+
+import { initialValues } from '../helpers'
+
+const CourseItems = () => {
+  const {
+    courseItems,
+    load: loadCourseItems,
+    remove: removeCourseItem
+  } = useCourseItems()
+  const { data, isLoading, isSuccess, isError, error, isFirstLoad } =
+    courseItems
+
+  const [pagination, setPagination] = useState(initialValues)
+
+  const navigate = useNavigate()
+  const { set } = useNoficication()
+
+  useEffect(() => {
+    loadCourseItems(pagination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      loadCourseItems(pagination)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFirstLoad])
+
+  useEffect(() => {
+    if (isError) {
+      const notification = {
+        type: 'error',
+        message: error.message
+      }
+      set(notification)
+    }
+    if (isSuccess) {
+      const notification = {
+        type: 'success',
+        message: 'Operation completed successfully'
+      }
+      set(notification)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isSuccess])
+
+  const handleEdit = (courseItem) => {
+    navigate(`/course-item/${courseItem.id}`)
+  }
+
+  const handleDelete = (courseItem) => {
+    removeCourseItem(courseItem.id)
+  }
+
+  const fields = [
+    { name: 'name', label: 'Name' },
+    { name: 'cert_type_name', label: 'Type' }
+  ]
+
+  return (
+    <main className="container">
+      {isLoading && <Loading />}
+      <nav aria-label="breadcrumb" className="breadcrumb">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>Course Itemss</li>
+        </ul>
+      </nav>
+
+      <AddButton url="/course-item" />
+
+      <ListView
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
+        fields={fields}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        isLoading={isLoading}
+        loadItems={loadCourseItems}
+      />
+    </main>
+  )
+}
+
+export default CourseItems
