@@ -75,7 +75,7 @@ const CourseItems = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>Course Itemss</li>
+          <li>Course Items</li>
         </ul>
       </nav>
 

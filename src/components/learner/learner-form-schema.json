@@ -1,0 +1,73 @@
+[
+  {
+    "type": "dropdown",
+    "id": "type",
+    "label": "Type",
+    "options": "typeList",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "badge",
+    "label": "Badge",
+    "placeholder": "Enter badge",
+    "required": true,
+    "if": "id"
+  },
+  {
+    "type": "text",
+    "id": "last_name",
+    "label": "Last name",
+    "placeholder": "Enter last name",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "first_name",
+    "label": "First name",
+    "placeholder": "Enter first name",
+    "required": true
+  },
+  {
+    "type": "dropdown",
+    "id": "sex",
+    "label": "Sex",
+    "options": "sexList",
+    "required": true
+  },
+  {
+    "type": "dropdown-search",
+    "id": "nationality",
+    "label": "Nationality",
+    "options": "nationalitiesList",
+    "required": true
+  },
+  {
+    "type": "dropdown-search",
+    "id": "state",
+    "label": "State",
+    "options": "statesList",
+    "required": true
+  },
+  {
+    "type": "date",
+    "id": "birth_date",
+    "label": "Birth date",
+    "placeholder": "Enter badge",
+    "required": true
+  },
+  {
+    "type": "dropdown-search",
+    "id": "company",
+    "label": "Company",
+    "options": "companiesList",
+    "required": true
+  },
+  {
+    "type": "dropdown",
+    "id": "status",
+    "label": "Status",
+    "options": "statusList",
+    "if": "id"
+  }
+]

@@ -1,14 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  InputField,
-  Confirm,
-  FormButtonRow,
-  Dropdown,
-  DropdownSearch,
-  SaveButton,
-  Loading,
-  CloseButton
-} from '../shared'
+import { Confirm, Loading, Form } from '../shared'
 // Ok
 import useLearners from '../../hooks/useLearners'
 import useStates from '../../hooks/useStates'
@@ -23,7 +14,7 @@ import {
   type as typeList
 } from '../../static-data'
 
-import initialValues from './learner-fields.json'
+import schema from './learner-form-schema.json'
 
 export const Learner = ({ learner, onClose }) => {
   const { set } = useNotification()
@@ -45,6 +36,12 @@ export const Learner = ({ learner, onClose }) => {
   const [statesList, setStatesList] = useState([])
 
   const [prevState, setPrevState] = useState(null)
+
+  const initialValues = {}
+
+  schema.forEach(
+    (field) => (initialValues[field.id] = { value: '', error: '' })
+  )
 
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')
@@ -200,6 +197,15 @@ export const Learner = ({ learner, onClose }) => {
     return <Loading />
   }
 
+  const options = {
+    companiesList,
+    nationalitiesList,
+    sexList,
+    statesList,
+    statusList,
+    typeList
+  }
+
   return (
     <>
       <Confirm
@@ -208,108 +214,16 @@ export const Learner = ({ learner, onClose }) => {
         onCancel={handleCancel}
         message={confirmMessage}
       />
-
-      <form>
-        <Dropdown
-          id="type"
-          label="Type"
-          onChange={handleChange}
-          value={values.type.value}
-          options={typeList}
-          required
-        />
-        {learner?.id && (
-          <InputField
-            type="text"
-            id="badge"
-            label="Badge"
-            placeholder="Enter badge"
-            value={values.badge.value}
-            onChange={handleChange}
-            required
-          />
-        )}
-
-        <InputField
-          type="text"
-          id="last_name"
-          label="Last name"
-          placeholder="Enter last name"
-          value={values.last_name.value}
-          onChange={handleChange}
-          required
-        />
-
-        <InputField
-          type="text"
-          id="first_name"
-          label="First name"
-          placeholder="Enter first name"
-          value={values.first_name.value}
-          onChange={handleChange}
-          required
-        />
-
-        <Dropdown
-          id="sex"
-          label="Sex"
-          onChange={handleChange}
-          value={values.sex.value}
-          options={sexList}
-          required
-        />
-
-        <DropdownSearch
-          id="nationality"
-          label="Nationality"
-          onChange={handleChange}
-          value={values.nationality.value}
-          options={nationalitiesList}
-          required
-        />
-
-        <DropdownSearch
-          id="state"
-          label="State"
-          onChange={handleChange}
-          value={values.state.value}
-          options={statesList}
-          required
-        />
-
-        <InputField
-          type="date"
-          id="birth_date"
-          label="Birth date"
-          placeholder="Enter birth date"
-          value={values.birth_date.value}
-          onChange={handleChange}
-          required
-        />
-
-        <DropdownSearch
-          id="company"
-          label="Company"
-          onChange={handleChange}
-          value={values.company.value}
-          options={companiesList}
-          required
-        />
-        {learner?.id && (
-          <Dropdown
-            id="status"
-            label="Status"
-            onChange={handleChange}
-            value={values.status.value}
-            options={statusList}
-          />
-        )}
-        <FormButtonRow>
-          <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-          <CloseButton isSubmitting={isLoading} onClose={onClose} />
-        </FormButtonRow>
-      </form>
+      <Form
+        schema={schema}
+        object={learner}
+        isLoading={isLoading}
+        onChange={handleChange}
+        values={values}
+        options={options}
+        onSave={handleSave}
+        onClose={handleCancel}
+      />
     </>
   )
 }
