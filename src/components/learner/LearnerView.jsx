@@ -120,6 +120,15 @@ export const LearnerView = () => {
       })
   }
 
+  const handleEditPicture = (e) => {
+    e.preventDefault()
+    const notification = {
+      type: 'warning',
+      message: 'Work still in progress'
+    }
+    set(notification)
+  }
+
   const handleClose = (e) => {
     e?.preventDefault()
     getLearnerView(id).then((res) => {
@@ -164,7 +173,7 @@ export const LearnerView = () => {
       {/* Data components */}
 
       <div>
-        <Picture photoUrl={photoUrl} />
+        <Picture photoUrl={photoUrl} onEdit={handleEditPicture} />
       </div>
       <div>
         <Learner learner={learner} onEdit={handleEditLearner} />
