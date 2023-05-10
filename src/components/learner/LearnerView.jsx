@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
-  deleteContact,
-  deleteTraining,
-  getContact,
   getContacts,
+  getContact,
+  deleteContact,
   getLearner,
   getLearnerView,
   getPhoto,
+  getTrainings,
   getTraining,
-  getTrainings
+  deleteTraining
 } from '../../services'
 import { Loading, Modal } from '../shared'
 import { Picture, Learner, Trainings, Contacts } from './learner-view'
