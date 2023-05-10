@@ -1,8 +1,10 @@
 nav {
   background-color: var(--primary-hover);
+  position: fixed;
+  z-index: 1;
 }
 
-nav>* {
+nav > * {
   color: #fff;
 }
 
@@ -17,7 +19,7 @@ summary {
   }
 }
 
-details[open]>*:not(summary) {
+details[open] > *:not(summary) {
   animation: details-show 150ms ease-in-out;
 }
 
@@ -40,6 +42,10 @@ nav li.active {
   background-color: hsl(205deg, 18%, 86%);
 }
 
-label span.material-icons>* {
+label span.material-icons > * {
   margin-top: -10px;
+}
+
+nav.breadcrumb {
+  position: unset;
 }

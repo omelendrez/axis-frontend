@@ -14,18 +14,20 @@ import { userRoutes } from './userRoutes'
 
 export const AppRoutes = () => {
   return (
-    <Routes>
-      {companyRoutes}
-      {courseItemRoutes}
-      {courseRoutes}
-      {dashboardRoutes}
-      {defaultRoutes}
-      {learnerRoutes}
-      {nationalityRoutes}
-      {roleRoutes}
-      {stateRoutes}
-      {trainingRoutes}
-      {userRoutes}
-    </Routes>
+    <div className="routes-container">
+      <Routes>
+        {companyRoutes}
+        {courseItemRoutes}
+        {courseRoutes}
+        {dashboardRoutes}
+        {defaultRoutes}
+        {learnerRoutes}
+        {nationalityRoutes}
+        {roleRoutes}
+        {stateRoutes}
+        {trainingRoutes}
+        {userRoutes}
+      </Routes>
+    </div>
   )
 }

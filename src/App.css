@@ -25,3 +25,7 @@
 .error {
   background-color: #e53935;
 }
+
+div.routes-container {
+  padding-top: 4rem;
+}
