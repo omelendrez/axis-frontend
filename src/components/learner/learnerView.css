@@ -10,14 +10,17 @@
 .learner-view div {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .learner-view div:nth-child(2) {
   flex-grow: 1;
 }
 
-.learner-view div article {
-  position: relative;
+@media screen and (min-width: 992px) {
+  .learner-view div {
+    width: unset;
+  }
 }
 
 /* Title */
