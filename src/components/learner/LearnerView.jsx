@@ -153,9 +153,8 @@ export const LearnerView = () => {
   const photoUrl = getPhoto(learner.badge)
 
   return (
-    <main className="learner-view">
+    <>
       {/* Edit modals  */}
-
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
         <Training training={trainingEditData} onClose={handleClose} />
       </Modal>
@@ -169,29 +168,31 @@ export const LearnerView = () => {
       >
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
-
-      {/* Data components */}
-
-      <div>
-        <Picture photoUrl={photoUrl} onEdit={handleEditPicture} />
-      </div>
-      <div>
-        <Learner learner={learner} onEdit={handleEditLearner} />
-      </div>
-      <div>
-        <Trainings
-          trainings={trainings}
-          onAdd={handleAddTraining}
-          onEdit={handleEditTraining}
-          onDelete={handleDeleteTraining}
-        />
-        <Contacts
-          contacts={contacts}
-          onAdd={handleAddContact}
-          onEdit={handleEditContact}
-          onDelete={handleDeleteContact}
-        />
-      </div>
-    </main>
+      <main className="learner-view">
+        {/* Data components */}
+        <div>
+          <Picture photoUrl={photoUrl} onEdit={handleEditPicture} />
+        </div>
+        <div>
+          <Learner learner={learner} onEdit={handleEditLearner} />
+        </div>
+        <div>
+          <Trainings
+            trainings={trainings}
+            onAdd={handleAddTraining}
+            onEdit={handleEditTraining}
+            onDelete={handleDeleteTraining}
+          />
+        </div>
+        <div>
+          <Contacts
+            contacts={contacts}
+            onAdd={handleAddContact}
+            onEdit={handleEditContact}
+            onDelete={handleDeleteContact}
+          />
+        </div>
+      </main>
+    </>
   )
 }
