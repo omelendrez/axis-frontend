@@ -48,7 +48,7 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
 
         {isAdding && (
           <FormContainer title="Adding Learner data">
-            <LearnerComponent onClose={handleClose} />
+            <LearnerComponent onClose={handleClose} learner={{}} />
           </FormContainer>
         )}
         {isEditing && (

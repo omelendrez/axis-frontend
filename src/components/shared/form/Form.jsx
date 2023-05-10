@@ -14,10 +14,8 @@ export const Form = ({
 }) => (
   <form>
     {schema.map((field) => {
-      if (field.if && object?.hasOwnProperty(field.if)) {
-        if (!object[field.if]) {
-          return null
-        }
+      if (field.if && !object?.hasOwnProperty(field.if)) {
+        return null
       }
       return (
         <InputComponent
