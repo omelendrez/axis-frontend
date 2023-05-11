@@ -51,18 +51,11 @@ const CourseItems = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
-  const handleEdit = (courseItem) => {
-    navigate(`/course-item/${courseItem.id}`)
-  }
+  const handleEdit = (courseItem) => navigate(`/course-item/${courseItem.id}`)
 
-  const handleDelete = (courseItem) => {
-    removeCourseItem(courseItem.id)
-  }
+  const handleDelete = (courseItem) => removeCourseItem(courseItem.id)
 
-  const fields = [
-    { name: 'name', label: 'Name' },
-    { name: 'cert_type_name', label: 'Type' }
-  ]
+  const fields = [{ name: 'name', label: 'Name' }]
 
   return (
     <main className="container">
