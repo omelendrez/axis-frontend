@@ -14,7 +14,7 @@ import {
   type as typeList
 } from '../../static-data'
 
-import schema from './learner-form-schema.json'
+import schema from './schema.json'
 
 export const Learner = ({ learner, onClose }) => {
   const { set } = useNotification()

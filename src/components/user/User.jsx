@@ -5,7 +5,7 @@ import useUsers from '../../hooks/useUsers.js'
 import useRoles from '../../hooks/useRoles'
 import useNotification from '../../hooks/useNotification'
 import { status as statusList } from '../../static-data'
-import schema from './user-form-schema.json'
+import schema from './schema.json'
 
 export const User = ({ user }) => {
   const { users, add, modify } = useUsers()
@@ -48,7 +48,7 @@ export const User = ({ user }) => {
     if (isSuccess) {
       const message = {
         type: 'success',
-        message: 'u=Updated successfully'
+        message: 'Updated successfully!'
       }
       set(message)
       navigate('/users')
