@@ -55,9 +55,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
           disabled={user.role !== 1 || isLocked}
           onClick={() => onEdit(item)}
         />
-      </td>
 
-      <td className="action-cell">
         <ActionButton
           label="remove_circle_outline"
           className="delete"

@@ -1,10 +1,12 @@
 td.action-cell {
-  width: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 div.action-button {
   padding: 0.5rem 1rem;
   cursor: pointer;
+  border: none;
 }
 
 div.action-button.small {
@@ -17,8 +19,6 @@ div.action-button span.small {
 
 div.action-button span {
   font-size: 2rem;
-  position: relative;
-  top: 3px;
 }
 
 div.action-button span.primary {
