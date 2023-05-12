@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { CourseItem as CourseItemComponent } from '../components'
 import { getCourseItem } from '../services'
+import { handleError } from '../reducers/error'
 
 const CourseItem = () => {
   const params = useParams()
@@ -11,7 +12,9 @@ const CourseItem = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getCourseItem(id).then((res) => setCourseItem(res.data))
+      getCourseItem(id)
+        .then((res) => setCourseItem(res.data))
+        .catch((e) => handleError(e))
     }
   }, [params])
 

@@ -18,6 +18,7 @@ import useNoficication from '../../hooks/useNotification'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
+import { handleError } from '../../reducers/error'
 
 export const LearnerView = () => {
   const params = useParams()
@@ -65,21 +66,23 @@ export const LearnerView = () => {
     setIsContactEdit(true)
   }
 
-  const handleEditTraining = (id) => {
-    getTraining(id).then((res) => {
-      setTrainingEditData(res.data)
-      setIsTrainingEdit(true)
-    })
-  }
+  const handleEditTraining = (id) =>
+    getTraining(id)
+      .then((res) => {
+        setTrainingEditData(res.data)
+        setIsTrainingEdit(true)
+      })
+      .catch((e) => handleError(e))
 
-  const handleEditContact = (id) => {
-    getContact(id).then((res) => {
-      setContactEditData(res.data)
-      setIsContactEdit(true)
-    })
-  }
+  const handleEditContact = (id) =>
+    getContact(id)
+      .then((res) => {
+        setContactEditData(res.data)
+        setIsContactEdit(true)
+      })
+      .catch((e) => handleError(e))
 
-  const handleDeleteTraining = (trainingId) => {
+  const handleDeleteTraining = (trainingId) =>
     deleteTraining(trainingId)
       .then((res) => {
         const notification = {
@@ -98,9 +101,8 @@ export const LearnerView = () => {
         }
         set(notification)
       })
-  }
 
-  const handleDeleteContact = (contactId) => {
+  const handleDeleteContact = (contactId) =>
     deleteContact(contactId)
       .then((res) => {
         const notification = {
@@ -118,7 +120,6 @@ export const LearnerView = () => {
         }
         set(notification)
       })
-  }
 
   const handleEditPicture = (e) => {
     e.preventDefault()
@@ -131,28 +132,44 @@ export const LearnerView = () => {
 
   const handleClose = (e) => {
     e?.preventDefault()
-    getLearnerView(id).then((res) => {
-      setLearner(res.data)
-      if (isTrainingEdit) {
-        setTrainingEditData(null)
-        setIsTrainingEdit(false)
-      }
-      if (isLearnerEdit) {
-        setLearnerEditData(null)
-        setIsLearnerEdit(false)
-      }
-      if (isContactEdit) {
-        setContactEditData(null)
-        setIsContactEdit(false)
-      }
-    })
+    getLearnerView(id)
+      .then((res) => {
+        setLearner(res.data)
+        if (isTrainingEdit) {
+          setTrainingEditData(null)
+          setIsTrainingEdit(false)
+        }
+        if (isLearnerEdit) {
+          setLearnerEditData(null)
+          setIsLearnerEdit(false)
+        }
+        if (isContactEdit) {
+          setContactEditData(null)
+          setIsContactEdit(false)
+        }
+      })
+      .catch((e) => handleError(e))
   }
 
   useEffect(() => {
     if (id) {
-      getLearnerView(id).then((res) => setLearner(res.data))
-      getContacts(id).then((res) => setContacts(res.data))
-      getTrainings(id).then((res) => setTrainings(res.data))
+      getLearnerView(id)
+        .then((res) => {
+          setLearner(res.data)
+        })
+        .catch((e) => handleError(e))
+
+      getContacts(id)
+        .then((res) => {
+          setContacts(res.data)
+        })
+        .catch((e) => handleError(e))
+
+      getTrainings(id)
+        .then((res) => {
+          setTrainings(res.data)
+        })
+        .catch((e) => handleError(e))
     }
   }, [params, id])
 

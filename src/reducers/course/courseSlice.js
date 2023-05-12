@@ -62,7 +62,6 @@ export function loadCourses(pagination) {
       dispatch(reset())
     } catch (error) {
       handleError(error, dispatch, reset)
-      console.log(error)
     }
   }
 }

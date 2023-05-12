@@ -62,7 +62,6 @@ export function loadCertificateTypes(pagination) {
       dispatch(reset())
     } catch (error) {
       handleError(error, dispatch, reset)
-      console.log(error)
     }
   }
 }

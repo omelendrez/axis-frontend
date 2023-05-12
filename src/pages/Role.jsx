@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Role as RoleComponent } from '../components'
 import { getRole } from '../services'
+import { handleError } from '../reducers/error'
 
 const Role = () => {
   const params = useParams()
@@ -11,7 +12,9 @@ const Role = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getRole(id).then((res) => setRole(res.data))
+      getRole(id)
+        .then((res) => setRole(res.data))
+        .catch((e) => handleError(e))
     }
   }, [params])
 

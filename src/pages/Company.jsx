@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Company as CompanyComponent } from '../components'
 import { getCompany } from '../services'
+import { handleError } from '../reducers/error'
 
 const Company = () => {
   const params = useParams()
@@ -11,7 +12,9 @@ const Company = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getCompany(id).then((res) => setCompany(res.data))
+      getCompany(id)
+        .then((res) => setCompany(res.data))
+        .catch((e) => handleError(e))
     }
   }, [params])
 

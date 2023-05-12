@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Nationality as NationalityComponent } from '../components'
 import { getNationality } from '../services'
+import { handleError } from '../reducers/error'
 
 const Nationality = () => {
   const params = useParams()
@@ -11,7 +12,9 @@ const Nationality = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getNationality(id).then((res) => setNationality(res.data))
+      getNationality(id)
+        .then((res) => setNationality(res.data))
+        .catch((e) => handleError(e))
     }
   }, [params])
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { User as UserComponent } from '../components'
 import { getUser } from '../services'
+import { handleError } from '../reducers/error'
 
 const User = () => {
   const params = useParams()
@@ -11,7 +12,9 @@ const User = () => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getUser(id).then((res) => setUser(res.data))
+      getUser(id)
+        .then((res) => setUser(res.data))
+        .catch((e) => handleError(e))
     }
   }, [params])
 

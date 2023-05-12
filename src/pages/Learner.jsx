@@ -7,6 +7,7 @@ import {
   Learner as LearnerComponent
 } from '../components'
 import { getLearner } from '../services'
+import { handleError } from '../reducers/error'
 
 const Learner = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
@@ -17,7 +18,9 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getLearner(id).then((res) => setLearner(res.data))
+      getLearner(id)
+        .then((res) => setLearner(res.data))
+        .catch((e) => handleError(e))
     }
   }, [params])
 

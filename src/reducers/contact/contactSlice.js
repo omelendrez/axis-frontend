@@ -65,7 +65,6 @@ export function loadContacts(id) {
       dispatch(reset())
     } catch (error) {
       handleError(error, dispatch, reset)
-      console.log(error)
     }
   }
 }
