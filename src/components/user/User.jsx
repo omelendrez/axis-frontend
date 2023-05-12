@@ -3,15 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { Confirm, Form } from '../shared'
 import useUsers from '../../hooks/useUsers.js'
 import useRoles from '../../hooks/useRoles'
-import useNotification from '../../hooks/useNotification'
-import { status as statusList } from '../../static-data'
+import { status as statusList } from '../../static-lists'
 import schema from './schema.json'
 
 export const User = ({ user }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
-
-  const { set } = useNotification()
 
   const initialValues = {}
 
@@ -46,11 +43,6 @@ export const User = ({ user }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      const message = {
-        type: 'success',
-        message: 'Updated successfully!'
-      }
-      set(message)
       navigate('/users')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

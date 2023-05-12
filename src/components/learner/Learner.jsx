@@ -12,7 +12,7 @@ import {
   sex as sexList,
   status as statusList,
   type as typeList
-} from '../../static-data'
+} from '../../static-lists'
 
 import schema from './schema.json'
 
