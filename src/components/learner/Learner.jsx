@@ -96,6 +96,11 @@ export const Learner = ({ learner, onClose }) => {
 
   useEffect(() => {
     if (isSuccess) {
+      const message = {
+        type: 'success',
+        message: 'u=Updated successfully'
+      }
+      set(message)
       onClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,56 +1,35 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  InputField,
-  Confirm,
-  FormButtonRow,
-  Dropdown,
-  SaveButton,
-  CancelButton
-} from '../shared'
+import { Confirm, Form } from '../shared'
 import useUsers from '../../hooks/useUsers.js'
 import useRoles from '../../hooks/useRoles'
+import useNotification from '../../hooks/useNotification'
 import { status as statusList } from '../../static-data'
-
-const initialValues = {
-  name: {
-    value: '',
-    error: ''
-  },
-  full_name: {
-    value: '',
-    error: ''
-  },
-  email: {
-    value: '',
-    error: ''
-  },
-  role: {
-    value: '',
-    error: ''
-  },
-  status: {
-    value: '1',
-    error: ''
-  }
-}
+import schema from './user-form-schema.json'
 
 export const User = ({ user }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
 
+  const { set } = useNotification()
+
+  const initialValues = {}
+
+  schema.forEach(
+    (field) => (initialValues[field.id] = { value: '', error: '' })
+  )
+
   const { roles, load: loadRoles } = useRoles()
-  const { data: rolesList } = roles
+  const { data: roleList } = roles
 
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [tempValue, setTempValue] = useState(null)
   const navigate = useNavigate()
-  const formRef = useRef()
 
   useEffect(() => {
-    if (!rolesList.count) {
+    if (!roleList.count) {
       loadRoles()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,7 +46,12 @@ export const User = ({ user }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(-1)
+      const message = {
+        type: 'success',
+        message: 'u=Updated successfully'
+      }
+      set(message)
+      navigate('/users')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -103,7 +87,7 @@ export const User = ({ user }) => {
     setIsConfirmOpen(false)
   }
 
-  const handleFormSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault()
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
@@ -116,14 +100,14 @@ export const User = ({ user }) => {
     }
   }
 
-  const handleSave = (e) => {
-    e.preventDefault()
-    formRef.current.submit()
-  }
-
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate(-1)
+    navigate('/users')
+  }
+
+  const options = {
+    statusList,
+    roleList
   }
 
   return (
@@ -135,62 +119,16 @@ export const User = ({ user }) => {
         message={confirmMessage}
       />
 
-      <form onSubmit={handleFormSubmit} ref={formRef}>
-        <InputField
-          type="username"
-          id="name"
-          label="Username"
-          placeholder="Enter name"
-          value={values.name.value}
-          onChange={handleChange}
-          required
-          autoCapitalize="off"
-        />
-
-        <InputField
-          type="text"
-          id="full_name"
-          label="Full name"
-          placeholder="Enter full name"
-          value={values.full_name.value}
-          onChange={handleChange}
-          required
-        />
-
-        <InputField
-          type="email"
-          id="email"
-          label="Email"
-          placeholder="Enter email"
-          value={values.email.value}
-          onChange={handleChange}
-          required
-          autoCapitalize="off"
-        />
-
-        <Dropdown
-          id="role"
-          label="Role"
-          onChange={handleChange}
-          value={values.role.value}
-          options={rolesList}
-        />
-        {user?.id && (
-          <Dropdown
-            id="status"
-            label="Status"
-            onChange={handleChange}
-            value={values.status.value}
-            options={statusList}
-          />
-        )}
-
-        <FormButtonRow>
-          <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-          <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
-        </FormButtonRow>
-      </form>
+      <Form
+        schema={schema}
+        object={user}
+        isLoading={isLoading}
+        onChange={handleChange}
+        values={values}
+        options={options}
+        onSave={handleSave}
+        onClose={handleFormCancel}
+      />
     </>
   )
 }

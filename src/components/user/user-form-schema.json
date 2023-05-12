@@ -1,0 +1,37 @@
+[
+  {
+    "type": "text",
+    "id": "name",
+    "label": "Username",
+    "placeholder": "Enter username",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "full_name",
+    "label": "Full name",
+    "placeholder": "Enter full name",
+    "required": true
+  },
+  {
+    "type": "email",
+    "id": "email",
+    "label": "Email",
+    "placeholder": "Enter email",
+    "required": true
+  },
+  {
+    "type": "dropdown",
+    "id": "role",
+    "label": "Role",
+    "options": "roleList",
+    "required": true
+  },
+  {
+    "type": "dropdown",
+    "id": "status",
+    "label": "Status",
+    "options": "statusList",
+    "if": "id"
+  }
+]

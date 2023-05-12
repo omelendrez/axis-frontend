@@ -18,6 +18,7 @@ export const InputComponent = ({ field, values, options, onChange }) => {
 
     case 'text':
     case 'date':
+    case 'email':
       component = (
         <InputField
           type={field.type}
