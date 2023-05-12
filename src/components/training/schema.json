@@ -1,0 +1,28 @@
+[
+  {
+    "type": "dropdown-search",
+    "id": "course",
+    "label": "Course",
+    "options": "courseList",
+    "required": true
+  },
+  {
+    "type": "date",
+    "id": "start",
+    "label": "Start date",
+    "placeholder": "Enter start date",
+    "required": true
+  },
+  {
+    "type": "date",
+    "id": "expiry",
+    "label": "Expiry date",
+    "placeholder": "Enter expiry date"
+  },
+  {
+    "type": "text",
+    "id": "certificate",
+    "label": "Certificate",
+    "placeholder": "Enter certificate number"
+  }
+]

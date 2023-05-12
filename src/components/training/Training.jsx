@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import {
-  InputField,
-  FormButtonRow,
-  SaveButton,
-  DropdownSearch,
-  CloseButton
-} from '../shared'
+import { Form } from '../shared'
 
 import useTrainings from '../../hooks/useTrainings'
 import useCourses from '../../hooks/useCourses'
-import initialValues from './training-fields.json'
 import useNoficication from '../../hooks/useNotification'
+
+import schema from './schema.json'
 
 export const Training = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
@@ -20,9 +15,13 @@ export const Training = ({ training, onClose }) => {
   const { set } = useNoficication()
 
   const { courses, load: loadCourses } = useCourses()
-  const { data: coursesResponse } = courses
+  const { data: courseList } = courses
 
-  const { count: coursesCount, rows: coursesList } = coursesResponse
+  const initialValues = {}
+
+  schema.forEach(
+    (field) => (initialValues[field.id] = { value: '', error: '' })
+  )
 
   const [values, setValues] = useState(initialValues)
 
@@ -48,11 +47,11 @@ export const Training = ({ training, onClose }) => {
   }, [isSuccess])
 
   useEffect(() => {
-    if (!coursesCount) {
+    if (!courseList.count) {
       loadCourses()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coursesResponse])
+  }, [])
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -74,51 +73,20 @@ export const Training = ({ training, onClose }) => {
     }
   }
 
+  const options = {
+    courseList: courseList.rows
+  }
+
   return (
-    <form>
-      <DropdownSearch
-        id="course"
-        label="Course"
-        value={values.course.value}
-        onChange={handleChange}
-        options={coursesList}
-        required
-      />
-
-      <InputField
-        type="date"
-        id="start"
-        label="Start"
-        placeholder="Enter start day"
-        value={values.start.value}
-        onChange={handleChange}
-        required
-      />
-
-      <InputField
-        type="date"
-        id="expiry"
-        label="Expiry"
-        placeholder="Enter expiry date"
-        value={values.expiry.value}
-        onChange={handleChange}
-      />
-
-      <InputField
-        type="text"
-        id="certificate"
-        label="Certificate #"
-        placeholder="Enter certificate number"
-        value={values.certificate.value}
-        onChange={handleChange}
-        required
-      />
-
-      <FormButtonRow>
-        <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-        <CloseButton isSubmitting={isLoading} onClose={onClose} />
-      </FormButtonRow>
-    </form>
+    <Form
+      schema={schema}
+      object={training}
+      isLoading={isLoading}
+      onChange={handleChange}
+      values={values}
+      options={options}
+      onSave={handleSave}
+      onClose={onClose}
+    />
   )
 }

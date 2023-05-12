@@ -133,9 +133,18 @@ export const LearnerView = () => {
     e?.preventDefault()
     getLearnerView(id).then((res) => {
       setLearner(res.data)
-      setIsTrainingEdit(false)
-      setIsLearnerEdit(false)
-      setIsContactEdit(false)
+      if (isTrainingEdit) {
+        setTrainingEditData(null)
+        setIsTrainingEdit(false)
+      }
+      if (isLearnerEdit) {
+        setLearnerEditData(null)
+        setIsLearnerEdit(false)
+      }
+      if (isContactEdit) {
+        setContactEditData(null)
+        setIsContactEdit(false)
+      }
     })
   }
 
@@ -182,6 +191,7 @@ export const LearnerView = () => {
             onAdd={handleAddTraining}
             onEdit={handleEditTraining}
             onDelete={handleDeleteTraining}
+            key={trainingEditData?.id}
           />
         </div>
         <div>
@@ -190,6 +200,7 @@ export const LearnerView = () => {
             onAdd={handleAddContact}
             onEdit={handleEditContact}
             onDelete={handleDeleteContact}
+            key={contactEditData?.id}
           />
         </div>
       </main>
