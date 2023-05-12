@@ -3,6 +3,27 @@
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+[data-theme='light'],
+:root:not([data-theme='dark']) {
+  --purple: #8e24aa;
+  --purple-hover: #7b1fa2;
+  --purple-focus: rgba(142, 36, 170, 0.125);
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --purple: #8e24aa;
+    --purple-hover: #9c27b0;
+    --purple-focus: rgba(142, 36, 170, 0.25);
+  }
+}
+
+[data-theme='dark'] {
+  --purple: #8e24aa;
+  --purple-hover: #9c27b0;
+  --purple-focus: rgba(142, 36, 170, 0.25);
+}
+
 /* Picocss affects the way buttons are displayed */
 .Toastify__close-button {
   width: 1rem;
@@ -28,4 +49,14 @@
 
 div.routes-container {
   padding-top: 4rem;
+}
+
+.purple {
+  background-color: var(--purple);
+}
+.purple:hover {
+  background-color: var(--purple-hover);
+}
+.purple:focus {
+  background-color: var(--purple-focus);
 }

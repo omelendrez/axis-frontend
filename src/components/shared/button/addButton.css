@@ -1,7 +1,8 @@
 div.add-button-container {
-  position: absolute;
+  position: fixed;
   right: 1rem;
-  top: 5rem;
+  bottom: 1rem;
+  z-index: 1;
 }
 
 div.add-button-container a {
@@ -11,5 +12,6 @@ div.add-button-container a {
 
 div.add-button-container a span {
   position: relative;
+  font-size: 2rem;
   top: 3px;
 }

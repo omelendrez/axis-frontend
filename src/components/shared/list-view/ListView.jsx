@@ -51,6 +51,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
         <ActionButton
           label="edit"
           className="primary"
+          tooltip="Click to Edit"
           disabled={user.role !== 1 || isLocked}
           onClick={() => onEdit(item)}
         />
@@ -60,6 +61,7 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
         <ActionButton
           label="remove_circle_outline"
           className="delete"
+          tooltip="Click to Delete"
           disabled={user.role !== 1 || isLocked}
           onClick={() => onDelete(item)}
         />
