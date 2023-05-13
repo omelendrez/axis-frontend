@@ -88,7 +88,7 @@ export const Learner = ({ learner, onClose }) => {
     if (isSuccess) {
       const message = {
         type: 'success',
-        message: 'u=Updated successfully'
+        message: 'Updated successfully'
       }
       set(message)
       onClose()
