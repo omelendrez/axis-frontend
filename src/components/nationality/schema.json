@@ -1,0 +1,23 @@
+[
+  {
+    "type": "text",
+    "id": "code",
+    "label": "Code",
+    "placeholder": "Enter code",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "country",
+    "label": "Country",
+    "placeholder": "Enter country",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "nationality",
+    "label": "Nationality",
+    "placeholder": "Enter nationality",
+    "required": true
+  }
+]

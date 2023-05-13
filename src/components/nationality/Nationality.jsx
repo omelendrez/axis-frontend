@@ -1,31 +1,22 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { InputField, FormButtonRow, SaveButton, CancelButton } from '../shared'
-
+import { Form } from '../shared'
 import useNationalities from '../../hooks/useNationalities'
 
-const initialValues = {
-  code: {
-    value: '',
-    error: ''
-  },
-  country: {
-    value: '',
-    error: ''
-  },
-  nationality: {
-    value: '',
-    error: ''
-  }
-}
+import schema from './schema.json'
 
 export const Nationality = ({ nationality }) => {
   const { nationalities, add, modify } = useNationalities()
   const { isLoading, isSuccess } = nationalities
 
+  const initialValues = {}
+
+  schema.forEach(
+    (field) => (initialValues[field.id] = { value: '', error: '' })
+  )
+
   const [values, setValues] = useState(initialValues)
   const navigate = useNavigate()
-  const formRef = useRef()
 
   useEffect(() => {
     if (nationality) {
@@ -50,7 +41,7 @@ export const Nationality = ({ nationality }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleFormSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault()
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
@@ -63,54 +54,20 @@ export const Nationality = ({ nationality }) => {
     }
   }
 
-  const handleSave = (e) => {
-    e.preventDefault()
-    formRef.current.submit()
-  }
-
   const handleFormCancel = (e) => {
     e.preventDefault()
     navigate(-1)
   }
 
   return (
-    <>
-      <form onSubmit={handleFormSubmit} ref={formRef}>
-        <InputField
-          type="text"
-          id="code"
-          label="Code"
-          placeholder="Enter code"
-          value={values.code.value}
-          onChange={handleChange}
-          required
-        />
-
-        <InputField
-          type="text"
-          id="country"
-          label="Country"
-          placeholder="Enter country"
-          value={values.country.value}
-          onChange={handleChange}
-          required
-        />
-        <InputField
-          type="text"
-          id="nationality"
-          label="Nationality"
-          placeholder="Enter nationality"
-          value={values.nationality.value}
-          onChange={handleChange}
-          required
-        />
-
-        <FormButtonRow>
-          <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-          <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
-        </FormButtonRow>
-      </form>
-    </>
+    <Form
+      schema={schema}
+      object={nationality}
+      isLoading={isLoading}
+      onChange={handleChange}
+      values={values}
+      onSave={handleSave}
+      onClose={handleFormCancel}
+    />
   )
 }
