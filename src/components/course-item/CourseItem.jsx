@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { InputField, FormButtonRow, SaveButton, CancelButton } from '../shared'
+import { Form } from '../shared'
 
 import useCourseItems from '../../hooks/useCourseItems'
 
-const initialValues = {
-  name: {
-    value: '',
-    error: ''
-  }
-}
+import schema from './schema.json'
+import { loadSchema } from '../../helpers'
 
 export const CourseItem = ({ courseItem }) => {
   const { courseItems, add, modify } = useCourseItems()
   const { isLoading, isSuccess } = courseItems
+
+  const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
   const navigate = useNavigate()
@@ -56,26 +54,18 @@ export const CourseItem = ({ courseItem }) => {
 
   const handleFormCancel = (e) => {
     e.preventDefault()
-    navigate('/course-items')
+    navigate(-1)
   }
 
   return (
-    <form>
-      <InputField
-        type="text"
-        id="name"
-        label="Name"
-        placeholder="Enter name"
-        value={values.name.value}
-        onChange={handleChange}
-        required
-      />
-
-      <FormButtonRow>
-        <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-        <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
-      </FormButtonRow>
-    </form>
+    <Form
+      schema={schema}
+      object={courseItem}
+      isLoading={isLoading}
+      onChange={handleChange}
+      values={values}
+      onSave={handleSave}
+      onClose={handleFormCancel}
+    />
   )
 }
