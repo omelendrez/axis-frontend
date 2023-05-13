@@ -1,9 +1,3 @@
-.learner-view div .learner .tag {
-  width: fit-content;
-  font-size: 0.8rem;
-  position: relative;
-}
-
 .learner-view div .row-line {
   display: flex;
   flex-direction: row;
@@ -12,6 +6,12 @@
 
 .learner-view div .row-line div {
   width: auto;
+}
+
+.learner-view div .learner .tag {
+  width: fit-content;
+  font-size: 0.8rem;
+  position: relative;
 }
 
 .learner-view div .row-line div:first-child {
@@ -28,7 +28,7 @@
 }
 
 @media screen and (min-width: 992px) {
-  .learner-view div .row-line div:first-child {
+  .learner-view div .row-line div:first-child:not(.tag) {
     width: 5rem;
     text-align: right;
     margin-right: 1rem;
