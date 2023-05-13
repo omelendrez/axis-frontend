@@ -1,0 +1,16 @@
+[
+  {
+    "type": "dropdown",
+    "id": "type",
+    "label": "Type",
+    "options": "typesList",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "value",
+    "label": "Contact",
+    "placeholder": "Enter contact",
+    "required": true
+  }
+]

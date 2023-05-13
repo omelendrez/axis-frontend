@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import {
-  InputField,
-  FormButtonRow,
-  SaveButton,
-  DropdownSearch,
-  CloseButton
-} from '../shared'
+import { Form } from '../shared'
 
 import useContacts from '../../hooks/useContacts'
 import useContactTypes from '../../hooks/useContactTypes'
 import useNoficication from '../../hooks/useNotification'
 
-import initialValues from './contact-fields.json'
+import schema from './schema.json'
+import { loadSchema } from '../../helpers'
 
 export const Contact = ({ contact, onClose }) => {
   const { set } = useNoficication()
@@ -22,6 +17,8 @@ export const Contact = ({ contact, onClose }) => {
 
   const { contactTypes, load: loadTypes } = useContactTypes()
   const { data: typesList } = contactTypes
+
+  const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
 
@@ -48,7 +45,6 @@ export const Contact = ({ contact, onClose }) => {
 
   useEffect(() => {
     loadTypes()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -72,32 +68,20 @@ export const Contact = ({ contact, onClose }) => {
     }
   }
 
+  const options = {
+    typesList
+  }
+
   return (
-    <form>
-      <DropdownSearch
-        id="type"
-        label="Types"
-        value={values.type.value}
-        onChange={handleChange}
-        options={typesList.rows}
-        required
-      />
-
-      <InputField
-        type="text"
-        id="value"
-        label="Info"
-        placeholder="Enter contact info"
-        value={values.value.value}
-        onChange={handleChange}
-        required
-      />
-
-      <FormButtonRow>
-        <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-        <CloseButton isSubmitting={isLoading} onClose={onClose} />
-      </FormButtonRow>
-    </form>
+    <Form
+      schema={schema}
+      object={contact}
+      isLoading={isLoading}
+      onChange={handleChange}
+      values={values}
+      onSave={handleSave}
+      onClose={onClose}
+      options={options}
+    />
   )
 }
