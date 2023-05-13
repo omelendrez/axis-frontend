@@ -1,24 +1,12 @@
-import { Dropdown, DropdownSearch, InputField } from '../input'
+import { Dropdown, DropdownSearch, InputField, Switch } from '../input'
 
 export const InputComponent = ({ field, values, options, onChange }) => {
   let component
   switch (field.type) {
-    case 'dropdown':
-      component = (
-        <Dropdown
-          id={field.id}
-          label={field.label}
-          onChange={onChange}
-          value={values[field.id].value}
-          options={options[field.options]}
-          required={field.required}
-        />
-      )
-      break
-
     case 'text':
     case 'date':
     case 'email':
+    case 'number':
       component = (
         <InputField
           type={field.type}
@@ -27,6 +15,19 @@ export const InputComponent = ({ field, values, options, onChange }) => {
           placeholder={field.placeholder}
           value={values[field.id].value}
           onChange={onChange}
+          required={field.required}
+        />
+      )
+      break
+
+    case 'dropdown':
+      component = (
+        <Dropdown
+          id={field.id}
+          label={field.label}
+          onChange={onChange}
+          value={values[field.id].value}
+          options={options[field.options]}
           required={field.required}
         />
       )
@@ -44,8 +45,28 @@ export const InputComponent = ({ field, values, options, onChange }) => {
         />
       )
       break
+    case 'switch':
+      component = (
+        <Switch
+          id={field.id}
+          label={field.label}
+          onChange={onChange}
+          value={values[field.id].value}
+        />
+      )
+      break
 
     default:
+      component = (
+        <div>
+          <span>Unknown input field type</span>
+          <span>
+            <code>
+              <b>{field.type}</b>
+            </code>
+          </span>
+        </div>
+      )
       break
   }
   return component

@@ -1,0 +1,56 @@
+[
+  {
+    "type": "text",
+    "id": "name",
+    "label": "Course name",
+    "placeholder": "Enter course name",
+    "required": true
+  },
+  {
+    "type": "number",
+    "id": "duration",
+    "label": "Couser duration (days)",
+    "placeholder": "Enter course duration",
+    "required": true
+  },
+  {
+    "type": "number",
+    "id": "validity",
+    "label": "Certificate validity (years)",
+    "placeholder": "Enter certificate validity",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "front_id",
+    "label": "ID card front text",
+    "placeholder": "Enter ID card front text",
+    "required": true
+  },
+  {
+    "type": "text",
+    "id": "back_id",
+    "label": "ID card back text",
+    "placeholder": "Enter ID card back text",
+    "required": true
+  },
+  {
+    "type": "dropdown",
+    "id": "cert_type",
+    "label": "Course type",
+    "options": "typesList",
+    "required": true
+  },
+  {
+    "type": "switch",
+    "id": "id_card",
+    "label": "Course with ID card?",
+    "required": true
+  },
+  {
+    "type": "switch",
+    "id": "cert_id_card",
+    "label": "Certificate with ID card?",
+    "required": true
+  }
+]
