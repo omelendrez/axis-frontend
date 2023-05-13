@@ -1,4 +1,4 @@
-import { Tag } from '../../shared'
+import { Loading, Tag } from '../../shared'
 import { Buttons } from './Buttons'
 import fields from './learner-fields.json'
 import './learner.css'
@@ -12,7 +12,7 @@ const Row = ({ label, value, className }) => (
 
 export const Learner = ({ learner, onEdit }) => {
   if (!learner) {
-    return null
+    return <Loading />
   }
 
   return (
