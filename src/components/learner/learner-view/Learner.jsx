@@ -5,12 +5,12 @@ import './learner.css'
 
 const Row = ({ label, value, className }) => (
   <div className="row-line" key={label}>
-    <span>{label}:</span>
-    <span className={className}>{value}</span>
+    <div>{label}:</div>
+    <div className={className}>{value}</div>
   </div>
 )
 
-export const Learner = ({ learner, onAdd, onEdit }) => {
+export const Learner = ({ learner, onEdit }) => {
   if (!learner) {
     return null
   }
@@ -18,13 +18,13 @@ export const Learner = ({ learner, onAdd, onEdit }) => {
   return (
     <article className="learner">
       <h6 className="title">Personal data</h6>
-      <Buttons onAdd={onAdd} onEdit={onEdit} noCheckboxes />
+      <Buttons onEdit={onEdit} noCheckboxes />
       <div>
         <div className="row-line">
-          <span>Type:</span>
-          <span>
+          <div>Type:</div>
+          <div>
             <Tag className={learner.type}>{learner.type}</Tag>
-          </span>
+          </div>
         </div>
         {fields.map((f) => (
           <Row

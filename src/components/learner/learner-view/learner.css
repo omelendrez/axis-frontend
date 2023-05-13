@@ -7,17 +7,30 @@
 .learner-view div .row-line {
   display: flex;
   flex-direction: row;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
-.learner-view div .row-line span:first-child {
+.learner-view div .row-line div {
+  width: auto;
+}
+
+.learner-view div .row-line div:first-child {
   font-weight: lighter;
 }
-.learner-view div .row-line span:last-child {
+
+.learner-view div .row-line div:last-child {
   font-weight: bold;
   margin-left: 6px;
 }
 
-.learner-view div .row-line span.highlighted {
+.learner-view div .row-line div.highlighted {
   color: var(--primary);
+}
+
+@media screen and (min-width: 992px) {
+  .learner-view div .row-line div:first-child {
+    width: 5rem;
+    text-align: right;
+    margin-right: 1rem;
+  }
 }
