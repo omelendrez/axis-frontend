@@ -1,23 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { InputField, FormButtonRow, SaveButton, CancelButton } from '../shared'
-
+import { Form } from '../shared'
 import useCompanies from '../../hooks/useCompanies'
+import { loadSchema } from '../../helpers'
+import { status as statusList } from '../../static-lists'
 
-const initialValues = {
-  name: {
-    value: '',
-    error: ''
-  }
-}
+import schema from './schema.json'
 
 export const Company = ({ company }) => {
   const { companies, add, modify } = useCompanies()
   const { isLoading, isSuccess } = companies
 
+  const initialValues = loadSchema(schema)
+
   const [values, setValues] = useState(initialValues)
   const navigate = useNavigate()
-  const formRef = useRef()
 
   useEffect(() => {
     if (company) {
@@ -41,7 +38,7 @@ export const Company = ({ company }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleFormSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault()
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
@@ -54,33 +51,25 @@ export const Company = ({ company }) => {
     }
   }
 
-  const handleSave = (e) => {
-    e.preventDefault()
-    formRef.current.submit()
-  }
-
   const handleFormCancel = (e) => {
     e.preventDefault()
     navigate(-1)
   }
 
+  const options = {
+    statusList
+  }
+
   return (
-    <form onSubmit={handleFormSubmit} ref={formRef}>
-      <InputField
-        type="text"
-        id="name"
-        label="Name"
-        placeholder="Enter name"
-        value={values.name.value}
-        onChange={handleChange}
-        required
-      />
-
-      <FormButtonRow>
-        <SaveButton isSubmitting={isLoading} onSave={handleSave} />
-
-        <CancelButton isSubmitting={isLoading} onCancel={handleFormCancel} />
-      </FormButtonRow>
-    </form>
+    <Form
+      schema={schema}
+      object={company}
+      isLoading={isLoading}
+      onChange={handleChange}
+      values={values}
+      onSave={handleSave}
+      onClose={handleFormCancel}
+      options={options}
+    />
   )
 }

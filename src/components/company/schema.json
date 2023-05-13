@@ -1,0 +1,16 @@
+[
+  {
+    "type": "text",
+    "id": "name",
+    "label": "Name",
+    "placeholder": "Enter name",
+    "required": true
+  },
+  {
+    "type": "dropdown",
+    "id": "status",
+    "label": "Status",
+    "options": "statusList",
+    "if": "id"
+  }
+]

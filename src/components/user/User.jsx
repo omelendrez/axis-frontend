@@ -5,16 +5,13 @@ import useUsers from '../../hooks/useUsers.js'
 import useRoles from '../../hooks/useRoles'
 import { status as statusList } from '../../static-lists'
 import schema from './schema.json'
+import { loadSchema } from '../../helpers'
 
 export const User = ({ user }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
 
-  const initialValues = {}
-
-  schema.forEach(
-    (field) => (initialValues[field.id] = { value: '', error: '' })
-  )
+  const initialValues = loadSchema(schema)
 
   const { roles, load: loadRoles } = useRoles()
   const { data: roleList } = roles
@@ -41,7 +38,7 @@ export const User = ({ user }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/users')
+      navigate(-1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])

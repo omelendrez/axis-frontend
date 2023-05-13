@@ -4,16 +4,13 @@ import { Form } from '../shared'
 import useNationalities from '../../hooks/useNationalities'
 
 import schema from './schema.json'
+import { loadSchema } from '../../helpers'
 
 export const Nationality = ({ nationality }) => {
   const { nationalities, add, modify } = useNationalities()
   const { isLoading, isSuccess } = nationalities
 
-  const initialValues = {}
-
-  schema.forEach(
-    (field) => (initialValues[field.id] = { value: '', error: '' })
-  )
+  const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
   const navigate = useNavigate()

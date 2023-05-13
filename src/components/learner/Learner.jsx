@@ -6,7 +6,7 @@ import useStates from '../../hooks/useStates'
 import useNationalities from '../../hooks/useNationalities'
 import useCompanies from '../../hooks/useCompanies'
 import useNotification from '../../hooks/useNotification'
-import { FOREIGNER } from '../../helpers'
+import { FOREIGNER, loadSchema } from '../../helpers'
 
 import {
   sex as sexList,
@@ -37,11 +37,7 @@ export const Learner = ({ learner, onClose }) => {
 
   const [prevState, setPrevState] = useState(null)
 
-  const initialValues = {}
-
-  schema.forEach(
-    (field) => (initialValues[field.id] = { value: '', error: '' })
-  )
+  const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
   const [confirmMessage, setConfirmMessage] = useState('')

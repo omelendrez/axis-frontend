@@ -7,6 +7,7 @@ import useCourses from '../../hooks/useCourses'
 import useNoficication from '../../hooks/useNotification'
 
 import schema from './schema.json'
+import { loadSchema } from '../../helpers'
 
 export const Training = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
@@ -17,11 +18,7 @@ export const Training = ({ training, onClose }) => {
   const { courses, load: loadCourses } = useCourses()
   const { data: courseList } = courses
 
-  const initialValues = {}
-
-  schema.forEach(
-    (field) => (initialValues[field.id] = { value: '', error: '' })
-  )
+  const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
 
