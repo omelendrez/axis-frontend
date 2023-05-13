@@ -61,7 +61,7 @@ export const Role = ({ role }) => {
 
   const create = (payload) => {
     createRole(payload)
-      .then((res) => {
+      .then(() => {
         handleApiSuccess('Role added successfully!')
       })
       .catch((e) => {

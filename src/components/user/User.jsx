@@ -26,9 +26,7 @@ export const User = ({ user }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!roleList.count) {
-      loadRoles()
-    }
+    loadRoles()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

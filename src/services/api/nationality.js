@@ -5,6 +5,7 @@ export const createNationality = (payload) => api.post('/nationality', payload)
 
 export const getNationalities = (pagination) =>
   api.get(`/nationality${setURLParams(pagination)}`)
+
 export const getNationality = (id) => api.get(`/nationality/${id}`)
 
 export const updateNationality = (id, payload) =>

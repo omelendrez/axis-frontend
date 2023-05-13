@@ -21,9 +21,7 @@ export const Contact = ({ contact, onClose }) => {
   const { isLoading, isSuccess } = contacts
 
   const { contactTypes, load: loadTypes } = useContactTypes()
-  const { data: typesResponse } = contactTypes
-
-  const { count: typesCount, rows: typesList } = typesResponse
+  const { data: typesList } = contactTypes
 
   const [values, setValues] = useState(initialValues)
 
@@ -49,11 +47,10 @@ export const Contact = ({ contact, onClose }) => {
   }, [isSuccess])
 
   useEffect(() => {
-    if (!typesCount) {
-      loadTypes()
-    }
+    loadTypes()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typesResponse])
+  }, [])
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -82,7 +79,7 @@ export const Contact = ({ contact, onClose }) => {
         label="Types"
         value={values.type.value}
         onChange={handleChange}
-        options={typesList}
+        options={typesList.rows}
         required
       />
 

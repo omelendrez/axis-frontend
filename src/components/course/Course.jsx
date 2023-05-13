@@ -59,11 +59,9 @@ export const Course = ({ course }) => {
   const formRef = useRef()
 
   useEffect(() => {
-    if (!typesList.length) {
-      loadCertificateTypes()
-    }
+    loadCertificateTypes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typesList])
+  }, [])
 
   useEffect(() => {
     if (course) {

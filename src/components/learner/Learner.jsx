@@ -58,15 +58,9 @@ export const Learner = ({ learner, onClose }) => {
   }, [learner])
 
   useEffect(() => {
-    if (!statList.count) {
-      loadStates()
-    }
-    if (!natList.count) {
-      loadNationalities()
-    }
-    if (!compList.count) {
-      loadCompanies()
-    }
+    loadStates()
+    loadNationalities()
+    loadCompanies()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

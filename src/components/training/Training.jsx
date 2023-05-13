@@ -47,9 +47,7 @@ export const Training = ({ training, onClose }) => {
   }, [isSuccess])
 
   useEffect(() => {
-    if (!courseList.count) {
-      loadCourses()
-    }
+    loadCourses()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
