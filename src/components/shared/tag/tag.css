@@ -8,16 +8,5 @@
   min-width: 22px;
   font-size: 12px;
   color: white;
-}
-
-.tag.trn {
-  background: var(--primary);
-}
-
-.tag.lcl {
-  background-color: var(--ins-color);
-}
-
-.tag.sub {
-  background-color: rgb(85, 85, 85);
+  line-height: initial;
 }

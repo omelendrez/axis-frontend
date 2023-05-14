@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Search } from '../'
-import { Card } from './Card'
+
 import { Pagination } from '../'
 import './cardList.css'
 
 export const CardList = ({
+  Card,
   data,
   pagination,
   onPagination,

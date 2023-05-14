@@ -42,6 +42,12 @@
     "required": true
   },
   {
+    "type": "text",
+    "id": "opito_reg_code",
+    "label": "Opito registration code",
+    "placeholder": "Enter Opito registration code"
+  },
+  {
     "type": "switch",
     "id": "id_card",
     "label": "Course with ID card?",
