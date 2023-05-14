@@ -30,7 +30,7 @@
 }
 
 .card-body .small-font {
-  font-size: 14px;
+  font-size: var(--min-font-size);
 }
 
 .card-body .ellipsis {
