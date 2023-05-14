@@ -7,6 +7,7 @@ import useNoficication from '../hooks/useNotification'
 
 import { initialValues } from '../helpers'
 
+import './card.css'
 import './course-card.css'
 
 const Card = ({ item, onView }) => (
