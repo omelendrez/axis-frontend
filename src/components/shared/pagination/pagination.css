@@ -1,12 +1,27 @@
 .pagination {
   display: flex;
+  flex-direction: column;
+}
+
+.pagination div {
+  display: flex;
   width: fit-content;
   margin: 0 auto;
 }
 
-.pagination .pagination-button {
-  width: auto;
+.pagination div:last-child {
+  flex-direction: column;
+}
+
+.pagination div .pagination-button {
+  width: fit-content;
   margin: 1rem;
+  border-radius: 50%;
+}
+
+.pagination .pagination-button span.material-icons {
+  position: relative;
+  top: 3px;
 }
 
 .pagination .pagination-page {

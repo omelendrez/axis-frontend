@@ -3,7 +3,6 @@ import { Search } from '../'
 import { Card } from './Card'
 import { Pagination } from '../'
 import './cardList.css'
-import { PAGE_SIZE } from '../../../helpers'
 
 export const CardList = ({
   data,
@@ -33,9 +32,7 @@ export const CardList = ({
       page: newPage,
       offset: (newPage - 1) * limit
     }
-    onPagination((p) => {
-      return { ...p, ...newValues }
-    })
+    onPagination((p) => ({ ...p, ...newValues }))
   }
 
   return (
@@ -63,12 +60,6 @@ export const CardList = ({
             onView={onView}
           />
         ))}
-      </div>
-      <div style={{ marginTop: '1rem' }}>
-        <center>{`${data.count} records found`}</center>
-        {data.count > PAGE_SIZE && (
-          <center>{`Showing ${PAGE_SIZE} records per page`}</center>
-        )}
       </div>
 
       {data.count > 0 && (
