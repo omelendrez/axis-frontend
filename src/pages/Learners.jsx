@@ -7,7 +7,7 @@ import { initialValues } from '../helpers'
 import { Tag } from '../components/shared'
 import { getPhoto } from '../services'
 import './card.css'
-import './learner-card.css'
+import '../components/learner/learner-view/learner-card.css'
 
 const Card = ({ item, onView }) => {
   const photoUrl = getPhoto(item.badge)

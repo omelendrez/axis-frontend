@@ -1,0 +1,25 @@
+.photo-form div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.photo-form .preview {
+  width: 100%;
+  margin: 0 auto 1rem auto;
+}
+
+.photo-form .preview img {
+  object-fit: cover;
+}
+
+.photo-form .button-container button {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+@media screen and (min-width: 992px) {
+  .photo-form .preview {
+    width: 25rem;
+  }
+}

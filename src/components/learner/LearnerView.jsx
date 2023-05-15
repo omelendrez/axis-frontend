@@ -12,8 +12,13 @@ import {
   deleteTraining
 } from '../../services'
 import { Loading, Modal } from '../shared'
-import { Picture, Learner, Trainings, Contacts } from './learner-view'
-import { Learner as LearnerForm, Training, Contact } from '..'
+import { Photo, Learner, Trainings, Contacts } from './learner-view'
+import {
+  Learner as LearnerForm,
+  Training,
+  Contact,
+  Photo as PhotoForm
+} from '..'
 import useNoficication from '../../hooks/useNotification'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
@@ -32,14 +37,17 @@ export const LearnerView = () => {
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
   const [isLearnerEdit, setIsLearnerEdit] = useState(false)
   const [isContactEdit, setIsContactEdit] = useState(false)
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false)
   const id = params?.id
 
   const handleEditLearner = (e) => {
     e?.preventDefault()
-    getLearner(id).then((res) => {
-      setLearnerEditData(res.data)
-      setIsLearnerEdit(true)
-    })
+    getLearner(id)
+      .then((res) => {
+        setLearnerEditData(res.data)
+        setIsLearnerEdit(true)
+      })
+      .catch((e) => handleError(e))
   }
 
   const handleAddTraining = (e) => {
@@ -121,17 +129,14 @@ export const LearnerView = () => {
         set(notification)
       })
 
-  const handleEditPicture = (e) => {
+  const handleEditPhoto = (e) => {
     e.preventDefault()
-    const notification = {
-      type: 'warning',
-      message: 'Work still in progress'
-    }
-    set(notification)
+    setIsPhotoOpen(true)
   }
 
   const handleClose = (e) => {
     e?.preventDefault()
+
     getLearnerView(id)
       .then((res) => {
         setLearner(res.data)
@@ -146,6 +151,9 @@ export const LearnerView = () => {
         if (isContactEdit) {
           setContactEditData(null)
           setIsContactEdit(false)
+        }
+        if (isPhotoOpen) {
+          setIsPhotoOpen(false)
         }
       })
       .catch((e) => handleError(e))
@@ -176,6 +184,7 @@ export const LearnerView = () => {
   if (!learner) {
     return <Loading />
   }
+
   const photoUrl = getPhoto(learner.badge)
 
   return (
@@ -194,10 +203,17 @@ export const LearnerView = () => {
       >
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
+      <Modal
+        open={isPhotoOpen}
+        title="Upload/take a photo"
+        onClose={handleClose}
+      >
+        <PhotoForm onClose={handleClose} />
+      </Modal>
       <main className="learner-view">
         {/* Data components */}
         <div>
-          <Picture photoUrl={photoUrl} onEdit={handleEditPicture} />
+          <Photo photoUrl={photoUrl} onEdit={handleEditPhoto} />
         </div>
         <div>
           <Learner learner={learner} onEdit={handleEditLearner} />

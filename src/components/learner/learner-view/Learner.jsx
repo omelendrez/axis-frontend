@@ -2,6 +2,7 @@ import { Loading, Tag } from '../../shared'
 import { Buttons } from './Buttons'
 import fields from './learner-fields.json'
 import './learner.css'
+import './learner-card.css'
 
 const Row = ({ label, value, className }) => (
   <div className="row-line" key={label}>
