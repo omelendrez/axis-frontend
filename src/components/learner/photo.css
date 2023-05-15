@@ -21,5 +21,11 @@
 @media screen and (min-width: 992px) {
   .photo-form .preview {
     width: 25rem;
+    height: 20rem;
   }
+}
+
+.photo-form .tag {
+  width: fit-content;
+  color: var(--primary);
 }

@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Tag } from '../shared'
 import useNoficication from '../../hooks/useNotification'
+import { MAX_FILE_SIZE } from '../../helpers/photo'
 import './photo.css'
 
-const MAX_FILE_SIZE = 70000
-
-export const Photo = () => {
+export const Photo = ({ learner }) => {
   const [selectedFile, setSelectedFile] = useState(null)
+  const [preview, setPreview] = useState(null)
   const { set } = useNoficication()
 
   const handleChange = (e) => {
@@ -15,16 +16,32 @@ export const Photo = () => {
       if (file?.size > MAX_FILE_SIZE) {
         const notification = {
           type: 'error',
-          message: `File size to big ${Math.ceil(
+          message: `Image size too big (${Math.ceil(
             file.size / 1000
-          )} Kb. Max size allowed ${Math.ceil(MAX_FILE_SIZE / 1000)} Kb`
+          )}K). Image size cannot be bigger than ${Math.ceil(
+            MAX_FILE_SIZE / 1000
+          )}K`
         }
         setSelectedFile(null)
         return set(notification)
       }
+
       setSelectedFile(file)
     }
   }
+
+  useEffect(() => {
+    if (selectedFile) {
+      const preview = (
+        window.URL ||
+        window.webkitURL ||
+        window ||
+        {}
+      ).createObjectURL(selectedFile)
+
+      setPreview(preview)
+    }
+  }, [selectedFile])
 
   const handleUpload = (e) => {
     e.preventDefault()
@@ -51,24 +68,21 @@ export const Photo = () => {
     //   .catch((err) => console.error(err))
   }
 
-  const objectUrl = !selectedFile
-    ? undefined
-    : window.URL.createObjectURL(selectedFile)
-
   return (
-    <form className="photo-form">
+    <div className="photo-form">
       <div>
         <label htmlFor="file">Choose file to upload</label>
         <input type="file" accept="image/*" id="file" onChange={handleChange} />
       </div>
       <div className="preview">
-        {objectUrl ? <img src={objectUrl} alt="selected" /> : <div></div>}
+        {preview ? <img src={preview} alt="selected" /> : <div></div>}
       </div>
       <div className="button-container">
         <button onClick={handleUpload} disabled={!selectedFile}>
           Submit
         </button>
       </div>
-    </form>
+      <Tag>{learner.badge}</Tag>
+    </div>
   )
 }
