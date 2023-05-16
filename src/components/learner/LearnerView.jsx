@@ -204,7 +204,7 @@ export const LearnerView = () => {
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
       <Modal open={isPhotoOpen} title="Profile picture" onClose={handleClose}>
-        <PhotoForm onClose={handleClose} learner={learner} />
+        <PhotoForm onClose={handleClose} badge={learner.badge} />
       </Modal>
       <main className="learner-view">
         {/* Data components */}
