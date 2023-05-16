@@ -49,10 +49,11 @@ export const Photo = ({ badge, onClose }) => {
     e.preventDefault()
     const formData = new FormData()
     formData.append('name', badge)
-    formData.append('files', selectedFile)
+    formData.append('file', selectedFile)
     upload(formData)
       .then((res) => {
         console.log(res)
+        setPreview(res.data)
         const notification = {
           type: 'success',
           message: 'Image uploades successfully'
