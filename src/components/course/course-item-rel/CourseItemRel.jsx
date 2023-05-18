@@ -33,20 +33,20 @@ export const CourseItemRels = ({ items, course, onClose }) => {
 
     const payload = selected.map((i) => [course, parseInt(i, 10)])
 
-    setSelected([])
+    createCourseItemRel([payload])
+      .then(() => {
+        setSelected([])
 
-    createCourseItemRel([payload]).catch((e) => handleError(e))
+        const notification = {
+          type: 'success',
+          message: 'Items inserted successfully'
+        }
 
-    const notification = {
-      type: 'success',
-      message: 'Items inserted successfully'
-    }
+        set(notification)
 
-    set(notification)
-
-    setTimeout(() => {
-      onClose()
-    }, 1000)
+        onClose()
+      })
+      .catch((e) => handleError(e))
   }
 
   return (

@@ -68,8 +68,6 @@ export const CourseView = () => {
           message: res.data.message
         }
         set(notification)
-
-        getCourseItemsRel(id)
       })
       .catch((e) => handleError(e))
 
