@@ -10,6 +10,6 @@
   background-color: rgb(85, 85, 85);
 }
 
-.card-body .ellipsis {
+.card.learners .ellipsis {
   max-width: 12rem;
 }

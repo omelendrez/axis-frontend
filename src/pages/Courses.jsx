@@ -11,7 +11,7 @@ import './card.css'
 import './course-card.css'
 
 const Card = ({ item, onView }) => (
-  <article className="card" onClick={() => onView(item)}>
+  <article className="card courses" onClick={() => onView(item)}>
     <div className="card-body">
       <div className="ellipsis">{item.name}</div>
       <div>

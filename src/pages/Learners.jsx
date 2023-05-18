@@ -9,7 +9,6 @@ import { initialValues } from '../helpers'
 
 import { getPhoto } from '../services'
 import './card.css'
-import '../components/learner/learner-view/learner-card.css'
 
 const Card = ({ item, onView }) => {
   const photoUrl = getPhoto(item.badge)
@@ -17,7 +16,7 @@ const Card = ({ item, onView }) => {
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
   return (
-    <article className="card" onClick={() => onView(item)}>
+    <article className="card learners" onClick={() => onView(item)}>
       <div className="card-avatar-root">
         <img
           src={photoUrl}
