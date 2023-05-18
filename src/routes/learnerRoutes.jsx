@@ -44,7 +44,7 @@ export const learnerRoutes = (
       path="/learner/:id/edit"
       element={
         <ProtectedRoute>
-          <Learner isEditing={true} />
+          <Learner isEditing />
         </ProtectedRoute>
       }
     />

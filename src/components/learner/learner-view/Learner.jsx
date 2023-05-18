@@ -1,5 +1,5 @@
-import { Loading, Tag } from '../../shared'
-import { Buttons } from './Buttons'
+import { Loading, Buttons, Tag } from '../../shared'
+
 import fields from './learner-fields.json'
 import './learner.css'
 import './learner-card.css'

@@ -1,36 +1,36 @@
-.learner-view .buttons {
-  display: flex;
+.buttons-main {
+  display: flex !important;
   justify-content: flex-end;
-  flex-direction: row;
+  flex-direction: row !important;
   column-gap: 1rem;
 }
 
-.learner-view .buttons button {
+.buttons-main button {
   width: fit-content;
   background: none;
   border-radius: 50%;
 }
 
-.learner-view .buttons button span.material-icons {
+.buttons-main button span.material-icons {
   position: relative;
   top: 3px;
   font-weight: 900;
 }
 
-.learner-view .buttons button.primary {
+.buttons-main button.primary {
   color: var(--primary);
   border-color: var(--primary);
 }
 
-.learner-view .buttons button.primary:hover {
+.buttons-main button.primary:hover {
   color: var(--primary-hover);
 }
 
-.learner-view .buttons button.delete {
+.buttons-main button.delete {
   color: hsl(0, 66%, 60%);
   border-color: hsl(0, 66%, 60%);
 }
 
-.learner-view .buttons button.delete:hover {
+.buttons-main button.delete:hover {
   color: hsl(0, 66%, 40%);
 }

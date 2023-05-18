@@ -1,4 +1,4 @@
-import { Buttons } from './Buttons'
+import { Buttons } from '../../shared'
 import './photo.css'
 
 export const Photo = ({ photoUrl, onEdit }) => {

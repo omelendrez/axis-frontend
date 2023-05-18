@@ -8,6 +8,8 @@ export const getCourses = (pagination) =>
 
 export const getCourse = (id) => api.get(`/course/${id}`)
 
+export const getCourseView = (id) => api.get(`/course/${id}/view`)
+
 export const updateCourse = (id, payload) => api.put(`/course/${id}`, payload)
 
 export const deleteCourse = (id) => api.delete(`/course/${id}`)

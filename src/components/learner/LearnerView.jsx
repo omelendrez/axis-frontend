@@ -101,14 +101,7 @@ export const LearnerView = () => {
 
         getTrainings(id)
       })
-      .catch((e) => {
-        console.log(e)
-        const notification = {
-          type: 'error',
-          message: e.response.data.message
-        }
-        set(notification)
-      })
+      .catch((e) => handleError(e))
 
   const handleDeleteContact = (contactId) =>
     deleteContact(contactId)
@@ -121,13 +114,7 @@ export const LearnerView = () => {
 
         getContacts(id)
       })
-      .catch((e) => {
-        const notification = {
-          type: 'error',
-          message: e.data.message
-        }
-        set(notification)
-      })
+      .catch((e) => handleError(e))
 
   const handleEditPhoto = (e) => {
     e.preventDefault()

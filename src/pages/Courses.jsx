@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { CardList, Loading, AddButton, Tag } from '../components'
+import { Loading, CardList, AddButton, Tag } from '../components'
 
 import useCourses from '../hooks/useCourses'
 import useNoficication from '../hooks/useNotification'
@@ -63,7 +63,7 @@ const Courses = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
-  const handleEdit = (course) => {
+  const handleView = (course) => {
     navigate(`/course/${course.id}`)
   }
 
@@ -98,7 +98,7 @@ const Courses = () => {
         pagination={pagination}
         onPagination={setPagination}
         fields={fields}
-        onView={handleEdit}
+        onView={handleView}
         isLoading={isLoading}
         loadItems={loadCourses}
       />

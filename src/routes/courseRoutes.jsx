@@ -16,18 +16,37 @@ export const courseRoutes = (
       }
     />
     <Route
-      path="/course/:id"
+      path="/course/add"
       element={
         <ProtectedRoute>
-          <Course />
+          <Course isAdding />
         </ProtectedRoute>
       }
     />
+
     <Route
-      path="/course"
+      path="/course/edit"
       element={
         <ProtectedRoute>
-          <Course />
+          <Course isEditing />
+        </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/course/:id"
+      element={
+        <ProtectedRoute>
+          <Course isViewing />
+        </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/course/:id/edit"
+      element={
+        <ProtectedRoute>
+          <Course isEditing />
         </ProtectedRoute>
       }
     />

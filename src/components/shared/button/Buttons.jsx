@@ -13,7 +13,7 @@ export const Buttons = ({
   }
 
   return (
-    <div className="buttons">
+    <div className="buttons-main">
       {onAdd && (
         <button
           data-tooltip="Click to Add"

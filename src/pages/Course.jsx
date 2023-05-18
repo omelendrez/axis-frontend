@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Course as CourseComponent } from '../components'
+import {
+  FormContainer,
+  CourseView,
+  Course as CourseComponent
+} from '../components'
 import { getCourse } from '../services'
 import { handleError } from '../reducers/error'
 
-const Course = () => {
+const Course = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
   const [course, setCourse] = useState(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const id = params?.id
@@ -17,6 +23,11 @@ const Course = () => {
         .catch((e) => handleError(e))
     }
   }, [params])
+
+  const handleClose = (e) => {
+    e.preventDefault()
+    navigate('/courses')
+  }
 
   return (
     <main className="container">
@@ -34,9 +45,18 @@ const Course = () => {
           <li>Course</li>
         </ul>
       </nav>
-      <article className="form-container">
-        <CourseComponent course={course} />
-      </article>
+      {isViewing && <CourseView course={course} />}
+
+      {isAdding && (
+        <FormContainer title="Adding Course data">
+          <CourseComponent onClose={handleClose} />
+        </FormContainer>
+      )}
+      {isEditing && (
+        <FormContainer title="Modifying Course data">
+          <CourseComponent course={course} />
+        </FormContainer>
+      )}
     </main>
   )
 }

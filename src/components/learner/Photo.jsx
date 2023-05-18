@@ -52,7 +52,6 @@ export const Photo = ({ badge, onClose }) => {
     formData.append('file', selectedFile)
     upload(formData)
       .then((res) => {
-        console.log(res)
         setPreview(res.data)
         const notification = {
           type: 'success',

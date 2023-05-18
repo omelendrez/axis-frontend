@@ -1,29 +1,22 @@
 import { useEffect, useState } from 'react'
-import fields from './training-fields.json'
+import fields from './course-item-fields.json'
 import { Table, Buttons } from '../../shared'
 // Ok
 
-export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
+export const CourseItems = ({ courseItems, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   useEffect(() => {
-    const filtered = selected.filter((s) => trainings.find((t) => t.id === s))
+    const filtered = selected.filter((s) => courseItems.find((t) => t.id === s))
     setSelected(filtered)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trainings])
+  }, [courseItems])
 
   const handleSelect = (e) => {
     const { checked, value } = e.target
     setSelected((selected) =>
       checked ? [...selected, value] : selected.filter((s) => s !== value)
     )
-  }
-
-  const handleEdit = (e) => {
-    e.preventDefault()
-    if (selected.length) {
-      onEdit(selected[0])
-    }
   }
 
   const handleDelete = () => {
@@ -34,15 +27,10 @@ export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
 
   return (
     <article>
-      <h6 className="title">Training records</h6>
-      <Buttons
-        selected={selected}
-        onAdd={onAdd}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <h6 className="title">Course Item records</h6>
+      <Buttons selected={selected} onAdd={onAdd} onDelete={handleDelete} />
       <Table
-        items={trainings}
+        items={courseItems}
         fields={fields}
         selected={selected}
         onSelect={handleSelect}
