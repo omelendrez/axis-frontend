@@ -1,4 +1,10 @@
-import { Dropdown, DropdownSearch, InputField, Switch } from '../input'
+import {
+  Dropdown,
+  DropdownSearch,
+  InputField,
+  Switch,
+  ReadOnly
+} from '../input'
 
 export const InputComponent = ({ field, values, options, onChange }) => {
   let component
@@ -53,6 +59,11 @@ export const InputComponent = ({ field, values, options, onChange }) => {
           onChange={onChange}
           value={values[field.id].value}
         />
+      )
+      break
+    case 'readonly':
+      component = (
+        <ReadOnly label={field.label} value={values[field.id].value} />
       )
       break
 

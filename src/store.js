@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import certificateTypeSlice from './reducers/certificate-type/certificateTypeSlice'
+import classSlice from './reducers/class/classSlice'
 import companySlice from './reducers/company/companySlice'
 import contactSlice from './reducers/contact/contactSlice'
 import contactTypeSlice from './reducers/contact-type/contactTypeSlice'
@@ -19,6 +20,7 @@ export default configureStore({
     certificateTypes: certificateTypeSlice,
     companies: companySlice,
     contacts: contactSlice,
+    classes: classSlice,
     contactTypes: contactTypeSlice,
     courseItems: courseItemSlice,
     courses: courseSlice,

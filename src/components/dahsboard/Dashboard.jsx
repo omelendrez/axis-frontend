@@ -5,6 +5,12 @@ import './dashboard.css'
 
 const menuOptions = [
   {
+    title: 'Classrooms',
+    description: 'Manage classrooms',
+    path: '/classes',
+    roles: [1]
+  },
+  {
     title: 'Users',
     description: 'Manage Axis users',
     path: '/users',
