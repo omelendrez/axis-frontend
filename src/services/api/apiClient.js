@@ -40,6 +40,8 @@ api.interceptors.response.use(
     return response
   },
   function (error) {
+    const index = pending.indexOf(error.config.url)
+    pending.splice(index, 1)
     return Promise.reject(error)
   }
 )
