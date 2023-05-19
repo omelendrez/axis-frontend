@@ -16,6 +16,7 @@
   {
     "type": "readonly",
     "id": "learners",
-    "label": "Number of learners in this classroom"
+    "label": "Number of learners in this classroom",
+    "if": "id"
   }
 ]

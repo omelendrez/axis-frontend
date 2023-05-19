@@ -51,12 +51,15 @@ export const courseSlice = createSlice({
 
 export default courseSlice.reducer
 
+let lastPagination = null
+
 export function loadCourses(pagination) {
   const { setLoading, setData, reset } = courseSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getCourses(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeCourse(id) {
     dispatch(setLoading())
     try {
       await deleteCourse(id)
-      dispatch(loadCourses())
+      dispatch(loadCourses(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addCourse(payload) {
     dispatch(setLoading())
     try {
       await createCourse(payload)
-      dispatch(loadCourses())
+      dispatch(loadCourses(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyCourse(id, payload) {
     dispatch(setLoading())
     try {
       await updateCourse(id, payload)
-      dispatch(loadCourses())
+      dispatch(loadCourses(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

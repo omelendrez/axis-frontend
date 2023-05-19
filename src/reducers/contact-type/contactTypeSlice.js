@@ -51,12 +51,15 @@ export const contactSlice = createSlice({
 
 export default contactSlice.reducer
 
+let lastPagination = null
+
 export function loadContactTypes(pagination) {
   const { setLoading, setData, reset } = contactSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getContactTypes(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeContactType(id) {
     dispatch(setLoading())
     try {
       await deleteContactType(id)
-      dispatch(loadContactTypes())
+      dispatch(loadContactTypes(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addContactType(payload) {
     dispatch(setLoading())
     try {
       await createContactType(payload)
-      dispatch(loadContactTypes())
+      dispatch(loadContactTypes(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyContactType(id, payload) {
     dispatch(setLoading())
     try {
       await updateContactType(id, payload)
-      dispatch(loadContactTypes())
+      dispatch(loadContactTypes(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

@@ -51,12 +51,15 @@ export const classSlice = createSlice({
 
 export default classSlice.reducer
 
+let lastPagination = null
+
 export function loadClasses(pagination) {
   const { setLoading, setData, reset } = classSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getClasses(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeClass(id) {
     dispatch(setLoading())
     try {
       await deleteClass(id)
-      dispatch(loadClasses())
+      dispatch(loadClasses(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addClass(payload) {
     dispatch(setLoading())
     try {
       await createClass(payload)
-      dispatch(loadClasses())
+      dispatch(loadClasses(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyClass(id, payload) {
     dispatch(setLoading())
     try {
       await updateClass(id, payload)
-      dispatch(loadClasses())
+      dispatch(loadClasses(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

@@ -46,12 +46,15 @@ export const userSlice = createSlice({
 
 export default userSlice.reducer
 
+let lastPagination = null
+
 export function loadUsers(pagination) {
   const { setLoading, setData, reset } = userSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getUsers(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -68,7 +71,7 @@ export function removeUser(id) {
     dispatch(setLoading())
     try {
       await deleteUser(id)
-      dispatch(loadUsers())
+      dispatch(loadUsers(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -83,7 +86,7 @@ export function addUser(payload) {
     dispatch(setLoading())
     try {
       await createUser(payload)
-      dispatch(loadUsers())
+      dispatch(loadUsers(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -98,7 +101,7 @@ export function modifyUser(id, payload) {
     dispatch(setLoading())
     try {
       await updateUser(id, payload)
-      dispatch(loadUsers())
+      dispatch(loadUsers(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

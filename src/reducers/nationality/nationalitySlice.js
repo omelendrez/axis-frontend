@@ -51,12 +51,15 @@ export const nationalitySlice = createSlice({
 
 export default nationalitySlice.reducer
 
+let lastPagination = null
+
 export function loadNationalities(pagination) {
   const { setLoading, setData, reset } = nationalitySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getNationalities(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeNationality(id) {
     dispatch(setLoading())
     try {
       await deleteNationality(id)
-      dispatch(loadNationalities())
+      dispatch(loadNationalities(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addNationality(payload) {
     dispatch(setLoading())
     try {
       await createNationality(payload)
-      dispatch(loadNationalities())
+      dispatch(loadNationalities(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyNationality(id, payload) {
     dispatch(setLoading())
     try {
       await updateNationality(id, payload)
-      dispatch(loadNationalities())
+      dispatch(loadNationalities(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

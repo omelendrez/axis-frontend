@@ -51,12 +51,15 @@ export const learnerSlice = createSlice({
 
 export default learnerSlice.reducer
 
+let lastPagination = null
+
 export function loadLearners(pagination) {
   const { setLoading, setData, reset } = learnerSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getLearners(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeLearner(id) {
     dispatch(setLoading())
     try {
       await deleteLearner(id)
-      dispatch(loadLearners())
+      dispatch(loadLearners(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addLearner(payload) {
     dispatch(setLoading())
     try {
       await createLearner(payload)
-      dispatch(loadLearners())
+      dispatch(loadLearners(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyLearner(id, payload) {
     dispatch(setLoading())
     try {
       await updateLearner(id, payload)
-      dispatch(loadLearners())
+      dispatch(loadLearners(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

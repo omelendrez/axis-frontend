@@ -51,12 +51,15 @@ export const certificateSlice = createSlice({
 
 export default certificateSlice.reducer
 
+let lastPagination = null
+
 export function loadCertificateTypes(pagination) {
   const { setLoading, setData, reset } = certificateSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getCertificateTypes(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeCertificateType(id) {
     dispatch(setLoading())
     try {
       await deleteCertificateType(id)
-      dispatch(loadCertificateTypes())
+      dispatch(loadCertificateTypes(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addCertificateType(payload) {
     dispatch(setLoading())
     try {
       await createCertificateType(payload)
-      dispatch(loadCertificateTypes())
+      dispatch(loadCertificateTypes(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyCertificateType(id, payload) {
     dispatch(setLoading())
     try {
       await updateCertificateType(id, payload)
-      dispatch(loadCertificateTypes())
+      dispatch(loadCertificateTypes(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

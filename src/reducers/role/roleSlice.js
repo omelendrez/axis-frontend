@@ -46,12 +46,15 @@ export const roleSlice = createSlice({
 
 export default roleSlice.reducer
 
+let lastPagination = null
+
 export function loadRoles(pagination) {
   const { setLoading, setData, reset } = roleSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getRoles(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -68,7 +71,7 @@ export function removeRole(id) {
     dispatch(setLoading())
     try {
       await deleteRole(id)
-      dispatch(loadRoles())
+      dispatch(loadRoles(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -83,7 +86,7 @@ export function addRole(payload) {
     dispatch(setLoading())
     try {
       await createRole(payload)
-      dispatch(loadRoles())
+      dispatch(loadRoles(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -98,7 +101,7 @@ export function modifyRole(id, payload) {
     dispatch(setLoading())
     try {
       await updateRole(id, payload)
-      dispatch(loadRoles())
+      dispatch(loadRoles(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

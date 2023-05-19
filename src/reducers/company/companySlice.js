@@ -51,12 +51,15 @@ export const companySlice = createSlice({
 
 export default companySlice.reducer
 
+let lastPagination = null
+
 export function loadCompanies(pagination) {
   const { setLoading, setData, reset } = companySlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getCompanies(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeCompany(id) {
     dispatch(setLoading())
     try {
       await deleteCompany(id)
-      dispatch(loadCompanies())
+      dispatch(loadCompanies(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addCompany(payload) {
     dispatch(setLoading())
     try {
       await createCompany(payload)
-      dispatch(loadCompanies())
+      dispatch(loadCompanies(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyCompany(id, payload) {
     dispatch(setLoading())
     try {
       await updateCompany(id, payload)
-      dispatch(loadCompanies())
+      dispatch(loadCompanies(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

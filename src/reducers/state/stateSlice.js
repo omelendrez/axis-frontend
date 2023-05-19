@@ -51,12 +51,15 @@ export const stateSlice = createSlice({
 
 export default stateSlice.reducer
 
+let lastPagination = null
+
 export function loadStates(pagination) {
   const { setLoading, setData, reset } = stateSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
+      lastPagination = pagination
       const { data } = await getStates(pagination)
       dispatch(setData(data))
       dispatch(reset())
@@ -73,7 +76,7 @@ export function removeState(id) {
     dispatch(setLoading())
     try {
       await deleteState(id)
-      dispatch(loadStates())
+      dispatch(loadStates(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -88,7 +91,7 @@ export function addState(payload) {
     dispatch(setLoading())
     try {
       await createState(payload)
-      dispatch(loadStates())
+      dispatch(loadStates(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -103,7 +106,7 @@ export function modifyState(id, payload) {
     dispatch(setLoading())
     try {
       await updateState(id, payload)
-      dispatch(loadStates())
+      dispatch(loadStates(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
