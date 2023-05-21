@@ -1,5 +1,4 @@
 export * from './change-password'
-export * from './class'
 export * from './company'
 export * from './contact'
 export * from './course-item'
