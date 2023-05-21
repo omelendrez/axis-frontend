@@ -6,7 +6,7 @@ import './dashboard.css'
 const menuOptions = [
   {
     title: 'Classrooms',
-    description: 'Manage classrooms',
+    description: 'View classroom schedules',
     path: '/classes',
     roles: [1]
   },

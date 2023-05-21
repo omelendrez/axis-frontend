@@ -48,21 +48,24 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
       })}
 
       <td className="action-cell">
-        <ActionButton
-          label="edit"
-          className="primary"
-          tooltip="Click to Edit"
-          disabled={user.role !== 1 || isLocked}
-          onClick={() => onEdit(item)}
-        />
-
-        <ActionButton
-          label="remove_circle_outline"
-          className="delete"
-          tooltip="Click to Delete"
-          disabled={user.role !== 1 || isLocked}
-          onClick={() => onDelete(item)}
-        />
+        {onEdit && (
+          <ActionButton
+            label="edit"
+            className="primary"
+            tooltip="Click to Edit"
+            disabled={user.role !== 1 || isLocked}
+            onClick={() => onEdit(item)}
+          />
+        )}
+        {onDelete && (
+          <ActionButton
+            label="remove_circle_outline"
+            className="delete"
+            tooltip="Click to Delete"
+            disabled={user.role !== 1 || isLocked}
+            onClick={() => onDelete(item)}
+          />
+        )}
       </td>
     </tr>
   )
@@ -90,14 +93,14 @@ export const ListView = ({
 
   const handlePageChange = (value) => {
     const { page, limit } = { ...pagination }
+
     const newPage = page + value
-    const newValues = {
+
+    onPagination((p) => ({
+      ...p,
       page: newPage,
       offset: (newPage - 1) * limit
-    }
-    onPagination((p) => {
-      return { ...p, ...newValues }
-    })
+    }))
   }
 
   return (
@@ -127,7 +130,11 @@ export const ListView = ({
                 <td colSpan={fields.length + 1}>
                   <article>
                     No records found
-                    {search ? ` matching: "${search}"` : ''}.
+                    {search ? (
+                      <span style={{ marginLeft: '6px' }}>
+                        matching <code>{search}</code>
+                      </span>
+                    ) : null}
                   </article>
                 </td>
               </tr>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { ListView, Loading, AddButton } from '../components'
+import { Link } from 'react-router-dom'
+import { ListView, Loading } from '../components'
 
 import useClasses from '../hooks/useClasses'
 import useNoficication from '../hooks/useNotification'
@@ -8,12 +8,11 @@ import useNoficication from '../hooks/useNotification'
 import { initialValues } from '../helpers'
 
 const Classes = () => {
-  const { classes, load: loadClasses, remove: removeClass } = useClasses()
+  const { classes, load: loadClasses } = useClasses()
   const { data, isLoading, isSuccess, isError, error, isFirstLoad } = classes
 
   const [pagination, setPagination] = useState(initialValues)
 
-  const navigate = useNavigate()
   const { set } = useNoficication()
 
   useEffect(() => {
@@ -46,14 +45,6 @@ const Classes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
-  const handleEdit = (classroom) => {
-    navigate(`/class/${classroom.id}`)
-  }
-
-  const handleDelete = (classroom) => {
-    removeClass(classroom.id)
-  }
-
   const fields = [
     { name: 'id', label: 'Class' },
     { name: 'course_name', label: 'Course' },
@@ -76,15 +67,11 @@ const Classes = () => {
         </ul>
       </nav>
 
-      <AddButton url="/class" />
-
       <ListView
         data={data}
         pagination={pagination}
         onPagination={setPagination}
         fields={fields}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
         isLoading={isLoading}
         loadItems={loadClasses}
       />
