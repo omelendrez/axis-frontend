@@ -46,7 +46,7 @@ const Classes = () => {
   }, [isError, isSuccess])
 
   const fields = [
-    { name: 'id', label: 'Class' },
+    { name: 'id', label: 'Class #' },
     { name: 'course_name', label: 'Course' },
     { name: 'start', label: 'Start' },
     { name: 'learners', label: 'Learners' }
@@ -63,7 +63,7 @@ const Classes = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>Classes</li>
+          <li>Classrooms</li>
         </ul>
       </nav>
 

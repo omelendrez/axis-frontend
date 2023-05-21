@@ -8,7 +8,7 @@ const Class = lazy(() => import('../pages/Class'))
 export const classRoutes = (
   <>
     <Route
-      path="/classes"
+      path="/classrooms"
       element={
         <ProtectedRoute>
           <Classes />
@@ -16,7 +16,7 @@ export const classRoutes = (
       }
     />
     <Route
-      path="/class/:id"
+      path="/classroom/:id"
       element={
         <ProtectedRoute>
           <Class />
@@ -24,7 +24,7 @@ export const classRoutes = (
       }
     />
     <Route
-      path="/class"
+      path="/classroom"
       element={
         <ProtectedRoute>
           <Class />

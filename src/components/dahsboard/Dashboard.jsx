@@ -7,7 +7,7 @@ const menuOptions = [
   {
     title: 'Classrooms',
     description: 'View classroom schedules',
-    path: '/classes',
+    path: '/classrooms',
     roles: [1]
   },
   {

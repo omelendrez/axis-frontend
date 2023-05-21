@@ -29,7 +29,7 @@ const Class = () => {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
-            <Link to="/classes">Classes</Link>
+            <Link to="/classes">Classrooms</Link>
           </li>
           <li>Class</li>
         </ul>
