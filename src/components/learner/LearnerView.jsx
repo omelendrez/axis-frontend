@@ -6,7 +6,6 @@ import {
   deleteContact,
   getLearner,
   getLearnerView,
-  getPhoto,
   getTrainings,
   getTraining,
   deleteTraining
@@ -38,7 +37,8 @@ export const LearnerView = () => {
   const [isLearnerEdit, setIsLearnerEdit] = useState(false)
   const [isContactEdit, setIsContactEdit] = useState(false)
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
-  const [photoUrl, setPhotoUrl] = useState('')
+  const [photoBadge, setPhotoBadge] = useState(null)
+
   const id = params?.id
 
   const handleEditLearner = (e) => {
@@ -142,6 +142,10 @@ export const LearnerView = () => {
         }
         if (isPhotoOpen) {
           setIsPhotoOpen(false)
+          setPhotoBadge(null)
+          setTimeout(() => {
+            setPhotoBadge(learner.badge)
+          }, 1000)
         }
       })
       .catch((e) => handleError(e))
@@ -153,9 +157,7 @@ export const LearnerView = () => {
         .then((res) => {
           const learner = res.data
           setLearner(learner)
-          const photoUrl = getPhoto(learner.badge)
-          setPhotoUrl(null)
-          setTimeout(() => setPhotoUrl(photoUrl), 50)
+          setPhotoBadge(learner.badge)
         })
         .catch((e) => handleError(e))
 
@@ -200,7 +202,7 @@ export const LearnerView = () => {
       <main className="learner-view">
         {/* Data components */}
         <div>
-          <Photo photoUrl={photoUrl} onEdit={handleEditPhoto} />
+          <Photo badge={photoBadge} onEdit={handleEditPhoto} />
         </div>
         <div>
           <Learner learner={learner} onEdit={handleEditLearner} />

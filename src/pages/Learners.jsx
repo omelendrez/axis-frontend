@@ -7,11 +7,11 @@ import useNoficication from '../hooks/useNotification'
 
 import { initialValues } from '../helpers'
 
-import { getPhoto } from '../services'
+import { getPhotoUrl } from '../services'
 import './card.css'
 
 const Card = ({ item, onView }) => {
-  const photoUrl = getPhoto(item.badge)
+  const photoUrl = getPhotoUrl(item.badge)
 
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
