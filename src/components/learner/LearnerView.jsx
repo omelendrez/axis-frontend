@@ -38,6 +38,7 @@ export const LearnerView = () => {
   const [isLearnerEdit, setIsLearnerEdit] = useState(false)
   const [isContactEdit, setIsContactEdit] = useState(false)
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
+  const [photoUrl, setPhotoUrl] = useState(getPhoto(learner?.badge))
   const id = params?.id
 
   const handleEditLearner = (e) => {
@@ -150,7 +151,11 @@ export const LearnerView = () => {
     if (id) {
       getLearnerView(id)
         .then((res) => {
-          setLearner(res.data)
+          const learner = res.data
+          setLearner(learner)
+          const photoUrl = getPhoto(learner.badge)
+          setPhotoUrl(null)
+          setTimeout(() => setPhotoUrl(photoUrl), 500)
         })
         .catch((e) => handleError(e))
 
@@ -166,13 +171,12 @@ export const LearnerView = () => {
         })
         .catch((e) => handleError(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, id])
 
   if (!learner) {
     return <Loading />
   }
-
-  const photoUrl = getPhoto(learner.badge)
 
   return (
     <>

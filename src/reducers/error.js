@@ -5,6 +5,7 @@ export function handleError(error, dispatch, reset) {
   if (error.code === 'ERR_CANCELED') {
     return
   }
+  console.log(error)
   const message = {
     type: 'error',
     message: getApiErrorMessage(error)
