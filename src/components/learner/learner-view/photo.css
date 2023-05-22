@@ -1,3 +1,6 @@
+.learner-view div .photo img {
+  aspect-ratio: 4/3;
+}
 @media screen and (min-width: 992px) {
   .learner-view div .photo img {
     max-width: 14rem;

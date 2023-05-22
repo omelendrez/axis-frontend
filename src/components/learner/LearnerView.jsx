@@ -128,6 +128,10 @@ export const LearnerView = () => {
     getLearnerView(id)
       .then((res) => {
         setLearner(res.data)
+        setPhotoBadge(null)
+        setTimeout(() => {
+          setPhotoBadge(res.data.badge)
+        }, 1000)
         if (isTrainingEdit) {
           setTrainingEditData(null)
           setIsTrainingEdit(false)
@@ -142,10 +146,6 @@ export const LearnerView = () => {
         }
         if (isPhotoOpen) {
           setIsPhotoOpen(false)
-          setPhotoBadge(null)
-          setTimeout(() => {
-            setPhotoBadge(learner.badge)
-          }, 1000)
         }
       })
       .catch((e) => handleError(e))

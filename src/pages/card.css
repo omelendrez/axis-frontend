@@ -13,6 +13,7 @@
 .card .card-avatar-root .card-avatar-img {
   object-fit: cover;
   max-width: 100px;
+  aspect-ratio: 4/3;
   margin-left: 1rem;
 }
 
