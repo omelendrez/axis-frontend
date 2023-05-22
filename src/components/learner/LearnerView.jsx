@@ -38,7 +38,7 @@ export const LearnerView = () => {
   const [isLearnerEdit, setIsLearnerEdit] = useState(false)
   const [isContactEdit, setIsContactEdit] = useState(false)
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
-  const [photoUrl, setPhotoUrl] = useState(getPhoto(learner?.badge))
+  const [photoUrl, setPhotoUrl] = useState('')
   const id = params?.id
 
   const handleEditLearner = (e) => {
@@ -155,7 +155,7 @@ export const LearnerView = () => {
           setLearner(learner)
           const photoUrl = getPhoto(learner.badge)
           setPhotoUrl(null)
-          setTimeout(() => setPhotoUrl(photoUrl), 500)
+          setTimeout(() => setPhotoUrl(photoUrl), 50)
         })
         .catch((e) => handleError(e))
 
