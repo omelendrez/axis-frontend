@@ -16,7 +16,7 @@
     "field": "certificate"
   },
   {
-    "label": "Status",
-    "field": "status"
+    "label": "State",
+    "field": "state"
   }
 ]
