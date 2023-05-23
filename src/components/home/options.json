@@ -8,28 +8,12 @@
     ]
   },
   {
-    "title": "Learners",
-    "description": "Manage learners",
-    "path": "/learners",
-    "roles": [
-      1
-    ]
-  },
-  {
     "divider": true
   },
   {
-    "title": "States",
-    "description": "Manage states master table",
-    "path": "/states",
-    "roles": [
-      1
-    ]
-  },
-  {
-    "title": "Nationalities",
-    "description": "Manage nationalities master table",
-    "path": "/nationalities",
+    "title": "Learners",
+    "description": "Manage learners",
+    "path": "/learners",
     "roles": [
       1
     ]
@@ -57,6 +41,25 @@
     "title": "Course Items",
     "description": "Manage courses items",
     "path": "/course-items",
+    "roles": [
+      1
+    ]
+  },
+  {
+    "divider": true
+  },
+  {
+    "title": "States",
+    "description": "Manage states master table",
+    "path": "/states",
+    "roles": [
+      1
+    ]
+  },
+  {
+    "title": "Nationalities",
+    "description": "Manage nationalities master table",
+    "path": "/nationalities",
     "roles": [
       1
     ]
