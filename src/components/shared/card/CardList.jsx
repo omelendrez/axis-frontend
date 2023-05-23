@@ -38,12 +38,14 @@ export const CardList = ({
 
   return (
     <>
-      <Search
-        onChange={handleSearchChange}
-        value={searchText}
-        onKeyDown={handleKeyDown}
-        className="card-list-search"
-      />
+      {data.rows.length > 0 && (
+        <Search
+          onChange={handleSearchChange}
+          value={searchText}
+          onKeyDown={handleKeyDown}
+          className="card-list-search"
+        />
+      )}
       {!isLoading && data?.count === 0 && (
         <article>
           No records found
@@ -62,7 +64,6 @@ export const CardList = ({
           />
         ))}
       </div>
-
       {data.count > 0 && (
         <Pagination
           onPage={handlePageChange}

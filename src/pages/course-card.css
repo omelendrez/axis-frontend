@@ -21,3 +21,27 @@
 .card.courses .ellipsis {
   max-width: 18rem;
 }
+
+@media screen and (min-width: 640px) {
+  .card.courses {
+    max-width: 17rem;
+    min-width: 17rem;
+  }
+
+  .card.courses .ellipsis {
+    max-width: 9rem;
+    min-width: 9rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .card.courses {
+    max-width: 20rem;
+    min-width: 20rem;
+  }
+
+  .card.courses .ellipsis {
+    max-width: 12.5rem;
+    min-width: 12.5rem;
+  }
+}

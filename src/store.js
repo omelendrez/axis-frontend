@@ -12,15 +12,16 @@ import nationalitySlice from './reducers/nationality/nationalitySlice'
 import notificationReducer from './reducers/notification/notificationSlice'
 import roleSlice from './reducers/role/roleSlice'
 import stateSlice from './reducers/state/stateSlice'
+import statusSlice from './reducers/status/statusSlice'
 import trainingSlice from './reducers/training/trainingSlice'
 import userSlice from './reducers/user/userSlice'
 
 export default configureStore({
   reducer: {
     certificateTypes: certificateTypeSlice,
+    classes: classSlice,
     companies: companySlice,
     contacts: contactSlice,
-    classes: classSlice,
     contactTypes: contactTypeSlice,
     courseItems: courseItemSlice,
     courses: courseSlice,
@@ -29,6 +30,7 @@ export default configureStore({
     notification: notificationReducer,
     roles: roleSlice,
     states: stateSlice,
+    statuses: statusSlice,
     trainings: trainingSlice,
     users: userSlice
   },
