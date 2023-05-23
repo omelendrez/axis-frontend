@@ -68,9 +68,6 @@ const Users = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
           <li>Users</li>
         </ul>
       </nav>

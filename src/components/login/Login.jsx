@@ -5,6 +5,7 @@ import { FormButtonRow, InputField } from '../shared'
 import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
 import './login.css'
+import { handleError } from '../../reducers/error'
 
 const initialValues = {
   name: {
@@ -62,22 +63,9 @@ export const Login = () => {
         session.save(KEYS.user, user)
         isMounted.current = false
         setUserContext(res.data)
-        navigate('/dashboard')
+        navigate('/')
       })
-      .catch((e) => {
-        console.error(e)
-        const notification = {
-          type: 'error',
-          message: e.response.data.message || e.message
-        }
-        set(notification)
-        setIsSubmitting(false)
-      })
-      .finally(() => {
-        if (isMounted.current) {
-          setIsSubmitting(false)
-        }
-      })
+      .catch((e) => handleError(e))
   }
 
   const { name, password } = values

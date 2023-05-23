@@ -10,6 +10,7 @@ import {
 import { changePassword } from '../../services'
 import { UserContext } from '../../context'
 import './changePassword.css'
+import { handleError } from '../../reducers/error'
 
 const initialValues = {
   prevPass: {
@@ -75,20 +76,7 @@ export const ChangePassword = () => {
 
           navigate(-1)
         })
-        .catch((e) => {
-          const notification = {
-            type: 'error',
-            message: e.response.data.message
-          }
-          set(notification)
-          setIsSubmitting(false)
-        })
-
-        .finally(() => {
-          if (isMounted.current) {
-            setIsSubmitting(false)
-          }
-        })
+        .catch((e) => handleError(e))
     }
   }
 

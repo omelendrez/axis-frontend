@@ -24,6 +24,14 @@ const Row = ({ item, fields, onEdit, onDelete }) => {
           style = { ...style, whiteSpace: 'nowrap' }
         }
 
+        if (f.center) {
+          style = { ...style, textAlign: 'center' }
+        }
+
+        if (f.right) {
+          style = { ...style, textAlign: 'right' }
+        }
+
         if (f.maxWidth) {
           style = {
             ...style,
@@ -115,11 +123,21 @@ export const ListView = ({
         <table role="grid" className="list-view-table">
           <thead>
             <tr>
-              {fields.map((f) => (
-                <th key={f.name} scope="col">
-                  {f.label}
-                </th>
-              ))}
+              {fields.map((f) => {
+                let style = {}
+                if (f.center) {
+                  style = { ...style, textAlign: 'center' }
+                }
+
+                if (f.right) {
+                  style = { ...style, textAlign: 'right' }
+                }
+                return (
+                  <th key={f.name} scope="col" style={style}>
+                    {f.label}
+                  </th>
+                )
+              })}
               <th></th>
             </tr>
           </thead>

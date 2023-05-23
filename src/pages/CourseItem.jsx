@@ -26,9 +26,6 @@ const CourseItem = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
             <Link to="/course-items">Course Items</Link>
           </li>
           <li>Course Item</li>

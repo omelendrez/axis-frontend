@@ -9,6 +9,7 @@ import { initialValues } from '../helpers'
 
 import { getPhotoUrl } from '../services'
 import './card.css'
+import './learner-card.css'
 
 const Card = ({ item, onView }) => {
   const photoUrl = getPhotoUrl(item.badge)
@@ -88,7 +89,7 @@ const Learners = () => {
       label: 'Full name',
       noWrap: true,
       ellipsis: true,
-      maxWidth: '12.5rem'
+      maxWidth: '10rem'
     },
     {
       name: 'company_name',
@@ -106,9 +107,6 @@ const Learners = () => {
         <ul>
           <li>
             <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>Learners</li>
         </ul>

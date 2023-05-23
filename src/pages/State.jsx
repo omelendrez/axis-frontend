@@ -28,9 +28,6 @@ const State = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
             <Link to="/States">States</Link>
           </li>
           <li>State</li>

@@ -26,9 +26,6 @@ const Nationality = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
             <Link to="/Nationalities">Nationalities</Link>
           </li>
           <li>Nationality</li>

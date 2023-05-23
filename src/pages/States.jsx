@@ -70,9 +70,6 @@ const States = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
           <li>States</li>
         </ul>
       </nav>

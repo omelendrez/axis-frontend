@@ -46,10 +46,10 @@ const Classes = () => {
   }, [isError, isSuccess])
 
   const fields = [
-    { name: 'id', label: 'Class #' },
+    { name: 'id', label: '#', center: true },
     { name: 'course_name', label: 'Course' },
-    { name: 'start', label: 'Start' },
-    { name: 'learners', label: 'Learners' }
+    { name: 'start', label: 'Start', noWrap: true, center: true },
+    { name: 'learners', label: 'Learners', center: true }
   ]
 
   return (
@@ -59,9 +59,6 @@ const Classes = () => {
         <ul>
           <li>
             <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>Classrooms</li>
         </ul>

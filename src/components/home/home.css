@@ -1,0 +1,32 @@
+main.home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: var(--row-gap);
+  column-gap: var(--col-gap);
+  padding: 2rem 0;
+}
+
+main.home article.home-item {
+  width: var(--card-width-mobile);
+  margin: 0;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+}
+
+main.home article.home-item hgroup {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 640px) {
+  main.home article.home-item {
+    width: var(--card-width-tablet);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  main.home article.home-item {
+    width: var(--card-width-desktop);
+  }
+}

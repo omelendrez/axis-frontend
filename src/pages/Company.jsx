@@ -26,9 +26,6 @@ const Company = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
             <Link to="/companies">Companies</Link>
           </li>
           <li>Company</li>

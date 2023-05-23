@@ -36,6 +36,11 @@ export const Navbar = ({ me }) => {
     appRoutes: {
       authorized: [
         {
+          path: '/',
+          label: 'Home',
+          icon: 'home'
+        },
+        {
           path: '/dashboard',
           label: 'Dashboard',
           icon: 'dashboard'

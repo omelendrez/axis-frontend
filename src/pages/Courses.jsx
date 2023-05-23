@@ -84,9 +84,6 @@ const Courses = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
           <li>Courses</li>
         </ul>
       </nav>

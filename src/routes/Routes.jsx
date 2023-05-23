@@ -6,28 +6,31 @@ import { courseItemRoutes } from './courseItemRoutes'
 import { courseRoutes } from './courseRoutes'
 import { dashboardRoutes } from './dashboardRoutes'
 import { defaultRoutes } from './defaultRoutes'
+import { homeRoutes } from './homeRoutes'
 import { learnerRoutes } from './learnerRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
 import { roleRoutes } from './roleRoutes'
 import { stateRoutes } from './stateRoutes'
-import { trainingRoutes } from './trainingRoutes'
+// import { trainingRoutes } from './trainingRoutes'
 import { userRoutes } from './userRoutes'
 
 export const AppRoutes = () => {
   return (
     <div className="routes-container">
       <Routes>
+        {homeRoutes}
+        {dashboardRoutes}
+        {/* ------ */}
         {classRoutes}
         {companyRoutes}
         {courseItemRoutes}
         {courseRoutes}
-        {dashboardRoutes}
         {defaultRoutes}
         {learnerRoutes}
         {nationalityRoutes}
         {roleRoutes}
         {stateRoutes}
-        {trainingRoutes}
+        {/* {trainingRoutes} */}
         {userRoutes}
       </Routes>
     </div>

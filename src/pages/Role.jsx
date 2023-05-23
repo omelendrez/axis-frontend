@@ -26,9 +26,6 @@ const Role = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
             <Link to="/Roles">Roles</Link>
           </li>
           <li>Role</li>
