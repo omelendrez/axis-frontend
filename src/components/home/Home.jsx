@@ -29,9 +29,9 @@ export const Home = () => {
         options
           .map((r) => ({ ...r, roles: r?.roles || [] }))
           .filter((r) => r.roles.length === 0 || r.roles.includes(user.role))
-          .map((o) => (
+          .map((o, i) => (
             <MenuOption
-              key={o.path}
+              key={i}
               description={o.description}
               onNavigate={handleNavigate}
               path={o.path}
