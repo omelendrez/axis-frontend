@@ -9,7 +9,7 @@ import { getPhotoUrl, getTrainingsByStatus } from '../services'
 import { handleError } from '../reducers/error'
 
 import './card.css'
-import './training-card.css'
+import './trainings-card.css'
 
 const Card = ({ item, onView }) => {
   const photoUrl = getPhotoUrl(item.badge)
@@ -17,7 +17,8 @@ const Card = ({ item, onView }) => {
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
   return (
-    <article className="card training" onClick={() => onView(item)}>
+    <article className="card trainings" onClick={() => onView(item)}>
+      <div className="date">{item.start}</div>
       <div className="card-avatar-root">
         <img
           src={photoUrl}
@@ -30,8 +31,6 @@ const Card = ({ item, onView }) => {
         <div className="ellipsis course">{item.course}</div>
         <div className="ellipsis name">{item.full_name}</div>
         <div className="small-font">{item.company}</div>
-
-        <div className="date">{item.start}</div>
       </div>
     </article>
   )
@@ -82,7 +81,7 @@ const Dashboard = () => {
   }, [status])
 
   return (
-    <main className="container-fluid training">
+    <main className="container-fluid trainings">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>

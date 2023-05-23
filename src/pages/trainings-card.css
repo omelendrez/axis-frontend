@@ -1,0 +1,61 @@
+.trainings section.dropdown-container {
+  margin: 0 0 0 1rem;
+}
+
+.card.trainings .card-body {
+  padding-top: 1.5rem;
+}
+
+.trainings .course {
+  font-size: 14px;
+  color: blue;
+}
+
+.trainings .name {
+  font-size: 18px;
+}
+
+.trainings .date {
+  background-color: var(--primary);
+  color: white;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1rem;
+}
+
+.card.trainings .ellipsis {
+  max-width: 13rem;
+}
+@media screen and (min-width: 640px) {
+  .trainings section.dropdown-container {
+    width: 40vw;
+  }
+
+  .card.trainings {
+    max-width: 17rem;
+    min-width: 17rem;
+  }
+
+  .card.trainings .ellipsis {
+    max-width: 9rem;
+    min-width: 9rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .trainings section.dropdown-container {
+    width: 26rem;
+  }
+
+  .card.trainings {
+    max-width: 20rem;
+    min-width: 20rem;
+  }
+
+  .card.trainings .ellipsis {
+    max-width: 12.5rem;
+    min-width: 12.5rem;
+  }
+}
