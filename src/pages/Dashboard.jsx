@@ -82,7 +82,7 @@ const Dashboard = () => {
   }, [status])
 
   return (
-    <main className="container training">
+    <main className="container-fluid training">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>

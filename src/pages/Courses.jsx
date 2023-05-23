@@ -77,7 +77,7 @@ const Courses = () => {
   ]
 
   return (
-    <main className="container">
+    <main className="container-fluid">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
