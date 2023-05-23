@@ -8,20 +8,15 @@
     ]
   },
   {
-    "title": "Users",
-    "description": "Manage Axis users",
-    "path": "/users",
+    "title": "Learners",
+    "description": "Manage learners",
+    "path": "/learners",
     "roles": [
       1
     ]
   },
   {
-    "title": "Roles",
-    "description": "Manage user roles",
-    "path": "/roles",
-    "roles": [
-      1
-    ]
+    "divider": true
   },
   {
     "title": "States",
@@ -48,12 +43,7 @@
     ]
   },
   {
-    "title": "Learners",
-    "description": "Manage learners",
-    "path": "/learners",
-    "roles": [
-      1
-    ]
+    "divider": true
   },
   {
     "title": "Courses",
@@ -67,6 +57,25 @@
     "title": "Course Items",
     "description": "Manage courses items",
     "path": "/course-items",
+    "roles": [
+      1
+    ]
+  },
+  {
+    "divider": true
+  },
+  {
+    "title": "Users",
+    "description": "Manage Axis users",
+    "path": "/users",
+    "roles": [
+      1
+    ]
+  },
+  {
+    "title": "Roles",
+    "description": "Manage user roles",
+    "path": "/roles",
     "roles": [
       1
     ]

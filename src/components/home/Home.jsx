@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context'
 import options from './options.json'
 import './home.css'
+import { Divider } from '../shared/divider/Divider'
 
-const MenuOption = ({ title, description, path, onNavigate }) => (
-  <article className="home-item" onClick={() => onNavigate(path)}>
-    <hgroup>
-      <h3>{title}</h3>
-      <h4>{description}</h4>
-    </hgroup>
-  </article>
-)
+const MenuOption = ({ title, description, path, onNavigate, divider }) =>
+  !divider ? (
+    <article className="home-item" onClick={() => onNavigate(path)}>
+      <hgroup>
+        <h3>{title}</h3>
+        <h4>{description}</h4>
+      </hgroup>
+    </article>
+  ) : (
+    <Divider />
+  )
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -23,14 +27,16 @@ export const Home = () => {
     <main className="home">
       {user &&
         options
+          .map((r) => ({ ...r, roles: r?.roles || [] }))
           .filter((r) => r.roles.length === 0 || r.roles.includes(user.role))
           .map((o) => (
             <MenuOption
               key={o.path}
-              title={o.title}
               description={o.description}
-              path={o.path}
               onNavigate={handleNavigate}
+              path={o.path}
+              divider={o.divider}
+              title={o.title}
             />
           ))}
     </main>
