@@ -11,10 +11,8 @@ export function handleError(error, dispatch, reset) {
   }
   log.error(error)
   console.log(error)
-  if (dispatch) {
-    dispatch(setMessage(message))
-    setTimeout(() => {
-      dispatch(reset())
-    }, 1000)
-  }
+  dispatch(setMessage(message))
+  setTimeout(() => {
+    dispatch(reset())
+  }, 200)
 }

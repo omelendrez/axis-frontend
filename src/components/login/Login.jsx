@@ -4,8 +4,8 @@ import useNoficication from '../../hooks/useNotification'
 import { FormButtonRow, InputField } from '../shared'
 import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
+import useApiMessages from '../../hooks/useApiMessages'
 import './login.css'
-import { handleError } from '../../reducers/error'
 
 const initialValues = {
   name: {
@@ -20,6 +20,7 @@ const initialValues = {
 
 export const Login = () => {
   const { set } = useNoficication()
+  const { apiMessage } = useApiMessages()
   const { setUser: setUserContext } = useContext(UserContext)
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
@@ -27,7 +28,8 @@ export const Login = () => {
   const isMounted = useRef()
 
   useEffect(() => {
-    document.getElementsByTagName('input')[0].focus()
+    const input = document.getElementsByTagName('input')[1]
+    input.focus()
   }, [])
 
   const handleChange = (e) => {
@@ -65,7 +67,8 @@ export const Login = () => {
         setUserContext(res.data)
         navigate('/')
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
 
   const { name, password } = values

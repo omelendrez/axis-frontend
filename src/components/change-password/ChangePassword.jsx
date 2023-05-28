@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNoficication from '../../hooks/useNotification'
 import { InputField } from '../shared'
@@ -35,6 +35,11 @@ export const ChangePassword = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const errorsCount = useRef(0)
   const isMounted = useRef(true)
+
+  useEffect(() => {
+    const input = document.getElementsByTagName('input')[1]
+    input.focus()
+  }, [])
 
   const handleChange = (e) => {
     const { id, value } = e.target

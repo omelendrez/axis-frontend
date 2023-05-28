@@ -151,16 +151,14 @@ export const CourseView = () => {
       <main className="course-view">
         {/* Data components */}
 
-        <div>
-          <Course course={course} onEdit={handleEditCourse} />
+        <Course course={course} onEdit={handleEditCourse} />
 
-          <CourseItems
-            courseItems={courseItems}
-            onAdd={handleAddCourseItem}
-            onDelete={handleDeleteCourseItem}
-            key={courseItemEditData?.id}
-          />
-        </div>
+        <CourseItems
+          courseItems={courseItems}
+          onAdd={handleAddCourseItem}
+          onDelete={handleDeleteCourseItem}
+          key={courseItemEditData?.id}
+        />
       </main>
     </>
   )

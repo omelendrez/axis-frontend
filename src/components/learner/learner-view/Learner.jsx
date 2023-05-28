@@ -11,7 +11,7 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const Learner = ({ learner, onEdit }) => {
+export const Learner = ({ learner, onEdit, onDelete }) => {
   if (!learner) {
     return <Loading />
   }
@@ -19,7 +19,7 @@ export const Learner = ({ learner, onEdit }) => {
   return (
     <article className="learner">
       <h6 className="title">Personal data</h6>
-      <Buttons onEdit={onEdit} noCheckboxes />
+      <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
       <div>
         <div className="row-line">
           <div>Type:</div>

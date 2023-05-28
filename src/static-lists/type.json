@@ -5,10 +5,6 @@
       "name": "Staff"
     },
     {
-      "id": "SUB",
-      "name": "Sub-Contractor"
-    },
-    {
       "id": "TRN",
       "name": "Learner"
     }

@@ -7,18 +7,18 @@
   flex-wrap: wrap;
 }
 
-.course-view div {
+.course-view article {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.course-view div:nth-child(2) {
+.course-view article:nth-child(2) {
   flex-grow: 1;
 }
 
 @media screen and (min-width: 992px) {
-  .course-view div {
+  .course-view article {
     width: unset;
   }
 }

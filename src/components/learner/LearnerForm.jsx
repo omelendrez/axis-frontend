@@ -16,7 +16,7 @@ import {
 
 import schema from './schema.json'
 
-export const Learner = ({ learner, onClose }) => {
+export const LearnerForm = ({ learner, onClose }) => {
   const { set } = useNotification()
 
   const { learners, add, modify } = useLearners()

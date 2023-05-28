@@ -1,32 +1,30 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import useApiMessages from '../../hooks/useApiMessages'
 import {
   getContacts,
   getContact,
   deleteContact,
   getLearner,
   getLearnerView,
+  deleteLearner,
   getTrainings,
   getTraining,
   deleteTraining
 } from '../../services'
 import { Loading, Modal } from '../shared'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
-import {
-  Learner as LearnerForm,
-  Training,
-  Contact,
-  Photo as PhotoForm
-} from '..'
-import useNoficication from '../../hooks/useNotification'
+import { LearnerForm, Training, Contact, Photo as PhotoForm } from '..'
+
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
-import { handleError } from '../../reducers/error'
 
 export const LearnerView = () => {
   const params = useParams()
-  const { set } = useNoficication()
+  const navigate = useNavigate()
+
+  const { apiMessage } = useApiMessages()
   const [learner, setLearner] = useState(null)
   const [contacts, setContacts] = useState([])
   const [trainings, setTrainings] = useState([])
@@ -43,12 +41,24 @@ export const LearnerView = () => {
 
   const handleEditLearner = (e) => {
     e?.preventDefault()
-    getLearner(id)
+    if (id) {
+      getLearner(id)
+        .then((res) => {
+          setLearnerEditData(res.data)
+          setIsLearnerEdit(true)
+        })
+        .catch((e) => apiMessage(e))
+    }
+  }
+
+  const handleDeleteLearner = (e) => {
+    e.preventDefault()
+    deleteLearner(id)
       .then((res) => {
-        setLearnerEditData(res.data)
-        setIsLearnerEdit(true)
+        apiMessage(res)
+        navigate('/learners')
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
   }
 
   const handleAddTraining = (e) => {
@@ -81,7 +91,7 @@ export const LearnerView = () => {
         setTrainingEditData(res.data)
         setIsTrainingEdit(true)
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
 
   const handleEditContact = (id) =>
     getContact(id)
@@ -89,33 +99,25 @@ export const LearnerView = () => {
         setContactEditData(res.data)
         setIsContactEdit(true)
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
 
   const handleDeleteTraining = (trainingId) =>
     deleteTraining(trainingId)
       .then((res) => {
-        const notification = {
-          type: 'success',
-          message: res.data.message
-        }
-        set(notification)
+        apiMessage(res)
 
         getTrainings(id)
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
 
   const handleDeleteContact = (contactId) =>
     deleteContact(contactId)
       .then((res) => {
-        const notification = {
-          type: 'success',
-          message: res.data.message
-        }
-        set(notification)
+        apiMessage(res)
 
         getContacts(id)
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
 
   const handleEditPhoto = (e) => {
     e.preventDefault()
@@ -125,30 +127,21 @@ export const LearnerView = () => {
   const handleClose = (e) => {
     e?.preventDefault()
 
-    getLearnerView(id)
-      .then((res) => {
-        setLearner(res.data)
-        setPhotoBadge(null)
-        setTimeout(() => {
-          setPhotoBadge(res.data.badge)
-        }, 1000)
-        if (isTrainingEdit) {
-          setTrainingEditData(null)
-          setIsTrainingEdit(false)
-        }
-        if (isLearnerEdit) {
-          setLearnerEditData(null)
-          setIsLearnerEdit(false)
-        }
-        if (isContactEdit) {
-          setContactEditData(null)
-          setIsContactEdit(false)
-        }
-        if (isPhotoOpen) {
-          setIsPhotoOpen(false)
-        }
-      })
-      .catch((e) => handleError(e))
+    if (isTrainingEdit) {
+      setTrainingEditData(null)
+      setIsTrainingEdit(false)
+    }
+    if (isLearnerEdit) {
+      setLearnerEditData(null)
+      setIsLearnerEdit(false)
+    }
+    if (isContactEdit) {
+      setContactEditData(null)
+      setIsContactEdit(false)
+    }
+    if (isPhotoOpen) {
+      setIsPhotoOpen(false)
+    }
   }
 
   useEffect(() => {
@@ -159,19 +152,15 @@ export const LearnerView = () => {
           setLearner(learner)
           setPhotoBadge(learner.badge)
         })
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
 
       getContacts(id)
-        .then((res) => {
-          setContacts(res.data)
-        })
-        .catch((e) => handleError(e))
+        .then((res) => setContacts(res.data))
+        .catch((e) => apiMessage(e))
 
       getTrainings(id)
-        .then((res) => {
-          setTrainings(res.data)
-        })
-        .catch((e) => handleError(e))
+        .then((res) => setTrainings(res.data))
+        .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, id])
@@ -205,7 +194,11 @@ export const LearnerView = () => {
           <Photo badge={photoBadge} onEdit={handleEditPhoto} />
         </div>
         <div>
-          <Learner learner={learner} onEdit={handleEditLearner} />
+          <Learner
+            learner={learner}
+            onEdit={handleEditLearner}
+            onDelete={handleDeleteLearner}
+          />
         </div>
         <div>
           <Trainings

@@ -88,7 +88,7 @@ const Courses = () => {
         </ul>
       </nav>
 
-      <AddButton url="/course" />
+      <AddButton url="/course/add" />
       <CardList
         Card={Card}
         data={data}

@@ -1,13 +1,10 @@
-import { log } from './log'
 // const ERROR_CODES = {
 //   ERR_CONNECTION_REFUSED: 'ERR_CONNECTION_REFUSED',
 //   ERR_BAD_REQUEST: 'ERR_BAD_REQUEST'
 // }
 
-export const getApiErrorMessage = (e) => {
-  log.error(e)
-  const message = e.response?.data?.message || e.message
-  return message
+export const getApiErrorMessage = (error) => {
+  return error.response?.data?.message || error.message
   // log.error(
   //   e?.code
   //     ? e
