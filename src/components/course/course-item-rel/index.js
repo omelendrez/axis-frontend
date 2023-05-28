@@ -1,1 +1,1 @@
-export * from './CourseItemRel'
+export * from './CourseItemRels'

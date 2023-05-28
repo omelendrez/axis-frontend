@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
-import fields from './course-item-rel-fields.json'
+import fields from './course-assesment-rel-fields.json'
 import { Table, Buttons } from '../../shared'
 
 import useNoficication from '../../../hooks/useNotification'
 
-import { createCourseItemRel } from '../../../services'
+import { createCourseAssesmentRel } from '../../../services'
 
 import { handleError } from '../../../reducers/error'
 
-// Ok
-
-export const CourseItemRels = ({ items, course, onClose }) => {
+export const CourseAssesmentRels = ({ items, course, onClose }) => {
   const [selected, setSelected] = useState([])
 
   const { set } = useNoficication()
@@ -28,18 +26,18 @@ export const CourseItemRels = ({ items, course, onClose }) => {
     )
   }
 
-  const handleAddItems = (e) => {
+  const handleAddAssesments = (e) => {
     e.preventDefault()
 
     const payload = selected.map((i) => [course, parseInt(i, 10)])
 
-    createCourseItemRel([payload])
+    createCourseAssesmentRel([payload])
       .then(() => {
         setSelected([])
 
         const notification = {
           type: 'success',
-          message: 'Items inserted successfully'
+          message: 'Assesments inserted successfully'
         }
 
         set(notification)
@@ -52,7 +50,7 @@ export const CourseItemRels = ({ items, course, onClose }) => {
   return (
     <article className="course-view">
       <h6 className="title">Available course items</h6>
-      <Buttons selected={selected} onAdd={handleAddItems} noCheckboxes />
+      <Buttons selected={selected} onAdd={handleAddAssesments} noCheckboxes />
       <Table
         items={items}
         fields={fields}

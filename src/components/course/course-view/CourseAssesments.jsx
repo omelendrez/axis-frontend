@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import fields from './course-item-fields.json'
+import fields from './course-assesment-fields.json'
 import { Table, Buttons } from '../../shared'
 // Ok
 
-export const CourseItems = ({ items, onAdd, onDelete }) => {
+export const CourseAssesments = ({ items, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const CourseItems = ({ items, onAdd, onDelete }) => {
 
   return (
     <article>
-      <h6 className="title">Course Item records</h6>
+      <h6 className="title">Course Assesment records</h6>
       <Buttons selected={selected} onAdd={onAdd} onDelete={handleDelete} />
       <Table
         items={items}
