@@ -38,6 +38,14 @@
     ]
   },
   {
+    "title": "Course Assesments",
+    "description": "Manage courses assesments",
+    "path": "/course-assesments",
+    "roles": [
+      1
+    ]
+  },
+  {
     "title": "Course Items",
     "description": "Manage courses items",
     "path": "/course-items",
