@@ -3,10 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { FormContainer, CourseView, CourseForm } from '../components'
 import { getCourse } from '../services'
-import { handleError } from '../reducers/error'
+
+import useApiMessages from '../hooks/useApiMessages'
 
 const Course = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
+
+  const { apiMessage } = useApiMessages()
   const [course, setCourse] = useState(null)
 
   const navigate = useNavigate()
@@ -16,8 +19,9 @@ const Course = ({ isViewing, isAdding, isEditing }) => {
     if (id) {
       getCourse(id)
         .then((res) => setCourse(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   const handleClose = (e) => {

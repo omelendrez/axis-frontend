@@ -1,8 +1,7 @@
-import { Loading, Tag, Buttons } from '../../shared'
+import { Loading, Buttons } from '../../shared'
 
 import fields from './user-fields.json'
 import './user.css'
-import './user-card.css'
 
 const Row = ({ label, value, className }) => (
   <div className="row-line" key={label}>
@@ -21,12 +20,6 @@ export const User = ({ user, onEdit }) => {
       <h6 className="title">User data</h6>
       <Buttons onEdit={onEdit} noCheckboxes />
       <div>
-        <div className="row-line">
-          <div>Type:</div>
-          <div>
-            <Tag className={user.type}>{user.type}</Tag>
-          </div>
-        </div>
         {fields.map(
           (f) =>
             user[f.field].length > 0 && (

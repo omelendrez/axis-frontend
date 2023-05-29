@@ -9,6 +9,7 @@
   width: fit-content;
   background: none;
   border-radius: 50%;
+  margin: 0;
 }
 
 .buttons-main button span.material-icons {

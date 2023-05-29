@@ -22,13 +22,6 @@
   },
   {
     "type": "dropdown",
-    "id": "role",
-    "label": "Role",
-    "options": "roleList",
-    "required": true
-  },
-  {
-    "type": "dropdown",
     "id": "status",
     "label": "Status",
     "options": "statusList",

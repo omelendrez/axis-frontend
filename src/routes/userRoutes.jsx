@@ -16,18 +16,37 @@ export const userRoutes = (
       }
     />
     <Route
-      path="/user/:id"
+      path="/user/add"
       element={
         <ProtectedRoute>
-          <User />
+          <User isAdding />
         </ProtectedRoute>
       }
     />
+
     <Route
-      path="/user"
+      path="/user/edit"
       element={
         <ProtectedRoute>
-          <User />
+          <User isEditing />
+        </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/user/:id"
+      element={
+        <ProtectedRoute>
+          <User isViewing />
+        </ProtectedRoute>
+      }
+    />
+
+    <Route
+      path="/user/:id/edit"
+      element={
+        <ProtectedRoute>
+          <User isEditing />
         </ProtectedRoute>
       }
     />
