@@ -8,7 +8,7 @@ import useCertificateTypes from '../../hooks/useCertificateTypes'
 import schema from './schema.json'
 import { loadSchema } from '../../helpers'
 
-export const Course = ({ course }) => {
+export const CourseForm = ({ course }) => {
   const { courses, add, modify } = useCourses()
   const { isLoading, isSuccess } = courses
 

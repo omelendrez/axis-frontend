@@ -1,2 +1,2 @@
-export * from './Course'
+export * from './CourseForm'
 export * from './CourseView'

@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import {
-  FormContainer,
-  CourseView,
-  Course as CourseComponent
-} from '../components'
+import { FormContainer, CourseView, CourseForm } from '../components'
 import { getCourse } from '../services'
 import { handleError } from '../reducers/error'
 
@@ -46,12 +42,12 @@ const Course = ({ isViewing, isAdding, isEditing }) => {
 
       {isAdding && (
         <FormContainer title="Adding Course data">
-          <CourseComponent onClose={handleClose} />
+          <CourseForm onClose={handleClose} />
         </FormContainer>
       )}
       {isEditing && (
         <FormContainer title="Modifying Course data">
-          <CourseComponent course={course} />
+          <CourseForm course={course} />
         </FormContainer>
       )}
     </main>
