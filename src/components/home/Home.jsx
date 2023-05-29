@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context'
 import options from './options.json'
+import { hasRequiredRole } from '../../helpers/auth'
 import './home.css'
 import { Divider } from '../shared/divider/Divider'
 
@@ -28,7 +29,7 @@ export const Home = () => {
       {user &&
         options
           .map((r) => ({ ...r, roles: r?.roles || [] }))
-          .filter((r) => r.roles.length === 0 || r.roles.includes(user.role))
+          .filter((r) => hasRequiredRole(r.roles, user))
           .map((o, i) => (
             <MenuOption
               key={i}

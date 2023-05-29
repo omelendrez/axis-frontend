@@ -31,6 +31,10 @@
   width: fit-content;
 }
 
+.card-body .extra-small-font {
+  font-size: var(--extra-min-font-size);
+}
+
 .card-body .small-font {
   font-size: var(--min-font-size);
 }
