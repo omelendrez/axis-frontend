@@ -10,6 +10,8 @@ export const getUsers = (pagination) =>
 
 export const getUser = (id) => api.get(`/user/${id}`)
 
+export const getUserView = (id) => api.get(`/user/${id}/view`)
+
 export const updateUser = (id, payload) => api.put(`/user/${id}`, payload)
 
 export const changePassword = (id, payload) =>

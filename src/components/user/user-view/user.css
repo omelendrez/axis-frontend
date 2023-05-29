@@ -1,0 +1,36 @@
+.course-view div .row-line {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.5rem;
+}
+
+.course-view div .row-line div {
+  width: auto;
+}
+
+.course-view div .course .tag {
+  width: fit-content;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.course-view div .row-line div:first-child {
+  font-weight: lighter;
+}
+
+.course-view div .row-line div:last-child {
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.course-view div .row-line div.highlighted {
+  color: var(--primary);
+}
+
+@media screen and (min-width: 992px) {
+  .course-view div .row-line div:first-child:not(.tag) {
+    width: 8rem;
+    text-align: right;
+    margin-right: 1rem;
+  }
+}

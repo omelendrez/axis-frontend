@@ -7,7 +7,7 @@ import { status as statusList } from '../../static-lists'
 import schema from './schema.json'
 import { loadSchema } from '../../helpers'
 
-export const User = ({ user }) => {
+export const UserForm = ({ user }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
 

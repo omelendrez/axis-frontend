@@ -35,6 +35,10 @@
   font-size: var(--min-font-size);
 }
 
+.card-body .medium-font {
+  font-size: var(--med-font-size);
+}
+
 .card-body .ellipsis {
   white-space: nowrap;
   overflow: hidden;

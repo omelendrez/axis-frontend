@@ -1,0 +1,35 @@
+[
+  {
+    "label": "Name",
+    "field": "name"
+  },
+  {
+    "label": "Course duration",
+    "field": "duration"
+  },
+  {
+    "label": "Cert. validity",
+    "field": "validity"
+  },
+  {
+    "label": "Opito reg. code",
+    "field": "opito_code",
+    "className": "highlighted"
+  },
+  {
+    "label": "Id card?",
+    "field": "card_id"
+  },
+  {
+    "label": "Cert. id card?",
+    "field": "cert_card_id"
+  },
+  {
+    "label": "Front id",
+    "field": "front_id"
+  },
+  {
+    "label": "Back id",
+    "field": "back_id"
+  }
+]

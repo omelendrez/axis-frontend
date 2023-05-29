@@ -1,14 +1,32 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AddButton, Loading, ListView } from '../components'
+import { Loading, CardList, AddButton, Tag } from '../components'
 
 import useUsers from '../hooks/useUsers'
 import useNoficication from '../hooks/useNotification'
 
 import { initialValues } from '../helpers'
 
+import './card.css'
+import './user-card.css'
+
+const Card = ({ item, onView }) => (
+  <article className="card users" onClick={() => onView(item)}>
+    <div className="card-body">
+      <div className="username">{item.name}</div>
+      <div className="medium-font">{item.full_name}</div>
+      <div className="small-font">{item.email}</div>
+      {item.id !== 1 && (
+        <div>
+          <Tag className={item.status}>{item.status}</Tag>
+        </div>
+      )}
+    </div>
+  </article>
+)
+
 const Users = () => {
-  const { users, load: loadUsers, remove: removeUser } = useUsers()
+  const { users, load: loadUsers } = useUsers()
   const { data, isLoading, isSuccess, isError, error, isFirstLoad } = users
 
   const [pagination, setPagination] = useState(initialValues)
@@ -46,22 +64,21 @@ const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
-  const handleEdit = (user) => {
+  const handleView = (user) => {
     navigate(`/user/${user.id}`)
   }
 
-  const handleDelete = (user) => {
-    removeUser(user.id)
-  }
+  // const handleDelete = (user) => {
+  //   removeUser(user.id)
+  // }
 
   const fields = [
-    { name: 'name', label: 'Name', lock: { values: ['omar', 'Axis'] } },
-    { name: 'full_name', label: 'Username' },
-    { name: 'role_name', label: 'Role' }
+    { name: 'name', label: 'Name' },
+    { name: 'cert_type_name', label: 'Type' }
   ]
 
   return (
-    <main className="container">
+    <main className="container-fluid">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
@@ -72,15 +89,14 @@ const Users = () => {
         </ul>
       </nav>
 
-      <AddButton url="/user" />
-
-      <ListView
+      <AddButton url="/user/add" />
+      <CardList
+        Card={Card}
         data={data}
         pagination={pagination}
         onPagination={setPagination}
         fields={fields}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
+        onView={handleView}
         isLoading={isLoading}
         loadItems={loadUsers}
       />
