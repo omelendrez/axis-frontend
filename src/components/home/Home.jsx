@@ -28,8 +28,8 @@ export const Home = () => {
     <main className="home">
       {user &&
         options
-          .map((r) => ({ ...r, roles: r?.roles || [] }))
-          .filter((r) => hasRequiredRole(r.roles, user))
+          .map((o) => ({ ...o, roles: o?.roles || [] }))
+          .filter((option) => hasRequiredRole(option.roles, user.roles))
           .map((o, i) => (
             <MenuOption
               key={i}

@@ -2,7 +2,7 @@ import { useRef, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNoficication from '../../hooks/useNotification'
 import { FormButtonRow, InputField } from '../shared'
-import { login, SP, KEYS, getUserRoles } from '../../services'
+import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
 import useApiMessages from '../../hooks/useApiMessages'
 import './login.css'
@@ -61,16 +61,15 @@ export const Login = () => {
         set(notification)
         const token = res.data.token
         session.save(KEYS.token, token)
-        const user = { ...res.data, token: undefined }
-        getUserRoles(user.id)
-          .then((res) => {
-            const userRoles = { ...user, roles: res.data }
-            session.save(KEYS.user, userRoles)
-            isMounted.current = false
-            setUserContext(userRoles)
-            navigate('/')
-          })
-          .catch((e) => apiMessage(e))
+        const user = {
+          ...res.data,
+          token: undefined,
+          roles: JSON.parse(res.data.roles)
+        }
+        session.save(KEYS.user, user)
+        isMounted.current = false
+        setUserContext(res.data)
+        navigate('/')
       })
       .catch((e) => apiMessage(e))
       .finally(() => setIsSubmitting(false))

@@ -1,6 +1,6 @@
-export const hasRequiredRole = (roles, user) =>
-  roles.length === 0 ||
-  user.roles
+export const hasRequiredRole = (optionRoles, userRoles) =>
+  optionRoles.length === 0 ||
+  userRoles
     .map((r) => r.id)
     .join('-')
-    .includes(roles)
+    .includes(optionRoles)
