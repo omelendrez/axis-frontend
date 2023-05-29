@@ -43,6 +43,7 @@
 .course-view figure {
   overflow: auto;
   max-width: 80vw;
+  min-width: 80vw;
 }
 
 .course-view figure table tbody td input[type='checkbox'] {
