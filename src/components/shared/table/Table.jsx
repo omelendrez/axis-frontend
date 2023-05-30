@@ -1,5 +1,7 @@
 import { Headers, Row } from './'
 
+import './table.css'
+
 export const Table = ({ items, fields, selected, onSelect }) => (
   <figure>
     <table role="grid">
