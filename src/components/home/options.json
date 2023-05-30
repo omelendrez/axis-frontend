@@ -1,7 +1,7 @@
 [
   {
     "title": "Classrooms",
-    "description": "View classroom schedules",
+    "description": "View classroom schedules based on actual training booking.",
     "path": "/classrooms",
     "roles": [
       1
@@ -10,7 +10,7 @@
   },
   {
     "title": "Learners",
-    "description": "Manage learners",
+    "description": "Manage learners.",
     "path": "/learners",
     "roles": [
       1
@@ -18,7 +18,7 @@
   },
   {
     "title": "Companies",
-    "description": "Manage companies master table",
+    "description": "Manage companies.",
     "path": "/companies",
     "roles": [
       1
@@ -27,7 +27,7 @@
   },
   {
     "title": "Courses",
-    "description": "Manage courses",
+    "description": "Manage training courses.",
     "path": "/courses",
     "roles": [
       1
@@ -35,7 +35,7 @@
   },
   {
     "title": "Course Assesments",
-    "description": "Manage courses assesments",
+    "description": "Manage courses assesments.",
     "path": "/course-assesments",
     "roles": [
       1
@@ -43,7 +43,7 @@
   },
   {
     "title": "Course Items",
-    "description": "Manage courses items",
+    "description": "Manage course items. Those extra lines that are printed in some certificates.",
     "path": "/course-items",
     "roles": [
       1
@@ -52,7 +52,7 @@
   },
   {
     "title": "States",
-    "description": "Manage states master table",
+    "description": "Manage states master table.",
     "path": "/states",
     "roles": [
       1
@@ -60,7 +60,7 @@
   },
   {
     "title": "Nationalities",
-    "description": "Manage nationalities master table",
+    "description": "Manage nationalities.",
     "path": "/nationalities",
     "roles": [
       1
@@ -69,7 +69,7 @@
   },
   {
     "title": "Users",
-    "description": "Manage Axis users",
+    "description": "Manage Axis users.",
     "path": "/users",
     "roles": [
       1
@@ -77,7 +77,7 @@
   },
   {
     "title": "Roles",
-    "description": "Manage user roles",
+    "description": "Manage user roles.",
     "path": "/roles",
     "roles": [
       1

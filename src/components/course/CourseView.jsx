@@ -8,7 +8,6 @@ import { CourseForm } from '..'
 import { CourseItemRels as CourseItemRelList } from './course-item-rel'
 import { CourseAssesmentRels as CourseAssesmentRelList } from './course-assesment-rel'
 
-import useNoficication from '../../hooks/useNotification'
 import useApiMessages from '../../hooks/useApiMessages'
 
 import courseItemFields from './course-view/course-item-fields.json'
@@ -31,7 +30,7 @@ import './courseView.css'
 export const CourseView = () => {
   const params = useParams()
   const navigate = useNavigate()
-  const { set } = useNoficication()
+
   const { apiMessage } = useApiMessages()
 
   const [isDeleting, setIsDeleting] = useState(false)
@@ -89,13 +88,7 @@ export const CourseView = () => {
 
   const handleDeleteCourseAssesment = (courseAssesmentId) =>
     deleteCourseAssesmentRel(courseAssesmentId)
-      .then((res) => {
-        const notification = {
-          type: 'success',
-          message: res.data.message
-        }
-        set(notification)
-      })
+      .then((res) => apiMessage(res))
       .catch((e) => apiMessage(e))
 
   // Course item
@@ -113,13 +106,7 @@ export const CourseView = () => {
 
   const handleDeleteCourseItem = (courseItemId) =>
     deleteCourseItemRel(courseItemId)
-      .then((res) => {
-        const notification = {
-          type: 'success',
-          message: res.data.message
-        }
-        set(notification)
-      })
+      .then((res) => apiMessage(res))
       .catch((e) => apiMessage(e))
 
   const handleClose = (e) => {

@@ -6,6 +6,7 @@ dialog.modal article.modal-container {
   padding: 1rem;
   height: auto;
   position: relative;
+  width: 100%;
 }
 
 div.action-button.modal-close-button {

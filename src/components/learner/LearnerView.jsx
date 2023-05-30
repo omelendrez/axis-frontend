@@ -24,6 +24,8 @@ export const LearnerView = () => {
   const params = useParams()
   const navigate = useNavigate()
 
+  const [isDeleting, setIsDeleting] = useState(false)
+
   const { apiMessage } = useApiMessages()
   const [learner, setLearner] = useState(null)
   const [contacts, setContacts] = useState([])
@@ -53,6 +55,7 @@ export const LearnerView = () => {
 
   const handleDeleteLearner = (e) => {
     e.preventDefault()
+    setIsDeleting(true)
     deleteLearner(id)
       .then((res) => {
         apiMessage(res)
@@ -103,20 +106,12 @@ export const LearnerView = () => {
 
   const handleDeleteTraining = (trainingId) =>
     deleteTraining(trainingId)
-      .then((res) => {
-        apiMessage(res)
-
-        getTrainings(id)
-      })
+      .then((res) => apiMessage(res))
       .catch((e) => apiMessage(e))
 
   const handleDeleteContact = (contactId) =>
     deleteContact(contactId)
-      .then((res) => {
-        apiMessage(res)
-
-        getContacts(id)
-      })
+      .then((res) => apiMessage(res))
       .catch((e) => apiMessage(e))
 
   const handleEditPhoto = (e) => {
@@ -145,7 +140,7 @@ export const LearnerView = () => {
   }
 
   useEffect(() => {
-    if (id) {
+    if (id && !isDeleting) {
       getLearnerView(id)
         .then((res) => {
           const learner = res.data
