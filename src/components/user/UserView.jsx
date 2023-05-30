@@ -5,7 +5,7 @@ import { Loading, Modal } from '../shared'
 
 import { User, UserRoles } from './user-view'
 import { UserForm } from '..'
-import { UserRoles as UserRoleForm } from './user-role'
+import { UserRoles as UserRoleList } from './user-role'
 
 import useApiMessages from '../../hooks/useApiMessages'
 
@@ -138,16 +138,12 @@ export const UserView = () => {
         <UserForm user={userEditData} onClose={handleClose} />
       </Modal>
 
-      <Modal
-        open={isUserRoleEdit}
-        title="Insert user roles"
-        onClose={handleClose}
-      >
-        <UserRoleForm
-          onClose={handleClose}
+      <Modal open={isUserRoleEdit} title="User roles" onClose={handleClose}>
+        <UserRoleList
+          id={user.id}
           items={userRolesAvailable}
-          user={user.id}
           key={userItemEditData?.id}
+          onClose={handleClose}
         />
       </Modal>
 

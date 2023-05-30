@@ -5,8 +5,8 @@ import { Loading, Modal } from '../shared'
 
 import { Course, CourseItems, CourseAssesments } from './course-view'
 import { CourseForm } from '..'
-import { CourseItemRels as CourseItemRelForm } from './course-item-rel'
-import { CourseAssesmentRels as CourseAssesmentRelForm } from './course-assesment-rel'
+import { CourseItemRels as CourseItemRelList } from './course-item-rel'
+import { CourseAssesmentRels as CourseAssesmentRelList } from './course-assesment-rel'
 
 import useNoficication from '../../hooks/useNotification'
 import useApiMessages from '../../hooks/useApiMessages'
@@ -194,11 +194,11 @@ export const CourseView = () => {
         title="Insert course assesments"
         onClose={handleClose}
       >
-        <CourseAssesmentRelForm
-          onClose={handleClose}
+        <CourseAssesmentRelList
+          id={course.id}
           items={courseAssesmentsAvailable}
-          course={course.id}
           key={courseItemEditData?.id}
+          onClose={handleClose}
         />
       </Modal>
 
@@ -207,11 +207,11 @@ export const CourseView = () => {
         title="Insert course items"
         onClose={handleClose}
       >
-        <CourseItemRelForm
-          onClose={handleClose}
+        <CourseItemRelList
+          id={course.id}
           items={courseItemsAvailable}
-          course={course.id}
           key={courseItemEditData?.id}
+          onClose={handleClose}
         />
       </Modal>
 

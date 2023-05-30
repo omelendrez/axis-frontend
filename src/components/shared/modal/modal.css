@@ -4,13 +4,14 @@ dialog.modal {
 
 dialog.modal article.modal-container {
   padding: 1rem;
-  width: 100%;
   height: auto;
+  position: relative;
 }
 
-div.modal-close-button {
-  width: auto;
-  float: right;
+div.action-button.modal-close-button {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 @media screen and (min-width: 640px) {
   dialog.modal article.modal-container {
