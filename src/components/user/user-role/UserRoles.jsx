@@ -3,10 +3,13 @@ import fields from './user-role-fields.json'
 import { Table, Buttons } from '../../shared'
 
 import useApiMessages from '../../../hooks/useApiMessages'
+import useNoficication from '../../../hooks/useNotification'
 import { createUserRole } from '../../../services'
 
-export const UserRoles = ({ items, course, onClose }) => {
+export const UserRoles = ({ items, user, onClose }) => {
   const { apiMessage } = useApiMessages()
+
+  const { set } = useNoficication()
 
   const [selected, setSelected] = useState([])
 
@@ -26,7 +29,15 @@ export const UserRoles = ({ items, course, onClose }) => {
   const handleSaveRoles = (e) => {
     e.preventDefault()
 
-    const payload = selected.map((i) => [course, parseInt(i, 10)])
+    if (!selected.length) {
+      const notification = {
+        type: 'error',
+        message: 'No items selected'
+      }
+      return set(notification)
+    }
+
+    const payload = selected.map((i) => [user, parseInt(i, 10)])
 
     createUserRole([payload])
       .then((res) => {
@@ -38,7 +49,7 @@ export const UserRoles = ({ items, course, onClose }) => {
   }
 
   return (
-    <article className="course-view">
+    <article className="user-view">
       <h6 className="title">Available user roles</h6>
       <Buttons selected={selected} onSave={handleSaveRoles} noCheckboxes />
       <Table

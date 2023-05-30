@@ -10,5 +10,9 @@
   {
     "label": "Email",
     "field": "email"
+  },
+  {
+    "label": "Status",
+    "field": "status"
   }
 ]
