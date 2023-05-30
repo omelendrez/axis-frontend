@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Loading, CardList, Dropdown } from '../components'
-
-import useStatuses from '../hooks/useStatuses'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { Loading, CardList } from '../components'
+import useUser from '../hooks/useUser'
 import { initialValues, log } from '../helpers'
 import { getPhotoUrl, getTrainingsByStatus } from '../services'
-import { handleError } from '../reducers/error'
+
+import useApiMessages from '../hooks/useApiMessages'
 
 import './card.css'
 import './trainings-card.css'
 
 const Card = ({ item, onView }) => {
   const photoUrl = getPhotoUrl(item.badge)
-
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
   return (
@@ -31,54 +29,82 @@ const Card = ({ item, onView }) => {
         <div className="ellipsis course">{item.course}</div>
         <div className="ellipsis name">{item.full_name}</div>
         <div className="small-font">{item.company}</div>
+        <div className={`small-font status status-${item.status_id}`}>
+          {item.status}
+        </div>
       </div>
     </article>
   )
 }
 
 const Dashboard = () => {
-  const { statuses, load: loadStatuses } = useStatuses()
-  const { data: statusesList } = statuses
+  const navigate = useNavigate()
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { user } = useUser()
 
-  const [options, setOptions] = useState({ rows: [], count: 0 })
-  const [isLoading, setIsLoading] = useState(false)
-  const [status, setStatus] = useState('')
-  const [records, setRecords] = useState({ rows: [], count: 0 })
-
-  const handleStatusChange = (e) => setStatus(e.target.value)
-
-  const handleView = (training) => {
-    log.info(training)
-  }
+  const { apiMessage } = useApiMessages()
 
   useEffect(() => {
-    loadStatuses()
+    const { roles } = user
+    let status = []
+    roles.forEach((r) => {
+      switch (r.id) {
+        case 1: // System Admin
+          status.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+          break
+        case 3: // Front end
+          status.push(1) // Admin done
+          break
+        case 5: // Medic
+          status.push(2) // Frontend done
+          break
+        case 6: // Training coordinator
+          status.push(3) // Medic done
+          break
+        case 7: // Instructor
+          status.push(4) // Training coordinator done
+          break
+        case 8: // QA
+          status.push(5) // Assesment done
+          break
+        case 9: // MD
+          status.push(6) // QA done
+          break
+        case 10: // Printer
+          status.push(7, 8, 9) // MD done
+          break
+        default:
+          status = null
+      }
+    })
+    setStatus(status)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (statusesList.count) {
-      const options = {
-        rows: statusesList.rows
-          .filter((s) => s.continue_flow)
-          .map((s) => ({ id: s.id, name: s.status })),
-        count: statusesList.count
-      }
-      setOptions(options)
-    }
-  }, [statusesList])
+  const [status, setStatus] = useState(null)
+
+  const [pagination, setPagination] = useState(initialValues)
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [records, setRecords] = useState({ rows: [], count: 0 })
+
+  const handleView = (training) => {
+    log.info(training)
+    navigate(`/training/${training.id}`)
+  }
 
   useEffect(() => {
-    if (status) {
+    if (status?.length) {
       setIsLoading(true)
-      getTrainingsByStatus(status)
-        .then((res) => setRecords({ rows: res.data, count: res.data.length }))
-        .catch((e) => handleError(e))
+      const statuses = status.join('-')
+      getTrainingsByStatus(statuses, pagination)
+        .then((res) => setRecords(res.data))
+        .catch((e) => apiMessage(e))
         .finally(() => setIsLoading(false))
     }
-  }, [status])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, pagination])
 
   return (
     <main className="container-fluid trainings">
@@ -91,15 +117,7 @@ const Dashboard = () => {
           <li>Dashboard</li>
         </ul>
       </nav>
-      <section className="dropdown-container">
-        <Dropdown
-          id="status"
-          label="Status"
-          onChange={handleStatusChange}
-          value={status}
-          options={options}
-        />
-      </section>
+
       <CardList
         Card={Card}
         data={records}

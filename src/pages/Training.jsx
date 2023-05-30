@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Training as TrainingComponent } from '../components'
 import { getTraining } from '../services'
-
+// TODO: This component is not in use
 const Training = () => {
   const params = useParams()
   const [training, setTraining] = useState(null)

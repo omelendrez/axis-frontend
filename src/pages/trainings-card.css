@@ -1,35 +1,56 @@
-.trainings section.dropdown-container {
+.card.trainings section.dropdown-container {
   margin: 0 0 0 1rem;
 }
 
-.card.trainings .card-body {
-  padding-top: 1.5rem;
+.card.trainings .card-body,
+.card.trainings .card-avatar-root {
+  padding-top: 2rem;
 }
 
-.trainings .course {
+.card.trainings .course {
   font-size: 14px;
   color: blue;
 }
 
-.trainings .name {
+.card.trainings .name {
   font-size: 18px;
 }
 
-.trainings .date {
+.card.trainings .date {
   background-color: var(--primary);
   color: white;
-
+  font-size: medium;
   position: absolute;
-  top: 0;
+  width: 100%;
   right: 0;
-  padding: 0 1rem;
+  text-align: center;
 }
 
 .card.trainings .ellipsis {
   max-width: 13rem;
 }
+
+.card.trainings .card-body .status {
+  font-weight: 900;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.card.trainings .card-body .status-1 {
+  background-color: #888;
+}
+
+.card.trainings .card-body .status-7 {
+  background-color: blueviolet;
+}
+
+.card.trainings .card-body .status-10 {
+  background-color: green;
+}
+
 @media screen and (min-width: 640px) {
-  .trainings section.dropdown-container {
+  .card.trainings section.dropdown-container {
     width: 40vw;
   }
 
@@ -45,7 +66,7 @@
 }
 
 @media screen and (min-width: 992px) {
-  .trainings section.dropdown-container {
+  .card.trainings section.dropdown-container {
     width: 26rem;
   }
 

@@ -10,6 +10,8 @@ export const Home = () => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
 
+  console.log(user)
+
   const handleNavigate = (link) => navigate(link)
 
   return (
