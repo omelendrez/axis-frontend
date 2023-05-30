@@ -1,28 +1,10 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context'
+import { MenuOption } from './MenuOption'
 import options from './options.json'
 import { hasRequiredRole } from '../../helpers/auth'
 import './home.css'
-import { Divider } from '../shared/divider/Divider'
-
-const MenuOption = ({ title, description, path, onNavigate, divider }) =>
-  divider ? (
-    <Divider />
-  ) : (
-    <article
-      className="home-item"
-      onClick={(e) => {
-        e.preventDefault()
-        onNavigate(path)
-      }}
-    >
-      <hgroup>
-        <h3>{title}</h3>
-        <h4>{description}</h4>
-      </hgroup>
-    </article>
-  )
 
 export const Home = () => {
   const navigate = useNavigate()
