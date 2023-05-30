@@ -55,7 +55,7 @@ export const Photo = ({ badge, onClose }) => {
         setPreview(res.data)
         const notification = {
           type: 'success',
-          message: 'Image uploades successfully'
+          message: 'Image uploaded successfully'
         }
         set(notification)
         onClose()

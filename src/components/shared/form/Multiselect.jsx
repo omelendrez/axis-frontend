@@ -39,9 +39,13 @@ export const Multiselect = ({ id, fields, items, onClose, onSave }) => {
 
     onSave([payload])
       .then((res) => {
-        apiMessage(res)
         setSelected([])
         onClose()
+        const notification = {
+          type: 'success',
+          message: 'Operation completed successfully'
+        }
+        set(notification)
       })
       .catch((e) => apiMessage(e))
   }

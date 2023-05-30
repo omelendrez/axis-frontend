@@ -88,7 +88,7 @@ export const LearnerForm = ({ learner, onClose }) => {
     if (isSuccess) {
       const message = {
         type: 'success',
-        message: 'Updated successfully'
+        message: 'Record updated successfully'
       }
       set(message)
       onClose()
