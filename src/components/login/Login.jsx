@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNoficication from '../../hooks/useNotification'
 import { FormButtonRow, InputField } from '../shared'
@@ -25,7 +25,6 @@ export const Login = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const isMounted = useRef()
 
   useEffect(() => {
     const input = document.getElementsByTagName('input')[1]
@@ -53,23 +52,23 @@ export const Login = () => {
     setIsSubmitting(true)
 
     login(payload)
-      .then((res) => {
+      .then(async (res) => {
+        const token = res.data.token
+        const user = {
+          ...res.data,
+          token: undefined,
+          roles: await JSON.parse(res.data.roles)
+        }
+        session.save(KEYS.token, token)
+        session.save(KEYS.user, user)
+
+        setUserContext(user)
+        navigate('/')
         const notification = {
           type: 'success',
           message: 'Welcome'
         }
         set(notification)
-        const token = res.data.token
-        session.save(KEYS.token, token)
-        const user = {
-          ...res.data,
-          token: undefined,
-          roles: JSON.parse(res.data.roles)
-        }
-        session.save(KEYS.user, user)
-        isMounted.current = false
-        setUserContext(res.data)
-        navigate('/')
       })
       .catch((e) => apiMessage(e))
       .finally(() => setIsSubmitting(false))
