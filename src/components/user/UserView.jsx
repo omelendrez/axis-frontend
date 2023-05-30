@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { Loading, Modal } from '../shared'
 
@@ -12,10 +12,11 @@ import useApiMessages from '../../hooks/useApiMessages'
 import userRoleFields from './user-view/user-role-fields.json'
 
 import {
+  deleteUser,
   deleteUserRole,
+  getAvailableRoles,
   getUser,
   getUserRoles,
-  getAvailableRoles,
   getUserView
 } from '../../services'
 
@@ -24,7 +25,11 @@ import './userView.css'
 export const UserView = () => {
   const params = useParams()
 
+  const navigate = useNavigate()
+
   const { apiMessage } = useApiMessages()
+
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const [user, setUser] = useState(null)
   const [userEditData, setUserEditData] = useState(null)
@@ -51,6 +56,16 @@ export const UserView = () => {
       .catch((e) => apiMessage(e))
   }
 
+  const handleDeleteUser = (e) => {
+    e.preventDefault()
+    setIsDeleting(true)
+    deleteUser(id)
+      .then((res) => {
+        apiMessage(res)
+        navigate('/courses')
+      })
+      .catch((e) => apiMessage(e))
+  }
   // User role
   const handleAddUserRole = (e) => {
     e.preventDefault()
@@ -72,41 +87,22 @@ export const UserView = () => {
   const handleClose = (e) => {
     e?.preventDefault()
 
-    // User
-    getUserView(id)
-      .then((res) => {
-        setUser(res.data)
-        if (isUserRoleEdit) {
-          setUserRoleEditData(null)
-          setIsUserRoleEdit(false)
-        }
-        if (isUserItemEdit) {
-          setUserItemEditData(null)
-          setIsUserItemEdit(false)
-        }
-        if (isUserEdit) {
-          setUserEditData(null)
-          setIsUserEdit(false)
-        }
-      })
-      .catch((e) => apiMessage(e))
-
-    // User role
-    getUserRoles(id)
-      .then((res) => {
-        setUserRoles(res.data)
-      })
-      .catch((e) => apiMessage(e))
-
-    getAvailableRoles(id)
-      .then((res) => {
-        setUserRolesAvailable(res.data)
-      })
-      .catch((e) => apiMessage(e))
+    if (isUserRoleEdit) {
+      setUserRoleEditData(null)
+      setIsUserRoleEdit(false)
+    }
+    if (isUserItemEdit) {
+      setUserItemEditData(null)
+      setIsUserItemEdit(false)
+    }
+    if (isUserEdit) {
+      setUserEditData(null)
+      setIsUserEdit(false)
+    }
   }
 
   useEffect(() => {
-    if (id) {
+    if (id && !isDeleting) {
       // User
       getUserView(id)
         .then((res) => {
@@ -158,7 +154,7 @@ export const UserView = () => {
       <main className="user-view">
         {/* Data components */}
 
-        <User user={user} onEdit={handleEditUser} />
+        <User user={user} onEdit={handleEditUser} onDelete={handleDeleteUser} />
 
         <UserRoles
           items={userRoles}

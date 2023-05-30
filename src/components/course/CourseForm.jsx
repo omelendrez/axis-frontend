@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 import { Form } from '../shared'
 
 import useCourses from '../../hooks/useCourses'
 import useCertificateTypes from '../../hooks/useCertificateTypes'
+import useNoficication from '../../hooks/useNotification'
 
 import schema from './schema.json'
 import { loadSchema } from '../../helpers'
 
-export const CourseForm = ({ course }) => {
+export const CourseForm = ({ course, onClose }) => {
   const { courses, add, modify } = useCourses()
   const { isLoading, isSuccess } = courses
 
   const { certificateTypes, load: loadCertificateTypes } = useCertificateTypes()
   const { data: typesList } = certificateTypes
 
+  const { set } = useNoficication()
+
   const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
-  const navigate = useNavigate()
 
   useEffect(() => {
     loadCertificateTypes()
@@ -36,7 +38,12 @@ export const CourseForm = ({ course }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(-1)
+      const notification = {
+        type: 'success',
+        message: 'Record updated successfully'
+      }
+      set(notification)
+      onClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
@@ -71,11 +78,6 @@ export const CourseForm = ({ course }) => {
     }
   }
 
-  const handleFormCancel = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   const options = {
     typesList: typesList
   }
@@ -88,7 +90,7 @@ export const CourseForm = ({ course }) => {
       onChange={handleChange}
       values={values}
       onSave={handleSave}
-      onClose={handleFormCancel}
+      onClose={onClose}
       options={options}
     />
   )

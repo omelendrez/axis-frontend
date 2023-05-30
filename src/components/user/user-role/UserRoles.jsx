@@ -23,7 +23,7 @@ export const UserRoles = ({ items, course, onClose }) => {
     )
   }
 
-  const handleAddRoles = (e) => {
+  const handleSaveRoles = (e) => {
     e.preventDefault()
 
     const payload = selected.map((i) => [course, parseInt(i, 10)])
@@ -40,7 +40,7 @@ export const UserRoles = ({ items, course, onClose }) => {
   return (
     <article className="course-view">
       <h6 className="title">Available user roles</h6>
-      <Buttons selected={selected} onAdd={handleAddRoles} noCheckboxes />
+      <Buttons selected={selected} onSave={handleSaveRoles} noCheckboxes />
       <Table
         items={items}
         fields={fields}

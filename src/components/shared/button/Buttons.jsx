@@ -2,6 +2,7 @@ import './buttons.css'
 
 export const Buttons = ({
   selected,
+  onSave,
   onAdd,
   onEdit,
   onDelete,
@@ -14,6 +15,16 @@ export const Buttons = ({
 
   return (
     <div className="buttons-main">
+      {onSave && (
+        <button
+          data-tooltip="Click to Save"
+          className="primary"
+          disabled={!forced && selected?.length !== 0}
+          onClick={onSave}
+        >
+          <span className="material-icons">save</span>
+        </button>
+      )}{' '}
       {onAdd && (
         <button
           data-tooltip="Click to Add"

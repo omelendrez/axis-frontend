@@ -6,10 +6,12 @@ import useNoficication from '../../../hooks/useNotification'
 
 import { createCourseItemRel } from '../../../services'
 
-import { handleError } from '../../../reducers/error'
+import useApiMessages from '../../../hooks/useApiMessages'
 
 export const CourseItemRels = ({ items, course, onClose }) => {
   const [selected, setSelected] = useState([])
+
+  const { apiMessage } = useApiMessages()
 
   const { set } = useNoficication()
 
@@ -26,8 +28,16 @@ export const CourseItemRels = ({ items, course, onClose }) => {
     )
   }
 
-  const handleAddItems = (e) => {
+  const handleSaveItems = (e) => {
     e.preventDefault()
+
+    if (!selected.length) {
+      const notification = {
+        type: 'error',
+        message: 'No items selected'
+      }
+      return set(notification)
+    }
 
     const payload = selected.map((i) => [course, parseInt(i, 10)])
 
@@ -44,13 +54,13 @@ export const CourseItemRels = ({ items, course, onClose }) => {
 
         onClose()
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
   }
 
   return (
     <article className="course-view">
       <h6 className="title">Available course items</h6>
-      <Buttons selected={selected} onAdd={handleAddItems} noCheckboxes />
+      <Buttons selected={selected} onSave={handleSaveItems} noCheckboxes />
       <Table
         items={items}
         fields={fields}

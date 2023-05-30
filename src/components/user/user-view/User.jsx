@@ -10,7 +10,7 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const User = ({ user, onEdit }) => {
+export const User = ({ user, onEdit, onDelete }) => {
   if (!user) {
     return <Loading />
   }
@@ -18,7 +18,7 @@ export const User = ({ user, onEdit }) => {
   return (
     <article className="user">
       <h6 className="title">User data</h6>
-      <Buttons onEdit={onEdit} noCheckboxes />
+      <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
       <div>
         {fields.map(
           (f) =>

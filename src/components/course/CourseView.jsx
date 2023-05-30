@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { Loading, Modal } from '../shared'
 
@@ -15,6 +15,7 @@ import courseItemFields from './course-view/course-item-fields.json'
 import courseAssesmentFields from './course-view/course-assesment-fields.json'
 
 import {
+  deleteCourse,
   deleteCourseAssesmentRel,
   deleteCourseItemRel,
   getCourse,
@@ -29,8 +30,11 @@ import './courseView.css'
 
 export const CourseView = () => {
   const params = useParams()
+  const navigate = useNavigate()
   const { set } = useNoficication()
   const { apiMessage } = useApiMessages()
+
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const [course, setCourse] = useState(null)
   const [courseEditData, setCourseEditData] = useState(null)
@@ -55,6 +59,17 @@ export const CourseView = () => {
       .then((res) => {
         setCourseEditData(res.data)
         setIsCourseEdit(true)
+      })
+      .catch((e) => apiMessage(e))
+  }
+
+  const handleDeleteCourse = (e) => {
+    e.preventDefault()
+    setIsDeleting(true)
+    deleteCourse(id)
+      .then((res) => {
+        apiMessage(res)
+        navigate('/courses')
       })
       .catch((e) => apiMessage(e))
   }
@@ -110,54 +125,22 @@ export const CourseView = () => {
   const handleClose = (e) => {
     e?.preventDefault()
 
-    // Course
-    getCourseView(id)
-      .then((res) => {
-        setCourse(res.data)
-        if (isCourseAssesmentEdit) {
-          setCourseAssesmentEditData(null)
-          setIsCourseAssesmentEdit(false)
-        }
-        if (isCourseItemEdit) {
-          setCourseItemEditData(null)
-          setIsCourseItemEdit(false)
-        }
-        if (isCourseEdit) {
-          setCourseEditData(null)
-          setIsCourseEdit(false)
-        }
-      })
-      .catch((e) => apiMessage(e))
-
-    // Course assesment
-    getCourseAssesmentsRel(id)
-      .then((res) => {
-        setCourseAssesments(res.data)
-      })
-      .catch((e) => apiMessage(e))
-
-    getCourseAvailableAssesments(id)
-      .then((res) => {
-        setCourseAssesmentsAvailable(res.data)
-      })
-      .catch((e) => apiMessage(e))
-
-    // Course item
-    getCourseItemsRel(id)
-      .then((res) => {
-        setCourseItems(res.data)
-      })
-      .catch((e) => apiMessage(e))
-
-    getCourseAvailableItems(id)
-      .then((res) => {
-        setCourseItemsAvailable(res.data)
-      })
-      .catch((e) => apiMessage(e))
+    if (isCourseAssesmentEdit) {
+      setCourseAssesmentEditData(null)
+      setIsCourseAssesmentEdit(false)
+    }
+    if (isCourseItemEdit) {
+      setCourseItemEditData(null)
+      setIsCourseItemEdit(false)
+    }
+    if (isCourseEdit) {
+      setCourseEditData(null)
+      setIsCourseEdit(false)
+    }
   }
 
   useEffect(() => {
-    if (id) {
+    if (id && !isDeleting) {
       // Course
       getCourseView(id)
         .then((res) => {
@@ -235,7 +218,11 @@ export const CourseView = () => {
       <main className="course-view">
         {/* Data components */}
 
-        <Course course={course} onEdit={handleEditCourse} />
+        <Course
+          course={course}
+          onEdit={handleEditCourse}
+          onDelete={handleDeleteCourse}
+        />
 
         <CourseAssesments
           items={courseAssesments}

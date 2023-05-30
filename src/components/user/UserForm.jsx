@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 import { Form } from '../shared'
 
 import useUsers from '../../hooks/useUsers'
-
+import useNoficication from '../../hooks/useNotification'
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema, getFieldData } from '../../helpers'
 import { status as statusList } from '../../static-lists'
 
-export const UserForm = ({ user }) => {
+export const UserForm = ({ user, onClose }) => {
   const { users, add, modify } = useUsers()
   const { isLoading, isSuccess } = users
+
+  const { set } = useNoficication()
 
   const initialValues = loadSchema(schema)
 
   const [values, setValues] = useState(initialValues)
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
@@ -28,24 +29,18 @@ export const UserForm = ({ user }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(-1)
+      const notification = {
+        type: 'success',
+        message: 'Record updated successfully'
+      }
+      set(notification)
+      onClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
   const handleChange = (e) => {
-    const { id } = e.target
-    let data = {}
-
-    const field = schema.find((f) => f.id === id)
-
-    if (field.type === 'switch') {
-      const checked = e.target.checked
-      data = { value: checked ? 1 : 0, error: '' }
-    } else {
-      const value = e.target.value
-      data = { value, error: '' }
-    }
+    const { data, id } = getFieldData(schema, e)
     setValues((values) => ({ ...values, [id]: data }))
   }
 
@@ -63,11 +58,6 @@ export const UserForm = ({ user }) => {
     }
   }
 
-  const handleFormCancel = (e) => {
-    e.preventDefault()
-    navigate(-1)
-  }
-
   const options = {
     statusList
   }
@@ -80,7 +70,7 @@ export const UserForm = ({ user }) => {
       onChange={handleChange}
       values={values}
       onSave={handleSave}
-      onClose={handleFormCancel}
+      onClose={onClose}
       options={options}
     />
   )
