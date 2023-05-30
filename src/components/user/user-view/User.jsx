@@ -15,6 +15,8 @@ export const User = ({ user, onEdit, onDelete }) => {
     return <Loading />
   }
 
+  const roles = JSON.parse(user.roles).map((r) => r.name)
+
   return (
     <article className="user">
       <h6 className="title">User data</h6>
@@ -31,6 +33,12 @@ export const User = ({ user, onEdit, onDelete }) => {
               />
             )
         )}
+        <Row
+          key={'Roles'}
+          label={'Roles'}
+          value={roles.join(', ') || 'No role assigned'}
+          className={'roles'}
+        />
       </div>
     </article>
   )
