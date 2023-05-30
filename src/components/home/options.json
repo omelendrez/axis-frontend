@@ -5,9 +5,7 @@
     "path": "/classrooms",
     "roles": [
       1
-    ]
-  },
-  {
+    ],
     "divider": true
   },
   {
@@ -24,9 +22,7 @@
     "path": "/companies",
     "roles": [
       1
-    ]
-  },
-  {
+    ],
     "divider": true
   },
   {
@@ -51,9 +47,7 @@
     "path": "/course-items",
     "roles": [
       1
-    ]
-  },
-  {
+    ],
     "divider": true
   },
   {
@@ -70,9 +64,7 @@
     "path": "/nationalities",
     "roles": [
       1
-    ]
-  },
-  {
+    ],
     "divider": true
   },
   {
