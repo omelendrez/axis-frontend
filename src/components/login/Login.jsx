@@ -5,23 +5,17 @@ import { FormButtonRow, InputField } from '../shared'
 import { login, SP, KEYS } from '../../services'
 import { UserContext } from '../../context'
 import useApiMessages from '../../hooks/useApiMessages'
-import './login.css'
+import { loadSchema } from '../../helpers'
+import schema from './schema.json'
 
-const initialValues = {
-  name: {
-    value: '',
-    error: ''
-  },
-  password: {
-    value: '',
-    error: ''
-  }
-}
+import './login.css'
 
 export const Login = () => {
   const { set } = useNoficication()
   const { apiMessage } = useApiMessages()
   const { setUser: setUserContext } = useContext(UserContext)
+  const initialValues = loadSchema(schema)
+
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
