@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNoficication from '../../hooks/useNotification'
+import useApiMessages from '../../hooks/useApiMessages'
 import { InputField } from '../shared'
 import {
   validatePasswordLength,
@@ -10,7 +11,6 @@ import {
 import { changePassword } from '../../services'
 import { UserContext } from '../../context'
 import './changePassword.css'
-import { handleError } from '../../reducers/error'
 
 const initialValues = {
   prevPass: {
@@ -29,6 +29,7 @@ const initialValues = {
 
 export const ChangePassword = () => {
   const { set } = useNoficication()
+  const { apiMessage } = useApiMessages()
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const [values, setValues] = useState(initialValues)
@@ -81,7 +82,7 @@ export const ChangePassword = () => {
 
           navigate(-1)
         })
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
   }
 

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Role as RoleComponent } from '../components'
 import { getRole } from '../services'
-import { handleError } from '../reducers/error'
+
+import useApiMessages from '../hooks/useApiMessages'
 
 const Role = () => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [role, setRole] = useState(null)
 
   useEffect(() => {
@@ -14,8 +16,9 @@ const Role = () => {
     if (id) {
       getRole(id)
         .then((res) => setRole(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   return (

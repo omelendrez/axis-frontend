@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Training as TrainingComponent } from '../components'
-import { getTraining } from '../services'
+import { TrainingView } from '../components'
+import { getTrainingView } from '../services'
+import useApiMessages from '../hooks/useApiMessages'
 // TODO: This component is not in use
 const Training = () => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [training, setTraining] = useState(null)
 
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getTraining(id).then((res) => setTraining(res.data))
+      getTrainingView(id)
+        .then((res) => setTraining(res.data))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   return (
@@ -25,15 +30,10 @@ const Training = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>
-            <Link to="/trainings">Trainings</Link>
-          </li>
           <li>Training</li>
         </ul>
       </nav>
-      <article className="form-container">
-        <TrainingComponent training={training} />
-      </article>
+      <TrainingView training={training} />
     </main>
   )
 }

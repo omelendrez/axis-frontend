@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { FormContainer, LearnerView, LearnerForm } from '../components'
 import { getLearner } from '../services'
-import { handleError } from '../reducers/error'
+import useApiMessages from '../hooks/useApiMessages'
 
 const Learner = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [learner, setLearner] = useState(null)
 
   const navigate = useNavigate()
@@ -16,8 +17,9 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
     if (id) {
       getLearner(id)
         .then((res) => setLearner(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   const handleClose = () => navigate('/learners')

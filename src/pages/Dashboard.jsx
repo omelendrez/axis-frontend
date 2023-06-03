@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList } from '../components'
 import useUser from '../hooks/useUser'
-import { initialValues, log } from '../helpers'
+import { initialValues, log, getStatuses } from '../helpers'
 import { getPhotoUrl, getTrainingsByStatus } from '../services'
 
 import useApiMessages from '../hooks/useApiMessages'
@@ -44,44 +44,7 @@ const Dashboard = () => {
 
   const { apiMessage } = useApiMessages()
 
-  useEffect(() => {
-    const { roles } = user
-    let status = []
-    roles.forEach((r) => {
-      switch (r.id) {
-        case 1: // System Admin
-          status.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
-          break
-        case 3: // Front end
-          status.push(1) // Admin done
-          break
-        case 5: // Medic
-          status.push(2) // Frontend done
-          break
-        case 6: // Training coordinator
-          status.push(3) // Medic done
-          break
-        case 7: // Instructor
-          status.push(4) // Training coordinator done
-          break
-        case 8: // QA
-          status.push(5) // Assesment done
-          break
-        case 9: // MD
-          status.push(6) // QA done
-          break
-        case 10: // Printer
-          status.push(7, 8, 9) // MD done
-          break
-        default:
-          status = null
-      }
-    })
-    setStatus(status)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const [status, setStatus] = useState(null)
+  const [statuses, setSatuses] = useState(null)
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -95,16 +58,22 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (status?.length) {
+    const { roles } = user
+    setSatuses(getStatuses(roles))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (statuses?.length) {
       setIsLoading(true)
-      const statuses = status.join('-')
-      getTrainingsByStatus(statuses, pagination)
+
+      getTrainingsByStatus(statuses.join('-'), pagination)
         .then((res) => setRecords(res.data))
         .catch((e) => apiMessage(e))
         .finally(() => setIsLoading(false))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, pagination])
+  }, [statuses, pagination])
 
   return (
     <main className="container-fluid trainings">

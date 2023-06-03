@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { State as StateComponent } from '../components'
 import { getState } from '../services'
-import { handleError } from '../reducers/error'
+import useApiMessages from '../hooks/useApiMessages'
 
 const State = () => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [state, setState] = useState(null)
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const State = () => {
     if (id) {
       getState(id)
         .then((res) => setState(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '../shared'
-import useNoficication from '../../hooks/useNotification'
+
 import { upload } from '../../services/assets'
 // import { MAX_FILE_SIZE } from '../../helpers/photo'
 import './photo.css'
-import { handleError } from '../../reducers/error'
+
+import useApiMessages from '../../hooks/useApiMessages'
 
 export const Photo = ({ badge, onClose }) => {
+  const { apiMessage } = useApiMessages()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState(null)
-  const { set } = useNoficication()
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -53,14 +54,10 @@ export const Photo = ({ badge, onClose }) => {
     upload(formData)
       .then((res) => {
         setPreview(res.data)
-        const notification = {
-          type: 'success',
-          message: 'Image uploaded successfully'
-        }
-        set(notification)
+        apiMessage(res)
         onClose()
       })
-      .catch((e) => handleError(e))
+      .catch((e) => apiMessage(e))
   }
 
   return (

@@ -1,1 +1,2 @@
-export * from './Training'
+export * from './TrainingForm'
+export * from './TrainingView'

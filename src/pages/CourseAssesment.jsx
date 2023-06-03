@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { CourseAssesment as CourseAssesmentComponent } from '../components'
 import { getCourseAssesment } from '../services'
-import { handleError } from '../reducers/error'
+
+import useApiMessages from '../hooks/useApiMessages'
 
 const CourseAssesment = () => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [courseAssesment, setCourseAssesment] = useState(null)
 
   useEffect(() => {
@@ -14,8 +16,9 @@ const CourseAssesment = () => {
     if (id) {
       getCourseAssesment(id)
         .then((res) => setCourseAssesment(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   return (

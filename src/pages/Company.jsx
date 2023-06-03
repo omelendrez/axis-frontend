@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Company as CompanyComponent } from '../components'
 import { getCompany } from '../services'
-import { handleError } from '../reducers/error'
+import useApiMessages from '../hooks/useApiMessages'
 
 const Company = () => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [company, setCompany] = useState(null)
 
   useEffect(() => {
@@ -14,8 +15,9 @@ const Company = () => {
     if (id) {
       getCompany(id)
         .then((res) => setCompany(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   return (

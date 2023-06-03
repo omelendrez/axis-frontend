@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Nationality as NationalityComponent } from '../components'
 import { getNationality } from '../services'
-import { handleError } from '../reducers/error'
+
+import useApiMessages from '../hooks/useApiMessages'
 
 const Nationality = () => {
   const params = useParams()
+  const { apiMessage } = useApiMessages()
   const [nationality, setNationality] = useState(null)
 
   useEffect(() => {
@@ -14,8 +16,9 @@ const Nationality = () => {
     if (id) {
       getNationality(id)
         .then((res) => setNationality(res.data))
-        .catch((e) => handleError(e))
+        .catch((e) => apiMessage(e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   return (

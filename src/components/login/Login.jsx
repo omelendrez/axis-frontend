@@ -57,7 +57,11 @@ export const Login = () => {
         session.save(KEYS.user, user)
 
         setUserContext(user)
-        navigate('/')
+        if (user.roles.includes(1) || user.roles.includes(2)) {
+          navigate('/')
+        } else {
+          navigate('/dashboard')
+        }
         const notification = {
           type: 'success',
           message: 'Welcome'

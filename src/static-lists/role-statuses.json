@@ -1,0 +1,72 @@
+[
+  {
+    "role": 1,
+    "statuses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  {
+    "role": 3,
+    "statuses": [
+      1
+    ]
+  },
+  {
+    "role": 4,
+    "statuses": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "role": 5,
+    "statuses": [
+      2
+    ]
+  },
+  {
+    "role": 6,
+    "statuses": [
+      3
+    ]
+  },
+  {
+    "role": 7,
+    "statuses": [
+      4
+    ]
+  },
+  {
+    "role": 8,
+    "statuses": [
+      5
+    ]
+  },
+  {
+    "role": 9,
+    "statuses": [
+      6
+    ]
+  },
+  {
+    "role": 10,
+    "statuses": [
+      7,
+      8,
+      9
+    ]
+  }
+]

@@ -4,10 +4,14 @@ import fields from './learner-fields.json'
 import './learner.css'
 import './learner-card.css'
 
-const Row = ({ label, value, className }) => (
+const Row = ({ label, value, className, isTag }) => (
   <div className="row-line" key={label}>
     <div>{label}:</div>
-    <div className={className}>{value}</div>
+    {isTag ? (
+      <Tag className={value}>{value}</Tag>
+    ) : (
+      <div className={className}>{value}</div>
+    )}
   </div>
 )
 
@@ -18,23 +22,20 @@ export const Learner = ({ learner, onEdit, onDelete }) => {
 
   return (
     <article className="learner">
-      <h6 className="title">Personal data</h6>
+      <h6 className="title">Learner data</h6>
       <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
       <div>
-        <div className="row-line">
-          <div>Type:</div>
-          <div>
-            <Tag className={learner.type}>{learner.type}</Tag>
-          </div>
-        </div>
-        {fields.map((f) => (
-          <Row
-            key={f.label}
-            label={f.label}
-            value={learner[f.field]}
-            className={f.className}
-          />
-        ))}
+        {fields
+          .filter((f) => Boolean(learner[f.field]))
+          .map((f) => (
+            <Row
+              key={f.label}
+              label={f.label}
+              value={learner[f.field]}
+              isTag={f.field === 'type'}
+              className={f.className}
+            />
+          ))}
       </div>
     </article>
   )

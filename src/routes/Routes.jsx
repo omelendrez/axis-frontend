@@ -12,7 +12,7 @@ import { learnerRoutes } from './learnerRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
 import { roleRoutes } from './roleRoutes'
 import { stateRoutes } from './stateRoutes'
-// import { trainingRoutes } from './trainingRoutes'
+import { trainingRoutes } from './trainingRoutes'
 import { userRoutes } from './userRoutes'
 
 export const AppRoutes = () => {
@@ -32,7 +32,7 @@ export const AppRoutes = () => {
         {nationalityRoutes}
         {roleRoutes}
         {stateRoutes}
-        {/* {trainingRoutes} */}
+        {trainingRoutes}
         {userRoutes}
       </Routes>
     </div>

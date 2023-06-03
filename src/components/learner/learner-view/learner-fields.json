@@ -4,6 +4,10 @@
     "field": "badge"
   },
   {
+    "label": "Type",
+    "field": "type"
+  },
+  {
     "label": "Name",
     "field": "full_name"
   },

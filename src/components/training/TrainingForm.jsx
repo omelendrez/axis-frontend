@@ -9,7 +9,7 @@ import useNoficication from '../../hooks/useNotification'
 import schema from './schema.json'
 import { loadSchema } from '../../helpers'
 
-export const Training = ({ training, onClose }) => {
+export const TrainingForm = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
   const { isLoading, isSuccess } = trainings
 
