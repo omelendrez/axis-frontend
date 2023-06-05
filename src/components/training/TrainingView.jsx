@@ -17,12 +17,13 @@ const View = ({ training }) => {
   if (userRoles.includes(3) && statusId === 1) {
     return <ScanId />
   }
+
   if (userRoles.includes(5) && statusId === 2) {
     return <BloodPressure />
   }
 }
 
-export const TrainingView = ({ training }) => {
+export const TrainingView = ({ training, tracking }) => {
   if (!training) {
     return <Loading />
   }
@@ -31,7 +32,7 @@ export const TrainingView = ({ training }) => {
     <main className="training-view">
       <Photo {...training} />
       <Learner learner={{ ...training, status: undefined }} />
-      <Course training={training} />
+      <Course training={training} tracking={tracking} />
       <Divider />
       <div className="actions">
         <View training={training} />

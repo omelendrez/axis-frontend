@@ -1,4 +1,5 @@
-import { Loading, Buttons } from '../../shared'
+import { Loading, Buttons, Divider } from '../../shared'
+import { Tracking } from './Tracking'
 import fields from './course-fields.json'
 
 const Row = ({ label, value, className }) => (
@@ -8,7 +9,7 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const Course = ({ training, onEdit, onDelete }) => {
+export const Course = ({ training, tracking, onEdit, onDelete }) => {
   if (!training) {
     return <Loading />
   }
@@ -29,6 +30,10 @@ export const Course = ({ training, onEdit, onDelete }) => {
             />
           ))}
       </div>
+
+      <Divider />
+
+      <Tracking tracking={tracking} />
     </article>
   )
 }

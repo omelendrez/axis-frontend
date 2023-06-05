@@ -14,6 +14,17 @@ div.actions div.buttons {
 
 div.actions div.buttons button {
   max-width: 10rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+div.actions div button {
+  background-color: hsl(116 40% 50%);
+  transition: background-color var(--transition);
+}
+
+div.actions div button:hover {
+  background-color: hsl(116 40% 40%);
 }
 
 div.actions div button.delete {

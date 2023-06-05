@@ -26,6 +26,8 @@ export const BloodPressure = () => {
       className="blood-pressure"
       onApprove={handleApprove}
       onReject={handleReject}
+      approveLabel="Fit"
+      rejectLabel="No fit"
       approveDisabled={!bp}
       rejectDisabled={!bp}
     >

@@ -10,6 +10,8 @@ export const getTrainingsByStatus = (id, pagination) =>
 
 export const getTrainingView = (id) => api.get(`/training/${id}/view`)
 
+export const getTracking = (id) => api.get(`/training/${id}/tracking`)
+
 export const getTraining = (id) => api.get(`/training/${id}`)
 
 export const updateTraining = (id, payload) =>

@@ -1,0 +1,10 @@
+article.course table.course-table {
+  width: fit-content;
+}
+
+@media screen and (min-width: 990px) {
+  article.course table.course-table th,
+  article.course table.course-table td {
+    font-size: 16px;
+  }
+}

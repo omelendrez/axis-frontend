@@ -6,13 +6,5 @@
   {
     "label": "Date",
     "field": "start"
-  },
-  {
-    "label": "Status",
-    "field": "status"
-  },
-  {
-    "label": "State",
-    "field": "course_state"
   }
 ]

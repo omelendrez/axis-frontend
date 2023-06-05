@@ -8,6 +8,8 @@ export const Task = ({
   onApprove,
   rejectDisabled,
   onReject,
+  approveLabel,
+  rejectLabel,
   children
 }) => {
   return (
@@ -18,7 +20,7 @@ export const Task = ({
       <div className="buttons">
         {onApprove && (
           <button onClick={onApprove} disabled={approveDisabled}>
-            Approve
+            {approveLabel || 'Approve'}
           </button>
         )}
         {onReject && (
@@ -27,7 +29,7 @@ export const Task = ({
             disabled={rejectDisabled}
             className="delete"
           >
-            Reject
+            {rejectLabel || 'Reject'}
           </button>
         )}
       </div>
