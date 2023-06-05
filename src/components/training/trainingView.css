@@ -49,6 +49,20 @@
   aspect-ratio: 4/3;
 }
 
+.training-view .actions {
+  flex-grow: 1;
+}
+
+.training-view .actions article .title {
+  background-color: var(--purple);
+}
+
+.training-view .actions article div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 @media screen and (min-width: 992px) {
   .training-view article {
     width: unset;

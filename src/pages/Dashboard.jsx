@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList } from '../components'
 import useUser from '../hooks/useUser'
-import { initialValues, log, getStatuses } from '../helpers'
+import { initialValues, getStatuses } from '../helpers'
 import { getPhotoUrl, getTrainingsByStatus } from '../services'
 
 import useApiMessages from '../hooks/useApiMessages'
@@ -52,10 +52,7 @@ const Dashboard = () => {
 
   const [records, setRecords] = useState({ rows: [], count: 0 })
 
-  const handleView = (training) => {
-    log.info(training)
-    navigate(`/training/${training.id}`)
-  }
+  const handleView = (training) => navigate(`/training/${training.id}`)
 
   useEffect(() => {
     const { roles } = user

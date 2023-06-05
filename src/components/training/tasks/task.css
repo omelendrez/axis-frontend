@@ -1,0 +1,26 @@
+div.actions article div label {
+  white-space: nowrap;
+}
+
+div.actions div.children {
+  align-items: center;
+  justify-content: center;
+}
+
+div.actions div.buttons {
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+div.actions div.buttons button {
+  max-width: 10rem;
+}
+
+div.actions div button.delete {
+  background-color: hsl(0, 66%, 60%);
+  transition: background-color var(--transition);
+}
+
+div.actions div button.delete:hover {
+  background-color: hsl(0, 66%, 40%);
+}

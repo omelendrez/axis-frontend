@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { TrainingView } from '../components'
+import { Loading, TrainingView } from '../components'
 import { getTrainingView } from '../services'
 import useApiMessages from '../hooks/useApiMessages'
 // TODO: This component is not in use
@@ -19,6 +19,10 @@ const Training = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
+
+  if (!training) {
+    return <Loading />
+  }
 
   return (
     <main className="container">
