@@ -7,12 +7,20 @@ export const Photo = ({ badge, onEdit }) => {
     ? getPhotoUrl(badge)
     : '/public/assets/no-image-icon.png'
 
+  const handleError = (e) => (e.target.src = '/public/assets/no-image-icon.png')
+
   return (
     <article className="photo">
       <h6 className="title">Learner picture</h6>
       <Buttons onEdit={onEdit} noCheckboxes />
       <div>
-        <img src={photoUrl} alt={photoUrl} width={768} height={576} />
+        <img
+          src={photoUrl}
+          alt={photoUrl}
+          width={768}
+          height={576}
+          onError={handleError}
+        />
       </div>
     </article>
   )
