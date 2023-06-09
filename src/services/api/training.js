@@ -5,8 +5,8 @@ export const createTraining = (payload) => api.post('/training', payload)
 
 export const getTrainings = (id) => api.get(`/training/${id}/all`)
 
-export const getTrainingsByStatus = (id, pagination) =>
-  api.get(`/training/${id}/status${setURLParams(pagination)}`)
+export const getTrainingsByClassroom = (id, pagination) =>
+  api.get(`/training/${id}/classroom${setURLParams(pagination)}`)
 
 export const getTrainingView = (id) => api.get(`/training/${id}/view`)
 

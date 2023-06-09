@@ -1,10 +1,8 @@
-.card.trainings section.dropdown-container {
-  margin: 0 0 0 1rem;
-}
-
-.card.trainings .card-body,
 .card.trainings .card-avatar-root {
-  padding-top: 2rem;
+  padding-top: 1.5rem;
+}
+.card.trainings .card-avatar-root .card-avatar-img {
+  margin-top: 0;
 }
 
 .card.trainings .course {
@@ -14,16 +12,6 @@
 
 .card.trainings .name {
   font-size: 18px;
-}
-
-.card.trainings .date {
-  background-color: var(--primary);
-  color: white;
-  font-size: medium;
-  position: absolute;
-  width: 100%;
-  right: 0;
-  text-align: center;
 }
 
 .card.trainings .ellipsis {
@@ -45,7 +33,7 @@
   background-color: blueviolet;
 }
 
-.card.trainings .card-body .status-10 {
+.card.trainings .card-body .status-11 {
   background-color: green;
 }
 

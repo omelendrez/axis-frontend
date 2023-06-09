@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Loading, CardList } from '../components'
-import useUser from '../hooks/useUser'
-import { initialValues, getStatuses } from '../helpers'
-import { getPhotoUrl, getTrainingsByStatus } from '../services'
+import { initialValues } from '../helpers'
+import { getPhotoUrl, getTrainingsByClassroom } from '../services'
 
 import useApiMessages from '../hooks/useApiMessages'
 
@@ -11,25 +10,27 @@ import './card.css'
 import './trainings-card.css'
 
 const Card = ({ item, onView }) => {
-  const photoUrl = getPhotoUrl(item.badge)
-  const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
+  const photoUrl = item.badge
+    ? getPhotoUrl(item.badge)
+    : '/public/assets/no-image-icon.png'
+
+  const handleError = (e) => (e.target.src = '/public/assets/no-image-icon.png')
 
   return (
     <article className="card trainings" onClick={() => onView(item)}>
-      <div className="date">{item.start}</div>
       <div className="card-avatar-root">
         <img
           src={photoUrl}
           alt={item.badge}
           className="card-avatar-img"
-          onError={handleImageError}
+          onError={handleError}
         />
       </div>
       <div className="card-body">
         <div className="ellipsis course">{item.course}</div>
         <div className="ellipsis name">{item.full_name}</div>
         <div className="small-font">{item.company}</div>
-        <div className={`small-font status status-${item.status_id}`}>
+        <div className={`extra-small-font status status-${item.status_id}`}>
           {item.status}
         </div>
       </div>
@@ -40,11 +41,9 @@ const Card = ({ item, onView }) => {
 const Classroom = () => {
   const navigate = useNavigate()
 
-  const { user } = useUser()
+  const params = useParams()
 
   const { apiMessage } = useApiMessages()
-
-  const [statuses, setSatuses] = useState(null)
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -55,22 +54,16 @@ const Classroom = () => {
   const handleView = (training) => navigate(`/training/${training.id}`)
 
   useEffect(() => {
-    const { roles } = user
-    setSatuses(getStatuses(roles))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    if (statuses?.length) {
+    if (params?.id) {
       setIsLoading(true)
 
-      getTrainingsByStatus(statuses.join('-'), pagination)
+      getTrainingsByClassroom(params.id, pagination)
         .then((res) => setRecords(res.data))
         .catch((e) => apiMessage(e))
         .finally(() => setIsLoading(false))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statuses, pagination])
+  }, [pagination])
 
   return (
     <main className="container-fluid trainings">
