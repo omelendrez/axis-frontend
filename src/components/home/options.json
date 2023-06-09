@@ -1,14 +1,5 @@
 [
   {
-    "title": "Classrooms",
-    "description": "View classroom schedules based on actual training booking.",
-    "path": "/classrooms",
-    "roles": [
-      1
-    ],
-    "divider": true
-  },
-  {
     "title": "Learners",
     "description": "Manage learners.",
     "path": "/learners",

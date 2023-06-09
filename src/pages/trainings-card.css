@@ -8,8 +8,8 @@
 }
 
 .card.trainings .course {
-  font-size: 14px;
-  color: blue;
+  font-size: 18px;
+  color: var(--primary);
 }
 
 .card.trainings .name {

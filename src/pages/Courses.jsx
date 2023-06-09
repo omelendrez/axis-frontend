@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList, AddButton, Tag } from '../components'
 
 import useCourses from '../hooks/useCourses'
-import useNoficication from '../hooks/useNotification'
+import useNotification from '../hooks/useNotification'
 
 import { initialValues } from '../helpers'
 
@@ -31,7 +31,7 @@ const Courses = () => {
   const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   useEffect(() => {
     loadCourses(pagination)
@@ -82,7 +82,7 @@ const Courses = () => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Menu</Link>
           </li>
           <li>Courses</li>
         </ul>

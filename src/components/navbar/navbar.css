@@ -31,6 +31,7 @@ nav li a.link-option {
   display: flex !important;
   flex-direction: row;
   align-items: center;
+  column-gap: 8px;
   color: #111 !important;
 }
 
@@ -42,8 +43,9 @@ nav li.active {
   background-color: hsl(205deg, 18%, 86%);
 }
 
-label span.material-icons > * {
-  margin-top: -10px;
+label span.material-icons {
+  display: flex;
+  flex-direction: row;
 }
 
 nav.breadcrumb {

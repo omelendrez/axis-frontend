@@ -1,6 +1,6 @@
 import { Routes } from 'react-router-dom'
 
-import { classRoutes } from './classRoutes'
+import { classroomRoutes } from './classroomRoutes'
 import { companyRoutes } from './companyRoutes'
 import { courseAssesmentRoutes } from './courseAssesmentRoutes'
 import { courseItemRoutes } from './courseItemRoutes'
@@ -22,7 +22,7 @@ export const AppRoutes = () => {
         {homeRoutes}
         {dashboardRoutes}
         {/* ------ */}
-        {classRoutes}
+        {classroomRoutes}
         {companyRoutes}
         {courseAssesmentRoutes}
         {courseItemRoutes}

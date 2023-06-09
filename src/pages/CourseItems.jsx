@@ -63,7 +63,7 @@ const CourseItems = () => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Menu</Link>
           </li>
           <li>Course Items</li>
         </ul>

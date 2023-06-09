@@ -2,14 +2,14 @@ import { lazy } from 'react'
 import { Route } from 'react-router-dom'
 import { ProtectedRoute } from '../guard'
 
-const Training = lazy(() => import('../pages/Training'))
+const Classroom = lazy(() => import('../pages/Classroom'))
 
-export const trainingRoutes = (
+export const classroomRoutes = (
   <Route
-    path="/training/:id"
+    path="/classroom/:id"
     element={
       <ProtectedRoute>
-        <Training />
+        <Classroom />
       </ProtectedRoute>
     }
   />

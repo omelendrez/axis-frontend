@@ -10,7 +10,7 @@ const LiElement = ({ route, path, label, icon, onClick }) => (
   <li className={route === `${path}` ? 'active' : undefined}>
     <Link to={path} onClick={onClick} className="link-option">
       <span className="material-icons">{icon}</span>
-      {label}
+      <div>{label}</div>
     </Link>
   </li>
 )
@@ -36,14 +36,14 @@ export const Navbar = ({ me }) => {
     appRoutes: {
       authorized: [
         {
-          path: '/',
+          path: '/dashboard',
           label: 'Home',
           icon: 'home'
         },
         {
-          path: '/dashboard',
-          label: 'Dashboard',
-          icon: 'dashboard'
+          path: '/',
+          label: 'Menu',
+          icon: 'widgets'
         }
       ],
       notAuthorized: []
