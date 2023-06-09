@@ -7,7 +7,7 @@ const ChangePassword = () => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Menu</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>Roles</li>
         </ul>

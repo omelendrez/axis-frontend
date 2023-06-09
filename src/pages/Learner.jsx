@@ -29,7 +29,7 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Menu</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/learners">Learners</Link>

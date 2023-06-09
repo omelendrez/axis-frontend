@@ -27,6 +27,7 @@ export const Navbar = ({ me }) => {
 
   const handleLogout = (e) => {
     e.preventDefault()
+    detailsRef.current.removeAttribute('open')
     const session = new SP()
     session.clear()
     setUser(null)
@@ -36,14 +37,14 @@ export const Navbar = ({ me }) => {
     appRoutes: {
       authorized: [
         {
-          path: '/dashboard',
+          path: '/',
           label: 'Home',
           icon: 'home'
         },
         {
-          path: '/',
-          label: 'Menu',
-          icon: 'widgets'
+          path: '/dashboard',
+          label: 'Dashboard',
+          icon: 'dashboard'
         }
       ],
       notAuthorized: []

@@ -1,3 +1,13 @@
+@media screen and (min-width: 640px) {
+  .classrooms .card {
+    max-width: 18rem;
+    min-width: 18rem;
+  }
+  .card-body .ellipsis {
+    max-width: 16rem;
+  }
+}
+
 .classrooms article div.course-name {
   color: var(--primary);
 }

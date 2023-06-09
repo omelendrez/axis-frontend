@@ -78,7 +78,7 @@ const Classroom = () => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Menu</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>Classroom</li>
         </ul>

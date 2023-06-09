@@ -65,7 +65,7 @@ const CourseAssesments = () => {
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Menu</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>Course Assesments</li>
         </ul>
