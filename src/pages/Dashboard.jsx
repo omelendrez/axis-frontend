@@ -59,14 +59,14 @@ const Dashboard = () => {
   }
 
   return (
-    <main className="container-fluid classrooms">
+    <main className="container classrooms">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>Dashboard</li>
+          <li>Classrooms</li>
         </ul>
       </nav>
 

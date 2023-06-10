@@ -23,16 +23,11 @@ details[open] > *:not(summary) {
   animation: details-show 150ms ease-in-out;
 }
 
-details ul {
-  background-color: #fff !important;
-}
-
 nav li a.link-option {
   display: flex !important;
   flex-direction: row;
   align-items: center;
   column-gap: 8px;
-  color: #111 !important;
 }
 
 nav li a.link-option img {
@@ -41,6 +36,10 @@ nav li a.link-option img {
 
 nav li.active {
   background-color: hsl(205deg, 18%, 86%);
+}
+
+nav li.active a.link-option {
+  color: #111;
 }
 
 label span.material-icons {

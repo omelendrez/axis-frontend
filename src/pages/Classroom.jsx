@@ -12,14 +12,13 @@ import useApiMessages from '../hooks/useApiMessages'
 
 import './card.css'
 import './trainings-card.css'
+import './classroom.css'
 
 const Header = ({ classroom }) => (
-  <center>
-    <h6>
-      <div>{classroom.course}</div>
-      <div>{classroom.start}</div>
-    </h6>
-  </center>
+  <div className="classroom-header">
+    <div>{classroom.course}</div>
+    <div>{classroom.start}</div>
+  </div>
 )
 
 const Card = ({ item, onView }) => {

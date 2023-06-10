@@ -1,0 +1,9 @@
+.classroom-header {
+  background-color: #708090;
+  color: #fff;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
