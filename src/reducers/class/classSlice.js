@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-  createClass,
-  updateClass,
-  getClasses,
-  deleteClass
+  createClassroom,
+  updateClassroom,
+  getClassrooms,
+  deleteClassroom
 } from '../../services'
 import { handleError } from '../error'
 
@@ -53,14 +53,14 @@ export default classSlice.reducer
 
 let lastPagination = null
 
-export function loadClasses(pagination) {
+export function loadClassrooms(pagination) {
   const { setLoading, setData, reset } = classSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
       lastPagination = pagination
-      const { data } = await getClasses(pagination)
+      const { data } = await getClassrooms(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
@@ -69,14 +69,14 @@ export function loadClasses(pagination) {
   }
 }
 
-export function removeClass(id) {
+export function removeClassroom(id) {
   const { setLoading, setSuccess, reset } = classSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await deleteClass(id)
-      dispatch(loadClasses(lastPagination))
+      await deleteClassroom(id)
+      dispatch(loadClassrooms(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -84,14 +84,14 @@ export function removeClass(id) {
   }
 }
 
-export function addClass(payload) {
+export function addClassroom(payload) {
   const { setLoading, setSuccess, reset } = classSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await createClass(payload)
-      dispatch(loadClasses(lastPagination))
+      await createClassroom(payload)
+      dispatch(loadClassrooms(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -99,14 +99,14 @@ export function addClass(payload) {
   }
 }
 
-export function modifyClass(id, payload) {
+export function modifyClassroom(id, payload) {
   const { setLoading, setSuccess, reset } = classSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await updateClass(id, payload)
-      dispatch(loadClasses(lastPagination))
+      await updateClassroom(id, payload)
+      dispatch(loadClassrooms(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

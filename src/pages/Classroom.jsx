@@ -2,12 +2,25 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Loading, CardList } from '../components'
 import { initialValues } from '../helpers'
-import { getPhotoUrl, getTrainingsByClassroom } from '../services'
+import {
+  getClassroomView,
+  getPhotoUrl,
+  getTrainingsByClassroom
+} from '../services'
 
 import useApiMessages from '../hooks/useApiMessages'
 
 import './card.css'
 import './trainings-card.css'
+
+const Header = ({ classroom }) => (
+  <center>
+    <h6>
+      <div>{classroom.course}</div>
+      <div>{classroom.start}</div>
+    </h6>
+  </center>
+)
 
 const Card = ({ item, onView }) => {
   const photoUrl = item.badge
@@ -43,24 +56,34 @@ const Classroom = () => {
 
   const params = useParams()
 
+  const id = params?.id
+
   const { apiMessage } = useApiMessages()
 
   const [pagination, setPagination] = useState(initialValues)
 
   const [isLoading, setIsLoading] = useState(false)
 
+  const [classroom, setClassoom] = useState(null)
+
   const [records, setRecords] = useState({ rows: [], count: 0 })
 
   const handleView = (training) => navigate(`/training/${training.id}`)
 
   useEffect(() => {
-    if (params?.id) {
+    if (id) {
       setIsLoading(true)
 
-      getTrainingsByClassroom(params.id, pagination)
-        .then((res) => setRecords(res.data))
+      getClassroomView(id)
+        .then((res) => {
+          setClassoom(res.data)
+
+          getTrainingsByClassroom(id, pagination)
+            .then((res) => setRecords(res.data))
+            .catch((e) => apiMessage(e))
+            .finally(() => setIsLoading(false))
+        })
         .catch((e) => apiMessage(e))
-        .finally(() => setIsLoading(false))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
@@ -76,6 +99,8 @@ const Classroom = () => {
           <li>Classroom</li>
         </ul>
       </nav>
+
+      <Header classroom={classroom} />
 
       <CardList
         Card={Card}
