@@ -64,7 +64,7 @@ const Classroom = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const [classroom, setClassoom] = useState(null)
+  const [classroom, setClassoom] = useState({})
 
   const [records, setRecords] = useState({ rows: [], count: 0 })
 
