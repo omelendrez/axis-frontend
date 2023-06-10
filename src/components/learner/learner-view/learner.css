@@ -9,7 +9,7 @@
 }
 
 .learner-view div .learner .tag {
-  width: fit-content;
+  max-width: fit-content;
   font-size: 0.8rem;
   position: relative;
 }

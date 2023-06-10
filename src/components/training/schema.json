@@ -9,8 +9,29 @@
   {
     "type": "date",
     "id": "start",
-    "label": "Start date",
-    "placeholder": "Enter start date",
+    "label": "Course start",
+    "placeholder": "Enter course start",
     "required": true
+  },
+  {
+    "type": "date",
+    "id": "end",
+    "label": "Course end",
+    "placeholder": "Enter course end",
+    "if": "id"
+  },
+  {
+    "type": "date",
+    "id": "issued",
+    "label": "Certificate issued",
+    "placeholder": "Enter certificate issued",
+    "if": "id"
+  },
+  {
+    "type": "date",
+    "id": "expiry",
+    "label": "Certificate expiry",
+    "placeholder": "Enter certificate expiry",
+    "if": "id"
   }
 ]

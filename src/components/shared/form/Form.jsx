@@ -14,7 +14,7 @@ export const Form = ({
 }) => (
   <form>
     {schema.map((field) => {
-      if (field.if && !object?.hasOwnProperty(field.if)) {
+      if (field.if && object?.hasOwnProperty(field.if) && !object[field.id]) {
         return null
       }
       return (

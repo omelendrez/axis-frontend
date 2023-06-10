@@ -73,8 +73,13 @@ export const Print = ({ training, type }) => {
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
       className="document"
       approveLabel={isCertificate ? 'Re-generate' : 'Generate'}
+      approveDisabled={!user.roles.find((r) => r.id === 1) && isCertificate}
       rejectLabel="Print"
-      onApprove={handleGenerate}
+      onApprove={
+        user.roles.find((r) => r.id === 1) && isCertificate
+          ? handleGenerate
+          : null
+      }
       onReject={handlePrint}
       rejectDisabled={!training?.certificate}
     >
