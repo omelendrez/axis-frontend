@@ -13,7 +13,7 @@ export const Home = () => {
   const handleNavigate = (link) => navigate(link)
 
   return (
-    <main className="home">
+    <main className="card-list">
       {user &&
         options
           .map((o) => ({ ...o, roles: o?.roles || [] }))

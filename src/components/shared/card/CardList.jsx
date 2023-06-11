@@ -3,6 +3,7 @@ import { Search } from '../'
 
 import { Pagination } from '../'
 import './cardList.css'
+import './card.css'
 
 export const CardList = ({
   Card,

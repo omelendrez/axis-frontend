@@ -1,14 +1,11 @@
-import { Link } from 'react-router-dom'
 import { Home as HomeComponent } from '../components'
 
 const Home = () => {
   return (
-    <main className="container-fluid">
+    <main className="container menu">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
+          <li>Menu</li>
         </ul>
       </nav>
       <HomeComponent />

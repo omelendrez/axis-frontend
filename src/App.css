@@ -3,10 +3,13 @@
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --extra-min-font-size: 12px;
   --min-font-size: 14px;
-  --med-font-size: 18px;
+  --mid-font-size: 16px;
   --card-width-desktop: 27rem;
   --card-width-tablet: 18rem;
   --card-width-mobile: 100%;
+  --ellipsis-desktop: 25rem;
+  --ellipsis-tablet: 16rem;
+  --ellipsis-mobile: 20rem;
   --row-gap: 2rem;
   --col-gap: 2rem;
 }

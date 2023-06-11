@@ -7,7 +7,6 @@ import useNotification from '../hooks/useNotification'
 
 import { initialValues } from '../helpers'
 
-import './card.css'
 import './course-card.css'
 
 const Card = ({ item, onView }) => (
@@ -77,7 +76,7 @@ const Courses = () => {
   ]
 
   return (
-    <main className="container-fluid">
+    <main className="container">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>

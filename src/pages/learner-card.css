@@ -2,26 +2,23 @@
   align-items: center;
 }
 
-@media screen and (min-width: 640px) {
-  .card.learners {
-    max-width: 17rem;
-    min-width: 17rem;
-  }
+/* Learners card contains a picture and line text is smaller */
 
-  .card.learners .ellipsis {
-    max-width: 9rem;
-    min-width: 9rem;
+.card.learners .card-body .ellipsis {
+  max-width: 13rem;
+  min-width: 13rem;
+}
+
+@media screen and (min-width: 640px) {
+  .card.learners .card-body .ellipsis {
+    max-width: 10rem;
+    min-width: 10rem;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .card.learners {
+  .card.learners .card-body .ellipsis {
     max-width: 20rem;
     min-width: 20rem;
-  }
-
-  .card.learners .ellipsis {
-    max-width: 12.5rem;
-    min-width: 12.5rem;
   }
 }

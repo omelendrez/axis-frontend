@@ -9,7 +9,7 @@ export const MenuOption = ({
 }) => (
   <>
     <article
-      className="home-item"
+      className="card home-item"
       onClick={(e) => {
         e.preventDefault()
         onNavigate(path)

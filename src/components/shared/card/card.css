@@ -1,0 +1,80 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  align-items: flex-start;
+  border-radius: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+  width: var(--card-width-mobile);
+  max-width: var(--card-width-mobile);
+  min-width: var(--card-width-mobile);
+}
+
+.card .card-avatar-root .card-avatar-img {
+  object-fit: cover;
+  max-width: 100px;
+  aspect-ratio: 4/3;
+  margin-left: 1rem;
+}
+
+.card .card-body {
+  display: flex;
+  flex: auto;
+  padding: 1rem;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.card .card-body div {
+  margin-right: 3px;
+  width: fit-content;
+}
+
+.card .card-body .extra-small-font {
+  font-size: var(--extra-min-font-size);
+}
+
+.card .card-body .small-font {
+  font-size: var(--min-font-size);
+}
+
+.card .card-body .medium-font {
+  font-size: var(--med-font-size);
+}
+
+.card .card-body .ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: var(--ellipsis-mobile);
+  min-width: var(--ellipsis-mobile);
+}
+
+@media screen and (min-width: 640px) {
+  .card {
+    max-width: var(--card-width-tablet);
+    min-width: var(--card-width-tablet);
+    width: var(--card-width-tablet);
+  }
+
+  .card .card-body .ellipsis {
+    max-width: var(--ellipsis-tablet);
+    min-width: var(--ellipsis-tablet);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .card {
+    max-width: var(--card-width-desktop);
+    min-width: var(--card-width-desktop);
+    width: var(--card-width-desktop);
+  }
+
+  .card .card-body .ellipsis {
+    max-width: var(--ellipsis-desktop);
+    min-width: var(--ellipsis-desktop);
+  }
+}

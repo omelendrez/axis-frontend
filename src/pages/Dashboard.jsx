@@ -7,11 +7,10 @@ import useNotification from '../hooks/useNotification'
 
 import { initialValues } from '../helpers'
 
-import './card.css'
 import './classroom-card.css'
 
 const Card = ({ item, onView }) => (
-  <article className="card courses" onClick={() => onView(item)}>
+  <article className="card dashboard" onClick={() => onView(item)}>
     <div className="card-body">
       <div className="ellipsis course-name">{item.course_name}</div>
       <div className="date">{item.start}</div>

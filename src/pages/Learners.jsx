@@ -8,7 +8,7 @@ import useNoficication from '../hooks/useNotification'
 import { initialValues } from '../helpers'
 
 import { getPhotoUrl } from '../services'
-import './card.css'
+
 import './learner-card.css'
 
 const Card = ({ item, onView }) => {

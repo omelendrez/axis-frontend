@@ -1,18 +1,10 @@
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 4rem;
-  row-gap: 2rem;
-  justify-content: center;
+  column-gap: var(--col-gap);
+  row-gap: var(--row-gap);
 }
-
 .search.card-list-search {
   position: initial;
   margin: 0 0 0 1rem;
-}
-
-@media screen and (min-width: 640px) {
-  .search.card-list-search {
-    margin: 0 0 0 1rem;
-  }
 }

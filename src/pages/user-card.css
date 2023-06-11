@@ -12,10 +12,6 @@
   padding: 0.3rem 0.6rem;
 }
 
-.card.users .ellipsis {
-  max-width: 18rem;
-}
-
 .card.users .roles-container {
   display: flex;
   flex-direction: row;
@@ -28,11 +24,4 @@
 .card.users .card-body .roles-container .value {
   font-weight: 900;
   color: #000;
-}
-
-@media screen and (min-width: 640px) {
-  .card.users .ellipsis {
-    max-width: 15rem;
-    min-width: 15rem;
-  }
 }

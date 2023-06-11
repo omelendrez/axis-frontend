@@ -10,7 +10,6 @@ import {
 
 import useApiMessages from '../hooks/useApiMessages'
 
-import './card.css'
 import './trainings-card.css'
 import './classroom.css'
 
