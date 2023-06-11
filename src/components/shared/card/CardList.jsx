@@ -44,7 +44,6 @@ export const CardList = ({
           onChange={handleSearchChange}
           value={searchText}
           onKeyDown={handleKeyDown}
-          className="card-list-search"
         />
       )}
       {!isLoading && data?.count === 0 && (

@@ -4,7 +4,3 @@
   column-gap: var(--col-gap);
   row-gap: var(--row-gap);
 }
-.search.card-list-search {
-  position: initial;
-  margin: 0 0 0 1rem;
-}
