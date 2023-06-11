@@ -14,10 +14,12 @@ import './trainings-card.css'
 import './classroom.css'
 
 const Header = ({ classroom }) => (
-  <div className="classroom-header">
-    <div>{classroom.course}</div>
-    <div>{classroom.start}</div>
-  </div>
+  <section className="classroom-header">
+    <div>
+      <div>{classroom.course}</div>
+      <div>{classroom.start}</div>
+    </div>
+  </section>
 )
 
 const Card = ({ item, onView }) => {
@@ -87,12 +89,12 @@ const Classroom = () => {
   }, [pagination])
 
   return (
-    <main className="container-fluid trainings">
+    <main className="container trainings">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>Classroom</li>
         </ul>

@@ -1,9 +1,13 @@
 .classroom-header {
-  background-color: #708090;
-  color: #fff;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 4rem;
+  right: 6px;
+  z-index: 1;
+  padding: 6px;
+  background-color: var(--purple-hover);
+  border-radius: 6px;
+}
+
+.classroom-header div div {
+  color: white;
 }

@@ -1,6 +1,3 @@
-.card.trainings .card-avatar-root {
-  padding-top: 1rem;
-}
 .card.trainings .card-avatar-root .card-avatar-img {
   margin-top: 0;
 }
@@ -33,14 +30,40 @@
   background-color: green;
 }
 
+.card.trainings {
+  align-items: center;
+  width: var(--card-width-mobile);
+  max-width: var(--card-width-mobile);
+  min-width: var(--card-width-mobile);
+}
+
+/* trainings card contains a picture and line text is smaller */
+
+.card.trainings .card-body .ellipsis {
+  max-width: 13rem;
+  min-width: 13rem;
+}
+
 @media screen and (min-width: 640px) {
-  .card.trainings section.dropdown-container {
-    width: 40vw;
+  .card.trainings {
+    max-width: 18rem;
+    min-width: 18rem;
+  }
+
+  .card.trainings .card-body .ellipsis {
+    max-width: 10rem;
+    min-width: 10rem;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .card.trainings section.dropdown-container {
-    width: 26rem;
+  .card.trainings {
+    max-width: 27rem;
+    min-width: 27rem;
+  }
+
+  .card.trainings .card-body .ellipsis {
+    max-width: 20rem;
+    min-width: 20rem;
   }
 }
