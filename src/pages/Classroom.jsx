@@ -84,6 +84,7 @@ const Classroom = () => {
             .finally(() => setIsLoading(false))
         })
         .catch((e) => apiMessage(e))
+        .finally(() => setIsLoading(false))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])

@@ -1,12 +1,16 @@
 import { Photo, Learner } from '../learner/learner-view'
 import { Course, Action } from './training-view'
-import { Divider, Loading } from '../shared'
+import { Divider } from '../shared'
 
 import './trainingView.css'
 
 export const TrainingView = ({ training, tracking }) => {
   if (!training) {
-    return <Loading />
+    return (
+      <article>
+        <center>Record not found</center>
+      </article>
+    )
   }
 
   return (

@@ -47,7 +47,7 @@ const Training = () => {
           <li>Training</li>
         </ul>
       </nav>
-      {training?.id && <TrainingView training={training} tracking={tracking} />}
+      <TrainingView training={training} tracking={tracking} />
     </main>
   )
 }
