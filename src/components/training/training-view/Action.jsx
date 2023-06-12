@@ -9,6 +9,15 @@ export const Action = ({ training }) => {
 
   const { status_id: statusId } = training
 
+  return (
+    <>
+      <ScanId training={training} />
+      <BloodPressure training={training} />
+      <Print training={training} type={DOC_TYPE.CERTIFICATE} />
+      <Print training={training} type={DOC_TYPE.ID_CARD} />
+    </>
+  )
+
   // if (userRoles.includes(3) && statusId === 1) {
   //   return <ScanId training={training} />
   // }
@@ -22,6 +31,6 @@ export const Action = ({ training }) => {
   // }
 
   // if (userRoles.includes(10) && statusId === 9) {
-  return <Print training={training} type={DOC_TYPE.ID_CARD} />
+  // return <Print training={training} type={DOC_TYPE.ID_CARD} />
   // }
 }

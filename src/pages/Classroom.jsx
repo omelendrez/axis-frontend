@@ -25,9 +25,9 @@ const Header = ({ classroom }) => (
 const Card = ({ item, onView }) => {
   const photoUrl = item.badge
     ? getPhotoUrl(item.badge)
-    : '/public/assets/no-image-icon.png'
+    : '/assets/no-image-icon.png'
 
-  const handleError = (e) => (e.target.src = '/public/assets/no-image-icon.png')
+  const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 
   return (
     <article className="card trainings" onClick={() => onView(item)}>

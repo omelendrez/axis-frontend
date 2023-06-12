@@ -4,19 +4,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.document figure {
-  text-align: center;
-}
-
-.document figure figcaption {
-  font-size: 14px;
-}
-
-.document figure {
-  margin: 1rem;
-}
-
-.document figure .document-image {
-  height: 100px;
-}

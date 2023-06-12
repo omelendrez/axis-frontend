@@ -9,7 +9,7 @@ import {
 } from '../../../../services'
 import useApiMessages from '../../../../hooks/useApiMessages'
 import useUser from '../../../../hooks/useUser'
-import { DOC_TYPE, getFilename } from '../../../../helpers'
+import { DOC_TYPE } from '../../../../helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 
@@ -21,26 +21,29 @@ export const Print = ({ training, type }) => {
 
   const [refresh, setRefresh] = useState(false)
 
-  const [isCertificate, setIsCertificate] = useState(false)
-  const [isIdCard, setIsIdCard] = useState(false)
-
-  const filename = getFilename(trainingId)
-
-  useEffect(() => {
-    certificateExists(trainingId)
-      .then((res) => setIsCertificate(res.data.exists))
-      .catch((e) => apiMessage(e))
-
-    idCardExists(trainingId)
-      .then((res) => setIsIdCard(res.data.exists))
-      .catch((e) => apiMessage(e))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh])
+  const [isDoc, setIsDoc] = useState(false)
 
   const documentUrl =
     type === DOC_TYPE.CERTIFICATE
       ? getCertificateUrl(trainingId)
       : getIdCardUrl(trainingId)
+
+  const generate =
+    type === DOC_TYPE.CERTIFICATE ? generateCertificate : generateIdCard
+
+  const docExists =
+    type === DOC_TYPE.CERTIFICATE ? certificateExists : idCardExists
+
+  const previewWidth = type === DOC_TYPE.CERTIFICATE ? 300 : 300
+  const previewHeight = type === DOC_TYPE.CERTIFICATE ? 480 : 450
+
+  useEffect(() => {
+    docExists(trainingId)
+      .then((res) => setIsDoc(res.data.exists))
+      .catch((e) => apiMessage(e))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh])
 
   const handleGenerate = (e) => {
     e.preventDefault()
@@ -49,65 +52,37 @@ export const Print = ({ training, type }) => {
       user
     }
 
-    if (type === DOC_TYPE.CERTIFICATE) {
-      generateCertificate(trainingId, payload)
-        .then((res) => {
-          const data = {
-            message: `${res.data.Subject} Certificate generated Successfully!`
-          }
-          apiMessage({ data })
-          setRefresh((r) => !r)
-        })
-        .catch((e) => apiMessage(e))
-    } else {
-      generateIdCard(trainingId, payload)
-        .then((res) => {
-          apiMessage(res)
-          setRefresh((r) => !r)
-        })
-        .catch((e) => apiMessage(e))
-    }
+    generate(trainingId, payload)
+      .then((res) => {
+        const data = {
+          message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
+        }
+        apiMessage({ data })
+        setRefresh((r) => !r)
+      })
+      .catch((e) => apiMessage(e))
   }
 
-  const handlePrint = (e) => {
-    e.preventDefault()
-    const windowFeatures = `left=100,top=100,width=${window.innerWidth},height=${window.innerHeight}`
-    window.open(documentUrl, '_blank', windowFeatures)
+  const props = {
+    type: 'application/pdf',
+    height: previewHeight,
+    width: previewWidth
   }
 
   return (
     <Task
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
       className="document"
-      approveLabel={
-        (type === DOC_TYPE.CERTIFICATE && isCertificate
-          ? 'Re-generate'
-          : 'Generate') ||
-        (type === DOC_TYPE.ID_CARD && isIdCard ? 'Re-generate' : 'Generate')
-      }
-      approveDisabled={!user.roles.find((r) => r.id === 1) && isCertificate}
+      approveLabel={isDoc ? 'Re-generate' : 'Generate'}
+      approveDisabled={!user.roles.find((r) => r.id === 1) && isDoc}
       rejectLabel="Print"
-      onApprove={
-        user.roles.find((r) => r.id === 1) && isCertificate
-          ? handleGenerate
-          : null
-      }
-      onReject={handlePrint}
-      rejectDisabled={!training?.certificate}
+      onApprove={user.roles.find((r) => r.id === 1) ? handleGenerate : null}
     >
-      {((isCertificate && type === DOC_TYPE.CERTIFICATE) ||
-        (isIdCard && type === DOC_TYPE.ID_CARD)) && (
+      {isDoc && (
         <figure>
-          <img
-            src={
-              type === DOC_TYPE.CERTIFICATE
-                ? '/assets/certificate_img.jpg'
-                : '/assets/id_card_img.jpg'
-            }
-            className="document-image"
-            alt={filename}
-          />
-          <figcaption>{filename}</figcaption>
+          <object data={documentUrl} {...props}>
+            <embed src={documentUrl} {...props} />
+          </object>
         </figure>
       )}
     </Task>

@@ -3,11 +3,9 @@ import { Buttons } from '../../shared'
 import './photo.css'
 
 export const Photo = ({ badge, onEdit }) => {
-  const photoUrl = badge
-    ? getPhotoUrl(badge)
-    : '/public/assets/no-image-icon.png'
+  const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
 
-  const handleError = (e) => (e.target.src = '/public/assets/no-image-icon.png')
+  const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 
   return (
     <article className="photo">
