@@ -1,13 +1,12 @@
 import { api } from './apiClient'
 
-export const createCourseAssesmentRel = (payload) =>
-  api.post('/course-assesment-rel', payload)
+const endpoint = '/course-assesment-rel'
 
-export const getCourseAssesmentsRel = (id) =>
-  api.get(`/course-assesment-rel/${id}`)
+export const createCourseAssesmentRel = (payload) => api.post(endpoint, payload)
+
+export const getCourseAssesmentsRel = (id) => api.get(`${endpoint}/${id}`)
 
 export const getCourseAvailableAssesments = (id) =>
-  api.get(`/course-assesment-rel/${id}/available`)
+  api.get(`${endpoint}/${id}/available`)
 
-export const deleteCourseAssesmentRel = (id) =>
-  api.delete(`/course-assesment-rel/${id}`)
+export const deleteCourseAssesmentRel = (id) => api.delete(`${endpoint}/${id}`)

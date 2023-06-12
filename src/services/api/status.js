@@ -1,13 +1,16 @@
 import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
-export const createStatus = (payload) => api.post('/status', payload)
+const endpoint = '/status'
+
+export const createStatus = (payload) => api.post(endpoint, payload)
 
 export const getStatuses = (pagination) =>
-  api.get(`/status${setURLParams(pagination)}`)
+  api.get(`${endpoint}${setURLParams(pagination)}`)
 
-export const getStatus = (id) => api.get(`/status/${id}`)
+export const getStatus = (id) => api.get(`${endpoint}/${id}`)
 
-export const updateStatus = (id, payload) => api.put(`/status/${id}`, payload)
+export const updateStatus = (id, payload) =>
+  api.put(`${endpoint}/${id}`, payload)
 
-export const deleteStatus = (id) => api.delete(`/status/${id}`)
+export const deleteStatus = (id) => api.delete(`${endpoint}/${id}`)

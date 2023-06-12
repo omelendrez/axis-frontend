@@ -1,9 +1,11 @@
 import { api } from './apiClient'
 
-export const createUserRole = (payload) => api.post('/user-role', payload)
+const endpoint = '/user-role'
 
-export const getUserRoles = (id) => api.get(`/user-role/${id}`)
+export const createUserRole = (payload) => api.post(endpoint, payload)
 
-export const getAvailableRoles = (id) => api.get(`/user-role/${id}/available`)
+export const getUserRoles = (id) => api.get(`${endpoint}/${id}`)
 
-export const deleteUserRole = (id) => api.delete(`/user-role/${id}`)
+export const getAvailableRoles = (id) => api.get(`${endpoint}/${id}/available`)
+
+export const deleteUserRole = (id) => api.delete(`${endpoint}/${id}`)

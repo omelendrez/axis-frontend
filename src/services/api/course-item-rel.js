@@ -1,11 +1,12 @@
 import { api } from './apiClient'
 
-export const createCourseItemRel = (payload) =>
-  api.post('/course-item-rel', payload)
+const endpoint = '/course-item-rel'
 
-export const getCourseItemsRel = (id) => api.get(`/course-item-rel/${id}`)
+export const createCourseItemRel = (payload) => api.post(endpoint, payload)
+
+export const getCourseItemsRel = (id) => api.get(`${endpoint}/${id}`)
 
 export const getCourseAvailableItems = (id) =>
-  api.get(`/course-item-rel/${id}/available`)
+  api.get(`${endpoint}/${id}/available`)
 
-export const deleteCourseItemRel = (id) => api.delete(`/course-item-rel/${id}`)
+export const deleteCourseItemRel = (id) => api.delete(`${endpoint}/${id}`)

@@ -1,12 +1,14 @@
 import { api } from './apiClient'
 
-export const createContact = (payload) => api.post('/contact-info', payload)
+const endpoint = '/contact-info'
 
-export const getContacts = (id) => api.get(`/contact-info/${id}/all`)
+export const createContact = (payload) => api.post(endpoint, payload)
 
-export const getContact = (id) => api.get(`/contact-info/${id}`)
+export const getContacts = (id) => api.get(`${endpoint}/${id}/all`)
+
+export const getContact = (id) => api.get(`${endpoint}/${id}`)
 
 export const updateContact = (id, payload) =>
-  api.put(`/contact-info/${id}`, payload)
+  api.put(`${endpoint}/${id}`, payload)
 
-export const deleteContact = (id) => api.delete(`/contact-info/${id}`)
+export const deleteContact = (id) => api.delete(`${endpoint}/${id}`)

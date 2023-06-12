@@ -1,14 +1,16 @@
 import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
-export const createContactType = (payload) => api.post('/contact-type', payload)
+const endpoint = '/contact-type'
+
+export const createContactType = (payload) => api.post(endpoint, payload)
 
 export const getContactTypes = (pagination) =>
-  api.get(`/contact-type${setURLParams(pagination)}`)
+  api.get(`${endpoint}${setURLParams(pagination)}`)
 
-export const getContactType = (id) => api.get(`/contact-type/${id}`)
+export const getContactType = (id) => api.get(`${endpoint}/${id}`)
 
 export const updateContactType = (id, payload) =>
-  api.put(`/contact-type/${id}`, payload)
+  api.put(`${endpoint}/${id}`, payload)
 
-export const deleteContactType = (id) => api.delete(`/contact-type/${id}`)
+export const deleteContactType = (id) => api.delete(`${endpoint}/${id}`)

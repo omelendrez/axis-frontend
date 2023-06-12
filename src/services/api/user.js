@@ -1,20 +1,22 @@
 import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
-export const login = (payload) => api.post('/user/login', payload)
+const endpoint = '/user'
 
-export const createUser = (payload) => api.post('/user', payload)
+export const login = (payload) => api.post(`${endpoint}/login`, payload)
+
+export const createUser = (payload) => api.post(endpoint, payload)
 
 export const getUsers = (pagination) =>
-  api.get(`/user${setURLParams(pagination)}`)
+  api.get(`${endpoint}${setURLParams(pagination)}`)
 
-export const getUser = (id) => api.get(`/user/${id}`)
+export const getUser = (id) => api.get(`${endpoint}/${id}`)
 
-export const getUserView = (id) => api.get(`/user/${id}/view`)
+export const getUserView = (id) => api.get(`${endpoint}/${id}/view`)
 
-export const updateUser = (id, payload) => api.put(`/user/${id}`, payload)
+export const updateUser = (id, payload) => api.put(`${endpoint}/${id}`, payload)
 
 export const changePassword = (id, payload) =>
-  api.put(`/user/${id}/chgpwd`, payload)
+  api.put(`${endpoint}/${id}/chgpwd`, payload)
 
-export const deleteUser = (id) => api.delete(`/user/${id}`)
+export const deleteUser = (id) => api.delete(`${endpoint}/${id}`)

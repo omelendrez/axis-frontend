@@ -1,14 +1,14 @@
 import { api } from './assetsClient'
-import { documentNumber } from '../../helpers'
+import { getFilename } from '../../helpers'
 
 const url = import.meta.env.VITE_ASSETS_URL
 
-export const getFilename = (id) => `${documentNumber(id)}.pdf`
+const endpoint = 'certificates'
 
-export const getCertificateUrl = (id) => `${url}certificates/${getFilename(id)}`
+export const getCertificateUrl = (id) => `${url}${endpoint}/${getFilename(id)}`
 
 export const generateCertificate = (id, payload) =>
-  api.post(`certificates/${id}`, payload)
+  api.post(`${endpoint}/${id}`, payload)
 
 export const certificateExists = (id) =>
-  api.get(`certificates/${getFilename(id)}/exists`)
+  api.get(`${endpoint}/${getFilename(id)}/exists`)

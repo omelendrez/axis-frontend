@@ -1,13 +1,15 @@
 import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
-export const createRole = (payload) => api.post('/role', payload)
+const endpoint = '/role'
+
+export const createRole = (payload) => api.post(endpoint, payload)
 
 export const getRoles = (pagination) =>
-  api.get(`/role${setURLParams(pagination)}`)
+  api.get(`${endpoint}${setURLParams(pagination)}`)
 
-export const getRole = (id) => api.get(`/role/${id}`)
+export const getRole = (id) => api.get(`${endpoint}/${id}`)
 
-export const updateRole = (id, payload) => api.put(`/role/${id}`, payload)
+export const updateRole = (id, payload) => api.put(`${endpoint}/${id}`, payload)
 
-export const deleteRole = (id) => api.delete(`/role/${id}`)
+export const deleteRole = (id) => api.delete(`${endpoint}/${id}`)

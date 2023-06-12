@@ -1,8 +1,14 @@
 import { api } from './assetsClient'
+import { getFilename } from '../../helpers'
 
 const url = import.meta.env.VITE_ASSETS_URL
 
-export const getIdCardUrl = (id) => `${url}id_cards/${id.toString(16)}.pdf`
+const endpoint = 'id_cards'
+
+export const getIdCardUrl = (id) => `${url}${endpoint}/${getFilename(id)}`
 
 export const generateIdCard = (id, payload) =>
-  api.post(`generate-id-card/${id}`, payload)
+  api.post(`${endpoint}/${id}`, payload)
+
+export const idCardExists = (id) =>
+  api.get(`${endpoint}/${getFilename(id)}/exists`)

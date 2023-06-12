@@ -1,13 +1,16 @@
 import { setURLParams } from '../../helpers'
 import { api } from './apiClient'
 
-export const createState = (payload) => api.post('/state', payload)
+const endpoint = '/state'
+
+export const createState = (payload) => api.post(endpoint, payload)
 
 export const getStates = (pagination) =>
-  api.get(`/state${setURLParams(pagination)}`)
+  api.get(`${endpoint}${setURLParams(pagination)}`)
 
-export const getState = (id) => api.get(`/state/${id}`)
+export const getState = (id) => api.get(`${endpoint}/${id}`)
 
-export const updateState = (id, payload) => api.put(`/state/${id}`, payload)
+export const updateState = (id, payload) =>
+  api.put(`${endpoint}/${id}`, payload)
 
-export const deleteState = (id) => api.delete(`/state/${id}`)
+export const deleteState = (id) => api.delete(`${endpoint}/${id}`)

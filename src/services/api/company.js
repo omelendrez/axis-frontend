@@ -2,13 +2,16 @@ import { api } from './apiClient'
 
 import { setURLParams } from '../../helpers'
 
-export const createCompany = (payload) => api.post('/company', payload)
+const endpoint = '/company'
+
+export const createCompany = (payload) => api.post(endpoint, payload)
 
 export const getCompanies = (pagination) =>
-  api.get(`/company${setURLParams(pagination)}`)
+  api.get(`${endpoint}${setURLParams(pagination)}`)
 
-export const getCompany = (id) => api.get(`/company/${id}`)
+export const getCompany = (id) => api.get(`${endpoint}/${id}`)
 
-export const updateCompany = (id, payload) => api.put(`/company/${id}`, payload)
+export const updateCompany = (id, payload) =>
+  api.put(`${endpoint}/${id}`, payload)
 
-export const deleteCompany = (id) => api.delete(`/company/${id}`)
+export const deleteCompany = (id) => api.delete(`${endpoint}/${id}`)

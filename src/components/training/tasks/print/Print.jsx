@@ -3,13 +3,13 @@ import {
   generateCertificate,
   generateIdCard,
   getCertificateUrl,
-  getFilename,
   getIdCardUrl,
-  certificateExists
+  certificateExists,
+  idCardExists
 } from '../../../../services'
 import useApiMessages from '../../../../hooks/useApiMessages'
 import useUser from '../../../../hooks/useUser'
-import { DOC_TYPE } from '../../../../helpers'
+import { DOC_TYPE, getFilename } from '../../../../helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 
@@ -22,10 +22,17 @@ export const Print = ({ training, type }) => {
   const [refresh, setRefresh] = useState(false)
 
   const [isCertificate, setIsCertificate] = useState(false)
+  const [isIdCard, setIsIdCard] = useState(false)
+
+  const filename = getFilename(trainingId)
 
   useEffect(() => {
     certificateExists(trainingId)
       .then((res) => setIsCertificate(res.data.exists))
+      .catch((e) => apiMessage(e))
+
+    idCardExists(trainingId)
+      .then((res) => setIsIdCard(res.data.exists))
       .catch((e) => apiMessage(e))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
@@ -72,7 +79,12 @@ export const Print = ({ training, type }) => {
     <Task
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
       className="document"
-      approveLabel={isCertificate ? 'Re-generate' : 'Generate'}
+      approveLabel={
+        (type === DOC_TYPE.CERTIFICATE && isCertificate
+          ? 'Re-generate'
+          : 'Generate') ||
+        (type === DOC_TYPE.ID_CARD && isIdCard ? 'Re-generate' : 'Generate')
+      }
       approveDisabled={!user.roles.find((r) => r.id === 1) && isCertificate}
       rejectLabel="Print"
       onApprove={
@@ -83,14 +95,19 @@ export const Print = ({ training, type }) => {
       onReject={handlePrint}
       rejectDisabled={!training?.certificate}
     >
-      {isCertificate && (
+      {((isCertificate && type === DOC_TYPE.CERTIFICATE) ||
+        (isIdCard && type === DOC_TYPE.ID_CARD)) && (
         <figure>
           <img
-            src="/assets/certificate_img.jpg"
+            src={
+              type === DOC_TYPE.CERTIFICATE
+                ? '/assets/certificate_img.jpg'
+                : '/assets/id_card_img.jpg'
+            }
             className="document-image"
-            alt={getFilename(trainingId)}
+            alt={filename}
           />
-          <figcaption>{getFilename(trainingId)}</figcaption>
+          <figcaption>{filename}</figcaption>
         </figure>
       )}
     </Task>
