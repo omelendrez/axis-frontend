@@ -1,4 +1,4 @@
-import { Task } from '../Task'
+import { Task } from '../../Task'
 import {
   generateCertificate,
   generateIdCard,
@@ -6,10 +6,10 @@ import {
   getIdCardUrl,
   certificateExists,
   idCardExists
-} from '../../../../services'
-import useApiMessages from '../../../../hooks/useApiMessages'
-import useUser from '../../../../hooks/useUser'
-import { DOC_TYPE } from '../../../../helpers'
+} from '../../../../../services'
+import useApiMessages from '../../../../../hooks/useApiMessages'
+import useUser from '../../../../../hooks/useUser'
+import { DOC_TYPE } from '../../../../../helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 

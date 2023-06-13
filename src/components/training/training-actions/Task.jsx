@@ -1,8 +1,8 @@
-import { Divider } from '../../shared'
 import './task.css'
 
 export const Task = ({
   title,
+  description,
   className,
   approveDisabled,
   onApprove,
@@ -16,7 +16,9 @@ export const Task = ({
     <article className={className}>
       <h6 className="title">{title}</h6>
       <div className="children">{children}</div>
-      <Divider />
+
+      <article className="description">{description}</article>
+
       <div className="buttons">
         {onApprove && (
           <button onClick={onApprove} disabled={approveDisabled}>

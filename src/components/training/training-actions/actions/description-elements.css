@@ -1,0 +1,12 @@
+div.description-button-container {
+  display: inline-block !important;
+  pointer-events: none;
+  margin: 0 !important;
+}
+
+div.description-button-container button {
+  font-size: small;
+  padding: 1px 6px;
+  margin: 0;
+  border: none;
+}

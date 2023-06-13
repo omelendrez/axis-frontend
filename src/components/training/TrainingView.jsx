@@ -1,5 +1,6 @@
 import { Photo, Learner } from '../learner/learner-view'
-import { Course, Action } from './training-view'
+import { Course } from './training-view'
+import { Action } from './training-actions'
 import { Divider } from '../shared'
 
 import './trainingView.css'

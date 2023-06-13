@@ -1,4 +1,4 @@
-import { ScanId, BloodPressure, Print } from '../tasks'
+import { ScanId, BloodPressure, Print, Payment } from './actions'
 import useUser from '../../../hooks/useUser'
 import { DOC_TYPE } from '../../../helpers'
 
@@ -13,6 +13,7 @@ export const Action = ({ training }) => {
     <>
       <ScanId training={training} />
       <BloodPressure training={training} />
+      <Payment training={training} />
       <Print training={training} type={DOC_TYPE.CERTIFICATE} />
       <Print training={training} type={DOC_TYPE.ID_CARD} />
     </>

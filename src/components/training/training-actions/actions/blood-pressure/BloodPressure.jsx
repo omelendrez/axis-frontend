@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Task } from '../Task'
+import { Task } from '../../Task'
 import './bloodPressure.css'
+import description from './description'
 
 export const BloodPressure = () => {
   const [bp, setBp] = useState({ systolic: '', diastolic: '' })
@@ -23,13 +24,14 @@ export const BloodPressure = () => {
   return (
     <Task
       title="Blood pressure"
+      description={description}
       className="blood-pressure"
       onApprove={handleApprove}
       onReject={handleReject}
       approveLabel="Fit"
       rejectLabel="No fit"
-      approveDisabled={!bp}
-      rejectDisabled={!bp}
+      approveDisabled={!systolic || !diastolic}
+      rejectDisabled={!systolic || !diastolic}
     >
       <input
         id="systolic"

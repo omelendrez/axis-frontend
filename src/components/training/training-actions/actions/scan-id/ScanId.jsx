@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Task } from '../Task'
+import { Task } from '../../Task'
 import './scanId.css'
 
 export const ScanId = () => {

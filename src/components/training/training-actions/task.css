@@ -2,6 +2,24 @@ div.actions article div label {
   white-space: nowrap;
 }
 
+div.actions article article.description {
+  margin: 0;
+}
+
+div.actions article article.description ol {
+  margin: 0;
+}
+
+div.actions article article.description ol li {
+  margin-bottom: 1rem;
+  font-size: 16px;
+}
+
+div.actions article article.description i {
+  color: var(--primary);
+  font-size: 14px;
+}
+
 div.actions div.children {
   align-items: center;
   justify-content: center;

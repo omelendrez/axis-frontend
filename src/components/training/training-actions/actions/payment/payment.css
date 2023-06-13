@@ -1,0 +1,11 @@
+.blood-pressure input {
+  max-width: 12rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.blood-pressure input::placeholder {
+  font-size: 14px;
+  position: relative;
+  top: -1ch;
+}
