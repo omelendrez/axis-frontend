@@ -2,7 +2,7 @@ import { ScanId, BloodPressure, Print, Payment } from './actions'
 import useUser from '../../../hooks/useUser'
 import { DOC_TYPE } from '../../../helpers'
 
-export const Action = ({ training }) => {
+export const Action = ({ training, onUpdate }) => {
   const {
     user: { roles: userRoles }
   } = useUser()
@@ -13,7 +13,7 @@ export const Action = ({ training }) => {
     <>
       <ScanId training={training} />
       <BloodPressure training={training} />
-      <Payment training={training} />
+      <Payment training={training} onUpdate={onUpdate} />
       <Print training={training} type={DOC_TYPE.CERTIFICATE} />
       <Print training={training} type={DOC_TYPE.ID_CARD} />
     </>

@@ -8,9 +8,12 @@ import useApiMessages from '../hooks/useApiMessages'
 const Training = () => {
   const params = useParams()
   const { apiMessage } = useApiMessages()
+  const [update, setUpdate] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [training, setTraining] = useState(null)
   const [tracking, setTracking] = useState([])
+
+  const updateView = () => setUpdate((u) => !u)
 
   useEffect(() => {
     const id = params?.id
@@ -19,7 +22,6 @@ const Training = () => {
       getTrainingView(id)
         .then((res) => {
           setTraining(res.data)
-
           getTracking(res.data.id)
             .then((res) => setTracking(res.data))
             .catch((e) => apiMessage(e))
@@ -28,7 +30,7 @@ const Training = () => {
         .finally(() => setIsLoading(false))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [update])
 
   if (isLoading) {
     return <Loading />
@@ -47,7 +49,11 @@ const Training = () => {
           <li>Training</li>
         </ul>
       </nav>
-      <TrainingView training={training} tracking={tracking} />
+      <TrainingView
+        training={training}
+        tracking={tracking}
+        onUpdate={updateView}
+      />
     </main>
   )
 }

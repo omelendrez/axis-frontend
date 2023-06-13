@@ -10,7 +10,8 @@ export const Task = ({
   onReject,
   approveLabel,
   rejectLabel,
-  children
+  children,
+  isSubmitting
 }) => {
   return (
     <article className={className}>
@@ -21,7 +22,11 @@ export const Task = ({
 
       <div className="buttons">
         {onApprove && (
-          <button onClick={onApprove} disabled={approveDisabled}>
+          <button
+            onClick={onApprove}
+            disabled={approveDisabled}
+            aria-busy={isSubmitting}
+          >
             {approveLabel || 'Approve'}
           </button>
         )}
@@ -30,6 +35,7 @@ export const Task = ({
             onClick={onReject}
             disabled={rejectDisabled}
             className="delete"
+            aria-busy={isSubmitting}
           >
             {rejectLabel || 'Reject'}
           </button>

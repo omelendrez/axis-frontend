@@ -9,7 +9,7 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const Course = ({ training, tracking, onEdit, onDelete }) => {
+export const Course = ({ training, tracking, onEdit, onDelete, onUndo }) => {
   if (!training) {
     return <Loading />
   }
@@ -17,7 +17,12 @@ export const Course = ({ training, tracking, onEdit, onDelete }) => {
   return (
     <article className="course">
       <h6 className="title">Course info</h6>
-      <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
+      <Buttons
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onUndo={onUndo}
+        noCheckboxes
+      />
       <div>
         {fields
           .filter((f) => Boolean(training[f.field]))

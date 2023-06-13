@@ -6,6 +6,7 @@ export const Buttons = ({
   onAdd,
   onEdit,
   onDelete,
+  onUndo,
   noCheckboxes
 }) => {
   let forced = false
@@ -53,6 +54,16 @@ export const Buttons = ({
           onClick={onDelete}
         >
           <span className="material-icons">delete</span>
+        </button>
+      )}
+      {onUndo && (
+        <button
+          data-tooltip="Click to Undo last status"
+          className="primary"
+          disabled={!forced && selected?.length !== 1}
+          onClick={onUndo}
+        >
+          <span className="material-icons">undo</span>
         </button>
       )}
     </div>
