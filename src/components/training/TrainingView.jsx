@@ -3,7 +3,7 @@ import { Photo, Learner } from '../learner/learner-view'
 import { Course } from './training-view'
 import { Action } from './training-actions'
 import { Divider } from '../shared'
-import { undo } from '../../services/api/approvals'
+import { undoLastApproval } from '../../services/api/approvals'
 import useApiMessages from '../../hooks/useApiMessages'
 
 import './trainingView.css'
@@ -23,7 +23,7 @@ export const TrainingView = ({ training, tracking, onUpdate }) => {
   const handleUndo = (e) => {
     e.preventDefault()
 
-    undo(training.id)
+    undoLastApproval(training.id)
       .then((res) => {
         apiMessage(res)
         onUpdate()

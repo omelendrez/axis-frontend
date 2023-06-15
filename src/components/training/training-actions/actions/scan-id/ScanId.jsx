@@ -1,19 +1,41 @@
 import { useEffect, useState } from 'react'
 import { Task } from '../../Task'
+import { frontdeskApproval } from '../../../../../services/api/approvals'
 import './scanId.css'
+import useApiMessages from '../../../../../hooks/useApiMessages'
 
-export const ScanId = () => {
+export const ScanId = ({ training, onUpdate }) => {
+  const { apiMessage } = useApiMessages()
+
   const [selectedFile, setSelectedFile] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const [preview, setPreview] = useState(null)
+
+  const process = (id, payload) => {
+    setIsSubmitting(true)
+
+    frontdeskApproval(id, payload)
+      .then((res) => {
+        onUpdate()
+        apiMessage(res)
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
+  }
 
   const handleApprove = (e) => {
     e.preventDefault()
-    console.log('approved')
+    process(training.id, {
+      finance_status: 1
+    })
   }
 
   const handleReject = (e) => {
     e.preventDefault()
-    console.log('rejected')
+    process(training.id, {
+      finance_status: 0
+    })
   }
 
   const handleChange = (e) => {
@@ -58,6 +80,7 @@ export const ScanId = () => {
       onReject={handleReject}
       approveDisabled={!preview}
       rejectDisabled={!preview}
+      isSubmitting={isSubmitting}
     >
       <input type="file" accept="image/*" id="file" onChange={handleChange} />
       {preview ? (
