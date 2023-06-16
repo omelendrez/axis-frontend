@@ -7,8 +7,9 @@ import { financeApproval } from '../../../../../services/api/approvals'
 import './payment.css'
 
 export const Payment = ({ training, onUpdate }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const { apiMessage } = useApiMessages()
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const process = (id, payload) => {
     setIsSubmitting(true)

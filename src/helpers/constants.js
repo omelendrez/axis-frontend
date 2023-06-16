@@ -12,7 +12,20 @@ export const DOC_TYPE = {
   ID_CARD: 2
 }
 
-export const STATUS = {
+export const USER_TYPES = {
+  SYS_ADMIN: 1,
+  ADMIN: 2,
+  FRONTDESK: 3,
+  MEDICAL: 4,
+  TRAINING_COORDINATOR: 5,
+  ASSESSMENT: 6,
+  QA: 7,
+  FINANCE: 8,
+  MD: 9,
+  PRINTER: 10
+}
+
+export const APPROVAL_STATUS = {
   FRONTDESK: 2,
   MEDICAL: 3,
   TRAINING_COORDINATOR: 4,
