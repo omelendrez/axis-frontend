@@ -9,7 +9,7 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const Course = ({ training, tracking, onEdit, onDelete, onUndo }) => {
+export const Course = ({ training, onEdit, onDelete, onUndo }) => {
   if (!training) {
     return <Loading />
   }
@@ -38,7 +38,7 @@ export const Course = ({ training, tracking, onEdit, onDelete, onUndo }) => {
 
       <Divider />
 
-      <Tracking tracking={tracking} />
+      <Tracking tracking={training.tracking} />
     </article>
   )
 }

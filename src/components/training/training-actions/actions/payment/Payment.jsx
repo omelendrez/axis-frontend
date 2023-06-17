@@ -4,7 +4,6 @@ import { Task } from '../../Task'
 import description from './description'
 import useApiMessages from '../../../../../hooks/useApiMessages'
 import { financeApproval } from '../../../../../services/api/approvals'
-import './payment.css'
 
 export const Payment = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -26,18 +25,18 @@ export const Payment = ({ training, onUpdate }) => {
   const handleApprove = (e) => {
     e.preventDefault()
     process(training.id, {
-      finance_status: 1
+      approved: 1
     })
   }
 
   const handleReject = (e) => {
     e.preventDefault()
     process(training.id, {
-      finance_status: 0
+      approved: 0
     })
   }
 
-  const title = (
+  const result = (
     <strong>
       PAYMENT
       {training.finance_status === null
@@ -47,11 +46,18 @@ export const Payment = ({ training, onUpdate }) => {
         : ' RECEIVED'}
     </strong>
   )
+  const title = <strong>Payment</strong>
 
   return (
     <Task
-      title="Accounts"
-      description={training.finance_status === null ? description : title}
+      title={title}
+      description={
+        training.finance_status === null ? (
+          description
+        ) : (
+          <div className="description-large">{result}</div>
+        )
+      }
       className="payment"
       onApprove={training.finance_status === null ? handleApprove : null}
       onReject={training.finance_status === null ? handleReject : null}

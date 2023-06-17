@@ -1,40 +1,27 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Loading, TrainingView } from '../components'
-import { getTracking, getTrainingView } from '../services'
-import useApiMessages from '../hooks/useApiMessages'
+import { TrainingView } from '../components'
+
+import useTrainings from '../hooks/useTrainings'
 
 const Training = () => {
   const params = useParams()
-  const { apiMessage } = useApiMessages()
+
+  const { loadView, trainings } = useTrainings()
+
+  const { view } = trainings
+
   const [update, setUpdate] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [training, setTraining] = useState(null)
-  const [tracking, setTracking] = useState([])
 
   const updateView = () => setUpdate((u) => !u)
 
   useEffect(() => {
     const id = params?.id
-    setIsLoading(true)
-    if (id) {
-      getTrainingView(id)
-        .then((res) => {
-          setTraining(res.data)
-          getTracking(res.data.id)
-            .then((res) => setTracking(res.data))
-            .catch((e) => apiMessage(e))
-        })
-        .catch((e) => apiMessage(e))
-        .finally(() => setIsLoading(false))
-    }
+    loadView(id)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update])
-
-  if (isLoading) {
-    return <Loading />
-  }
 
   return (
     <main className="container">
@@ -49,11 +36,7 @@ const Training = () => {
           <li>Training</li>
         </ul>
       </nav>
-      <TrainingView
-        training={training}
-        tracking={tracking}
-        onUpdate={updateView}
-      />
+      {view?.id && <TrainingView training={view} onUpdate={updateView} />}
     </main>
   )
 }

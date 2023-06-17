@@ -8,7 +8,9 @@ import useApiMessages from '../../hooks/useApiMessages'
 
 import './trainingView.css'
 
-export const TrainingView = ({ training, tracking, onUpdate }) => {
+const AlertCancelled = () => <div className="alert-cancelled">cancelled</div>
+
+export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -31,13 +33,14 @@ export const TrainingView = ({ training, tracking, onUpdate }) => {
       .catch((e) => apiMessage(e))
       .finally(() => setIsSubmitting(false))
   }
+
   return (
     <main className="training-view">
+      {training.status_id === 12 && <AlertCancelled />}
       <Photo {...training} />
       <Learner learner={{ ...training, status: undefined }} />
       <Course
         training={training}
-        tracking={tracking}
         onUndo={handleUndo}
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}

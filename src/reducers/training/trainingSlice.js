@@ -3,7 +3,10 @@ import {
   createTraining,
   updateTraining,
   getTrainings,
-  deleteTraining
+  deleteTraining,
+  getTrainingView,
+  getTracking,
+  getMedicalData
 } from '../../services'
 import { handleError } from '../error'
 
@@ -11,6 +14,7 @@ let learner = null
 
 const initialState = {
   data: { rows: [], count: 0 },
+  view: {},
   isFirstLoad: true,
   isLoading: false,
   isSuccess: false,
@@ -36,6 +40,9 @@ export const trainingSlice = createSlice({
     setData(state, action) {
       state.isFirstLoad = false
       state.data = action.payload
+    },
+    setView(state, action) {
+      state.view = action.payload
     },
     setError(state, action) {
       state.isSuccess = false
@@ -63,6 +70,26 @@ export function loadTrainings(id) {
       const { data } = await getTrainings(id)
       dispatch(setData(data))
       dispatch(reset())
+    } catch (error) {
+      handleError(error, dispatch, reset)
+    }
+  }
+}
+
+export function loadTrainingView(id) {
+  const { setView, reset } = trainingSlice.actions
+
+  return async (dispatch) => {
+    try {
+      const view = await getTrainingView(id)
+      const tracking = await getTracking(id)
+      const medical = await getMedicalData(id)
+      const data = {
+        ...view.data,
+        tracking: tracking.data,
+        medical: medical.data
+      }
+      dispatch(setView(data))
     } catch (error) {
       handleError(error, dispatch, reset)
     }

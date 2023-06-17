@@ -7,21 +7,32 @@ export const Action = ({ training, onUpdate }) => {
     user: { roles }
   } = useUser()
 
-  const isAdmin = roles.includes(USER_TYPES.ADMIN, USER_TYPES.SYS_ADMIN)
+  const isAdmin =
+    roles.filter((r) => [USER_TYPES.SYS_ADMIN, USER_TYPES.ADMIN].includes(r.id))
+      .length > 0
 
-  const isFinance = roles.includes(USER_TYPES.FINANCE, USER_TYPES.SYS_ADMIN)
+  const isFinance =
+    roles.filter((r) =>
+      [USER_TYPES.SYS_ADMIN, USER_TYPES.FINANCE].includes(r.id)
+    ).length > 0
 
-  const isMedic = roles.includes(USER_TYPES.MEDICAL, USER_TYPES.SYS_ADMIN)
+  const isMedic =
+    roles.filter((r) =>
+      [USER_TYPES.SYS_ADMIN, USER_TYPES.MEDICAL].includes(r.id)
+    ).length > 0
 
-  const isPrinter = roles.includes(USER_TYPES.PRINTER, USER_TYPES.SYS_ADMIN)
+  const isPrinter =
+    roles.filter((r) =>
+      [USER_TYPES.SYS_ADMIN, USER_TYPES.PRINTER].includes(r.id)
+    ).length > 0
 
   return (
     <>
-      {isAdmin && <ScanId training={training} />}
+      {isAdmin && <ScanId training={training} onUpdate={onUpdate} />}
+
+      {isMedic && <BloodPressure training={training} onUpdate={onUpdate} />}
 
       {isFinance && <Payment training={training} onUpdate={onUpdate} />}
-
-      {isMedic && <BloodPressure training={training} />}
 
       {isPrinter && <Print training={training} type={DOC_TYPE.CERTIFICATE} />}
 

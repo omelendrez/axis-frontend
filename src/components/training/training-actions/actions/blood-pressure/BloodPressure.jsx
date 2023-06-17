@@ -9,7 +9,8 @@ export const BloodPressure = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [bp, setBp] = useState({ systolic: '', diastolic: '' })
+  const initialValues = { systolic: '', diastolic: '' }
+  const [bp, setBp] = useState(initialValues)
 
   const handleChange = (e) =>
     setBp((bp) => ({ ...bp, [e.target.id]: e.target.value }))
@@ -19,6 +20,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
     medicalApproval(id, payload)
       .then((res) => {
+        setBp(initialValues)
         onUpdate()
         apiMessage(res)
       })
@@ -31,7 +33,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
     process(training.id, {
       systolic,
       diastolic,
-      fit: 1
+      approved: 1
     })
   }
 
@@ -40,42 +42,58 @@ export const BloodPressure = ({ training, onUpdate }) => {
     process(training.id, {
       systolic,
       diastolic,
-      fit: 0
+      approved: 0
     })
   }
 
   const { systolic, diastolic } = bp
 
+  let result = ''
+
+  training.medical.forEach((md) => {
+    md.bp?.forEach((p) => {
+      result = ` ${p.systolic}/${p.diastolic}`
+    })
+  })
+
+  const title = <strong>MEDICAL TEST</strong>
+
   return (
     <Task
-      title="Blood pressure"
-      description={description}
+      title={title}
+      description={
+        result ? <div className="description-large">{result}</div> : description
+      }
       className="blood-pressure"
-      onApprove={handleApprove}
-      onReject={handleReject}
+      onApprove={!result ? handleApprove : null}
+      onReject={!result ? handleReject : null}
       approveLabel="Fit"
       rejectLabel="No fit"
       approveDisabled={!systolic || !diastolic}
       rejectDisabled={!systolic || !diastolic}
       isSubmitting={isSubmitting}
     >
-      <input
-        id="systolic"
-        type="number"
-        placeholder="Systolic"
-        onChange={handleChange}
-        value={systolic}
-        className="bp"
-      />
+      {!result && (
+        <>
+          <input
+            id="systolic"
+            type="number"
+            placeholder="Systolic"
+            onChange={handleChange}
+            value={systolic}
+            className="bp"
+          />
 
-      <input
-        id="diastolic"
-        type="number"
-        placeholder="Diastolic"
-        onChange={handleChange}
-        value={diastolic}
-        className="bp"
-      />
+          <input
+            id="diastolic"
+            type="number"
+            placeholder="Diastolic"
+            onChange={handleChange}
+            value={diastolic}
+            className="bp"
+          />
+        </>
+      )}
     </Task>
   )
 }

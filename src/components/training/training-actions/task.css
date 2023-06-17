@@ -6,6 +6,12 @@ div.actions article article.description {
   margin: 0;
 }
 
+div.actions article div.description-large {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
 div.actions article article.description ol {
   margin: 0;
 }

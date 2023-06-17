@@ -7,6 +7,18 @@
   flex-wrap: wrap;
 }
 
+.training-view .alert-cancelled {
+  background-color: red;
+  padding: 6px 12px;
+  color: white;
+  position: fixed;
+  text-align: center;
+  text-transform: uppercase;
+  right: 1rem;
+  top: 4rem;
+  opacity: 0.5;
+}
+
 .training-view article {
   display: flex;
   flex-direction: column;

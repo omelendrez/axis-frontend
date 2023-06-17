@@ -27,14 +27,14 @@ export const ScanId = ({ training, onUpdate }) => {
   const handleApprove = (e) => {
     e.preventDefault()
     process(training.id, {
-      finance_status: 1
+      approved: 1
     })
   }
 
   const handleReject = (e) => {
     e.preventDefault()
     process(training.id, {
-      finance_status: 0
+      approved: 0
     })
   }
 
@@ -74,12 +74,11 @@ export const ScanId = ({ training, onUpdate }) => {
 
   return (
     <Task
-      title="Scan ID card"
+      title="Identification"
       className="scan-id"
       onApprove={handleApprove}
       onReject={handleReject}
       approveDisabled={!preview}
-      rejectDisabled={!preview}
       isSubmitting={isSubmitting}
     >
       <input type="file" accept="image/*" id="file" onChange={handleChange} />

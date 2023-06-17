@@ -14,6 +14,8 @@ export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 
 export const getTracking = (id) => api.get(`${endpoint}/${id}/tracking`)
 
+export const getMedicalData = (id) => api.get(`${endpoint}/${id}/medical`)
+
 export const getTraining = (id) => api.get(`${endpoint}/${id}`)
 
 export const updateTraining = (id, payload) =>
