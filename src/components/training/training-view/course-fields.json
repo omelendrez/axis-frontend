@@ -4,7 +4,23 @@
     "field": "course"
   },
   {
-    "label": "Date",
+    "label": "Course start",
     "field": "start"
+  },
+  {
+    "label": "Course end",
+    "field": "end"
+  },
+  {
+    "label": "Certificate issued",
+    "field": "issued"
+  },
+  {
+    "label": "Certificate expiry",
+    "field": "expiry"
+  },
+  {
+    "label": "Course state",
+    "field": "course_state"
   }
 ]

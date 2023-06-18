@@ -35,3 +35,12 @@
 .buttons-main button.delete:hover {
   color: hsl(0, 66%, 40%);
 }
+
+.buttons-main button.delete-inverted {
+  background-color: hsl(0, 66%, 60%);
+  border-color: hsl(0, 66%, 60%);
+}
+
+.buttons-main button.delete-inverted:hover {
+  background-color: hsl(0, 66%, 40%);
+}

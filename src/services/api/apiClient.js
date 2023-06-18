@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { KEYS, SP } from '../session'
 
+// TODO: Handle camelCase and snake-case interfaces with api
+
 const session = new SP()
 const pending = []
 

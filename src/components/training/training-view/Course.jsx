@@ -14,13 +14,15 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
     return <Loading />
   }
 
+  const { status_id: status, tracking } = training
+
   return (
     <article className="course">
       <h6 className="title">Course info</h6>
       <Buttons
         onEdit={onEdit}
         onDelete={onDelete}
-        onUndo={onUndo}
+        onUndo={status === 1 ? null : onUndo}
         noCheckboxes
       />
       <div>
@@ -38,7 +40,7 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
 
       <Divider />
 
-      <Tracking tracking={training.tracking} />
+      <Tracking tracking={tracking} />
     </article>
   )
 }
