@@ -5,12 +5,14 @@ import { Action } from './training-actions'
 import { Divider } from '../shared'
 import { undoLastApproval } from '../../services/api/approvals'
 import useApiMessages from '../../hooks/useApiMessages'
+import useUser from '../../hooks/useUser'
 import { TRAINING_STATUS } from '../../helpers'
 
 import './trainingView.css'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
+  const { user } = useUser()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   if (!training) {
@@ -21,12 +23,16 @@ export const TrainingView = ({ training, onUpdate }) => {
     )
   }
 
+  const { id, status_id: status } = training
+
+  const { roles } = user
+
+  const isAdmin = Boolean(roles.find((r) => r.id === 1))
+
   const handleUndo = (e) => {
     e.preventDefault()
 
-    console.log('bueno')
-
-    undoLastApproval(training.id)
+    undoLastApproval(id)
       .then((res) => {
         apiMessage(res)
         onUpdate()
@@ -35,8 +41,6 @@ export const TrainingView = ({ training, onUpdate }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  const { status_id: status } = training
-
   return (
     <main className="training-view">
       {status === TRAINING_STATUS.CANCELLED && <AlertCancelled />}
@@ -44,7 +48,7 @@ export const TrainingView = ({ training, onUpdate }) => {
       <Learner learner={{ ...training, status: undefined }} />
       <Course
         training={training}
-        onUndo={handleUndo}
+        onUndo={isAdmin ? handleUndo : null}
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}
       />
