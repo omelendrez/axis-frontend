@@ -3,6 +3,7 @@ import { Task } from '../../Task'
 import { frontdeskApproval } from '../../../../../services/api/approvals'
 import './scanId.css'
 import useApiMessages from '../../../../../hooks/useApiMessages'
+import { TRAINING_STATUS } from '../../../../../helpers'
 
 export const ScanId = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -12,7 +13,11 @@ export const ScanId = ({ training, onUpdate }) => {
 
   const [preview, setPreview] = useState(null)
 
-  const process = (id, payload) => {
+  const { id, status_id: status } = training
+
+  const isCancelled = status === TRAINING_STATUS.CANCELLED
+
+  const process = (payload) => {
     setIsSubmitting(true)
 
     frontdeskApproval(id, payload)
@@ -26,14 +31,14 @@ export const ScanId = ({ training, onUpdate }) => {
 
   const handleApprove = (e) => {
     e.preventDefault()
-    process(training.id, {
+    process({
       approved: 1
     })
   }
 
   const handleReject = (e) => {
     e.preventDefault()
-    process(training.id, {
+    process({
       approved: 0
     })
   }
@@ -78,10 +83,17 @@ export const ScanId = ({ training, onUpdate }) => {
       className="scan-id"
       onApprove={handleApprove}
       onReject={handleReject}
-      approveDisabled={!preview}
+      approveDisabled={!preview || isCancelled}
+      rejectDisabled={isCancelled}
       isSubmitting={isSubmitting}
     >
-      <input type="file" accept="image/*" id="file" onChange={handleChange} />
+      <input
+        type="file"
+        accept="image/*"
+        id="file"
+        onChange={handleChange}
+        disabled={isCancelled}
+      />
       {preview ? (
         <img src={preview} alt="selected" className="preview" />
       ) : (

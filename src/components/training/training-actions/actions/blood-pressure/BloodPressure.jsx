@@ -4,6 +4,7 @@ import './bloodPressure.css'
 import { medicalApproval } from '../../../../../services/api/approvals'
 import description from './description'
 import useApiMessages from '../../../../../hooks/useApiMessages'
+import { TRAINING_STATUS } from '../../../../../helpers'
 
 export const BloodPressure = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -15,7 +16,11 @@ export const BloodPressure = ({ training, onUpdate }) => {
   const handleChange = (e) =>
     setBp((bp) => ({ ...bp, [e.target.id]: e.target.value }))
 
-  const process = (id, payload) => {
+  const { id, status_id: status } = training
+
+  const isCancelled = status === TRAINING_STATUS.CANCELLED
+
+  const process = (payload) => {
     setIsSubmitting(true)
 
     medicalApproval(id, payload)
@@ -30,7 +35,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
   const handleApprove = (e) => {
     e.preventDefault()
-    process(training.id, {
+    process({
       systolic,
       diastolic,
       approved: 1
@@ -39,7 +44,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
   const handleReject = (e) => {
     e.preventDefault()
-    process(training.id, {
+    process({
       systolic,
       diastolic,
       approved: 0
@@ -69,8 +74,8 @@ export const BloodPressure = ({ training, onUpdate }) => {
       onReject={!result ? handleReject : null}
       approveLabel="Fit"
       rejectLabel="No fit"
-      approveDisabled={!systolic || !diastolic}
-      rejectDisabled={!systolic || !diastolic}
+      approveDisabled={!systolic || !diastolic || isCancelled}
+      rejectDisabled={!systolic || !diastolic || isCancelled}
       isSubmitting={isSubmitting}
     >
       {!result && (
@@ -82,6 +87,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
             onChange={handleChange}
             value={systolic}
             className="bp"
+            disabled={isCancelled}
           />
 
           <input
@@ -91,6 +97,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
             onChange={handleChange}
             value={diastolic}
             className="bp"
+            disabled={isCancelled}
           />
         </>
       )}

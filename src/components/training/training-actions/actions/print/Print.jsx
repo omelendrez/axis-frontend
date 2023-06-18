@@ -9,7 +9,7 @@ import {
 } from '../../../../../services'
 import useApiMessages from '../../../../../hooks/useApiMessages'
 import useUser from '../../../../../hooks/useUser'
-import { DOC_TYPE } from '../../../../../helpers'
+import { DOC_TYPE, TRAINING_STATUS } from '../../../../../helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 
@@ -17,16 +17,16 @@ export const Print = ({ training, type }) => {
   const { apiMessage } = useApiMessages()
   const { user } = useUser()
 
-  const trainingId = training?.id
+  const { id, status_id: status } = training
+
+  const isCancelled = status === TRAINING_STATUS.CANCELLED
 
   const [refresh, setRefresh] = useState(false)
 
   const [isDoc, setIsDoc] = useState(false)
 
   const documentUrl =
-    type === DOC_TYPE.CERTIFICATE
-      ? getCertificateUrl(trainingId)
-      : getIdCardUrl(trainingId)
+    type === DOC_TYPE.CERTIFICATE ? getCertificateUrl(id) : getIdCardUrl(id)
 
   const generate =
     type === DOC_TYPE.CERTIFICATE ? generateCertificate : generateIdCard
@@ -38,7 +38,7 @@ export const Print = ({ training, type }) => {
   const previewHeight = type === DOC_TYPE.CERTIFICATE ? 480 : 450
 
   useEffect(() => {
-    docExists(trainingId)
+    docExists(id)
       .then((res) => setIsDoc(res.data.exists))
       .catch((e) => apiMessage(e))
 
@@ -52,7 +52,7 @@ export const Print = ({ training, type }) => {
       user
     }
 
-    generate(trainingId, payload)
+    generate(id, payload)
       .then((res) => {
         const data = {
           message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
@@ -74,7 +74,9 @@ export const Print = ({ training, type }) => {
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
       className="document"
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
-      approveDisabled={!user.roles.find((r) => r.id === 1) && isDoc}
+      approveDisabled={
+        (!user.roles.find((r) => r.id === 1) && isDoc) || isCancelled
+      }
       rejectLabel="Print"
       onApprove={user.roles.find((r) => r.id === 1) ? handleGenerate : null}
     >

@@ -4,13 +4,17 @@ import { Task } from '../../Task'
 import description from './description'
 import useApiMessages from '../../../../../hooks/useApiMessages'
 import { financeApproval } from '../../../../../services/api/approvals'
+import { TRAINING_STATUS } from '../../../../../helpers'
 
 export const Payment = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const process = (id, payload) => {
+  const { id, status_id: status, finance_status: financeStatus } = training
+  const isCancelled = status === TRAINING_STATUS.CANCELLED
+
+  const process = (payload) => {
     setIsSubmitting(true)
 
     financeApproval(id, payload)
@@ -24,14 +28,14 @@ export const Payment = ({ training, onUpdate }) => {
 
   const handleApprove = (e) => {
     e.preventDefault()
-    process(training.id, {
+    process({
       approved: 1
     })
   }
 
   const handleReject = (e) => {
     e.preventDefault()
-    process(training.id, {
+    process({
       approved: 0
     })
   }
@@ -39,9 +43,9 @@ export const Payment = ({ training, onUpdate }) => {
   const result = (
     <strong>
       PAYMENT
-      {training.finance_status === null
+      {financeStatus === null
         ? ' PENDING'
-        : training.finance_status === 0
+        : financeStatus === 0
         ? ' NOT RECEIVED'
         : ' RECEIVED'}
     </strong>
@@ -52,15 +56,17 @@ export const Payment = ({ training, onUpdate }) => {
     <Task
       title={title}
       description={
-        training.finance_status === null ? (
+        financeStatus === null ? (
           description
         ) : (
           <div className="description-large">{result}</div>
         )
       }
       className="payment"
-      onApprove={training.finance_status === null ? handleApprove : null}
-      onReject={training.finance_status === null ? handleReject : null}
+      onApprove={financeStatus === null ? handleApprove : null}
+      onReject={financeStatus === null ? handleReject : null}
+      approveDisabled={isCancelled}
+      rejectDisabled={isCancelled}
       approveLabel="Paid"
       rejectLabel="Not paid"
       isSubmitting={isSubmitting}
