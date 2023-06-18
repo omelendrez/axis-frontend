@@ -40,22 +40,15 @@ div.actions div.buttons button {
   max-width: 10rem;
   text-transform: uppercase;
   font-weight: 900;
-}
-
-div.actions div button {
-  background-color: hsl(116 40% 50%);
-  transition: background-color var(--transition);
-}
-
-div.actions div button:hover {
-  background-color: hsl(116 40% 40%);
+  background-color: var(--primary);
+  transition: opacity var(--transition);
 }
 
 div.actions div button.delete {
-  background-color: hsl(0, 66%, 60%);
-  transition: background-color var(--transition);
+  background-color: var(--error);
 }
 
+div.actions div button:hover,
 div.actions div button.delete:hover {
-  background-color: hsl(0, 66%, 40%);
+  opacity: 0.9;
 }

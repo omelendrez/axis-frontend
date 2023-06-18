@@ -12,6 +12,7 @@
   --ellipsis-mobile: 20rem;
   --row-gap: 2rem;
   --col-gap: 2rem;
+  --background-color-mix: color-mix(in srgb, var(--primary) 2%, white);
 }
 
 [data-theme='light'],
