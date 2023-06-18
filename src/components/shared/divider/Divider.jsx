@@ -1,3 +1,3 @@
 import './divider.css'
 
-export const Divider = () => <div className="divider" />
+export const Divider = ({ style }) => <div className="divider" style={style} />

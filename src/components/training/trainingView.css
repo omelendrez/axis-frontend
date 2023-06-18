@@ -61,7 +61,13 @@
   gap: 1rem;
 }
 
-.training-view .row-line div:first-child:not(.tag) {
+.training-view .learner .row-line div:first-child:not(.tag) {
+  width: 5rem;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.training-view .course .row-line div:first-child:not(.tag) {
   width: 10rem;
   text-align: right;
   margin-right: 1rem;

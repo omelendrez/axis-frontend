@@ -1,7 +1,8 @@
 [
   {
     "label": "Course",
-    "field": "course"
+    "field": "course",
+    "divider": true
   },
   {
     "label": "Course start",
@@ -9,7 +10,8 @@
   },
   {
     "label": "Course end",
-    "field": "end"
+    "field": "end",
+    "divider": true
   },
   {
     "label": "Certificate issued",
@@ -17,7 +19,8 @@
   },
   {
     "label": "Certificate expiry",
-    "field": "expiry"
+    "field": "expiry",
+    "divider": true
   },
   {
     "label": "Course current state",

@@ -1,12 +1,15 @@
-import { Loading, Buttons } from '../../shared'
+import { Loading, Buttons, Divider } from '../../shared'
 import { Tracking } from './Tracking'
 import fields from './course-fields.json'
 
-const Row = ({ label, value, className }) => (
-  <div className="row-line" key={label}>
-    <div>{label}:</div>
-    <div className={className}>{value}</div>
-  </div>
+const Row = ({ label, value, className, divider }) => (
+  <>
+    <div className="row-line" key={label}>
+      <div>{label}:</div>
+      <div className={className}>{value}</div>
+    </div>
+    {divider && <Divider style={{ margin: '14px 0' }} />}
+  </>
 )
 
 export const Course = ({ training, onEdit, onDelete, onUndo }) => {
@@ -34,6 +37,7 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
               label={f.label}
               value={training[f.field]}
               className={f.className}
+              divider={f.divider}
             />
           ))}
       </div>
