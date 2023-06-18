@@ -1,5 +1,7 @@
 import './alertCancelled.css'
 
 export const AlertCancelled = () => (
-  <div className="alert-cancelled">this training record has been cancelled</div>
+  <div className="alert-cancelled-container">
+    <div className="alert-cancelled">cancelled</div>
+  </div>
 )

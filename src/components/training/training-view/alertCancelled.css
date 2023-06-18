@@ -1,12 +1,22 @@
-div.alert-cancelled {
-  background-color: var(--error);
-  padding: 6px 12px;
-  color: white;
+div.alert-cancelled-container {
   position: fixed;
-  text-align: center;
+  top: calc(100vh / 3);
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: fit-content;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.1;
+}
+
+div.alert-cancelled-container div.alert-cancelled {
+  background-color: var(--error);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  color: white;
   text-transform: uppercase;
-  right: 1rem;
-  top: 4rem;
-  /* opacity: 0.5; */
-  font-size: small;
+  font-size: 4rem;
 }
