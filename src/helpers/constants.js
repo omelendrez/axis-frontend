@@ -25,7 +25,8 @@ export const USER_TYPES = {
   PRINTER: 10
 }
 
-export const APPROVAL_STATUS = {
+export const TRAINING_STATUS = {
+  ADMIN: 1,
   FRONTDESK: 2,
   MEDICAL: 3,
   TRAINING_COORDINATOR: 4,

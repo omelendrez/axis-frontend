@@ -1,6 +1,6 @@
 import { api } from './apiClient'
 
-import { APPROVAL_STATUS } from '../../helpers/constants'
+import { TRAINING_STATUS } from '../../helpers/constants'
 
 const endpoint = '/approval'
 
@@ -15,14 +15,14 @@ export const undoLastApproval = (id) => api.delete(`${endpoint}/${id}`)
 export const frontdeskApproval = (id) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.FRONTDESK
+    status: TRAINING_STATUS.FRONTDESK
   })
 
 // 3 Medical
 export const medicalApproval = (id, payload) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.MEDICAL,
+    status: TRAINING_STATUS.MEDICAL,
     payload
   })
 
@@ -30,14 +30,14 @@ export const medicalApproval = (id, payload) =>
 export const trainingCoordinatorApproval = (id) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.TRAINING_COORDINATOR
+    status: TRAINING_STATUS.TRAINING_COORDINATOR
   })
 
 // 5 Assesment
 export const assesmentApproval = (id, payload) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.ASSESSMENT,
+    status: TRAINING_STATUS.ASSESSMENT,
     payload
   })
 
@@ -45,14 +45,14 @@ export const assesmentApproval = (id, payload) =>
 export const QAApproval = (id) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.QA
+    status: TRAINING_STATUS.QA
   })
 
 // 7 Finance
 export const financeApproval = (id, payload) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.FINANCE,
+    status: TRAINING_STATUS.FINANCE,
     payload
   })
 
@@ -60,5 +60,5 @@ export const financeApproval = (id, payload) =>
 export const MDApproval = (id) =>
   approvals({
     id,
-    status: APPROVAL_STATUS.MD
+    status: TRAINING_STATUS.MD
   })

@@ -3,11 +3,11 @@
 }
 
 .tag.opito {
-  background: var(--del-color);
+  background: var(--error);
 }
 
 .tag.standard {
-  background-color: rgb(0, 100, 100);
+  background-color: var(--success);
 }
 
 .tag.nimasa {
@@ -15,5 +15,5 @@
 }
 
 .tag.forklift {
-  background-color: rgb(0, 200, 200);
+  background-color: var(--info);
 }

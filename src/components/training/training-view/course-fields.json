@@ -20,7 +20,7 @@
     "field": "expiry"
   },
   {
-    "label": "Course state",
+    "label": "Course current state",
     "field": "course_state"
   }
 ]

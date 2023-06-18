@@ -2,6 +2,7 @@ import './tracking.css'
 
 export const Tracking = ({ tracking }) => (
   <figure>
+    <div className="table-title">History</div>
     <table role="grid" className="course-table">
       <thead>
         <tr>

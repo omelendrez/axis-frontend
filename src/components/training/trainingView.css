@@ -7,26 +7,10 @@
   flex-wrap: wrap;
 }
 
-.training-view .alert-cancelled {
-  background-color: red;
-  padding: 6px 12px;
-  color: white;
-  position: fixed;
-  text-align: center;
-  text-transform: uppercase;
-  right: 1rem;
-  top: 4rem;
-  opacity: 0.5;
-}
-
 .training-view article {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-.training-view article:nth-child(2) {
-  flex-grow: 1;
 }
 
 .training-view div .row-line {
@@ -37,6 +21,7 @@
 
 .training-view div .row-line div:first-child {
   font-weight: lighter;
+  white-space: nowrap;
 }
 
 .training-view div .row-line div:last-child {
@@ -54,7 +39,6 @@
   padding: 0.3rem 1rem;
   border-radius: 0 1rem 1rem 0;
   width: fit-content;
-  margin-bottom: 2rem;
 }
 
 .training-view .photo img {
@@ -77,15 +61,15 @@
   gap: 1rem;
 }
 
+.training-view .row-line div:first-child:not(.tag) {
+  width: 10rem;
+  text-align: right;
+  margin-right: 1rem;
+}
+
 @media screen and (min-width: 992px) {
   .training-view article {
     width: unset;
-  }
-
-  .training-view .row-line div:first-child:not(.tag) {
-    width: 5rem;
-    text-align: right;
-    margin-right: 1rem;
   }
 
   .training-view .photo img {
@@ -93,7 +77,8 @@
     margin: 0 auto;
   }
 
-  .training-view article:nth-child(3) {
-    width: 100%;
+  .training-view article.course,
+  .training-view article.learner {
+    flex-grow: 1;
   }
 }

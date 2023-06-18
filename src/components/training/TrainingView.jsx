@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { Photo, Learner } from '../learner/learner-view'
-import { Course } from './training-view'
+import { Course, AlertCancelled } from './training-view'
 import { Action } from './training-actions'
 import { Divider } from '../shared'
 import { undoLastApproval } from '../../services/api/approvals'
 import useApiMessages from '../../hooks/useApiMessages'
+import { TRAINING_STATUS } from '../../helpers'
 
 import './trainingView.css'
-
-const AlertCancelled = () => <div className="alert-cancelled">cancelled</div>
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -34,9 +33,11 @@ export const TrainingView = ({ training, onUpdate }) => {
       .finally(() => setIsSubmitting(false))
   }
 
+  const { status_id: status } = training
+
   return (
     <main className="training-view">
-      {training.status_id === 12 && <AlertCancelled />}
+      {status === TRAINING_STATUS.CANCELLED && <AlertCancelled />}
       <Photo {...training} />
       <Learner learner={{ ...training, status: undefined }} />
       <Course

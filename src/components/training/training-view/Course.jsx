@@ -1,6 +1,7 @@
-import { Loading, Buttons, Divider } from '../../shared'
+import { Loading, Buttons } from '../../shared'
 import { Tracking } from './Tracking'
 import fields from './course-fields.json'
+import { TRAINING_STATUS } from '../../../helpers'
 
 const Row = ({ label, value, className }) => (
   <div className="row-line" key={label}>
@@ -16,13 +17,15 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
 
   const { status_id: status, tracking } = training
 
+  const handleUndo = () => (status === TRAINING_STATUS.ADMIN ? null : onUndo)
+
   return (
     <article className="course">
       <h6 className="title">Course info</h6>
       <Buttons
         onEdit={onEdit}
         onDelete={onDelete}
-        onUndo={status === 1 ? null : onUndo}
+        onUndo={handleUndo}
         noCheckboxes
       />
       <div>
@@ -37,8 +40,6 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
             />
           ))}
       </div>
-
-      <Divider />
 
       <Tracking tracking={tracking} />
     </article>

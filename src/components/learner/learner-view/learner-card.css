@@ -3,7 +3,7 @@
 }
 
 .tag.lcl {
-  background-color: var(--ins-color);
+  background-color: var(--success);
 }
 
 .tag.sub {
