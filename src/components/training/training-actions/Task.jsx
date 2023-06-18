@@ -18,7 +18,7 @@ export const Task = ({
       <h6 className="title">{title}</h6>
       <div className="children">{children}</div>
 
-      <article className="description">{description}</article>
+      {description && <article className="description">{description}</article>}
 
       <div className="buttons">
         {onApprove && (
