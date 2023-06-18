@@ -43,7 +43,7 @@ const Card = ({ item, onView }) => {
         <div className="ellipsis course">{item.course}</div>
         <div className="ellipsis name">{item.full_name}</div>
         <div className="small-font">{item.company}</div>
-        <div className={`extra-small-font status status-${item.status_id}`}>
+        <div className={`small-font status status-${item.status_id}`}>
           {item.status}
         </div>
       </div>

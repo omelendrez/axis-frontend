@@ -24,6 +24,8 @@ export const TrainingView = ({ training, onUpdate }) => {
   const handleUndo = (e) => {
     e.preventDefault()
 
+    console.log('bueno')
+
     undoLastApproval(training.id)
       .then((res) => {
         apiMessage(res)

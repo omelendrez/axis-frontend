@@ -12,10 +12,11 @@ export const approvals = ({ id, status, payload }) =>
 export const undoLastApproval = (id) => api.delete(`${endpoint}/${id}`)
 
 // 2 Frontdesk
-export const frontdeskApproval = (id) =>
+export const frontdeskApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.FRONTDESK
+    status: TRAINING_STATUS.FRONTDESK,
+    payload
   })
 
 // 3 Medical

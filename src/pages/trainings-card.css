@@ -19,15 +19,19 @@
 }
 
 .card.trainings .card-body .status-1 {
-  background-color: #888;
+  background-color: var(--primary);
 }
 
 .card.trainings .card-body .status-7 {
-  background-color: blueviolet;
+  background-color: var(--purple);
 }
 
 .card.trainings .card-body .status-11 {
-  background-color: green;
+  background-color: var(--success);
+}
+
+.card.trainings .card-body .status-12 {
+  background-color: var(--error);
 }
 
 .card.trainings {
