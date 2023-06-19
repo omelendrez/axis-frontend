@@ -2,6 +2,8 @@ import { api } from './assetsClient'
 
 const url = import.meta.env.VITE_ASSETS_URL
 
-export const getPhotoUrl = (badge) => `${url}pictures/${badge}.jpg`
+const endpoint = 'pictures'
 
-export const upload = (formData) => api.post(`${url}upload-photo`, formData)
+export const getPhotoUrl = (badge) => `${url}${endpoint}/${badge}.jpg`
+
+export const uploadPhoto = (formData) => api.post(`${url}${endpoint}`, formData)

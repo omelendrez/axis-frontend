@@ -1,4 +1,5 @@
 export * from './assetsClient'
 export * from './certificate'
 export * from './id_card'
+export * from './learner_id'
 export * from './photo'

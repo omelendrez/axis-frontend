@@ -77,9 +77,11 @@ export const ScanId = ({ training, onUpdate }) => {
     }
   }, [selectedFile])
 
+  const title = <strong>Identitication</strong>
+
   return (
     <Task
-      title="Identification"
+      title={title}
       className="scan-id"
       onApprove={handleApprove}
       onReject={handleReject}

@@ -2,6 +2,10 @@ div.actions article div label {
   white-space: nowrap;
 }
 
+div.actions article .title {
+  text-transform: uppercase;
+}
+
 div.actions article article.description {
   margin: 0;
 }

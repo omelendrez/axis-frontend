@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '../shared'
 
-import { upload } from '../../services/assets'
+import { uploadPhoto } from '../../services/assets'
 // import { MAX_FILE_SIZE } from '../../helpers/photo'
 import './photo.css'
 
@@ -51,7 +51,7 @@ export const Photo = ({ badge, onClose }) => {
     const formData = new FormData()
     formData.append('name', badge)
     formData.append('file', selectedFile)
-    upload(formData)
+    uploadPhoto(formData)
       .then((res) => {
         setPreview(res.data)
         apiMessage(res)
