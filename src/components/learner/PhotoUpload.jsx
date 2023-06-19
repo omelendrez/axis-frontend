@@ -7,7 +7,7 @@ import './photo.css'
 
 import useApiMessages from '../../hooks/useApiMessages'
 
-export const Photo = ({ badge, onClose }) => {
+export const PhotoUpload = ({ badge, onClose }) => {
   const { apiMessage } = useApiMessages()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -16,19 +16,6 @@ export const Photo = ({ badge, onClose }) => {
     e.preventDefault()
     if (e.target.files) {
       const file = e.target.files[0]
-      // if (file?.size > MAX_FILE_SIZE) {
-      //   const notification = {
-      //     type: 'error',
-      //     message: `Image size too big (${Math.ceil(
-      //       file.size / 1000
-      //     )}K). Image size cannot be bigger than ${Math.ceil(
-      //       MAX_FILE_SIZE / 1000
-      //     )}K`
-      //   }
-      //   setSelectedFile(null)
-      //   return set(notification)
-      // }
-
       setSelectedFile(file)
     }
   }

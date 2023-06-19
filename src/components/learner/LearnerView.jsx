@@ -14,7 +14,7 @@ import {
 } from '../../services'
 import { Loading, Modal } from '../shared'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
-import { LearnerForm, TrainingForm, Contact, Photo as PhotoForm } from '..'
+import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '..'
 
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
@@ -181,7 +181,7 @@ export const LearnerView = () => {
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
       <Modal open={isPhotoOpen} title="Profile picture" onClose={handleClose}>
-        <PhotoForm onClose={handleClose} badge={learner.badge} />
+        <PhotoUpload onClose={handleClose} badge={learner.badge} />
       </Modal>
       <main className="learner-view">
         {/* Data components */}

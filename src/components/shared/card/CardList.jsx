@@ -39,7 +39,7 @@ export const CardList = ({
 
   return (
     <>
-      {data.rows.length > 0 && (
+      {(data.rows.length > 0 || search.length > 0) && (
         <Search
           onChange={handleSearchChange}
           value={searchText}
@@ -49,7 +49,14 @@ export const CardList = ({
       {!isLoading && data?.count === 0 && (
         <article>
           No records found
-          {search ? ` matching: "${search}"` : ''}.
+          {search ? (
+            <span style={{ marginLeft: '4px' }}>
+              matching <strong> {search}</strong>
+            </span>
+          ) : (
+            ''
+          )}
+          .
         </article>
       )}
       <div className="card-list">

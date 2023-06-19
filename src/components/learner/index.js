@@ -1,3 +1,4 @@
+export * from './IdCardUpload'
 export * from './LearnerForm'
 export * from './LearnerView'
-export * from './Photo'
+export * from './PhotoUpload'

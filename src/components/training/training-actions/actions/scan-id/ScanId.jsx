@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Task } from '../../Task'
 import { frontdeskApproval } from '../../../../../services/api/approvals'
 import './scanId.css'
 import useApiMessages from '../../../../../hooks/useApiMessages'
+import { IdCardUpload } from '../../../../learner'
 import { TRAINING_STATUS } from '../../../../../helpers'
+import { Modal } from '../../../../shared'
 
 export const ScanId = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
 
-  const [selectedFile, setSelectedFile] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const [preview, setPreview] = useState(null)
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
-  const { id, status_id: status } = training
+  const { id, status_id: status, badge } = training
 
   const isCancelled = status === TRAINING_STATUS.CANCELLED
 
@@ -43,64 +44,38 @@ export const ScanId = ({ training, onUpdate }) => {
     })
   }
 
-  const handleChange = (e) => {
+  const handleScan = (e) => {
     e.preventDefault()
-    if (e.target.files) {
-      const file = e.target.files[0]
-      // if (file?.size > MAX_FILE_SIZE) {
-      //   const notification = {
-      //     type: 'error',
-      //     message: `Image size too big (${Math.ceil(
-      //       file.size / 1000
-      //     )}K). Image size cannot be bigger than ${Math.ceil(
-      //       MAX_FILE_SIZE / 1000
-      //     )}K`
-      //   }
-      //   setSelectedFile(null)
-      //   return set(notification)
-      // }
-
-      setSelectedFile(file)
-    }
+    setIsPhotoOpen(true)
   }
 
-  useEffect(() => {
-    if (selectedFile) {
-      const preview = (
-        window.URL ||
-        window.webkitURL ||
-        window ||
-        {}
-      ).createObjectURL(selectedFile)
-
-      setPreview(preview)
-    }
-  }, [selectedFile])
+  const handleClose = (e) => {
+    e?.preventDefault()
+    setIsPhotoOpen(false)
+  }
 
   const title = <strong>Identitication</strong>
 
   return (
-    <Task
-      title={title}
-      className="scan-id"
-      onApprove={handleApprove}
-      onReject={handleReject}
-      approveDisabled={!preview || isCancelled}
-      rejectDisabled={isCancelled}
-      isSubmitting={isSubmitting}
-    >
-      <input
-        type="file"
-        accept="image/*"
-        id="file"
-        onChange={handleChange}
-        disabled={isCancelled}
-      />
-      {preview ? (
-        <img src={preview} alt="selected" className="preview" />
-      ) : (
-        <div></div>
-      )}
-    </Task>
+    <>
+      <Task
+        title={title}
+        className="scan-id"
+        onApprove={handleApprove}
+        onReject={handleReject}
+        approveDisabled={isCancelled}
+        rejectDisabled={isCancelled}
+        isSubmitting={isSubmitting}
+      >
+        <div className="buttons">
+          <button onClick={handleScan}>Scan Id</button>
+        </div>
+        <Modal open={isPhotoOpen} title="Scan Id card" onClose={handleClose}>
+          <div className="form-container">
+            <IdCardUpload onClose={handleClose} badge={badge} />
+          </div>
+        </Modal>
+      </Task>
+    </>
   )
 }

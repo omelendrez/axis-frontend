@@ -13,19 +13,20 @@ import useApiMessages from '../hooks/useApiMessages'
 import './trainings-card.css'
 import './classroom.css'
 
-const Header = ({ classroom }) => (
-  <section className="classroom-header">
-    <div>
-      <div>{classroom.course}</div>
-      <div>{classroom.start}</div>
-    </div>
-  </section>
-)
+const Header = ({ classroom: { course, start } }) =>
+  course &&
+  start && (
+    <section className="classroom-header">
+      <div>
+        <div>{course}</div>
+        <div>{start}</div>
+      </div>
+    </section>
+  )
 
 const Card = ({ item, onView }) => {
-  const photoUrl = item.badge
-    ? getPhotoUrl(item.badge)
-    : '/assets/no-image-icon.png'
+  const { badge, course, full_name, company, status_id, status } = item
+  const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
 
   const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 
@@ -34,18 +35,16 @@ const Card = ({ item, onView }) => {
       <div className="card-avatar-root">
         <img
           src={photoUrl}
-          alt={item.badge}
+          alt={badge}
           className="card-avatar-img"
           onError={handleError}
         />
       </div>
       <div className="card-body">
-        <div className="ellipsis course">{item.course}</div>
-        <div className="ellipsis name">{item.full_name}</div>
-        <div className="small-font">{item.company}</div>
-        <div className={`small-font status status-${item.status_id}`}>
-          {item.status}
-        </div>
+        <div className="ellipsis course">{course}</div>
+        <div className="ellipsis name">{full_name}</div>
+        <div className="small-font">{company}</div>
+        <div className={`small-font status status-${status_id}`}>{status}</div>
       </div>
     </article>
   )
