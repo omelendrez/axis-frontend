@@ -13,7 +13,10 @@ div.actions article article.description {
 div.actions article div.description-large {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 div.actions article article.description ol {

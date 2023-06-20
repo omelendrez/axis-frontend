@@ -57,7 +57,12 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
   training.medical.forEach((md) => {
     md.bp?.forEach((p) => {
-      result = ` ${p.systolic}/${p.diastolic}`
+      result = (
+        <div className="bp-results">
+          <div>Systolic: {p.systolic}</div>
+          <div>Diastolic: {p.diastolic}</div>
+        </div>
+      )
     })
   })
 

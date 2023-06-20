@@ -9,3 +9,8 @@
   position: relative;
   top: -1ch;
 }
+
+.blood-pressure .description .bp-results {
+  flex-direction: column;
+  align-items: center;
+}

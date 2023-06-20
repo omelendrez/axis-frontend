@@ -1,10 +1,3 @@
-.scan-id .children {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.scan-id .children .modal-container div {
+.training-view .actions article div div.scan-id-children {
   flex-direction: column;
 }
