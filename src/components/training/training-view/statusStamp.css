@@ -1,7 +1,7 @@
 div.alert-status-container {
   position: fixed;
   top: 6rem;
-  right: 1rem;
+  right: 2rem;
   width: fit-content;
   height: fit-content;
 }
