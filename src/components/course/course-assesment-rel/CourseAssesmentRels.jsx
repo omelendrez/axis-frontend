@@ -1,5 +1,5 @@
 import fields from './course-assesment-rel-fields.json'
-import { Multiselect } from '../../shared'
+import { Multiselect } from '@/components'
 
 import { createCourseAssesmentRel } from '@/services'
 

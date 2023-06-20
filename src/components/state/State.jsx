@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form } from '../shared'
+import { Form } from '@/components'
 
 import useStates from '@/hooks/useStates'
 

@@ -1,4 +1,4 @@
-import { Divider } from '../shared/divider/Divider'
+import { Divider } from '@/components'
 
 export const MenuOption = ({
   title,

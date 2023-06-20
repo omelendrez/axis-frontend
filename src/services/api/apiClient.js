@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { KEYS, SP } from '../session'
+import { KEYS, SP } from '@/services'
 
 // TODO: Handle camelCase and snake-case interfaces with api
 

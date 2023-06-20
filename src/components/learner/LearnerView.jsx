@@ -12,7 +12,7 @@ import {
   getTraining,
   deleteTraining
 } from '@/services'
-import { Loading, Modal } from '../shared'
+import { Loading, Modal } from '@/components'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
 import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '..'
 

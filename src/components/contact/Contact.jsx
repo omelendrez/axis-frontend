@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Form } from '../shared'
+import { Form } from '@/components'
 
 import useContacts from '@/hooks/useContacts'
 import useContactTypes from '@/hooks/useContactTypes'

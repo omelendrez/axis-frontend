@@ -1,5 +1,5 @@
 import fields from './course-item-rel-fields.json'
-import { Multiselect } from '../../shared'
+import { Multiselect } from '@/components'
 
 import { createCourseItemRel } from '@/services'
 

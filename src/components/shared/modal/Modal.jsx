@@ -1,4 +1,4 @@
-import { ActionButton } from '../button'
+import { ActionButton } from '@/components'
 import './modal.css'
 
 export const Modal = ({ open, title, onClose, children }) => (

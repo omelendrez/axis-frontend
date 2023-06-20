@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Task } from '../../Task'
+import { Task } from '@/components'
 import './bloodPressure.css'
 import { medicalApproval } from '@/services/api/approvals'
 import description from './description'

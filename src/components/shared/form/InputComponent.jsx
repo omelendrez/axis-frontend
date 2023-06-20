@@ -4,7 +4,7 @@ import {
   InputField,
   Switch,
   ReadOnly
-} from '../input'
+} from '@/components'
 
 export const InputComponent = ({ field, values, options, onChange }) => {
   let component

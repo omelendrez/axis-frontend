@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Form } from '../shared'
+import { Form } from '@/components'
 
 import useCourses from '@/hooks/useCourses'
 import useCertificateTypes from '@/hooks/useCertificateTypes'

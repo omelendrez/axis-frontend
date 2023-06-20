@@ -1,4 +1,4 @@
-import { Task } from '../../Task'
+import { Task } from '@/components'
 import {
   generateCertificate,
   generateIdCard,

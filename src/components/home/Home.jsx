@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../context'
+import { UserContext } from '@/context'
 import { MenuOption } from './MenuOption'
 import options from './options.json'
 import { hasRequiredRole } from '@/helpers/auth'

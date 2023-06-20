@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Confirm, Loading, Form } from '../shared'
+import { Confirm, Loading, Form } from '@/components'
 // Ok
 import useLearners from '@/hooks/useLearners'
 import useStates from '@/hooks/useStates'

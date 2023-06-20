@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import fields from './training-fields.json'
-import { Table, Buttons } from '../../shared'
+import { Table, Buttons } from '@/components'
 // Ok
 
 export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {

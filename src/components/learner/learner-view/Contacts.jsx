@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import fields from './contact-fields.json'
 
-import { Table, Buttons } from '../../shared'
+import { Table, Buttons } from '@/components'
 
 export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])

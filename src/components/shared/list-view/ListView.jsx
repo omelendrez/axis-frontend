@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import useUser from '@/hooks/useUser'
-import { ActionButton, Search } from '../'
-import { Pagination } from '../'
+import { ActionButton, Search, Pagination } from '@/components'
 
 const Row = ({ item, fields, onEdit, onDelete }) => {
   const { user } = useUser()

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Task } from '../../Task'
+import { Task } from '@/components'
 
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'

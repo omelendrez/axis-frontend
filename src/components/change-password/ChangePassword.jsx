@@ -2,14 +2,14 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNoficication from '@/hooks/useNotification'
 import useApiMessages from '@/hooks/useApiMessages'
-import { InputField } from '../shared'
+import { InputField } from '@/components'
 import {
   validatePasswordLength,
   validateNotEmpty,
   validateConfirmPassword
 } from '@/helpers'
 import { changePassword } from '@/services'
-import { UserContext } from '../../context'
+import { UserContext } from '@/context'
 import './changePassword.css'
 
 const initialValues = {

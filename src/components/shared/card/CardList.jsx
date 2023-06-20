@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { Search } from '../'
+import { Search, Pagination } from '@/components'
 
-import { Pagination } from '../'
 import './cardList.css'
 import './card.css'
 

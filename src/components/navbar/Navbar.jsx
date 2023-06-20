@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useContext, useRef } from 'react'
 import { SP } from '@/services'
-import { UserContext, ThemeContext } from '../../context'
-import { Divider } from '../shared'
+import { UserContext, ThemeContext } from '@/context'
+import { Divider } from '@/components'
 
 import './navbar.css'
 

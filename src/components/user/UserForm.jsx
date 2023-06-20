@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Form } from '../shared'
+import { Form } from '@/components'
 
 import useUsers from '@/hooks/useUsers'
 import useNoficication from '@/hooks/useNotification'

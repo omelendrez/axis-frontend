@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Tag } from '../shared'
+import { Tag } from '@/components'
 
 import { uploadPhoto } from '@/services/assets'
 // import { MAX_FILE_SIZE } from '@/helpers/photo'

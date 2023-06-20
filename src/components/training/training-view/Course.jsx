@@ -1,4 +1,4 @@
-import { Loading, Buttons, Divider } from '../../shared'
+import { Loading, Buttons, Divider } from '@/components'
 import { Tracking } from './Tracking'
 import fields from './course-fields.json'
 

@@ -5,7 +5,7 @@ import { ProtectedRoute } from '@/guard'
 const Home = lazy(() => import('@/pages/Home'))
 const Login = lazy(() => import('@/pages/Login'))
 const ChangePassword = lazy(() => import('@/pages/ChangePassword'))
-const NotFound = lazy(() => import('../components/navbar/NotFound'))
+const NotFound = lazy(() => import('@/components'))
 
 export const defaultRoutes = (
   <>

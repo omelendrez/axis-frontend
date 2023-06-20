@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { Loading, Modal } from '../shared'
+import { Loading, Modal } from '@/components'
 
 import { User, UserRoles } from './user-view'
 import { UserForm } from '..'

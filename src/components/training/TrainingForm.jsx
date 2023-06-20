@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Form } from '../shared'
+import { Form } from '@/components'
 
 import useTrainings from '@/hooks/useTrainings'
 import useCourses from '@/hooks/useCourses'

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form } from '../shared'
+import { Form } from '@/components'
 import useCompanies from '@/hooks/useCompanies'
 import { loadSchema } from '@/helpers'
 import { status as statusList } from '@/static-lists'

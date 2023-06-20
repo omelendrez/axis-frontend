@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Table, Buttons } from '../../shared'
+import { Table, Buttons } from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
 import useNoficication from '@/hooks/useNotification'
 import './multiselect.css'

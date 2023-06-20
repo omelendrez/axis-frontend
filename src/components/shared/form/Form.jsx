@@ -1,6 +1,5 @@
-import { CloseButton } from '../../shared'
-import { FormButtonRow, SaveButton } from '../button'
-import { InputComponent } from './InputComponent'
+import { CloseButton } from '@/components'
+import { FormButtonRow, SaveButton, InputComponent } from '@/components'
 
 export const Form = ({
   schema,

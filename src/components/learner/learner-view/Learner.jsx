@@ -1,4 +1,4 @@
-import { Loading, Buttons, Tag } from '../../shared'
+import { Loading, Buttons, Tag } from '@/components'
 
 import fields from './learner-fields.json'
 import './learner.css'

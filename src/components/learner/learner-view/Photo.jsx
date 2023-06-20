@@ -1,5 +1,5 @@
 import { getPhotoUrl } from '@/services'
-import { Buttons } from '../../shared'
+import { Buttons } from '@/components'
 import './photo.css'
 
 export const Photo = ({ badge, onEdit }) => {
