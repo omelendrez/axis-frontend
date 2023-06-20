@@ -1,6 +1,6 @@
 import { api } from './apiClient'
 
-import { setURLParams } from '../../helpers'
+import { setURLParams } from '@/helpers'
 
 const endpoint = '/company'
 

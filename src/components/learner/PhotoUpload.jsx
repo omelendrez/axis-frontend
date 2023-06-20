@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '../shared'
 
-import { uploadPhoto } from '../../services/assets'
-// import { MAX_FILE_SIZE } from '../../helpers/photo'
+import { uploadPhoto } from '@/services/assets'
+// import { MAX_FILE_SIZE } from '@/helpers/photo'
 import './photo.css'
 
-import useApiMessages from '../../hooks/useApiMessages'
+import useApiMessages from '@/hooks/useApiMessages'
 
 export const PhotoUpload = ({ badge, onClose }) => {
   const { apiMessage } = useApiMessages()

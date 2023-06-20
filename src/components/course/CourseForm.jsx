@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { Form } from '../shared'
 
-import useCourses from '../../hooks/useCourses'
-import useCertificateTypes from '../../hooks/useCertificateTypes'
-import useNoficication from '../../hooks/useNotification'
+import useCourses from '@/hooks/useCourses'
+import useCertificateTypes from '@/hooks/useCertificateTypes'
+import useNoficication from '@/hooks/useNotification'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const CourseForm = ({ course, onClose }) => {
   const { courses, add, modify } = useCourses()

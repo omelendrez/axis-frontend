@@ -4,7 +4,7 @@ import {
   updateNationality,
   getNationalities,
   deleteNationality
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

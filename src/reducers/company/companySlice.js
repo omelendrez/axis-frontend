@@ -4,7 +4,7 @@ import {
   updateCompany,
   getCompanies,
   deleteCompany
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

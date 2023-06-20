@@ -1,10 +1,10 @@
 import { lazy } from 'react'
 import { Route } from 'react-router-dom'
-import { ProtectedRoute } from '../guard'
+import { ProtectedRoute } from '@/guard'
 
-const Home = lazy(() => import('../pages/Home'))
-const Login = lazy(() => import('../pages/Login'))
-const ChangePassword = lazy(() => import('../pages/ChangePassword'))
+const Home = lazy(() => import('@/pages/Home'))
+const Login = lazy(() => import('@/pages/Login'))
+const ChangePassword = lazy(() => import('@/pages/ChangePassword'))
 const NotFound = lazy(() => import('../components/navbar/NotFound'))
 
 export const defaultRoutes = (

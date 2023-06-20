@@ -4,7 +4,7 @@ import {
   updateCourseItem,
   getCourseItems,
   deleteCourseItem
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

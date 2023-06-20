@@ -4,7 +4,7 @@ import {
   updateContact,
   getContacts,
   deleteContact
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 let learner = null

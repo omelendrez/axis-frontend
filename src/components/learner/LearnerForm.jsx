@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Confirm, Loading, Form } from '../shared'
 // Ok
-import useLearners from '../../hooks/useLearners'
-import useStates from '../../hooks/useStates'
-import useNationalities from '../../hooks/useNationalities'
-import useCompanies from '../../hooks/useCompanies'
-import useNotification from '../../hooks/useNotification'
-import { FOREIGNER, loadSchema } from '../../helpers'
+import useLearners from '@/hooks/useLearners'
+import useStates from '@/hooks/useStates'
+import useNationalities from '@/hooks/useNationalities'
+import useCompanies from '@/hooks/useCompanies'
+import useNotification from '@/hooks/useNotification'
+import { FOREIGNER, loadSchema } from '@/helpers'
 
 import {
   sex as sexList,
   status as statusList,
   type as typeList
-} from '../../static-lists'
+} from '@/static-lists'
 
 import schema from './schema.json'
 

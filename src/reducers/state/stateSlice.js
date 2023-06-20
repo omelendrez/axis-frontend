@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-  createState,
-  updateState,
-  getStates,
-  deleteState
-} from '../../services'
+import { createState, updateState, getStates, deleteState } from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

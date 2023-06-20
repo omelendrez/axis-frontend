@@ -7,7 +7,7 @@ import { User, UserRoles } from './user-view'
 import { UserForm } from '..'
 import { UserRoles as UserRoleList } from './user-role'
 
-import useApiMessages from '../../hooks/useApiMessages'
+import useApiMessages from '@/hooks/useApiMessages'
 
 import userRoleFields from './user-view/user-role-fields.json'
 
@@ -18,7 +18,7 @@ import {
   getUser,
   getUserRoles,
   getUserView
-} from '../../services'
+} from '@/services'
 
 import './userView.css'
 

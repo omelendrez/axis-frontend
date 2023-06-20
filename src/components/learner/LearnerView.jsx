@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import useApiMessages from '../../hooks/useApiMessages'
+import useApiMessages from '@/hooks/useApiMessages'
 import {
   getContacts,
   getContact,
@@ -11,7 +11,7 @@ import {
   getTrainings,
   getTraining,
   deleteTraining
-} from '../../services'
+} from '@/services'
 import { Loading, Modal } from '../shared'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
 import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '..'

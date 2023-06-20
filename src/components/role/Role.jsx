@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form } from '../shared'
 
-import useRoles from '../../hooks/useRoles'
+import useRoles from '@/hooks/useRoles'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const Role = ({ role }) => {
   const { roles, add, modify } = useRoles()

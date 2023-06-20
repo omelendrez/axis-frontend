@@ -1,5 +1,5 @@
 import './pagination.css'
-import { PAGE_SIZE } from '../../../helpers'
+import { PAGE_SIZE } from '@/helpers'
 
 export const Pagination = ({ onPage, page, limit, count }) => {
   const pages = Math.ceil(count / limit)

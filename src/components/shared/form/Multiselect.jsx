@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Table, Buttons } from '../../shared'
-import useApiMessages from '../../../hooks/useApiMessages'
-import useNoficication from '../../../hooks/useNotification'
+import useApiMessages from '@/hooks/useApiMessages'
+import useNoficication from '@/hooks/useNotification'
 import './multiselect.css'
 
 export const Multiselect = ({ id, fields, items, onClose, onSave }) => {

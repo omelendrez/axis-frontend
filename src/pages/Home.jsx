@@ -1,4 +1,4 @@
-import { Home as HomeComponent } from '../components'
+import { Home as HomeComponent } from '@/components'
 
 const Home = () => {
   return (

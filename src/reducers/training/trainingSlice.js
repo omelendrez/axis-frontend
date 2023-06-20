@@ -7,7 +7,7 @@ import {
   getTrainingView,
   getTracking,
   getMedicalData
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 let learner = null

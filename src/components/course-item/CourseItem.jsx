@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form } from '../shared'
 
-import useCourseItems from '../../hooks/useCourseItems'
+import useCourseItems from '@/hooks/useCourseItems'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const CourseItem = ({ courseItem }) => {
   const { courseItems, add, modify } = useCourseItems()

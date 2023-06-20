@@ -1,6 +1,6 @@
 import { ScanId, BloodPressure, Print, Payment } from './actions'
-import useUser from '../../../hooks/useUser'
-import { DOC_TYPE, USER_TYPES } from '../../../helpers'
+import useUser from '@/hooks/useUser'
+import { DOC_TYPE, USER_TYPES } from '@/helpers'
 
 export const Action = ({ training, onUpdate }) => {
   const {

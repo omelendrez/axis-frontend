@@ -1,9 +1,9 @@
 import { lazy } from 'react'
 import { Route } from 'react-router-dom'
-import { ProtectedRoute } from '../guard'
+import { ProtectedRoute } from '@/guard'
 
-const Users = lazy(() => import('../pages/Users'))
-const User = lazy(() => import('../pages/User'))
+const Users = lazy(() => import('@/pages/Users'))
+const User = lazy(() => import('@/pages/User'))
 
 export const userRoutes = (
   <>

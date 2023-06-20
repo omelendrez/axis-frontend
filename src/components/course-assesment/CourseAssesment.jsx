@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form } from '../shared'
 
-import useCourseAssesments from '../../hooks/useCourseAssesments'
+import useCourseAssesments from '@/hooks/useCourseAssesments'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const CourseAssesment = ({ courseAssesment }) => {
   const { courseAssesments, add, modify } = useCourseAssesments()

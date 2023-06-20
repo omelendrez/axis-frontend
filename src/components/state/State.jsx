@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form } from '../shared'
 
-import useStates from '../../hooks/useStates'
+import useStates from '@/hooks/useStates'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const State = ({ state }) => {
   const { states, add, modify } = useStates()

@@ -1,7 +1,7 @@
 import fields from './course-assesment-rel-fields.json'
 import { Multiselect } from '../../shared'
 
-import { createCourseAssesmentRel } from '../../../services'
+import { createCourseAssesmentRel } from '@/services'
 
 export const CourseAssesmentRels = ({ id, items, key, onClose }) => {
   return (

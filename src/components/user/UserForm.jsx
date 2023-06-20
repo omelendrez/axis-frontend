@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 
 import { Form } from '../shared'
 
-import useUsers from '../../hooks/useUsers'
-import useNoficication from '../../hooks/useNotification'
+import useUsers from '@/hooks/useUsers'
+import useNoficication from '@/hooks/useNotification'
 import schema from './schema.json'
-import { loadSchema, getFieldData } from '../../helpers'
-import { status as statusList } from '../../static-lists'
+import { loadSchema, getFieldData } from '@/helpers'
+import { status as statusList } from '@/static-lists'
 
 export const UserForm = ({ user, onClose }) => {
   const { users, add, modify } = useUsers()

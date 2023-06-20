@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Loading, ListView, AddButton } from '../components'
+import { Loading, ListView, AddButton } from '@/components'
 
-import useRoles from '../hooks/useRoles'
-import useNoficication from '../hooks/useNotification'
+import useRoles from '@/hooks/useRoles'
+import useNoficication from '@/hooks/useNotification'
 
-import { initialValues } from '../helpers'
+import { initialValues } from '@/helpers'
 
 const Roles = () => {
   const { roles, load: loadRoles, remove: removeRole } = useRoles()

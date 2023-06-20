@@ -1,4 +1,4 @@
-import { setURLParams } from '../../helpers'
+import { setURLParams } from '@/helpers'
 import { api } from './apiClient'
 
 const endpoint = '/course-assesment'

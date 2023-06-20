@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createRole, updateRole, getRoles, deleteRole } from '../../services'
+import { createRole, updateRole, getRoles, deleteRole } from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

@@ -1,4 +1,4 @@
-import { getPhotoUrl } from '../../../services'
+import { getPhotoUrl } from '@/services'
 import { Buttons } from '../../shared'
 import './photo.css'
 

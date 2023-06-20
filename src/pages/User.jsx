@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { FormContainer, UserView, UserForm } from '../components'
-import { getUser } from '../services'
-import useApiMessages from '../hooks/useApiMessages'
+import { FormContainer, UserView, UserForm } from '@/components'
+import { getUser } from '@/services'
+import useApiMessages from '@/hooks/useApiMessages'
 
 const User = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()

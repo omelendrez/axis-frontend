@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Task } from '../../Task'
 
 import description from './description'
-import useApiMessages from '../../../../../hooks/useApiMessages'
-import { financeApproval } from '../../../../../services/api/approvals'
-import { TRAINING_STATUS } from '../../../../../helpers'
+import useApiMessages from '@/hooks/useApiMessages'
+import { financeApproval } from '@/services/api/approvals'
+import { TRAINING_STATUS } from '@/helpers'
 
 export const Payment = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()

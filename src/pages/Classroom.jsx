@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Loading, CardList } from '../components'
-import { initialValues } from '../helpers'
+import { Loading, CardList } from '@/components'
+import { initialValues } from '@/helpers'
 import {
   getClassroomView,
   getPhotoUrl,
   getTrainingsByClassroom
-} from '../services'
+} from '@/services'
 
-import useApiMessages from '../hooks/useApiMessages'
+import useApiMessages from '@/hooks/useApiMessages'
 
 import './trainings-card.css'
 import './classroom.css'

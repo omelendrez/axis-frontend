@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form } from '../shared'
-import useCompanies from '../../hooks/useCompanies'
-import { loadSchema } from '../../helpers'
-import { status as statusList } from '../../static-lists'
+import useCompanies from '@/hooks/useCompanies'
+import { loadSchema } from '@/helpers'
+import { status as statusList } from '@/static-lists'
 
 import schema from './schema.json'
 

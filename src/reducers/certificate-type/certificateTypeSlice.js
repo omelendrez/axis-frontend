@@ -4,7 +4,7 @@ import {
   updateCertificateType,
   getCertificateTypes,
   deleteCertificateType
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

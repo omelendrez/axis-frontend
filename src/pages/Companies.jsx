@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ListView, Loading, AddButton } from '../components'
+import { ListView, Loading, AddButton } from '@/components'
 
-import useUsers from '../hooks/useCompanies'
-import useNoficication from '../hooks/useNotification'
+import useUsers from '@/hooks/useCompanies'
+import useNoficication from '@/hooks/useNotification'
 
-import { initialValues } from '../helpers'
+import { initialValues } from '@/helpers'
 
 const Companies = () => {
   const { companies, load: loadCompanies, remove: removeCompany } = useUsers()

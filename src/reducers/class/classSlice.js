@@ -4,7 +4,7 @@ import {
   updateClassroom,
   getClassrooms,
   deleteClassroom
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

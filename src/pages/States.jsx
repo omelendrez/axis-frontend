@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Loading, ListView, AddButton } from '../components'
+import { Loading, ListView, AddButton } from '@/components'
 
-import useStates from '../hooks/useStates'
-import useNotification from '../hooks/useNotification'
+import useStates from '@/hooks/useStates'
+import useNotification from '@/hooks/useNotification'
 
-import { initialValues, FOREIGNER } from '../helpers'
+import { initialValues, FOREIGNER } from '@/helpers'
 
 const States = () => {
   const { states, load: loadStates, remove: removeState } = useStates()

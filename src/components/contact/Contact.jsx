@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { Form } from '../shared'
 
-import useContacts from '../../hooks/useContacts'
-import useContactTypes from '../../hooks/useContactTypes'
-import useNoficication from '../../hooks/useNotification'
+import useContacts from '@/hooks/useContacts'
+import useContactTypes from '@/hooks/useContactTypes'
+import useNoficication from '@/hooks/useNotification'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const Contact = ({ contact, onClose }) => {
   const { set } = useNoficication()

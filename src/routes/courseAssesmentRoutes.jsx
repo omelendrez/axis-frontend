@@ -1,9 +1,9 @@
 import { lazy } from 'react'
 import { Route } from 'react-router-dom'
-import { ProtectedRoute } from '../guard'
+import { ProtectedRoute } from '@/guard'
 
-const CourseAssesments = lazy(() => import('../pages/CourseAssesments'))
-const CourseAssesment = lazy(() => import('../pages/CourseAssesment'))
+const CourseAssesments = lazy(() => import('@/pages/CourseAssesments'))
+const CourseAssesment = lazy(() => import('@/pages/CourseAssesment'))
 
 export const courseAssesmentRoutes = (
   <>

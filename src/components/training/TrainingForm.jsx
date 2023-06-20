@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { Form } from '../shared'
 
-import useTrainings from '../../hooks/useTrainings'
-import useCourses from '../../hooks/useCourses'
-import useNoficication from '../../hooks/useNotification'
+import useTrainings from '@/hooks/useTrainings'
+import useCourses from '@/hooks/useCourses'
+import useNoficication from '@/hooks/useNotification'
 
 import schema from './schema.json'
-import { loadSchema } from '../../helpers'
+import { loadSchema } from '@/helpers'
 
 export const TrainingForm = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()

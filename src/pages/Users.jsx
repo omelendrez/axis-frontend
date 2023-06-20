@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Loading, CardList, AddButton, Tag } from '../components'
+import { Loading, CardList, AddButton, Tag } from '@/components'
 
-import useUsers from '../hooks/useUsers'
-import useNoficication from '../hooks/useNotification'
+import useUsers from '@/hooks/useUsers'
+import useNoficication from '@/hooks/useNotification'
 
-import { initialValues } from '../helpers'
+import { initialValues } from '@/helpers'
 
 import './user-card.css'
 

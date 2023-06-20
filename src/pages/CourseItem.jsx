@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { CourseItem as CourseItemComponent } from '../components'
-import { getCourseItem } from '../services'
+import { CourseItem as CourseItemComponent } from '@/components'
+import { getCourseItem } from '@/services'
 
-import useApiMessages from '../hooks/useApiMessages'
+import useApiMessages from '@/hooks/useApiMessages'
 
 const CourseItem = () => {
   const params = useParams()

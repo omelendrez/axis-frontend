@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { TrainingView } from '../components'
+import { TrainingView } from '@/components'
 
-import useTrainings from '../hooks/useTrainings'
+import useTrainings from '@/hooks/useTrainings'
 
 const Training = () => {
   const params = useParams()

@@ -6,10 +6,10 @@ import {
   getIdCardUrl,
   certificateExists,
   idCardExists
-} from '../../../../../services'
-import useApiMessages from '../../../../../hooks/useApiMessages'
-import useUser from '../../../../../hooks/useUser'
-import { DOC_TYPE, TRAINING_STATUS } from '../../../../../helpers'
+} from '@/services'
+import useApiMessages from '@/hooks/useApiMessages'
+import useUser from '@/hooks/useUser'
+import { DOC_TYPE, TRAINING_STATUS } from '@/helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { Company as CompanyComponent } from '../components'
-import { getCompany } from '../services'
-import useApiMessages from '../hooks/useApiMessages'
+import { Company as CompanyComponent } from '@/components'
+import { getCompany } from '@/services'
+import useApiMessages from '@/hooks/useApiMessages'
 
 const Company = () => {
   const params = useParams()

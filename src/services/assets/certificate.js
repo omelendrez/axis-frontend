@@ -1,5 +1,5 @@
 import { api } from './assetsClient'
-import { getFilename } from '../../helpers'
+import { getFilename } from '@/helpers'
 
 const url = import.meta.env.VITE_ASSETS_URL
 

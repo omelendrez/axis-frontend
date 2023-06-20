@@ -1,4 +1,4 @@
-import { roleStatuses } from '../static-lists'
+import { roleStatuses } from '@/static-lists'
 
 export const hasRequiredRole = (optionRoles, userRoles) =>
   optionRoles.length === 0 ||

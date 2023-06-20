@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CardList, Loading } from '../components'
+import { CardList, Loading } from '@/components'
 
-import useClasses from '../hooks/useClasses'
-import useNotification from '../hooks/useNotification'
+import useClasses from '@/hooks/useClasses'
+import useNotification from '@/hooks/useNotification'
 
-import { initialValues } from '../helpers'
+import { initialValues } from '@/helpers'
 
 import './classroom-card.css'
 

@@ -8,7 +8,7 @@ import { CourseForm } from '..'
 import { CourseItemRels as CourseItemRelList } from './course-item-rel'
 import { CourseAssesmentRels as CourseAssesmentRelList } from './course-assesment-rel'
 
-import useApiMessages from '../../hooks/useApiMessages'
+import useApiMessages from '@/hooks/useApiMessages'
 
 import courseItemFields from './course-view/course-item-fields.json'
 import courseAssesmentFields from './course-view/course-assesment-fields.json'
@@ -23,7 +23,7 @@ import {
   getCourseAvailableItems,
   getCourseItemsRel,
   getCourseView
-} from '../../services'
+} from '@/services'
 
 import './courseView.css'
 

@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify'
-import useNoficication from './hooks/useNotification'
-import { Navbar } from './components'
-import { AppRoutes } from './routes'
-import { UserContext } from './context'
-import { KEYS, SP } from './services/session'
+
+import useNoficication from '@/hooks/useNotification'
+import { Navbar } from '@/components'
+import { AppRoutes } from '@/routes'
+import { UserContext } from '@/context'
+import { KEYS, SP } from '@/services'
+
+// Styles
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
 

@@ -4,7 +4,7 @@ import {
   updateContactType,
   getContactTypes,
   deleteContactType
-} from '../../services'
+} from '@/services'
 import { handleError } from '../error'
 
 const initialState = {

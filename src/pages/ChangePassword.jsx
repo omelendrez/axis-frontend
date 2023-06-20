@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ChangePassword as ChangePasswordComponent } from '../components'
+import { ChangePassword as ChangePasswordComponent } from '@/components'
 
 const ChangePassword = () => {
   return (
