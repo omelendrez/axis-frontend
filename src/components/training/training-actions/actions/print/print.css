@@ -4,3 +4,30 @@
   justify-content: center;
   align-items: center;
 }
+
+.document .children .certificate,
+.document .children .id-card {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--primary);
+}
+
+@media screen and (min-width: 640px) {
+  .document .children .certificate,
+  .document .children .id-card {
+    height: fit-content;
+    width: fit-content;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .document .children .certificate {
+    height: 47vw;
+    width: 30vw;
+  }
+
+  .document .children .id-card {
+    height: 44vw;
+    width: 30vw;
+  }
+}

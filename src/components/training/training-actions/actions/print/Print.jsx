@@ -34,9 +34,6 @@ export const Print = ({ training, type }) => {
   const docExists =
     type === DOC_TYPE.CERTIFICATE ? certificateExists : idCardExists
 
-  const previewWidth = type === DOC_TYPE.CERTIFICATE ? 300 : 300
-  const previewHeight = type === DOC_TYPE.CERTIFICATE ? 480 : 450
-
   useEffect(() => {
     docExists(id)
       .then((res) => setIsDoc(res.data.exists))
@@ -64,9 +61,7 @@ export const Print = ({ training, type }) => {
   }
 
   const props = {
-    type: 'application/pdf',
-    height: previewHeight,
-    width: previewWidth
+    type: 'application/pdf'
   }
 
   return (
@@ -82,8 +77,20 @@ export const Print = ({ training, type }) => {
     >
       {isDoc && (
         <figure>
-          <object data={documentUrl} {...props}>
-            <embed src={documentUrl} {...props} />
+          <object
+            data={documentUrl}
+            {...props}
+            className={
+              type === DOC_TYPE.CERTIFICATE ? 'certificate' : 'id-card'
+            }
+          >
+            <embed
+              src={documentUrl}
+              {...props}
+              className={
+                type === DOC_TYPE.CERTIFICATE ? 'certificate' : 'id-card'
+              }
+            />
           </object>
         </figure>
       )}
