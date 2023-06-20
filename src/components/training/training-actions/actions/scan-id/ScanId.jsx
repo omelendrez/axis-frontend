@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { Task } from '../../Task'
-import { frontdeskApproval } from '../../../../../services/api/approvals'
+import { Modal, IdCardUpload, Task } from '@/components'
+import useApiMessages from '@/hooks/useApiMessages'
+import { frontdeskApproval } from '@/services'
+import { TRAINING_STATUS } from '@/helpers'
 import './scanId.css'
-import useApiMessages from '../../../../../hooks/useApiMessages'
-import { IdCardUpload } from '../../../../learner'
-import { TRAINING_STATUS } from '../../../../../helpers'
-import { Modal } from '../../../../shared'
 
 export const ScanId = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()

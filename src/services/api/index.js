@@ -1,4 +1,5 @@
 export * from './apiClient'
+export * from './approvals'
 export * from './certificate-type'
 export * from './classroom'
 export * from './company'
