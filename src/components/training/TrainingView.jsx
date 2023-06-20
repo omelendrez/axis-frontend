@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { Photo, Learner } from '../learner/learner-view'
-import { Course, AlertCancelled } from './training-view'
+import { Course, StatusStamp } from './training-view'
 import { Action } from './training-actions'
 import { Divider } from '@/components'
 import { undoLastApproval } from '@/services/api/approvals'
 import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
-import { TRAINING_STATUS } from '@/helpers'
 
 import './trainingView.css'
 
@@ -23,7 +22,12 @@ export const TrainingView = ({ training, onUpdate }) => {
     )
   }
 
-  const { id, status_id: status } = training
+  const {
+    id,
+    status_id: statusId,
+    status: statusName,
+    finance_status
+  } = training
 
   const { roles } = user
 
@@ -43,7 +47,11 @@ export const TrainingView = ({ training, onUpdate }) => {
 
   return (
     <main className="training-view">
-      {status === TRAINING_STATUS.CANCELLED && <AlertCancelled />}
+      <StatusStamp
+        statusId={statusId}
+        statusName={statusName}
+        financeStatus={finance_status}
+      />
       <Photo {...training} />
       <Learner learner={{ ...training, status: undefined }} />
       <Course
