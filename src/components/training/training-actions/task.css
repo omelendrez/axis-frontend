@@ -33,6 +33,11 @@ div.actions article article.description i {
   font-size: 14px;
 }
 
+div.actions div {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 div.actions div.children {
   align-items: center;
   justify-content: center;

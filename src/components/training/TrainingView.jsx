@@ -22,12 +22,7 @@ export const TrainingView = ({ training, onUpdate }) => {
     )
   }
 
-  const {
-    id,
-    status_id: statusId,
-    course_state: statusName,
-    finance_status
-  } = training
+  const { id, status_id: statusId, course_state: stateName } = training
 
   const { roles } = user
 
@@ -47,10 +42,7 @@ export const TrainingView = ({ training, onUpdate }) => {
 
   return (
     <main className="training-view">
-      <StatusStamp
-        status={{ statusId, statusName }}
-        financeStatus={finance_status}
-      />
+      <StatusStamp status={{ statusId, stateName }} />
       <Photo {...training} />
       <Learner learner={{ ...training, status: undefined }} />
       <Course

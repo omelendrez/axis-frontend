@@ -6,4 +6,4 @@ export const documentNumber = (num) =>
 
 export const getFilename = (id) => `${documentNumber(id)}.pdf`
 
-export const getImageFilename = (id) => `${id}.jpg`
+export const getImageFilename = (badge) => `${badge}.jpg`

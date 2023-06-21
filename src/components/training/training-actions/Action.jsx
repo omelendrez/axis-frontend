@@ -1,6 +1,7 @@
 import { ScanId, BloodPressure, Print, Payment } from './actions'
 import useUser from '@/hooks/useUser'
 import { DOC_TYPE, USER_TYPES } from '@/helpers'
+import { TakePicture } from './actions/photo'
 
 export const Action = ({ training, onUpdate }) => {
   const {
@@ -14,6 +15,11 @@ export const Action = ({ training, onUpdate }) => {
   const isFinance =
     roles.filter((r) =>
       [USER_TYPES.SYS_ADMIN, USER_TYPES.FINANCE].includes(r.id)
+    ).length > 0
+
+  const isTrainingCoordinator =
+    roles.filter((r) =>
+      [USER_TYPES.SYS_ADMIN, USER_TYPES.TRAINING_COORDINATOR].includes(r.id)
     ).length > 0
 
   const isMedic =
@@ -33,6 +39,10 @@ export const Action = ({ training, onUpdate }) => {
       {isMedic && <BloodPressure training={training} onUpdate={onUpdate} />}
 
       {isFinance && <Payment training={training} onUpdate={onUpdate} />}
+
+      {isTrainingCoordinator && (
+        <TakePicture training={training} onUpdate={onUpdate} />
+      )}
 
       {isPrinter && <Print training={training} type={DOC_TYPE.CERTIFICATE} />}
 

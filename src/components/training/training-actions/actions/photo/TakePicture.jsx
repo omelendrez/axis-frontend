@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Modal, IdCardUpload, Task } from '@/components'
+import { Modal, Task, PhotoUpload } from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
 import {
-  frontdeskApproval,
-  learnerIdCardExists,
-  getLearnerIdUrl
+  trainingCoordinatorApproval,
+  pictureExists,
+  getPhotoUrl
 } from '@/services'
 import { TRAINING_STATUS } from '@/helpers'
 
-export const ScanId = ({ training, onUpdate }) => {
+export const TakePicture = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -21,12 +21,12 @@ export const ScanId = ({ training, onUpdate }) => {
 
   const isCancelled = status === TRAINING_STATUS.CANCELLED
 
-  const imageUrl = getLearnerIdUrl(training.badge)
+  const imageUrl = getPhotoUrl(training.badge)
 
   const isApproved = status > TRAINING_STATUS.ADMIN
 
   useEffect(() => {
-    learnerIdCardExists(badge)
+    pictureExists(badge)
       .then((res) => setIsImage(res.data.exists))
       .catch((e) => apiMessage(e))
 
@@ -36,7 +36,7 @@ export const ScanId = ({ training, onUpdate }) => {
   const process = (payload) => {
     setIsSubmitting(true)
 
-    frontdeskApproval(id, payload)
+    trainingCoordinatorApproval(id, payload)
       .then((res) => {
         onUpdate()
         apiMessage(res)
@@ -70,20 +70,20 @@ export const ScanId = ({ training, onUpdate }) => {
     onUpdate()
   }
 
-  const title = <strong>Learner id card</strong>
+  const title = <strong>Learner Picture</strong>
 
   return (
     <>
       <Task
         title={title}
-        className="scan-id"
+        className="take-picture"
         onApprove={isApproved ? null : handleApprove}
         onReject={isApproved ? null : handleReject}
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}
         isSubmitting={isSubmitting}
       >
-        <div className="scan-id-children">
+        <div className="take-picture-children">
           {isImage && (
             <figure>
               <img src={imageUrl} alt={imageUrl} />
@@ -92,14 +92,14 @@ export const ScanId = ({ training, onUpdate }) => {
 
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-scan Id' : 'Scan Id'}
+              {isImage ? 'Re-take picture' : 'Take picture'}
             </button>
           </div>
         </div>
 
-        <Modal open={isPhotoOpen} title="Scan Id card" onClose={handleClose}>
+        <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>
           <div className="form-container">
-            <IdCardUpload onClose={handleClose} badge={badge} />
+            <PhotoUpload onClose={handleClose} badge={badge} />
           </div>
         </Modal>
       </Task>
