@@ -25,7 +25,7 @@ export const TrainingView = ({ training, onUpdate }) => {
   const {
     id,
     status_id: statusId,
-    status: statusName,
+    course_state: statusName,
     finance_status
   } = training
 
