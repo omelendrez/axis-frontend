@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '@/components'
 
-import { uploadLearnerId } from '@/services/assets'
-// import { MAX_FILE_SIZE } from '@/helpers/photo'
+import { uploadLearnerId } from '@/services'
+
 import './photo.css'
 
 import useApiMessages from '@/hooks/useApiMessages'

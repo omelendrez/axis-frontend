@@ -1,6 +1,6 @@
 import { api } from './apiClient'
 
-import { TRAINING_STATUS } from '@/helpers/constants'
+import { TRAINING_STATUS } from '@/helpers'
 
 const endpoint = '/approval'
 

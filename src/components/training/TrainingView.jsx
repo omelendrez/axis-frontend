@@ -3,7 +3,7 @@ import { Photo, Learner } from '../learner/learner-view'
 import { Course, StatusStamp } from './training-view'
 import { Action } from './training-actions'
 import { Divider } from '@/components'
-import { undoLastApproval } from '@/services/api/approvals'
+import { undoLastApproval } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
 
@@ -48,8 +48,7 @@ export const TrainingView = ({ training, onUpdate }) => {
   return (
     <main className="training-view">
       <StatusStamp
-        statusId={statusId}
-        statusName={statusName}
+        status={{ statusId, statusName }}
         financeStatus={finance_status}
       />
       <Photo {...training} />

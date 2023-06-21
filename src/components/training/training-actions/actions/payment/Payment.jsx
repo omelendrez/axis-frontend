@@ -3,7 +3,7 @@ import { Task } from '@/components'
 
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
-import { financeApproval } from '@/services/api/approvals'
+import { financeApproval } from '@/services'
 import { TRAINING_STATUS } from '@/helpers'
 
 export const Payment = ({ training, onUpdate }) => {

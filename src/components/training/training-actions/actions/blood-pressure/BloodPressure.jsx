@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Task } from '@/components'
-import './bloodPressure.css'
-import { medicalApproval } from '@/services/api/approvals'
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
+import { medicalApproval } from '@/services'
 import { TRAINING_STATUS } from '@/helpers'
+import './bloodPressure.css'
 
 export const BloodPressure = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
