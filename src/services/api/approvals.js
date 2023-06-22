@@ -43,10 +43,11 @@ export const assesmentApproval = (id, payload) =>
   })
 
 // 6 QA
-export const QAApproval = (id) =>
+export const QAApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.QA
+    status: TRAINING_STATUS.QA,
+    payload
   })
 
 // 7 Finance
@@ -58,8 +59,9 @@ export const financeApproval = (id, payload) =>
   })
 
 // 8 MD
-export const MDApproval = (id) =>
+export const MDApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.MD
+    status: TRAINING_STATUS.MD,
+    payload
   })

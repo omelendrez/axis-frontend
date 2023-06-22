@@ -15,7 +15,7 @@ export const CommonMessage = () => (
 
 export const FootMessage = () => (
   <i>
-    If a button was clicked by mistake, you can ask a user with the System Admin
-    role to undo your action.
+    Eventually, If a button was clicked by mistake, you can ask a user with the
+    System Admin role to undo your action.
   </i>
 )
