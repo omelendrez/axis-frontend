@@ -1,7 +1,7 @@
 div.alert-status-container {
   position: fixed;
   top: 6rem;
-  right: 2rem;
+  right: 0rem;
   width: fit-content;
   height: fit-content;
 }
@@ -16,7 +16,7 @@ div.alert-status-container {
 @media screen and (min-width: 992px) {
   div.alert-status-container {
     top: 6rem;
-    right: 1rem;
+    right: 0;
   }
 }
 
