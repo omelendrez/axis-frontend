@@ -33,11 +33,6 @@ div.actions article article.description i {
   font-size: 14px;
 }
 
-div.actions div {
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 div.actions div.children {
   align-items: center;
   justify-content: center;
@@ -49,7 +44,7 @@ div.actions div.buttons {
 }
 
 div.actions div.buttons button {
-  max-width: 10rem;
+  max-width: 11rem;
   text-transform: uppercase;
   font-weight: 900;
   background-color: var(--primary);

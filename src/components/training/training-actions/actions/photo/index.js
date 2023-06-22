@@ -1,1 +1,1 @@
-export * from './TakePicture'
+export * from './Picture'

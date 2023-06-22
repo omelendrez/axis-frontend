@@ -8,7 +8,9 @@ import {
 } from '@/services'
 import { TRAINING_STATUS } from '@/helpers'
 
-export const TakePicture = ({ training, onUpdate }) => {
+import './picture.css'
+
+export const Picture = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -76,14 +78,14 @@ export const TakePicture = ({ training, onUpdate }) => {
     <>
       <Task
         title={title}
-        className="take-picture"
+        className="picture"
         onApprove={isApproved ? null : handleApprove}
         onReject={isApproved ? null : handleReject}
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}
         isSubmitting={isSubmitting}
       >
-        <div className="take-picture-children">
+        <div className="picture-children">
           {isImage && (
             <figure>
               <img src={imageUrl} alt={imageUrl} />

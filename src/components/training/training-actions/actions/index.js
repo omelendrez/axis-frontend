@@ -1,4 +1,6 @@
 export * from './blood-pressure'
 export * from './payment'
+export * from './photo'
 export * from './print'
 export * from './scan-id'
+export * from './signature'

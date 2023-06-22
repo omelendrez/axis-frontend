@@ -1,0 +1,13 @@
+.training-view div.actions article.picture div.children div.picture-children {
+  flex-direction: column;
+}
+
+.training-view
+  div.actions
+  article.picture
+  div.children
+  div.picture-children
+  figure
+  img {
+  width: 20rem;
+}

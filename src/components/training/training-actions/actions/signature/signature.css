@@ -1,0 +1,46 @@
+.training-view
+  div.actions
+  article.signature
+  div.children
+  div.signature-children {
+  flex-direction: column;
+}
+
+.training-view
+  div.actions
+  article.signature
+  div.children
+  div.signature-children
+  figure
+  img {
+  width: 20rem;
+}
+
+.training-view div.actions article.signature dialog div {
+  flex-direction: column;
+}
+
+.training-view div.actions article.signature dialog div.form-container {
+  padding: 1rem;
+  background-color: aliceblue;
+  display: block;
+}
+
+.training-view
+  div.actions
+  article.signature
+  dialog
+  div.form-container
+  .buttons {
+  flex-direction: row;
+}
+
+.training-view
+  div.actions
+  article.signature
+  dialog
+  div.form-container
+  .signature-canvas {
+  border: 1px dashed;
+  background-color: white;
+}
