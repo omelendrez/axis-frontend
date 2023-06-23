@@ -8,18 +8,22 @@ import {
   idCardExists
 } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
-import useUser from '@/hooks/useUser'
-import { DOC_TYPE, TRAINING_STATUS } from '@/helpers'
+
+import { DOC_TYPE, getUserAuth } from '@/helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 
-export const Print = ({ training, type }) => {
+export const Print = ({ training, type, role, user }) => {
   const { apiMessage } = useApiMessages()
-  const { user } = useUser()
 
   const { id, status_id: status } = training
 
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+  const { isCancelled, canView, canUpdate } = getUserAuth(
+    role,
+    user.roles,
+    status,
+    training.tracking
+  )
 
   const [refresh, setRefresh] = useState(false)
 
@@ -64,16 +68,18 @@ export const Print = ({ training, type }) => {
     type: 'application/pdf'
   }
 
+  if (!canView) {
+    return null
+  }
+
   return (
     <Task
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
       className="document"
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
-      approveDisabled={
-        (!user.roles.find((r) => r.id === 1) && isDoc) || isCancelled
-      }
+      approveDisabled={!canUpdate || isCancelled}
       rejectLabel="Print"
-      onApprove={user.roles.find((r) => r.id === 1) ? handleGenerate : null}
+      onApprove={canUpdate && !isCancelled ? handleGenerate : null}
     >
       {isDoc && (
         <figure>

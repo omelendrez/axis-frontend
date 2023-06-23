@@ -6,11 +6,11 @@ import {
   pictureExists,
   getPhotoUrl
 } from '@/services'
-import { TRAINING_STATUS } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 
 import './picture.css'
 
-export const Picture = ({ training, onUpdate }) => {
+export const Picture = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -21,11 +21,10 @@ export const Picture = ({ training, onUpdate }) => {
 
   const { id, status_id: status, badge } = training
 
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+  const { isComplete, isApproved, isCancelled, canView, canUpdate } =
+    getUserAuth(role, user.roles, status, training.tracking)
 
   const imageUrl = getPhotoUrl(training.badge)
-
-  const isApproved = status > TRAINING_STATUS.ADMIN
 
   useEffect(() => {
     pictureExists(badge)
@@ -74,13 +73,17 @@ export const Picture = ({ training, onUpdate }) => {
 
   const title = <strong>Learner Picture</strong>
 
+  if (!canView || isApproved || isCancelled || isComplete) {
+    return null
+  }
+
   return (
     <>
       <Task
         title={title}
         className="picture"
-        onApprove={isApproved ? null : handleApprove}
-        onReject={isApproved ? null : handleReject}
+        onApprove={!isApproved ? handleApprove : null}
+        onReject={!isApproved ? handleReject : null}
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}
         isSubmitting={isSubmitting}
@@ -91,12 +94,13 @@ export const Picture = ({ training, onUpdate }) => {
               <img src={imageUrl} alt={imageUrl} />
             </figure>
           )}
-
-          <div className="buttons">
-            <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-take picture' : 'Take picture'}
-            </button>
-          </div>
+          {!canUpdate && (
+            <div className="buttons">
+              <button onClick={handleScan} disabled={isCancelled}>
+                {isImage ? 'Re-take picture' : 'Take picture'}
+              </button>
+            </div>
+          )}
         </div>
 
         <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>

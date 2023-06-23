@@ -6,10 +6,10 @@ import {
   learnerIdCardExists,
   getLearnerIdUrl
 } from '@/services'
-import { TRAINING_STATUS } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 import './scanId.css'
 
-export const ScanId = ({ training, onUpdate }) => {
+export const ScanId = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -20,11 +20,14 @@ export const ScanId = ({ training, onUpdate }) => {
 
   const { id, status_id: status, badge } = training
 
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+  const { isApproved, isCancelled, canView, canUpdate } = getUserAuth(
+    role,
+    user.roles,
+    status,
+    training.tracking
+  )
 
   const imageUrl = getLearnerIdUrl(training.badge)
-
-  const isApproved = status > TRAINING_STATUS.ADMIN
 
   useEffect(() => {
     learnerIdCardExists(badge)
@@ -73,15 +76,19 @@ export const ScanId = ({ training, onUpdate }) => {
 
   const title = <strong>Learner id card</strong>
 
+  if (!canView) {
+    return null
+  }
+
   return (
     <>
       <Task
         title={title}
         className="scan-id"
-        onApprove={isApproved ? null : handleApprove}
-        onReject={isApproved ? null : handleReject}
-        approveDisabled={isCancelled}
-        rejectDisabled={isCancelled}
+        onApprove={!isApproved ? handleApprove : null}
+        onReject={!isApproved ? handleReject : null}
+        approveDisabled={isApproved || isCancelled}
+        rejectDisabled={isApproved || isCancelled}
         isSubmitting={isSubmitting}
       >
         <div className="scan-id-children">
@@ -91,11 +98,13 @@ export const ScanId = ({ training, onUpdate }) => {
             </figure>
           )}
 
-          <div className="buttons">
-            <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-scan Id' : 'Scan Id'}
-            </button>
-          </div>
+          {canUpdate && (
+            <div className="buttons">
+              <button onClick={handleScan} disabled={isCancelled}>
+                {isImage ? 'Re-scan Id' : 'Scan Id'}
+              </button>
+            </div>
+          )}
         </div>
 
         <Modal open={isPhotoOpen} title="Scan Id card" onClose={handleClose}>

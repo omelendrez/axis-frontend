@@ -4,16 +4,16 @@ import { Modal, Task } from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
 import { uploadSignature } from '@/services'
 import {
-  TRAINING_STATUS,
   getSignatureFilename,
   lock,
   unlock,
-  dataURItoBlob
+  dataURItoBlob,
+  getUserAuth
 } from '@/helpers'
 
 import './signature.css'
 
-export const Signature = ({ training }) => {
+export const Signature = ({ training, role, user }) => {
   const signatureCanvas = useRef()
 
   const { apiMessage } = useApiMessages()
@@ -26,7 +26,12 @@ export const Signature = ({ training }) => {
 
   const { id, status_id: status, start } = training
 
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+  const { isComplete, isCancelled, canView } = getUserAuth(
+    role,
+    user.roles,
+    status,
+    training.tracking
+  )
 
   useEffect(() => {
     if (signature) {
@@ -87,6 +92,10 @@ export const Signature = ({ training }) => {
     className: 'signature-canvas',
     height: window.visualViewport.height - 200,
     width: window.visualViewport.width - 100
+  }
+
+  if (!canView || isComplete || isCancelled) {
+    return null
   }
 
   return (

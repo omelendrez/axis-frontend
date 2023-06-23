@@ -8,70 +8,39 @@ import {
   QAApproval,
   MDApproval
 } from './actions'
+
 import useUser from '@/hooks/useUser'
-import { DOC_TYPE, USER_TYPES } from '@/helpers'
+
+import { DOC_TYPE, TRAINING_STATUS } from '@/helpers'
 
 export const Action = ({ training, onUpdate }) => {
-  const {
-    user: { roles }
-  } = useUser()
-
-  const isFrontdesk =
-    roles.filter((r) =>
-      [USER_TYPES.SYS_ADMIN, USER_TYPES.FRONTDESK].includes(r.id)
-    ).length > 0
-
-  const isMedic =
-    roles.filter((r) =>
-      [USER_TYPES.SYS_ADMIN, USER_TYPES.MEDICAL].includes(r.id)
-    ).length > 0
-
-  const isTC =
-    roles.filter((r) =>
-      [USER_TYPES.SYS_ADMIN, USER_TYPES.TRAINING_COORDINATOR].includes(r.id)
-    ).length > 0
-
-  // Instructor
-
-  const isQA =
-    roles.filter((r) => [USER_TYPES.SYS_ADMIN, USER_TYPES.QA].includes(r.id))
-      .length > 0
-
-  const isFinance =
-    roles.filter((r) =>
-      [USER_TYPES.SYS_ADMIN, USER_TYPES.FINANCE].includes(r.id)
-    ).length > 0
-
-  const isMD =
-    roles.filter((r) => [USER_TYPES.SYS_ADMIN, USER_TYPES.MD].includes(r.id))
-      .length > 0
-
-  const isPrinter =
-    roles.filter((r) =>
-      [USER_TYPES.SYS_ADMIN, USER_TYPES.PRINTER].includes(r.id)
-    ).length > 0
+  const { user } = useUser()
+  const props = {
+    training,
+    onUpdate,
+    user
+  }
 
   return (
     <>
-      {isFrontdesk && <ScanId training={training} onUpdate={onUpdate} />}
-
-      {isMedic && <BloodPressure training={training} onUpdate={onUpdate} />}
-
-      {isTC && <Picture training={training} onUpdate={onUpdate} />}
-
-      {isTC && <Signature training={training} onUpdate={onUpdate} />}
-
-      {/* Instructor */}
-
-      {isQA && <QAApproval training={training} onUpdate={onUpdate} />}
-
-      {isFinance && <Payment training={training} onUpdate={onUpdate} />}
-
-      {isMD && <MDApproval training={training} onUpdate={onUpdate} />}
-
-      {isPrinter && <Print training={training} type={DOC_TYPE.CERTIFICATE} />}
-
-      {isPrinter && <Print training={training} type={DOC_TYPE.ID_CARD} />}
+      <ScanId {...props} role={TRAINING_STATUS.FRONTDESK} />
+      <BloodPressure {...props} role={TRAINING_STATUS.MEDICAL} />
+      <Picture {...props} role={TRAINING_STATUS.TRAINING_COORDINATOR} />
+      <Signature {...props} role={TRAINING_STATUS.TRAINING_COORDINATOR} />
+      {/* <Assesment {...props} role={TRAINING_STATUS.ASSESSMENT}/> */}
+      <QAApproval {...props} role={TRAINING_STATUS.QA} />
+      <Payment {...props} role={TRAINING_STATUS.FINANCE} />
+      <MDApproval {...props} role={TRAINING_STATUS.MD} />
+      <Print
+        {...props}
+        type={DOC_TYPE.CERTIFICATE}
+        role={TRAINING_STATUS.CERT_PRINT}
+      />
+      <Print
+        {...props}
+        type={DOC_TYPE.ID_CARD}
+        role={TRAINING_STATUS.ID_CARD_PRNT}
+      />
     </>
   )
 }

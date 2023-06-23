@@ -4,15 +4,21 @@ import { Task } from '@/components'
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
 import { financeApproval } from '@/services'
-import { TRAINING_STATUS } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 
-export const Payment = ({ training, onUpdate }) => {
+export const Payment = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { id, status_id: status, finance_status: financeStatus } = training
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+
+  const { isApproved, isCancelled, canView } = getUserAuth(
+    role,
+    user.roles,
+    status,
+    training.tracking
+  )
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -43,7 +49,7 @@ export const Payment = ({ training, onUpdate }) => {
   const result = (
     <strong>
       PAYMENT
-      {financeStatus === null
+      {!isApproved
         ? ' PENDING'
         : financeStatus === 0
         ? ' NOT RECEIVED'
@@ -52,19 +58,23 @@ export const Payment = ({ training, onUpdate }) => {
   )
   const title = <strong>Payment</strong>
 
+  if (!canView) {
+    return null
+  }
+
   return (
     <Task
       title={title}
       description={
-        financeStatus === null ? (
+        !isApproved ? (
           description
         ) : (
           <div className="description-large">{result}</div>
         )
       }
       className="payment"
-      onApprove={financeStatus === null ? handleApprove : null}
-      onReject={financeStatus === null ? handleReject : null}
+      onApprove={!isApproved ? handleApprove : null}
+      onReject={!isApproved ? handleReject : null}
       approveDisabled={isCancelled}
       rejectDisabled={isCancelled}
       approveLabel="Paid"

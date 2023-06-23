@@ -3,10 +3,10 @@ import { Task } from '@/components'
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
 import { medicalApproval } from '@/services'
-import { TRAINING_STATUS } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 import './bloodPressure.css'
 
-export const BloodPressure = ({ training, onUpdate }) => {
+export const BloodPressure = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,7 +18,12 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
   const { id, status_id: status } = training
 
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+  const { isApproved, isCancelled, canView } = getUserAuth(
+    role,
+    user.roles,
+    status,
+    training.tracking
+  )
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -53,7 +58,7 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
   const { systolic, diastolic } = bp
 
-  let result = ''
+  let result = !isApproved ? 'PENDING' : ''
 
   training.medical.forEach((md) => {
     md.bp?.forEach((p) => {
@@ -68,26 +73,30 @@ export const BloodPressure = ({ training, onUpdate }) => {
 
   const title = <strong>MEDICAL TEST</strong>
 
+  if (!canView) {
+    return null
+  }
+
   return (
     <Task
       title={title}
       description={
-        !status < TRAINING_STATUS.MEDICAL ? (
-          <div className="description-large">{`APPROVED ${result}`}</div>
+        isApproved ? (
+          <div className="description-large">{result}</div>
         ) : (
           description
         )
       }
       className="blood-pressure"
-      onApprove={status < TRAINING_STATUS.MEDICAL ? handleApprove : null}
-      onReject={status < TRAINING_STATUS.MEDICAL ? handleReject : null}
+      onApprove={!isApproved ? handleApprove : null}
+      onReject={!isApproved ? handleReject : null}
       approveLabel="Fit"
       rejectLabel="No fit"
       approveDisabled={!systolic || !diastolic || isCancelled}
       rejectDisabled={!systolic || !diastolic || isCancelled}
       isSubmitting={isSubmitting}
     >
-      {status < TRAINING_STATUS.MEDICAL && (
+      {!isApproved && (
         <>
           <input
             id="systolic"

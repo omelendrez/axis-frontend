@@ -4,15 +4,21 @@ import { Task } from '@/components'
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
 import { MDApproval as approval } from '@/services'
-import { TRAINING_STATUS } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 
-export const MDApproval = ({ training, onUpdate }) => {
+export const MDApproval = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { id, status_id: status } = training
-  const isCancelled = status === TRAINING_STATUS.CANCELLED
+
+  const { isApproved, isCancelled, canView } = getUserAuth(
+    role,
+    user.roles,
+    status,
+    training.tracking
+  )
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -41,30 +47,28 @@ export const MDApproval = ({ training, onUpdate }) => {
   }
 
   const result = (
-    <strong>
-      {status === TRAINING_STATUS.CANCELLED
-        ? 'CANCELLED'
-        : status >= TRAINING_STATUS.MD
-        ? 'APPROVED'
-        : ''}
-    </strong>
+    <strong>{isCancelled ? 'CANCELLED' : isApproved ? 'APPROVED' : ''}</strong>
   )
 
   const title = <strong>MD Approval</strong>
+
+  if (!canView) {
+    return null
+  }
 
   return (
     <Task
       title={title}
       description={
-        status < TRAINING_STATUS.MD ? (
+        !isApproved ? (
           description
         ) : (
           <div className="description-large">{result}</div>
         )
       }
       className="md-approval"
-      onApprove={status < TRAINING_STATUS.MD ? handleApprove : null}
-      onReject={status < TRAINING_STATUS.MD ? handleReject : null}
+      onApprove={!isApproved ? handleApprove : null}
+      onReject={!isApproved ? handleReject : null}
       approveDisabled={isCancelled}
       rejectDisabled={isCancelled}
       approveLabel="Approve"

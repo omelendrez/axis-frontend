@@ -12,7 +12,7 @@ export const DOC_TYPE = {
   ID_CARD: 2
 }
 
-export const USER_TYPES = {
+export const ROLES = {
   SYS_ADMIN: 1,
   ADMIN: 2,
   FRONTDESK: 3,

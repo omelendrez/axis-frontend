@@ -17,6 +17,7 @@ div.actions article div.description-large {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-transform: uppercase;
 }
 
 div.actions article article.description ol {
