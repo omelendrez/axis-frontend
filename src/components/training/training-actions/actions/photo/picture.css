@@ -2,12 +2,12 @@
   flex-direction: column;
 }
 
-.training-view
-  div.actions
-  article.picture
-  div.children
-  div.picture-children
-  figure
-  img {
-  width: 20rem;
+.training-view .actions .picture-children img {
+  width: fit-content;
+}
+
+@media screen and (min-width: 992px) {
+  .training-view .actions .picture-children img {
+    width: 20rem;
+  }
 }

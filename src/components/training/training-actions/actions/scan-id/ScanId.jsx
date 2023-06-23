@@ -7,6 +7,7 @@ import {
   getLearnerIdUrl
 } from '@/services'
 import { TRAINING_STATUS } from '@/helpers'
+import './scanId.css'
 
 export const ScanId = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()

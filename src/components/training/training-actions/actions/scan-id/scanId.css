@@ -1,0 +1,13 @@
+.training-view .actions .scan-id-children {
+  flex-direction: column;
+}
+
+.training-view .actions .scan-id-children img {
+  width: fit-content;
+}
+
+@media screen and (min-width: 992px) {
+  .training-view .actions .scan-id-children img {
+    width: 20rem;
+  }
+}

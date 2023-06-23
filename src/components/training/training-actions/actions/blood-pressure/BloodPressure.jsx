@@ -72,18 +72,22 @@ export const BloodPressure = ({ training, onUpdate }) => {
     <Task
       title={title}
       description={
-        result ? <div className="description-large">{result}</div> : description
+        !status < TRAINING_STATUS.MEDICAL ? (
+          <div className="description-large">{`APPROVED ${result}`}</div>
+        ) : (
+          description
+        )
       }
       className="blood-pressure"
-      onApprove={!result ? handleApprove : null}
-      onReject={!result ? handleReject : null}
+      onApprove={status < TRAINING_STATUS.MEDICAL ? handleApprove : null}
+      onReject={status < TRAINING_STATUS.MEDICAL ? handleReject : null}
       approveLabel="Fit"
       rejectLabel="No fit"
       approveDisabled={!systolic || !diastolic || isCancelled}
       rejectDisabled={!systolic || !diastolic || isCancelled}
       isSubmitting={isSubmitting}
     >
-      {!result && (
+      {status < TRAINING_STATUS.MEDICAL && (
         <>
           <input
             id="systolic"
