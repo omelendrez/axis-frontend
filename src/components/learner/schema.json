@@ -16,16 +16,22 @@
   },
   {
     "type": "text",
-    "id": "last_name",
-    "label": "Last name",
-    "placeholder": "Enter last name",
+    "id": "first_name",
+    "label": "First name",
+    "placeholder": "Enter first name",
     "required": true
   },
   {
     "type": "text",
-    "id": "first_name",
-    "label": "First name",
-    "placeholder": "Enter first name",
+    "id": "middle_name",
+    "label": "Middle name",
+    "placeholder": "Enter middle name"
+  },
+  {
+    "type": "text",
+    "id": "last_name",
+    "label": "Last name",
+    "placeholder": "Enter last name",
     "required": true
   },
   {
