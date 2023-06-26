@@ -50,13 +50,7 @@
   {
     "type": "switch",
     "id": "id_card",
-    "label": "Course with ID card?",
-    "required": true
-  },
-  {
-    "type": "switch",
-    "id": "cert_id_card",
-    "label": "Certificate with ID card?",
+    "label": "ID card?",
     "required": true
   }
 ]
