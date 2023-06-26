@@ -19,6 +19,7 @@ export const Login = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [fieldType, setFieldType] = useState('password')
 
   useEffect(() => {
     const input = document.getElementsByTagName('input')[1]
@@ -74,6 +75,11 @@ export const Login = () => {
 
   const { name, password } = values
 
+  const handlePasswordToggle = (e) => {
+    e.preventDefault()
+    setFieldType((s) => (s === 'text' ? 'password' : 'text'))
+  }
+
   return (
     <form onSubmit={handleSubmit} className="login-form">
       <InputField
@@ -91,6 +97,8 @@ export const Login = () => {
         type="password"
         id="password"
         label="Password"
+        onPasswordToggle={handlePasswordToggle}
+        password={fieldType}
         placeholder="Enter password"
         value={password.value}
         onChange={handleChange}
