@@ -29,7 +29,7 @@ export const getUserAuth = (role, userRoles, status, tracking) => {
   switch (role) {
     case TRAINING_STATUS.FRONTDESK:
     case TRAINING_STATUS.CERT_PRINT:
-    case TRAINING_STATUS.ID_CARD_PRNT:
+    case TRAINING_STATUS.ID_CARD_PRINT:
       canUpdate = true
       break
     default:

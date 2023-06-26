@@ -39,7 +39,7 @@ export const Action = ({ training, onUpdate }) => {
       <Print
         {...props}
         type={DOC_TYPE.ID_CARD}
-        role={TRAINING_STATUS.ID_CARD_PRNT}
+        role={TRAINING_STATUS.ID_CARD_PRINT}
       />
     </>
   )

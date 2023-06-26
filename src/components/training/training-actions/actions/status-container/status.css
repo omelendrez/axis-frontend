@@ -31,5 +31,5 @@ main.training-view
   div.status-container
   div.status-body
   div:nth-child(3) {
-  font-style: italic;
+  color: var(--form-element-disabled-border-color);
 }

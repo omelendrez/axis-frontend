@@ -9,20 +9,22 @@ import {
 } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
 
-import { DOC_TYPE, getUserAuth } from '@/helpers'
+import { DOC_TYPE, TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 
 export const Print = ({ training, type, role, user }) => {
   const { apiMessage } = useApiMessages()
 
-  const { id, status_id: status } = training
+  const { roles } = user
+
+  const { id, status_id: status, id_card, tracking } = training
 
   const { isCancelled, canView, canUpdate } = getUserAuth(
     role,
-    user.roles,
+    roles,
     status,
-    training.tracking
+    tracking
   )
 
   const [refresh, setRefresh] = useState(false)
@@ -68,7 +70,7 @@ export const Print = ({ training, type, role, user }) => {
     type: 'application/pdf'
   }
 
-  if (!canView) {
+  if (!canView || (role === TRAINING_STATUS.ID_CARD_PRINT && id_card !== 1)) {
     return null
   }
 
