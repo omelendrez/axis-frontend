@@ -47,8 +47,8 @@ function App() {
   const navigate = useNavigate()
   useEffect(() => {
     if (data.type && data.message) {
-      // const delay = data.message.split(' ').length * 500
-      const delay = 5000
+      const delay = data.message.split(' ').length * 500
+      // const delay = data.type === 'error' && ? 10000 : 5000
       toast[data.type](data.message, { autoClose: delay })
       if (data.message === 'Token expired') {
         navigate('/login')

@@ -1,5 +1,5 @@
-export * from './blood-pressure'
 export * from './md-approval'
+export * from './medical'
 export * from './payment'
 export * from './photo'
 export * from './print'

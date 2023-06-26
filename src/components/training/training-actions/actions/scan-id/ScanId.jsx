@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react'
 import { Modal, IdCardUpload, Task } from '@/components'
+import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
 import {
   frontdeskApproval,
   learnerIdCardExists,
-  getLearnerIdUrl
+  getLearnerIdUrl,
+  generateOpitoCertificate
 } from '@/services'
 import { getUserAuth } from '@/helpers'
 import './scanId.css'
+import { getOpitoRecords } from '@/services/api/opito'
 
+//  TODO: Todo show tracking info inside each approved task
 export const ScanId = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
+
+  const { roles } = user
+
+  const [opitoFile, setOpitoFile] = useState(null)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -18,16 +26,18 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const [isImage, setIsImage] = useState(false)
 
-  const { id, status_id: status, badge } = training
+  const { id, status_id: status, badge, tracking } = training
+
+  const trackingRecord = tracking.find((t) => t.status_id === role)
 
   const { isApproved, isCancelled, canView, canUpdate } = getUserAuth(
     role,
-    user.roles,
+    roles,
     status,
-    training.tracking
+    tracking
   )
 
-  const imageUrl = getLearnerIdUrl(training.badge)
+  const imageUrl = getLearnerIdUrl(badge)
 
   useEffect(() => {
     learnerIdCardExists(badge)
@@ -80,10 +90,51 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
     return null
   }
 
+  const handleOpito = (e) => {
+    e.preventDefault()
+    getOpitoRecords()
+      .then((res) => {
+        if (res.data.length === 0) {
+          const message = {
+            data: {
+              message: 'There are no records pending to be processed'
+            }
+          }
+          apiMessage(message)
+        } else {
+          const { data } = res
+          const invalidRecords = data.filter((r) => r.front_id === '')
+          if (invalidRecords.length > 0) {
+            const { opito_reg_code: code } = invalidRecords[0]
+            const message = {
+              response: {
+                data: {
+                  message: `Missing course Front ID text (Check course with Opito Reg. Code ${code})`
+                }
+              }
+            }
+            return apiMessage(message)
+          }
+
+          const payload = {
+            records: data
+          }
+          generateOpitoCertificate(payload)
+            .then((res) => {
+              setOpitoFile(res.data.file.substring(1))
+              apiMessage(res)
+            })
+            .catch((e) => apiMessage(e))
+        }
+      })
+      .catch((e) => apiMessage(e))
+  }
+
   return (
     <>
       <Task
         title={title}
+        status={<Status trackingRecord={trackingRecord} />}
         className="scan-id"
         onApprove={!isApproved ? handleApprove : null}
         onReject={!isApproved ? handleReject : null}
@@ -98,11 +149,23 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
             </figure>
           )}
 
+          {opitoFile && (
+            <a
+              href={`${import.meta.env.VITE_ASSETS_URL}${opitoFile}`}
+              alt={opitoFile}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {opitoFile}
+            </a>
+          )}
+
           {canUpdate && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
                 {isImage ? 'Re-scan Id' : 'Scan Id'}
               </button>
+              <button onClick={handleOpito}>Generate xlsx</button>
             </div>
           )}
         </div>

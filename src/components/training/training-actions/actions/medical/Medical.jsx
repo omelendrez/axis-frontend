@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { Task } from '@/components'
+import { Status } from '../status-container/Status'
+
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
 import { medicalApproval } from '@/services'
 import { getUserAuth } from '@/helpers'
-import './bloodPressure.css'
+import './medical.css'
 
-export const BloodPressure = ({ training, onUpdate, role, user }) => {
+export const Medical = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
+
+  const { roles } = user
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const initialValues = { systolic: '', diastolic: '' }
@@ -15,14 +19,15 @@ export const BloodPressure = ({ training, onUpdate, role, user }) => {
 
   const handleChange = (e) =>
     setBp((bp) => ({ ...bp, [e.target.id]: e.target.value }))
+  const { id, status_id: status, tracking } = training
 
-  const { id, status_id: status } = training
+  const trackingRecord = tracking.find((t) => t.status_id === role)
 
   const { isApproved, isCancelled, canView } = getUserAuth(
     role,
-    user.roles,
+    roles,
     status,
-    training.tracking
+    tracking
   )
 
   const process = (payload) => {
@@ -80,6 +85,7 @@ export const BloodPressure = ({ training, onUpdate, role, user }) => {
   return (
     <Task
       title={title}
+      status={<Status trackingRecord={trackingRecord} />}
       description={
         isApproved ? (
           <div className="description-large">{result}</div>

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Task } from '@/components'
 
 import description from './description'
+import { Status } from '../status-container/Status'
+
 import useApiMessages from '@/hooks/useApiMessages'
 import { MDApproval as approval } from '@/services'
 import { getUserAuth } from '@/helpers'
@@ -9,15 +11,19 @@ import { getUserAuth } from '@/helpers'
 export const MDApproval = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
+  const { roles } = user
+
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { id, status_id: status } = training
+  const { id, status_id: status, tracking } = training
+
+  const trackingRecord = tracking.find((t) => t.status_id === role)
 
   const { isApproved, isCancelled, canView } = getUserAuth(
     role,
-    user.roles,
+    roles,
     status,
-    training.tracking
+    tracking
   )
 
   const process = (payload) => {
@@ -59,6 +65,7 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
   return (
     <Task
       title={title}
+      status={<Status trackingRecord={trackingRecord} />}
       description={
         !isApproved ? (
           description

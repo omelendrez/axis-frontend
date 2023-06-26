@@ -2,6 +2,7 @@ import './task.css'
 
 export const Task = ({
   title,
+  status,
   description,
   className,
   approveDisabled,
@@ -41,6 +42,7 @@ export const Task = ({
           </button>
         )}
       </div>
+      {status && status}
     </article>
   )
 }

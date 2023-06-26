@@ -1,6 +1,6 @@
 import {
   ScanId,
-  BloodPressure,
+  Medical,
   Print,
   Payment,
   Picture,
@@ -24,7 +24,7 @@ export const Action = ({ training, onUpdate }) => {
   return (
     <>
       <ScanId {...props} role={TRAINING_STATUS.FRONTDESK} />
-      <BloodPressure {...props} role={TRAINING_STATUS.MEDICAL} />
+      <Medical {...props} role={TRAINING_STATUS.MEDICAL} />
       <Picture {...props} role={TRAINING_STATUS.TRAINING_COORDINATOR} />
       <Signature {...props} role={TRAINING_STATUS.TRAINING_COORDINATOR} />
       {/* <Assesment {...props} role={TRAINING_STATUS.ASSESSMENT}/> */}
