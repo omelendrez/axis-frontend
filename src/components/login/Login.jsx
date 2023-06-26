@@ -75,7 +75,7 @@ export const Login = () => {
 
   const { name, password } = values
 
-  const handlePasswordToggle = (e) => {
+  const handleFieldTypeToggle = (e) => {
     e.preventDefault()
     setFieldType((s) => (s === 'text' ? 'password' : 'text'))
   }
@@ -97,7 +97,7 @@ export const Login = () => {
         type="password"
         id="password"
         label="Password"
-        onPasswordToggle={handlePasswordToggle}
+        onPasswordToggle={handleFieldTypeToggle}
         password={fieldType}
         placeholder="Enter password"
         value={password.value}
