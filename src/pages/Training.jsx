@@ -9,7 +9,7 @@ import useTrainings from '@/hooks/useTrainings'
 const Training = () => {
   const params = useParams()
 
-  const { id } = useContext(TrainingContext)
+  const { changes } = useContext(TrainingContext)
 
   const { loadView, trainings } = useTrainings()
 
@@ -25,7 +25,7 @@ const Training = () => {
     loadView(id)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update, id])
+  }, [update, changes])
 
   return (
     <main className="container">

@@ -68,9 +68,9 @@ function App() {
     const server = import.meta.env.VITE_API_URL.replace('/api/', '')
     const socket = io(server)
 
-    socket.on('training-status-changed', (id) => {
+    socket.on('training-status-changed', (changes) => {
       navigator.vibrate([100, 200, 200, 200, 500])
-      setId(id)
+      setChanges(changes)
     })
 
     socket.on('connect_error', (a) => {
@@ -86,7 +86,7 @@ function App() {
   const currentUser = session.get(KEYS.user) || null
   const [user, setUser] = useState(currentUser)
 
-  const [id, setId] = useState(null)
+  const [changes, setChanges] = useState(null)
 
   const userContextValues = {
     user,
@@ -94,8 +94,8 @@ function App() {
   }
 
   const trainingContextValues = {
-    id,
-    setId
+    changes,
+    setChanges
   }
 
   return (
