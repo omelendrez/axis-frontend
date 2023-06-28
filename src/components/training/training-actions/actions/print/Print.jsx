@@ -12,6 +12,7 @@ import useApiMessages from '@/hooks/useApiMessages'
 import { DOC_TYPE, TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
+import { Status } from '../status-container/Status'
 
 export const Print = ({ training, type, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -19,6 +20,8 @@ export const Print = ({ training, type, role, user }) => {
   const { roles } = user
 
   const { id, status_id: status, id_card, tracking } = training
+
+  const trackingRecord = tracking.find((t) => t.status_id === role)
 
   const { isCancelled, canView, canUpdate } = getUserAuth(
     role,
@@ -77,6 +80,7 @@ export const Print = ({ training, type, role, user }) => {
   return (
     <Task
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
+      status={<Status trackingRecord={trackingRecord} />}
       className="document"
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
       approveDisabled={!canUpdate || isCancelled}

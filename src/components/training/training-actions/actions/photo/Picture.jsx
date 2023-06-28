@@ -9,9 +9,12 @@ import {
 import { getUserAuth } from '@/helpers'
 
 import './picture.css'
+import { Status } from '../status-container/Status'
 
 export const Picture = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
+
+  const { roles } = user
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -19,12 +22,18 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const [isImage, setIsImage] = useState(false)
 
-  const { id, status_id: status, badge } = training
+  const { id, status_id: status, badge, tracking } = training
 
-  const { isComplete, isApproved, isCancelled, canView, canUpdate } =
-    getUserAuth(role, user.roles, status, training.tracking)
+  const trackingRecord = tracking.find((t) => t.status_id === role)
 
-  const imageUrl = getPhotoUrl(training.badge)
+  const { isApproved, isCancelled, canView, canUpdate } = getUserAuth(
+    role,
+    roles,
+    status,
+    tracking
+  )
+
+  const imageUrl = getPhotoUrl(badge)
 
   useEffect(() => {
     pictureExists(badge)
@@ -73,7 +82,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner Picture</strong>
 
-  if (!canView || isApproved || isCancelled || isComplete) {
+  if (!canView) {
     return null
   }
 
@@ -81,8 +90,9 @@ export const Picture = ({ training, onUpdate, role, user }) => {
     <>
       <Task
         title={title}
+        status={<Status trackingRecord={trackingRecord} />}
         className="picture"
-        onApprove={!isApproved ? handleApprove : null}
+        onApprove={!isApproved && canUpdate ? handleApprove : null}
         onReject={!isApproved ? handleReject : null}
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}

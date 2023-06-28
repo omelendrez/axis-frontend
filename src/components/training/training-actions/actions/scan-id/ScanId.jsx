@@ -12,7 +12,6 @@ import { getUserAuth } from '@/helpers'
 import './scanId.css'
 import { getOpitoRecords } from '@/services/api/opito'
 
-//  TODO: Todo show tracking info inside each approved task
 export const ScanId = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 

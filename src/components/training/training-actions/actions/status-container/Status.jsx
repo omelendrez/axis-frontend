@@ -1,6 +1,6 @@
 import './status.css'
 
-export const Status = ({ trackingRecord, other }) => {
+export const Status = ({ trackingRecord }) => {
   if (!trackingRecord?.updated) {
     return null
   }
@@ -11,7 +11,6 @@ export const Status = ({ trackingRecord, other }) => {
         <div>{trackingRecord.full_name}</div>
         <div>{trackingRecord.updated}</div>
       </div>
-      {other && { other }}
     </div>
   )
 }
