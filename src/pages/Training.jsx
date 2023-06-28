@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { TrainingView } from '@/components'
+import { TrainingContext } from '@/context'
 
 import useTrainings from '@/hooks/useTrainings'
 
 const Training = () => {
   const params = useParams()
+
+  const { id } = useContext(TrainingContext)
 
   const { loadView, trainings } = useTrainings()
 
@@ -18,10 +21,11 @@ const Training = () => {
 
   useEffect(() => {
     const id = params?.id
+
     loadView(id)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update])
+  }, [update, id])
 
   return (
     <main className="container">
