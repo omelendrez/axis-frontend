@@ -55,3 +55,5 @@ export const unlock = () => {
     screen.orientationUnlock()
   }
 }
+
+export const isDesktop = () => window.innerWidth > 768

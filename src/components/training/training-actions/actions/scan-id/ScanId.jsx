@@ -8,7 +8,7 @@ import {
   getLearnerIdUrl,
   generateOpitoCertificate
 } from '@/services'
-import { getUserAuth } from '@/helpers'
+import { getUserAuth, isDesktop } from '@/helpers'
 import './scanId.css'
 import { getOpitoRecords } from '@/services/api/opito'
 
@@ -85,7 +85,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner id card</strong>
 
-  if (!canView) {
+  if (!canView || isDesktop()) {
     return null
   }
 

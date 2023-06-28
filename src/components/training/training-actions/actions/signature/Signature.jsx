@@ -8,7 +8,8 @@ import {
   lock,
   unlock,
   dataURItoBlob,
-  getUserAuth
+  getUserAuth,
+  isDesktop
 } from '@/helpers'
 
 import './signature.css'
@@ -95,7 +96,7 @@ export const Signature = ({ training, role, user }) => {
     width: window.visualViewport.width - 100
   }
 
-  if (!canView || isComplete || isCancelled) {
+  if (!canView || isComplete || isCancelled || isDesktop()) {
     return null
   }
 
