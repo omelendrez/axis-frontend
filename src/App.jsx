@@ -69,6 +69,7 @@ function App() {
     const socket = io(server)
 
     socket.on('training-status-changed', (id) => {
+      navigator.vibrate([100, 200, 200, 200, 500])
       setId(id)
     })
 

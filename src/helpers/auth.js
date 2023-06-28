@@ -37,7 +37,7 @@ export const getUserAuth = (role, userRoles, status, tracking) => {
       canUpdate = false
   }
 
-  const canView = matchStatuses(userRoles, status)
+  const canView = matchStatuses(userRoles, status) && status <= role
 
   return { canView, canUpdate, isComplete, isApproved, isCancelled }
 }
