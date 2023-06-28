@@ -165,7 +165,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
               <button onClick={handleScan} disabled={isCancelled}>
                 {isImage ? 'Re-scan Id' : 'Scan Id'}
               </button>
-              <button onClick={handleOpito}>Generate xlsx</button>
+              {false && <button onClick={handleOpito}>Generate xlsx</button>}
             </div>
           )}
         </div>

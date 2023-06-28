@@ -18,19 +18,21 @@ export const Signature = ({ training, role, user }) => {
 
   const { apiMessage } = useApiMessages()
 
+  const { roles } = user
+
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [isSignatureOpen, setIsSignatureOpen] = useState(false)
 
   const [signature, setSignature] = useState(null)
 
-  const { id, status_id: status, start } = training
+  const { id, status_id: status, start, tracking } = training
 
   const { isComplete, isCancelled, canView } = getUserAuth(
     role,
-    user.roles,
+    roles,
     status,
-    training.tracking
+    tracking
   )
 
   useEffect(() => {
@@ -67,10 +69,9 @@ export const Signature = ({ training, role, user }) => {
 
   const handleScan = (e) => {
     e.preventDefault()
-
+    handleClear()
     lock()
     setIsSignatureOpen(true)
-    handleClear()
   }
 
   const handleClose = (e) => {
