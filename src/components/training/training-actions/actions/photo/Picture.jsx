@@ -104,7 +104,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
               <img src={imageUrl} alt={imageUrl} />
             </figure>
           )}
-          {!canUpdate && (
+          {canUpdate && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
                 {isImage ? 'Re-take picture' : 'Take picture'}
