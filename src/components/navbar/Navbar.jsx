@@ -31,6 +31,7 @@ export const Navbar = ({ me }) => {
     const session = new SP()
     session.clear()
     setUser(null)
+    window.close()
   }
 
   const links = {
