@@ -16,10 +16,6 @@
   width: 20rem;
 }
 
-.training-view div.actions article.signature dialog div {
-  flex-direction: column;
-}
-
 .training-view div.actions article.signature dialog div.form-container {
   padding: 1rem;
   background-color: aliceblue;
