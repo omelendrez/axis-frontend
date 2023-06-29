@@ -22,10 +22,10 @@
   },
   {
     "label": "Front id",
-    "field": "front_id"
+    "field": "front_id_text"
   },
   {
     "label": "Back id",
-    "field": "back_id"
+    "field": "back_id_text"
   }
 ]

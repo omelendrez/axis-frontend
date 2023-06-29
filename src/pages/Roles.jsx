@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Loading, ListView, AddButton } from '@/components'
 
 import useRoles from '@/hooks/useRoles'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import { initialValues } from '@/helpers'
 
@@ -14,7 +14,7 @@ const Roles = () => {
   const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   useEffect(() => {
     loadRoles(pagination)

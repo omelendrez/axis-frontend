@@ -1,4 +1,4 @@
-import { roleStatuses } from '@/static-lists'
+import { roleStatus } from '@/static-lists'
 import { TRAINING_STATUS } from './constants'
 
 export const hasRequiredRole = (optionRoles, userRoles) =>
@@ -11,7 +11,7 @@ export const hasRequiredRole = (optionRoles, userRoles) =>
 const matchStatuses = (userRoles, status) => {
   let statuses = []
   userRoles.forEach((r) => {
-    const match = roleStatuses.find((rs) => rs.role === r.id)
+    const match = roleStatus.find((rs) => rs.role === r.id)
     statuses = match ? [...statuses, ...match.statuses] : statuses
   })
   return statuses.includes(status)

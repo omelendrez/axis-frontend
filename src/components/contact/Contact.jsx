@@ -4,13 +4,13 @@ import { Form } from '@/components'
 
 import useContacts from '@/hooks/useContacts'
 import useContactTypes from '@/hooks/useContactTypes'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import schema from './schema.json'
 import { loadSchema } from '@/helpers'
 
 export const Contact = ({ contact, onClose }) => {
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   const { contacts, add, modify } = useContacts()
   const { isLoading, isSuccess } = contacts

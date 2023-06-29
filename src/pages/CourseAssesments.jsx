@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ListView, Loading, AddButton } from '@/components'
 
 import useCourseAssesments from '@/hooks/useCourseAssesments'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import { initialValues } from '@/helpers'
 
@@ -19,7 +19,7 @@ const CourseAssesments = () => {
   const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   useEffect(() => {
     loadCourseAssesments(pagination)

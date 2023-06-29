@@ -19,8 +19,6 @@ api.interceptors.request.use(
     const controller = new AbortController()
     const token = session.get(KEYS.token)
 
-    console.log(config)
-
     if (pending.includes(config.url)) {
       controller.abort()
     } else {

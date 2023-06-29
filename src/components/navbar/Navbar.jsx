@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef } from 'react'
 import { SP } from '@/services'
 import { UserContext, ThemeContext, NetworkContext } from '@/context'
 import { Divider } from '@/components'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import './navbar.css'
 
@@ -21,7 +21,7 @@ export const Navbar = ({ me }) => {
   const { user, setUser } = useContext(UserContext)
   const { network } = useContext(NetworkContext)
 
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   const detailsRef = useRef(null)
 

@@ -4,7 +4,9 @@ import { Form } from '@/components'
 
 import useCourses from '@/hooks/useCourses'
 import useCertificateTypes from '@/hooks/useCertificateTypes'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
+
+import { expiryType as expiryList } from '@/static-lists'
 
 import schema from './schema.json'
 import { loadSchema } from '@/helpers'
@@ -16,7 +18,7 @@ export const CourseForm = ({ course, onClose }) => {
   const { certificateTypes, load: loadCertificateTypes } = useCertificateTypes()
   const { data: typesList } = certificateTypes
 
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   const initialValues = loadSchema(schema)
 
@@ -79,7 +81,8 @@ export const CourseForm = ({ course, onClose }) => {
   }
 
   const options = {
-    typesList: typesList
+    typesList,
+    expiryList
   }
 
   return (

@@ -1,0 +1,16 @@
+{
+  "rows": [
+    {
+      "id": 0,
+      "name": "Certificate has no expiring date"
+    },
+    {
+      "id": 1,
+      "name": "Expiring date calculated automatically"
+    },
+    {
+      "id": 2,
+      "name": "Expiring date entered manually"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import { Form } from '@/components'
 
 import useTrainings from '@/hooks/useTrainings'
 import useCourses from '@/hooks/useCourses'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import schema from './schema.json'
 import { loadSchema } from '@/helpers'
@@ -13,7 +13,7 @@ export const TrainingForm = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
   const { isLoading, isSuccess } = trainings
 
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   const { courses, load: loadCourses } = useCourses()
   const { data: courseList } = courses

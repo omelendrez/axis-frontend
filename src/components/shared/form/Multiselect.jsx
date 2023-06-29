@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Table, Buttons } from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 import './multiselect.css'
 
 export const Multiselect = ({ id, fields, items, onClose, onSave }) => {
   const { apiMessage } = useApiMessages()
 
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   const [selected, setSelected] = useState([])
 

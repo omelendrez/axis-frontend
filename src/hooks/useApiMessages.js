@@ -1,7 +1,7 @@
-import useNoficication from './useNotification'
+import useNotification from './useNotification'
 
 const useApiMessages = () => {
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   const apiMessage = (e) => {
     set({

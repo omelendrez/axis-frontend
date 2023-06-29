@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 import { FormButtonRow, InputField } from '@/components'
 import { login, SP, KEYS } from '@/services'
 import { UserContext } from '@/context'
@@ -11,7 +11,7 @@ import schema from './schema.json'
 import './login.css'
 
 export const Login = () => {
-  const { set } = useNoficication()
+  const { set } = useNotification()
   const { apiMessage } = useApiMessages()
   const { setUser: setUserContext } = useContext(UserContext)
   const initialValues = loadSchema(schema)

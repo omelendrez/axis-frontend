@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList, AddButton, Tag } from '@/components'
 
 import useUsers from '@/hooks/useUsers'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import { initialValues } from '@/helpers'
 
@@ -45,7 +45,7 @@ const Users = () => {
   const [pagination, setPagination] = useState(initialValues)
 
   const navigate = useNavigate()
-  const { set } = useNoficication()
+  const { set } = useNotification()
 
   useEffect(() => {
     loadUsers(pagination)

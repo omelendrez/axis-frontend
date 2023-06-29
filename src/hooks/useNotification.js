@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setMessage, reset } from '../reducers/notification/notificationSlice'
 
-const useNoficication = () => {
+const useNotification = () => {
   const dispatch = useDispatch()
 
   const set = (payload) => dispatch(setMessage(payload))
@@ -14,4 +14,4 @@ const useNoficication = () => {
   return { set, data, clear }
 }
 
-export default useNoficication
+export default useNotification

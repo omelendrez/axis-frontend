@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify'
 import { io } from 'socket.io-client'
 
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 
 import { Navbar } from '@/components'
 import { AppRoutes } from '@/routes'
@@ -46,7 +46,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
-  const { data, clear } = useNoficication()
+  const { data, clear } = useNotification()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -77,8 +77,6 @@ function App() {
       console.error('Socket connection error')
       setTimeout(() => socket.connect(), 20000)
     })
-
-    socket.on('disconnect', () => console.log('server disconnected'))
 
     window.addEventListener('online', (e) => {
       const { type } = e

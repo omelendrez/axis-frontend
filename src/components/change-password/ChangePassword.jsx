@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useNoficication from '@/hooks/useNotification'
+import useNotification from '@/hooks/useNotification'
 import useApiMessages from '@/hooks/useApiMessages'
 import { InputField } from '@/components'
 import {
@@ -28,7 +28,7 @@ const initialValues = {
 }
 
 export const ChangePassword = () => {
-  const { set } = useNoficication()
+  const { set } = useNotification()
   const { apiMessage } = useApiMessages()
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
