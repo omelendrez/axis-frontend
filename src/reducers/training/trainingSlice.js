@@ -6,7 +6,8 @@ import {
   deleteTraining,
   getTrainingView,
   getTracking,
-  getMedicalData
+  getMedicalData,
+  getCourseItemsData
 } from '@/services'
 import { handleError } from '../error'
 
@@ -84,10 +85,12 @@ export function loadTrainingView(id) {
       const view = await getTrainingView(id)
       const tracking = await getTracking(id)
       const medical = await getMedicalData(id)
+      const items = await getCourseItemsData(id)
       const data = {
         ...view.data,
         tracking: tracking.data,
-        medical: medical.data
+        medical: medical.data,
+        items: items.data
       }
       dispatch(setView(data))
     } catch (error) {

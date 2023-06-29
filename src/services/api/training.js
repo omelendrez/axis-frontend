@@ -16,6 +16,9 @@ export const getTracking = (id) => api.get(`${endpoint}/${id}/tracking`)
 
 export const getMedicalData = (id) => api.get(`${endpoint}/${id}/medical`)
 
+export const getCourseItemsData = (id) =>
+  api.get(`${endpoint}/${id}/course-items`)
+
 export const getTraining = (id) => api.get(`${endpoint}/${id}`)
 
 export const updateTraining = (id, payload) =>

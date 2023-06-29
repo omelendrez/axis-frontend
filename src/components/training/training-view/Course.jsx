@@ -17,8 +17,6 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
     return <Loading />
   }
 
-  // const { tracking } = training
-
   return (
     <article className="course">
       <h6 className="title">Course info</h6>
@@ -41,8 +39,6 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
             />
           ))}
       </div>
-
-      {/* <Tracking tracking={tracking} /> */}
     </article>
   )
 }
