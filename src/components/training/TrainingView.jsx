@@ -40,8 +40,6 @@ export const TrainingView = ({ training, onUpdate }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  console.log(training)
-
   return (
     <main className="training-view">
       <StatusStamp status={{ statusId, stateName }} />
