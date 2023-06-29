@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { KEYS, SP } from '../session'
 
-// TODO: Handle camelCase and snake-case interfaces with api
-
 const session = new SP()
 const pending = []
 
@@ -14,10 +12,14 @@ export const api = axios.create({
   }
 })
 
+// TODO: Handle camelCase and snake-case conversion between fe and api and vice-versa
+
 api.interceptors.request.use(
   (config) => {
     const controller = new AbortController()
     const token = session.get(KEYS.token)
+
+    console.log(config)
 
     if (pending.includes(config.url)) {
       controller.abort()
@@ -36,12 +38,13 @@ api.interceptors.request.use(
 )
 
 api.interceptors.response.use(
-  function (response) {
+  (response) => {
     const index = pending.indexOf(response.config.url)
     pending.splice(index, 1)
+
     return response
   },
-  function (error) {
+  (error) => {
     const index = pending.indexOf(error.config.url)
     pending.splice(index, 1)
     return Promise.reject(error)

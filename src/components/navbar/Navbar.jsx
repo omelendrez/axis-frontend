@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useContext, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { SP } from '@/services'
-import { UserContext, ThemeContext } from '@/context'
+import { UserContext, ThemeContext, NetworkContext } from '@/context'
 import { Divider } from '@/components'
+import useNoficication from '@/hooks/useNotification'
 
 import './navbar.css'
 
@@ -18,6 +19,9 @@ const LiElement = ({ route, path, label, icon, onClick }) => (
 export const Navbar = ({ me }) => {
   const { theme, toggle } = useContext(ThemeContext)
   const { user, setUser } = useContext(UserContext)
+  const { network } = useContext(NetworkContext)
+
+  const { set } = useNoficication()
 
   const detailsRef = useRef(null)
 
@@ -83,6 +87,20 @@ export const Navbar = ({ me }) => {
 
   const location = useLocation()
   const route = location.pathname
+
+  useEffect(() => {
+    if (network !== null) {
+      const notification = {
+        type: network === 'offline' ? 'error' : 'success',
+        message:
+          network === 'offline'
+            ? 'You are offline right now'
+            : 'Your are online'
+      }
+      set(notification)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [network])
 
   return (
     <nav className="container-fluid">

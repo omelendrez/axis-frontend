@@ -8,8 +8,8 @@ import useNoficication from '@/hooks/useNotification'
 
 import { Navbar } from '@/components'
 import { AppRoutes } from '@/routes'
-import { UserContext } from '@/context'
-import { TrainingContext } from '@/context'
+import { UserContext, TrainingContext, NetworkContext } from '@/context'
+
 import { KEYS, SP } from '@/services'
 
 // Styles
@@ -73,20 +73,32 @@ function App() {
       setChanges(changes)
     })
 
-    socket.on('connect_error', (a) => {
+    socket.on('connect_error', () => {
       console.error('Socket connection error')
       setTimeout(() => socket.connect(), 20000)
     })
 
     socket.on('disconnect', () => console.log('server disconnected'))
+
+    window.addEventListener('online', (e) => {
+      const { type } = e
+      setNetwork(type)
+      session.save(KEYS.network, type)
+    })
+    window.addEventListener('offline', (e) => {
+      const { type } = e
+      setNetwork(type)
+      session.save(KEYS.network, type)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const session = new SP()
   const currentUser = session.get(KEYS.user) || null
-  const [user, setUser] = useState(currentUser)
 
+  const [user, setUser] = useState(currentUser)
   const [changes, setChanges] = useState(null)
+  const [network, setNetwork] = useState(navigator.onLine)
 
   const userContextValues = {
     user,
@@ -98,15 +110,22 @@ function App() {
     setChanges
   }
 
+  const networkContextValues = {
+    network,
+    setNetwork
+  }
+
   return (
     <>
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
       <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
         <UserContext.Provider value={userContextValues}>
-          <Navbar me={user} />
-          <TrainingContext.Provider value={trainingContextValues}>
-            <AppRoutes />
-          </TrainingContext.Provider>
+          <NetworkContext.Provider value={networkContextValues}>
+            <Navbar me={user} />
+            <TrainingContext.Provider value={trainingContextValues}>
+              <AppRoutes />
+            </TrainingContext.Provider>
+          </NetworkContext.Provider>
         </UserContext.Provider>
       </ErrorBoundary>
     </>
