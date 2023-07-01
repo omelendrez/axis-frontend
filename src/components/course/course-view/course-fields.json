@@ -19,7 +19,7 @@
     "className": "highlighted"
   },
   {
-    "label": "Id card?",
+    "label": "Includes ID card printing?",
     "field": "card_id"
   },
   {
@@ -31,7 +31,7 @@
     "field": "back_id_text"
   },
   {
-    "label": "Expiry",
+    "label": "Expiry date calculation method",
     "field": "expiry_type_name"
   }
 ]
