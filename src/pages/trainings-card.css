@@ -18,6 +18,10 @@
   border-radius: 3px;
 }
 
+.card.trainings .card-body .status-0 {
+  background-color: #888;
+}
+
 .card.trainings .card-body .status-1 {
   background-color: var(--primary);
 }

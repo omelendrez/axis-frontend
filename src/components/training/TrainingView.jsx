@@ -8,6 +8,7 @@ import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
 
 import './trainingView.css'
+import { TRAINING_STATUS } from '@/helpers'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -47,7 +48,7 @@ export const TrainingView = ({ training, onUpdate }) => {
       <Learner learner={{ ...training, status: undefined }} />
       <Course
         training={training}
-        onUndo={isAdmin ? handleUndo : null}
+        onUndo={isAdmin && statusId > TRAINING_STATUS.NEW ? handleUndo : null}
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}
       />

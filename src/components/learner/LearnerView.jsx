@@ -15,7 +15,6 @@ import {
 import { Loading, Modal } from '@/components'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
 import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '..'
-
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
@@ -158,7 +157,7 @@ export const LearnerView = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, id])
+  }, [id])
 
   if (!learner) {
     return <Loading />

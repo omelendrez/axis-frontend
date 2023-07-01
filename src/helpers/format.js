@@ -8,6 +8,8 @@ export const signatureNumber = (num) => parseInt(num, 10).toString(16)
 
 export const getFilename = (id) => `${documentNumber(id)}.pdf`
 
+export const getFOETFilename = (id) => `${documentNumber(id)}.jpg`
+
 export const getSignatureFilename = ({ id, date }) =>
   `${signatureNumber(`${id}${date}`)}.png`
 

@@ -26,12 +26,5 @@
     "label": "Certificate issued",
     "placeholder": "Enter certificate issued",
     "if": "id"
-  },
-  {
-    "type": "date",
-    "id": "expiry",
-    "label": "Certificate expiry",
-    "placeholder": "Enter certificate expiry",
-    "if": "id"
   }
 ]

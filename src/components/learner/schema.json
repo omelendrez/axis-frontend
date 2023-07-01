@@ -12,6 +12,7 @@
     "label": "Badge",
     "placeholder": "Enter badge",
     "required": true,
+    "readOnly": true,
     "if": "id"
   },
   {

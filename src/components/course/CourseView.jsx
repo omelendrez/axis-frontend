@@ -162,7 +162,7 @@ export const CourseView = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, id])
+  }, [id])
 
   if (!course) {
     return <Loading />

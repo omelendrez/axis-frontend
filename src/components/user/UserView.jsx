@@ -124,7 +124,7 @@ export const UserView = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, id])
+  }, [id])
 
   if (!user) {
     return <Loading />

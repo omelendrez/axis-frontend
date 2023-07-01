@@ -27,6 +27,7 @@ export const getUserAuth = (role, userRoles, status, tracking) => {
   let canUpdate = null
 
   switch (role) {
+    case TRAINING_STATUS.ADMIN:
     case TRAINING_STATUS.FRONTDESK:
     case TRAINING_STATUS.TRAINING_COORDINATOR:
     case TRAINING_STATUS.CERT_PRINT:
@@ -37,7 +38,11 @@ export const getUserAuth = (role, userRoles, status, tracking) => {
       canUpdate = false
   }
 
-  const canView = matchStatuses(userRoles, status) && status <= role
+  const canApprove = role === status
 
-  return { canView, canUpdate, isComplete, isApproved, isCancelled }
+  const canView =
+    status === TRAINING_STATUS.COMPLETED ||
+    (matchStatuses(userRoles, status) && role <= status)
+
+  return { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled }
 }

@@ -32,6 +32,10 @@ div.alert-status-container div.alert-status {
   transform: rotate(30deg);
 }
 
+div.alert-status-container div.alert-status.status-0 {
+  color: #888;
+}
+
 div.alert-status-container div.alert-status.status-11 {
   color: var(--success);
 }
