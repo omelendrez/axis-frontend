@@ -5,11 +5,13 @@
   },
   {
     "label": "Course duration",
-    "field": "duration"
+    "field": "duration",
+    "postfix": "days"
   },
   {
     "label": "Cert. validity",
-    "field": "validity"
+    "field": "validity",
+    "postfix": "years"
   },
   {
     "label": "Opito reg. code",
@@ -27,5 +29,9 @@
   {
     "label": "Back id",
     "field": "back_id_text"
+  },
+  {
+    "label": "Expiry",
+    "field": "expiry_type_name"
   }
 ]

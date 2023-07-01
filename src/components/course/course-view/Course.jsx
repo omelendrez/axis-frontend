@@ -29,11 +29,11 @@ export const Course = ({ course, onEdit, onDelete }) => {
         </div>
         {fields.map(
           (f) =>
-            course[f.field].length > 0 && (
+            !!course[f.field] && (
               <Row
                 key={f.label}
                 label={f.label}
-                value={course[f.field]}
+                value={`${course[f.field]} ${f.postfix ? f.postfix : ''}`}
                 className={f.className}
               />
             )
