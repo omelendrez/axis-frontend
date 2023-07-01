@@ -9,6 +9,8 @@ import useNotification from '@/hooks/useNotification'
 import schema from './schema.json'
 import { loadSchema } from '@/helpers'
 
+const MANUAL_INPUT = 2
+
 export const TrainingForm = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
   const { isLoading, isSuccess } = trainings
@@ -27,7 +29,6 @@ export const TrainingForm = ({ training, onClose }) => {
   useEffect(() => {
     if (training) {
       setFields(training.course)
-
       Object.entries(training).forEach(([id, value]) => {
         const data = { value, error: '' }
         setValues((values) => ({ ...values, [id]: data }))
@@ -59,7 +60,7 @@ export const TrainingForm = ({ training, onClose }) => {
 
     const filteredSchema = schema.filter(
       (s) =>
-        (s.id === 'prev_expiry' && option?.expiry_type === 2) ||
+        (s.id === 'prev_expiry' && option?.expiry_type === MANUAL_INPUT) ||
         s.id !== 'prev_expiry'
     )
     setFilteredSchema(filteredSchema)
