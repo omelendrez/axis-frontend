@@ -20,15 +20,20 @@ export const TrainingForm = ({ training, onClose }) => {
 
   const initialValues = loadSchema(schema)
 
+  const [filteredSchema, setFilteredSchema] = useState([])
+
   const [values, setValues] = useState(initialValues)
 
   useEffect(() => {
     if (training) {
+      setFields(training.course)
+
       Object.entries(training).forEach(([id, value]) => {
         const data = { value, error: '' }
         setValues((values) => ({ ...values, [id]: data }))
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training])
 
   useEffect(() => {
@@ -44,13 +49,28 @@ export const TrainingForm = ({ training, onClose }) => {
   }, [isSuccess])
 
   useEffect(() => {
+    setFilteredSchema(schema.filter((f) => f.id !== 'prev_expiry'))
     loadCourses()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const setFields = (course) => {
+    const option = options.courseList.find((o) => o.id === parseInt(course))
+
+    const filteredSchema = schema.filter(
+      (s) =>
+        (s.id === 'prev_expiry' && option?.expiry_type === 2) ||
+        s.id !== 'prev_expiry'
+    )
+    setFilteredSchema(filteredSchema)
+  }
+
   const handleChange = (e) => {
     const { id, value } = e.target
     const data = { value, error: '' }
+    if (id === 'course') {
+      setFields(value)
+    }
     setValues((values) => ({ ...values, [id]: data }))
   }
 
@@ -74,7 +94,7 @@ export const TrainingForm = ({ training, onClose }) => {
 
   return (
     <Form
-      schema={schema}
+      schema={filteredSchema}
       object={training}
       isLoading={isLoading}
       onChange={handleChange}

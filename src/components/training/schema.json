@@ -17,8 +17,7 @@
     "type": "date",
     "id": "end",
     "label": "Course end",
-    "placeholder": "Enter course end",
-    "if": "id"
+    "placeholder": "Enter course end"
   },
   {
     "type": "date",
@@ -26,5 +25,11 @@
     "label": "Certificate issued",
     "placeholder": "Enter certificate issued",
     "if": "id"
+  },
+  {
+    "type": "date",
+    "id": "prev_expiry",
+    "label": "Previous certificate expiring date?",
+    "placeholder": "Enter Previous Certificate Expiring Date"
   }
 ]
