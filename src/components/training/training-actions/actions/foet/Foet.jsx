@@ -9,6 +9,17 @@ import { Status } from '../status-container/Status'
 import './foet.css'
 
 export const Foet = ({ training, onUpdate, role, user }) => {
+  console.log(
+    JSON.stringify(
+      {
+        component: 'Foet',
+        role,
+        status: training.status_id
+      },
+      null,
+      2
+    )
+  )
   const { apiMessage } = useApiMessages()
 
   const { roles } = user

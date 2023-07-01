@@ -7,12 +7,13 @@ import {
   Picture,
   Signature,
   QAApproval,
-  MDApproval
+  MDApproval,
+  WelcomeLetter
 } from './actions'
 
 import useUser from '@/hooks/useUser'
 
-import { DOC_TYPE, TRAINING_STATUS } from '@/helpers'
+import { DOC_TYPE, ROLES } from '@/helpers'
 
 export const Action = ({ training, onUpdate }) => {
   const { user } = useUser()
@@ -24,25 +25,18 @@ export const Action = ({ training, onUpdate }) => {
 
   return (
     <>
-      <Foet {...props} role={TRAINING_STATUS.NEW} />
-      <ScanId {...props} role={TRAINING_STATUS.FRONTDESK} />
-      <Medical {...props} role={TRAINING_STATUS.MEDICAL} />
-      <Picture {...props} role={TRAINING_STATUS.TRAINING_COORDINATOR} />
-      <Signature {...props} role={TRAINING_STATUS.TRAINING_COORDINATOR} />
-      {/* <Assesment {...props} role={TRAINING_STATUS.ASSESSMENT}/> */}
-      <QAApproval {...props} role={TRAINING_STATUS.QA} />
-      <Payment {...props} role={TRAINING_STATUS.FINANCE} />
-      <MDApproval {...props} role={TRAINING_STATUS.MD} />
-      <Print
-        {...props}
-        type={DOC_TYPE.CERTIFICATE}
-        role={TRAINING_STATUS.CERT_PRINT}
-      />
-      <Print
-        {...props}
-        type={DOC_TYPE.ID_CARD}
-        role={TRAINING_STATUS.ID_CARD_PRINT}
-      />
+      <WelcomeLetter {...props} role={ROLES.ADMIN} />
+      <Foet {...props} role={ROLES.ADMIN} />
+      <ScanId {...props} role={ROLES.FRONTDESK} />
+      <Medical {...props} role={ROLES.MEDICAL} />
+      <Picture {...props} role={ROLES.TRAINING_COORDINATOR} />
+      <Signature {...props} role={ROLES.TRAINING_COORDINATOR} />
+      {/* <Assesment {...props} role={ROLES.ASSESSMENT}/> */}
+      <QAApproval {...props} role={ROLES.QA} />
+      <Payment {...props} role={ROLES.FINANCE} />
+      <MDApproval {...props} role={ROLES.MD} />
+      <Print {...props} type={DOC_TYPE.CERTIFICATE} role={ROLES.CERT_PRINT} />
+      <Print {...props} type={DOC_TYPE.ID_CARD} role={ROLES.ID_CARD_PRINT} />
     </>
   )
 }
