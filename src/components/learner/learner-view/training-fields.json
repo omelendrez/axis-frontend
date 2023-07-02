@@ -12,8 +12,8 @@
     "field": "end"
   },
   {
-    "label": "Certificate",
-    "field": "certificate"
+    "label": "Prev.Exp.",
+    "field": "prev_expiry"
   },
   {
     "label": "Issued",
@@ -22,6 +22,10 @@
   {
     "label": "Expiry",
     "field": "expiry"
+  },
+  {
+    "label": "Certificate",
+    "field": "certificate"
   },
   {
     "label": "State",

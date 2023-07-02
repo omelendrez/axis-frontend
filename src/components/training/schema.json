@@ -29,7 +29,7 @@
   {
     "type": "date",
     "id": "prev_expiry",
-    "label": "Previous certificate expiring date?",
+    "label": "Previous certificate expiring date",
     "placeholder": "Enter Previous Certificate Expiring Date"
   }
 ]

@@ -19,7 +19,11 @@
   },
   {
     "label": "Certificate expiry",
-    "field": "expiry",
+    "field": "expiry"
+  },
+  {
+    "label": "Previous expiring date",
+    "field": "prev_expiry",
     "divider": true
   },
   {
