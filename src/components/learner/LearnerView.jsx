@@ -23,8 +23,6 @@ export const LearnerView = () => {
   const params = useParams()
   const navigate = useNavigate()
 
-  const [isDeleting, setIsDeleting] = useState(false)
-
   const { apiMessage } = useApiMessages()
   const [learner, setLearner] = useState(null)
   const [contacts, setContacts] = useState([])
@@ -37,6 +35,9 @@ export const LearnerView = () => {
   const [isContactEdit, setIsContactEdit] = useState(false)
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
   const [photoBadge, setPhotoBadge] = useState(null)
+  const [update, setUpdate] = useState(false)
+
+  const badge = learner?.badge
 
   const id = params?.id
 
@@ -54,7 +55,7 @@ export const LearnerView = () => {
 
   const handleDeleteLearner = (e) => {
     e.preventDefault()
-    setIsDeleting(true)
+
     deleteLearner(id)
       .then((res) => {
         apiMessage(res)
@@ -105,7 +106,10 @@ export const LearnerView = () => {
 
   const handleDeleteTraining = (trainingId) =>
     deleteTraining(trainingId)
-      .then((res) => apiMessage(res))
+      .then((res) => {
+        apiMessage(res)
+        setUpdate((u) => !u)
+      })
       .catch((e) => apiMessage(e))
 
   const handleDeleteContact = (contactId) =>
@@ -120,6 +124,8 @@ export const LearnerView = () => {
 
   const handleClose = (e) => {
     e?.preventDefault()
+
+    setUpdate((u) => !u)
 
     if (isTrainingEdit) {
       setTrainingEditData(null)
@@ -139,7 +145,7 @@ export const LearnerView = () => {
   }
 
   useEffect(() => {
-    if (id && !isDeleting) {
+    if (id) {
       getLearnerView(id)
         .then((res) => {
           const learner = res.data
@@ -157,7 +163,7 @@ export const LearnerView = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  }, [id, update])
 
   if (!learner) {
     return <Loading />
@@ -180,7 +186,7 @@ export const LearnerView = () => {
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
       <Modal open={isPhotoOpen} title="Profile picture" onClose={handleClose}>
-        <PhotoUpload onClose={handleClose} badge={learner.badge} />
+        <PhotoUpload onClose={handleClose} badge={badge} />
       </Modal>
       <main className="learner-view">
         {/* Data components */}
