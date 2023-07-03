@@ -3,7 +3,7 @@ import { Modal, Task } from '@/components'
 import { FoetUpload } from './FoetUpload'
 import useApiMessages from '@/hooks/useApiMessages'
 import { foetExists, getFOETUrl, adminApproval } from '@/services'
-import { getFOETFilename, getUserAuth } from '@/helpers'
+import { documentNumber, getUserAuth } from '@/helpers'
 import { Status } from '../status-container/Status'
 
 import './foet.css'
@@ -22,8 +22,6 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   const { id, status_id: status, tracking } = training
 
   const trackingRecord = tracking.find((t) => t.status_id === role)
-
-  const fileName = getFOETFilename(id)
 
   const { canApprove, isCancelled, canView, canUpdate } = getUserAuth(
     role,
@@ -116,7 +114,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
         <Modal open={isFormOpen} title="Scan foet" onClose={handleClose}>
           <div className="form-container">
-            <FoetUpload onClose={handleClose} fileName={fileName} />
+            <FoetUpload onClose={handleClose} fileName={documentNumber(id)} />
           </div>
         </Modal>
       </Task>

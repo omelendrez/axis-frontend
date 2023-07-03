@@ -1,30 +1,13 @@
-.foet-form div {
-  display: flex;
+.training-view div.actions article.foet div.children div.foet-children {
   flex-direction: column;
-  justify-content: center;
 }
 
-.foet-form .preview {
-  width: 100%;
-  margin: 0 auto 1rem auto;
-}
-
-.foet-form .preview img {
-  object-fit: cover;
-}
-
-.foet-form .button-container button {
-  margin: 0 auto;
+.training-view .actions .foet-children img {
   width: fit-content;
 }
 
 @media screen and (min-width: 992px) {
-  .foet-form .preview {
+  .training-view .actions .foet-children img {
     width: 20rem;
   }
-}
-
-.foet-form .tag {
-  width: fit-content;
-  color: var(--primary);
 }

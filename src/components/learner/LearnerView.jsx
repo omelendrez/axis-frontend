@@ -151,15 +151,14 @@ export const LearnerView = () => {
           const learner = res.data
           setLearner(learner)
           setPhotoBadge(learner.badge)
+          getContacts(id)
+            .then((res) => setContacts(res.data))
+            .catch((e) => apiMessage(e))
+
+          getTrainings(id)
+            .then((res) => setTrainings(res.data))
+            .catch((e) => apiMessage(e))
         })
-        .catch((e) => apiMessage(e))
-
-      getContacts(id)
-        .then((res) => setContacts(res.data))
-        .catch((e) => apiMessage(e))
-
-      getTrainings(id)
-        .then((res) => setTrainings(res.data))
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
