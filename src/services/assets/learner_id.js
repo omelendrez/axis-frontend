@@ -3,7 +3,7 @@ import { api } from './assetsClient'
 
 const url = import.meta.env.VITE_ASSETS_URL
 
-const endpoint = 'learner_ids'
+const endpoint = 'learner-ids'
 
 export const getLearnerIdUrl = (badge) => `${url}${endpoint}/${badge}.jpg`
 

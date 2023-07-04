@@ -3,7 +3,7 @@ import { getFilename } from '@/helpers'
 
 const url = import.meta.env.VITE_ASSETS_URL
 
-const endpoint = 'id_cards'
+const endpoint = 'id-cards'
 
 export const getIdCardUrl = (id) => `${url}${endpoint}/${getFilename(id)}`
 
