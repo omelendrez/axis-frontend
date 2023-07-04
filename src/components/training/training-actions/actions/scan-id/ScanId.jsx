@@ -8,7 +8,7 @@ import {
   getLearnerIdUrl,
   generateOpitoCertificate
 } from '@/services'
-import { getUserAuth, isDesktop } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 import './scanId.css'
 import { getOpitoRecords } from '@/services/api/opito'
 
@@ -29,7 +29,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const trackingRecord = tracking.find((t) => t.status_id === role)
 
-  const { isApproved, isCancelled, canView, canUpdate } = getUserAuth(
+  const { canApprove, isCancelled, canView, canUpdate } = getUserAuth(
     role,
     roles,
     status,
@@ -85,7 +85,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner id card</strong>
 
-  if (!canView || isDesktop()) {
+  if (!canView) {
     return null
   }
 
@@ -135,10 +135,10 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
         title={title}
         status={<Status trackingRecord={trackingRecord} />}
         className="scan-id"
-        onApprove={!isApproved ? handleApprove : null}
-        onReject={!isApproved ? handleReject : null}
-        approveDisabled={isApproved || isCancelled}
-        rejectDisabled={isApproved || isCancelled}
+        onApprove={canApprove ? handleApprove : null}
+        onReject={canApprove ? handleReject : null}
+        approveDisabled={isCancelled}
+        rejectDisabled={isCancelled}
         isSubmitting={isSubmitting}
       >
         <div className="scan-id-children">

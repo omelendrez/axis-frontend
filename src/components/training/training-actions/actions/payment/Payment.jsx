@@ -23,13 +23,18 @@ export const Payment = ({ training, onUpdate, role, user }) => {
 
   const trackingRecord = tracking.find((t) => t.status_id === role)
 
-  const { isApproved, isCancelled, canView } = getUserAuth(
+  const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
     roles,
     status,
     tracking
   )
 
+  console.log(JSON.stringify({ role, roles, status, tracking }, null, 2))
+
+  console.log(
+    JSON.stringify({ isApproved, isCancelled, canView, canApprove }, null, 2)
+  )
   const process = (payload) => {
     setIsSubmitting(true)
 
@@ -77,15 +82,15 @@ export const Payment = ({ training, onUpdate, role, user }) => {
       title={title}
       status={<Status trackingRecord={trackingRecord} />}
       description={
-        !isApproved ? (
-          description
-        ) : (
+        isApproved ? (
           <div className="description-large">{result}</div>
+        ) : (
+          description
         )
       }
       className="payment"
-      onApprove={!isApproved ? handleApprove : null}
-      onReject={!isApproved ? handleReject : null}
+      onApprove={canApprove ? handleApprove : null}
+      onReject={canApprove ? handleReject : null}
       approveDisabled={isCancelled}
       rejectDisabled={isCancelled}
       approveLabel="Paid"

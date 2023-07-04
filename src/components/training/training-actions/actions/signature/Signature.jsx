@@ -8,8 +8,7 @@ import {
   lock,
   unlock,
   dataURItoBlob,
-  getUserAuth,
-  isDesktop
+  getUserAuth
 } from '@/helpers'
 
 import './signature.css'
@@ -29,12 +28,7 @@ export const Signature = ({ training, role, user }) => {
 
   const { id, status_id: status, start, tracking } = training
 
-  const { isComplete, isCancelled, canView } = getUserAuth(
-    role,
-    roles,
-    status,
-    tracking
-  )
+  const { isCancelled, canView } = getUserAuth(role, roles, status, tracking)
 
   useEffect(() => {
     if (signature) {
@@ -96,7 +90,7 @@ export const Signature = ({ training, role, user }) => {
     width: window.visualViewport.width - 100
   }
 
-  if (!canView || isComplete || isCancelled || isDesktop()) {
+  if (!canView) {
     return null
   }
 

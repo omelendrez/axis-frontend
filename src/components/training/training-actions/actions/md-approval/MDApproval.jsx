@@ -67,10 +67,10 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
       title={title}
       status={<Status trackingRecord={trackingRecord} />}
       description={
-        !isApproved ? (
-          description
-        ) : (
+        isApproved ? (
           <div className="description-large">{result}</div>
+        ) : (
+          description
         )
       }
       className="md-approval"

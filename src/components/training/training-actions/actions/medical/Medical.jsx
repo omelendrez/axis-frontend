@@ -23,7 +23,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
 
   const trackingRecord = tracking.find((t) => t.status_id === role)
 
-  const { isApproved, isCancelled, canView } = getUserAuth(
+  const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
     roles,
     status,
@@ -94,8 +94,8 @@ export const Medical = ({ training, onUpdate, role, user }) => {
         )
       }
       className="blood-pressure"
-      onApprove={!isApproved ? handleApprove : null}
-      onReject={!isApproved ? handleReject : null}
+      onApprove={canApprove ? handleApprove : null}
+      onReject={canApprove ? handleReject : null}
       approveLabel="Fit"
       rejectLabel="No fit"
       approveDisabled={!systolic || !diastolic || isCancelled}

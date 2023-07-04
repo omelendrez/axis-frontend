@@ -8,6 +8,8 @@ import { Status } from '../status-container/Status'
 
 import './foet.css'
 
+const FOET_EXPIRY_TYPE = 2
+
 export const Foet = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
@@ -19,7 +21,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   const [isImage, setIsImage] = useState(false)
 
-  const { id, status_id: status, tracking } = training
+  const { id, status_id: status, tracking, expiry_type: expiryType } = training
 
   const trackingRecord = tracking.find((t) => t.status_id === role)
 
@@ -79,7 +81,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Previous FOET</strong>
 
-  if (!canView) {
+  if (!canView || expiryType !== FOET_EXPIRY_TYPE) {
     return null
   }
 
@@ -89,7 +91,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
         title={title}
         status={<Status trackingRecord={trackingRecord} />}
         className="foet"
-        approveLabel="Completed"
+        approveLabel="Approve"
         rejectLabel="Reject"
         onApprove={canApprove ? handleApprove : null}
         onReject={canApprove ? handleReject : null}

@@ -6,7 +6,7 @@ import {
   pictureExists,
   getPhotoUrl
 } from '@/services'
-import { getUserAuth, isDesktop } from '@/helpers'
+import { getUserAuth } from '@/helpers'
 
 import './picture.css'
 import { Status } from '../status-container/Status'
@@ -82,7 +82,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner Picture</strong>
 
-  if (!canView || isDesktop()) {
+  if (!canView) {
     return null
   }
 
