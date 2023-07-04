@@ -1,0 +1,31 @@
+.welcome-letter .children {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-letter .children .welcome-letter {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--primary);
+}
+
+@media screen and (min-width: 640px) {
+  .welcome-letter .children .welcome-letter {
+    height: fit-content;
+    width: fit-content;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .welcome-letter .children .welcome-letter {
+    height: 47vw;
+    width: 30vw;
+  }
+
+  .welcome-letter .children .id-card {
+    height: 44vw;
+    width: 30vw;
+  }
+}
