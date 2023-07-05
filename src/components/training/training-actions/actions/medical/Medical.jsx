@@ -5,7 +5,7 @@ import { Status } from '../status-container/Status'
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
 import { medicalApproval } from '@/services'
-import { getUserAuth } from '@/helpers'
+import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './medical.css'
 
 export const Medical = ({ training, onUpdate, role, user }) => {
@@ -21,7 +21,9 @@ export const Medical = ({ training, onUpdate, role, user }) => {
     setBp((bp) => ({ ...bp, [e.target.id]: e.target.value }))
   const { id, status_id: status, tracking } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const trackingRecord = tracking.find(
+    (t) => t.status_id === TRAINING_STATUS.MEDICAL
+  )
 
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
@@ -63,7 +65,11 @@ export const Medical = ({ training, onUpdate, role, user }) => {
 
   const { systolic, diastolic } = bp
 
-  let result = !isApproved ? 'PENDING' : ''
+  let result = isApproved
+    ? !systolic && !diastolic
+      ? 'NO BP READINGS'
+      : ''
+    : 'PENDING'
 
   training.medical.forEach((md) => {
     md.bp?.forEach((p) => {
