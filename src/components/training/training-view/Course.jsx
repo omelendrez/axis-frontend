@@ -2,15 +2,18 @@ import { Loading, Buttons, Divider } from '@/components'
 // import { Tracking } from './Tracking'
 import fields from './course-fields.json'
 
-const Row = ({ label, value, className, divider }) => (
-  <>
-    <div className="row-line" key={label}>
-      <div>{label}:</div>
-      <div className={className}>{value}</div>
-    </div>
-    {divider && <Divider style={{ margin: '14px 0' }} />}
-  </>
-)
+const Row = ({ label, value, className, divider }) => {
+  // console.log(label, value)
+  return (
+    <>
+      <div className="row-line" key={label}>
+        <div>{label}:</div>
+        <div className={className}>{value}</div>
+      </div>
+      {divider && <Divider style={{ margin: '14px 0' }} />}
+    </>
+  )
+}
 
 export const Course = ({ training, onEdit, onDelete, onUndo }) => {
   if (!training) {
@@ -28,12 +31,16 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
       />
       <div>
         {fields
-          .filter((f) => Boolean(training[f.field]))
+          .filter((f) =>
+            Boolean(f.model ? training[f.model][0][f.field] : training[f.field])
+          )
           .map((f) => (
             <Row
               key={f.label}
               label={f.label}
-              value={training[f.field]}
+              value={
+                f.model ? training[f.model][0][f.field] : training[f.field]
+              }
               className={f.className}
               divider={f.divider}
             />
