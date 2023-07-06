@@ -32,15 +32,13 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
       <div>
         {fields
           .filter((f) =>
-            Boolean(f.model ? training[f.model][0][f.field] : training[f.field])
+            Boolean(f.model ? training[f.model][f.field] : training[f.field])
           )
           .map((f) => (
             <Row
               key={f.label}
               label={f.label}
-              value={
-                f.model ? training[f.model][0][f.field] : training[f.field]
-              }
+              value={f.model ? training[f.model][f.field] : training[f.field]}
               className={f.className}
               divider={f.divider}
             />

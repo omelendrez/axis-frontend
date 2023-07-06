@@ -93,7 +93,7 @@ export function loadTrainingView(id) {
         tracking: tracking.data,
         medical: medical.data,
         items: items.data,
-        course: course.data
+        course: course.data[0]
       }
       dispatch(setView(data))
     } catch (error) {
