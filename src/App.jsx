@@ -15,6 +15,7 @@ import { KEYS, SP } from '@/services'
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
+import { log } from './helpers'
 
 const errorHandler = (error, info) => {
   console.info(info.componentStack)
@@ -48,6 +49,13 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 function App() {
   const { data, clear } = useNotification()
   const navigate = useNavigate()
+
+  // TODO: Remove this when pushing to github
+  console.clear()
+  log.info('Remove console.clear in App')
+  log.success('Remove console.clear in App')
+  log.warning('Remove console.clear in App')
+  log.error('Remove console.clear in App')
 
   useEffect(() => {
     if (data.type && data.message) {

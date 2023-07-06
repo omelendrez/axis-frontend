@@ -20,6 +20,12 @@ const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
+  // if (componentRole === ROLES.ADMIN) {
+  //   console.log(
+  //     JSON.stringify({ componentRole, userRoles, status, tracking }, null, 2)
+  //   )
+  // }
+
   const isApproved = tracking.map((t) => t.status_id).includes(componentRole)
 
   const isCancelled = status === TRAINING_STATUS.CANCELLED
@@ -35,6 +41,16 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
   const canApprove = matchRoleStatus(userRoles, status) && !isApproved
 
   const canUpdate = matchRoleStatus(userRoles, status)
+
+  // if (componentRole === ROLES.ADMIN) {
+  //   console.log(
+  //     JSON.stringify(
+  //       { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled },
+  //       null,
+  //       2
+  //     )
+  //   )
+  // }
 
   return { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled }
 }

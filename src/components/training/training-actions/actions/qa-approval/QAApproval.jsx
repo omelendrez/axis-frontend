@@ -5,7 +5,7 @@ import description from './description'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
 import { QAApproval as approval } from '@/services'
-import { getUserAuth } from '@/helpers'
+import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 export const QAApproval = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -16,7 +16,9 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
 
   const { id, status_id: status, tracking } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const trackingRecord = tracking.find(
+    (t) => t.status_id === TRAINING_STATUS.QA
+  )
 
   const { isApproved, isCancelled, canView } = getUserAuth(
     role,

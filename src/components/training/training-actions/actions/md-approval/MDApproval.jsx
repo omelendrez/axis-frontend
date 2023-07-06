@@ -6,7 +6,7 @@ import { Status } from '../status-container/Status'
 
 import useApiMessages from '@/hooks/useApiMessages'
 import { MDApproval as approval } from '@/services'
-import { getUserAuth } from '@/helpers'
+import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 export const MDApproval = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -17,7 +17,9 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
 
   const { id, status_id: status, tracking } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const trackingRecord = tracking.find(
+    (t) => t.status_id === TRAINING_STATUS.MD
+  )
 
   const { isApproved, isCancelled, canView } = getUserAuth(
     role,

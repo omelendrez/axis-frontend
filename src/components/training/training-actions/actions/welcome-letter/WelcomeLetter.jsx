@@ -6,20 +6,23 @@ import {
 } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
 
-import { getUserAuth } from '@/helpers'
+import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
+import { Status } from '../status-container/Status'
 
-export const WelcomeLetter = ({ training, type, role, user }) => {
+export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
 
   const { id, status_id: status, tracking } = training
 
-  const { canView, canUpdate } = getUserAuth(role, roles, status, tracking)
+  const trackingRecord = tracking.find(
+    (t) => t.status_id === TRAINING_STATUS.ADMIN
+  )
 
-  const [refresh, setRefresh] = useState(false)
+  const { canView, canUpdate } = getUserAuth(role, roles, status, tracking)
 
   const [isDoc, setIsDoc] = useState(false)
 
@@ -31,7 +34,7 @@ export const WelcomeLetter = ({ training, type, role, user }) => {
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh])
+  }, [])
 
   const handleGenerate = (e) => {
     e.preventDefault()
@@ -46,7 +49,8 @@ export const WelcomeLetter = ({ training, type, role, user }) => {
           message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
         }
         apiMessage({ data })
-        setRefresh((r) => !r)
+
+        onUpdate()
       })
       .catch((e) => apiMessage(e))
   }
@@ -62,6 +66,7 @@ export const WelcomeLetter = ({ training, type, role, user }) => {
   return (
     <Task
       title="Welcome Letter"
+      status={<Status trackingRecord={trackingRecord} />}
       className="welcome-letter"
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
       approveDisabled={!canUpdate}

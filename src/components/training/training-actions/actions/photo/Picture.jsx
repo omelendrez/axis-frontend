@@ -6,7 +6,7 @@ import {
   pictureExists,
   getPhotoUrl
 } from '@/services'
-import { getUserAuth } from '@/helpers'
+import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 import './picture.css'
 import { Status } from '../status-container/Status'
@@ -24,7 +24,9 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const { id, status_id: status, badge, tracking } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const trackingRecord = tracking.find(
+    (t) => t.status_id === TRAINING_STATUS.TRAINING_COORDINATOR
+  )
 
   const { isApproved, isCancelled, canView, canUpdate } = getUserAuth(
     role,
@@ -87,38 +89,36 @@ export const Picture = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <>
-      <Task
-        title={title}
-        status={<Status trackingRecord={trackingRecord} />}
-        className="picture"
-        onApprove={!isApproved && canUpdate ? handleApprove : null}
-        onReject={!isApproved ? handleReject : null}
-        approveDisabled={isCancelled}
-        rejectDisabled={isCancelled}
-        isSubmitting={isSubmitting}
-      >
-        <div className="picture-children">
-          {isImage && (
-            <figure>
-              <img src={imageUrl} alt={imageUrl} />
-            </figure>
-          )}
-          {canUpdate && (
-            <div className="buttons">
-              <button onClick={handleScan} disabled={isCancelled}>
-                {isImage ? 'Re-take picture' : 'Take picture'}
-              </button>
-            </div>
-          )}
-        </div>
-
-        <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>
-          <div className="form-container">
-            <PhotoUpload onClose={handleClose} badge={badge} />
+    <Task
+      title={title}
+      status={<Status trackingRecord={trackingRecord} />}
+      className="picture"
+      onApprove={!isApproved && canUpdate ? handleApprove : null}
+      onReject={!isApproved ? handleReject : null}
+      approveDisabled={isCancelled}
+      rejectDisabled={isCancelled}
+      isSubmitting={isSubmitting}
+    >
+      <div className="picture-children">
+        {isImage && (
+          <figure>
+            <img src={imageUrl} alt={imageUrl} />
+          </figure>
+        )}
+        {canUpdate && (
+          <div className="buttons">
+            <button onClick={handleScan} disabled={isCancelled}>
+              {isImage ? 'Re-take picture' : 'Take picture'}
+            </button>
           </div>
-        </Modal>
-      </Task>
-    </>
+        )}
+      </div>
+
+      <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>
+        <div className="form-container">
+          <PhotoUpload onClose={handleClose} badge={badge} />
+        </div>
+      </Modal>
+    </Task>
   )
 }

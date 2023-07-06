@@ -5,7 +5,7 @@ import description from './description'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
 import { financeApproval } from '@/services'
-import { getUserAuth } from '@/helpers'
+import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 export const Payment = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -21,7 +21,9 @@ export const Payment = ({ training, onUpdate, role, user }) => {
     tracking
   } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const trackingRecord = tracking.find(
+    (t) => t.status_id === TRAINING_STATUS.FINANCE
+  )
 
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,

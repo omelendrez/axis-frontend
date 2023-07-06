@@ -95,35 +95,33 @@ export const Signature = ({ training, role, user }) => {
   }
 
   return (
-    <>
-      <Task title={title} className="signature" isSubmitting={isSubmitting}>
-        <div className="signature-children">
+    <Task title={title} className="signature" isSubmitting={isSubmitting}>
+      <div className="signature-children">
+        <div className="buttons">
+          <button onClick={handleScan} disabled={isCancelled}>
+            Take signature
+          </button>
+        </div>
+      </div>
+
+      <Modal open={isSignatureOpen} onClose={handleClose}>
+        <div className="form-container">
+          <SignatureCanvas
+            ref={signatureCanvas}
+            penColor="blue"
+            canvasProps={canvasProps}
+            backgroundColor="rgba(255, 255, 255, 1)"
+          />
           <div className="buttons">
-            <button onClick={handleScan} disabled={isCancelled}>
-              Take signature
+            <button onClick={handleSave} disabled={isCancelled}>
+              save
+            </button>
+            <button onClick={handleClear} disabled={isCancelled}>
+              Clear
             </button>
           </div>
         </div>
-
-        <Modal open={isSignatureOpen} onClose={handleClose}>
-          <div className="form-container">
-            <SignatureCanvas
-              ref={signatureCanvas}
-              penColor="blue"
-              canvasProps={canvasProps}
-              backgroundColor="rgba(255, 255, 255, 1)"
-            />
-            <div className="buttons">
-              <button onClick={handleSave} disabled={isCancelled}>
-                save
-              </button>
-              <button onClick={handleClear} disabled={isCancelled}>
-                Clear
-              </button>
-            </div>
-          </div>
-        </Modal>
-      </Task>
-    </>
+      </Modal>
+    </Task>
   )
 }

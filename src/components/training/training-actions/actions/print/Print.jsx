@@ -14,14 +14,20 @@ import './print.css'
 import { useEffect, useState } from 'react'
 import { Status } from '../status-container/Status'
 
-export const Print = ({ training, type, role, user }) => {
+export const Print = ({ training, onUpdate, type, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
 
   const { id, status_id: status, id_card, tracking } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const trackingRecord = tracking.find(
+    (t) =>
+      t.status_id ===
+      (type === DOC_TYPE.CERTIFICATE
+        ? TRAINING_STATUS.CERT_PRINT
+        : TRAINING_STATUS.ID_CARD_PRINT)
+  )
 
   const { isCancelled, canView, canUpdate } = getUserAuth(
     role,
@@ -29,8 +35,6 @@ export const Print = ({ training, type, role, user }) => {
     status,
     tracking
   )
-
-  const [refresh, setRefresh] = useState(false)
 
   const [isDoc, setIsDoc] = useState(false)
 
@@ -49,7 +53,7 @@ export const Print = ({ training, type, role, user }) => {
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh])
+  }, [])
 
   const handleGenerate = (e) => {
     e.preventDefault()
@@ -64,7 +68,7 @@ export const Print = ({ training, type, role, user }) => {
           message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
         }
         apiMessage({ data })
-        setRefresh((r) => !r)
+        onUpdate()
       })
       .catch((e) => apiMessage(e))
   }

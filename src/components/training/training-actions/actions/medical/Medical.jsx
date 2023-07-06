@@ -8,13 +8,15 @@ import { medicalApproval } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './medical.css'
 
+const initialValues = { systolic: '', diastolic: '' }
+
 export const Medical = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const initialValues = { systolic: '', diastolic: '' }
+
   const [bp, setBp] = useState(initialValues)
 
   const handleChange = (e) =>

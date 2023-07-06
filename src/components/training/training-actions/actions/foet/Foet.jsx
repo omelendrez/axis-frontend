@@ -4,7 +4,6 @@ import { FoetUpload } from './FoetUpload'
 import useApiMessages from '@/hooks/useApiMessages'
 import { foetExists, getFOETUrl, adminApproval } from '@/services'
 import { documentNumber, getUserAuth } from '@/helpers'
-import { Status } from '../status-container/Status'
 
 import './foet.css'
 
@@ -21,11 +20,11 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   const [isImage, setIsImage] = useState(false)
 
-  const { id, status_id: status, tracking, expiry_type: expiryType } = training
+  const { id, status_id: status, tracking, course } = training
 
-  const trackingRecord = tracking.find((t) => t.status_id === role)
+  const { expiry_type: expiryType } = course
 
-  const { canApprove, isCancelled, canView, canUpdate } = getUserAuth(
+  const { isCancelled, canView, canUpdate } = getUserAuth(
     role,
     roles,
     status,
@@ -86,40 +85,37 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <>
-      <Task
-        title={title}
-        status={<Status trackingRecord={trackingRecord} />}
-        className="foet"
-        approveLabel="Approve"
-        rejectLabel="Reject"
-        onApprove={canApprove ? handleApprove : null}
-        onReject={canApprove ? handleReject : null}
-        approveDisabled={isCancelled}
-        rejectDisabled={isCancelled}
-        isSubmitting={isSubmitting}
-      >
-        <div className="foet-children">
-          {isImage && (
-            <figure>
-              <img src={imageUrl} alt={imageUrl} />
-            </figure>
-          )}
-          {canUpdate && (
-            <div className="buttons">
-              <button onClick={handleScan} disabled={isCancelled}>
-                {isImage ? 'Re-scan foet' : 'scan foet'}
-              </button>
-            </div>
-          )}
-        </div>
-
-        <Modal open={isFormOpen} title="Scan foet" onClose={handleClose}>
-          <div className="form-container">
-            <FoetUpload onClose={handleClose} fileName={documentNumber(id)} />
+    <Task
+      title={title}
+      className="foet"
+      approveLabel="Approve"
+      rejectLabel="Reject"
+      onApprove={canUpdate ? handleApprove : null}
+      onReject={canUpdate ? handleReject : null}
+      approveDisabled={isCancelled}
+      rejectDisabled={isCancelled}
+      isSubmitting={isSubmitting}
+    >
+      <div className="foet-children">
+        {isImage && (
+          <figure>
+            <img src={imageUrl} alt={imageUrl} />
+          </figure>
+        )}
+        {canUpdate && (
+          <div className="buttons">
+            <button onClick={handleScan} disabled={isCancelled}>
+              {isImage ? 'Re-scan foet' : 'scan foet'}
+            </button>
           </div>
-        </Modal>
-      </Task>
-    </>
+        )}
+      </div>
+
+      <Modal open={isFormOpen} title="Scan foet" onClose={handleClose}>
+        <div className="form-container">
+          <FoetUpload onClose={handleClose} fileName={documentNumber(id)} />
+        </div>
+      </Modal>
+    </Task>
   )
 }
