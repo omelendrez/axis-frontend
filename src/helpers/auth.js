@@ -22,7 +22,7 @@ const matchRoleStatus = (userRoles, status) => {
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
   if (componentRole === ROLES.ADMIN) {
-    log.info({ componentRole, userRoles, status, tracking })
+    log.info('getUserAuth', { componentRole, userRoles, status, tracking })
   }
 
   const isApproved = tracking.map((t) => t.status_id).includes(componentRole)

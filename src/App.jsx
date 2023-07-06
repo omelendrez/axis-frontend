@@ -52,10 +52,8 @@ function App() {
 
   // TODO: Remove this when pushing to github
   console.clear()
-  log.info('Remove console.clear in App')
-  log.success('Remove console.clear in App')
+
   log.warning('Remove console.clear in App')
-  log.error('Remove console.clear in App')
 
   useEffect(() => {
     if (data.type && data.message) {
