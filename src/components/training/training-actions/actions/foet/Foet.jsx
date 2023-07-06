@@ -22,7 +22,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   const { id, status_id: status, tracking, course } = training
 
-  const { expiry_type: expiryType } = course
+  const { expiry_type: expiryType } = course[0]
 
   const { isCancelled, canView, canUpdate } = getUserAuth(
     role,
