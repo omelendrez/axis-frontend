@@ -1,5 +1,6 @@
 import { roleStatus } from '@/static-lists'
-import { TRAINING_STATUS } from './constants'
+import { ROLES, TRAINING_STATUS } from './constants'
+import { log } from './log'
 
 export const hasRequiredRole = (optionRoles, userRoles) =>
   optionRoles.length === 0 ||
@@ -20,11 +21,9 @@ const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
-  // if (componentRole === ROLES.ADMIN) {
-  //   console.log(
-  //     JSON.stringify({ componentRole, userRoles, status, tracking }, null, 2)
-  //   )
-  // }
+  if (componentRole === ROLES.ADMIN) {
+    log.info({ componentRole, userRoles, status, tracking })
+  }
 
   const isApproved = tracking.map((t) => t.status_id).includes(componentRole)
 
@@ -42,15 +41,16 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const canUpdate = matchRoleStatus(userRoles, status)
 
-  // if (componentRole === ROLES.ADMIN) {
-  //   console.log(
-  //     JSON.stringify(
-  //       { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled },
-  //       null,
-  //       2
-  //     )
-  //   )
-  // }
+  if (componentRole === ROLES.ADMIN) {
+    log.info({
+      canView,
+      canApprove,
+      canUpdate,
+      isComplete,
+      isApproved,
+      isCancelled
+    })
+  }
 
   return { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled }
 }
