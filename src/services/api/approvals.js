@@ -42,8 +42,8 @@ export const trainingCoordinatorApproval = (id) =>
     status: TRAINING_STATUS.TRAINING_COORDINATOR
   })
 
-// 5 Assesment
-export const assesmentApproval = (id, payload) =>
+// 5 Assessment
+export const assessmentApproval = (id, payload) =>
   approvals({
     id,
     status: TRAINING_STATUS.ASSESSMENT,

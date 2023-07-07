@@ -25,9 +25,9 @@
     ]
   },
   {
-    "title": "Course Assesments",
-    "description": "Manage courses assesments.",
-    "path": "/course-assesments",
+    "title": "Course Assessments",
+    "description": "Manage courses assessments.",
+    "path": "/course-assessments",
     "roles": [
       1
     ]

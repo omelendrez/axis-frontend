@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { CourseAssesment as CourseAssesmentComponent } from '@/components'
-import { getCourseAssesment } from '@/services'
+import { CourseAssessment as CourseAssessmentComponent } from '@/components'
+import { getCourseAssessment } from '@/services'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
-const CourseAssesment = () => {
+const CourseAssessment = () => {
   const params = useParams()
   const { apiMessage } = useApiMessages()
-  const [courseAssesment, setCourseAssesment] = useState(null)
+  const [courseAssessment, setCourseAssessment] = useState(null)
 
   useEffect(() => {
     const id = params?.id
     if (id) {
-      getCourseAssesment(id)
-        .then((res) => setCourseAssesment(res.data))
+      getCourseAssessment(id)
+        .then((res) => setCourseAssessment(res.data))
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,16 +29,16 @@ const CourseAssesment = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/course-assesments">Course Assesments</Link>
+            <Link to="/course-assessments">Course Assessments</Link>
           </li>
-          <li>Course Assesment</li>
+          <li>Course Assessment</li>
         </ul>
       </nav>
       <article className="form-container">
-        <CourseAssesmentComponent courseAssesment={courseAssesment} />
+        <CourseAssessmentComponent courseAssessment={courseAssessment} />
       </article>
     </main>
   )
 }
 
-export default CourseAssesment
+export default CourseAssessment

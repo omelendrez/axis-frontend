@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ListView, Loading, AddButton } from '@/components'
 
-import useCourseAssesments from '@/hooks/useCourseAssesments'
+import useCourseAssessments from '@/hooks/useCourseAssessments'
 import useNotification from '@/hooks/useNotification'
 
 import { initialValues } from '@/helpers'
 
-const CourseAssesments = () => {
+const CourseAssessments = () => {
   const {
-    courseAssesments,
-    load: loadCourseAssesments,
-    remove: removeCourseAssesment
-  } = useCourseAssesments()
+    courseAssessments,
+    load: loadCourseAssessments,
+    remove: removeCourseAssessment
+  } = useCourseAssessments()
   const { data, isLoading, isSuccess, isError, error, isFirstLoad } =
-    courseAssesments
+    courseAssessments
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -22,13 +22,13 @@ const CourseAssesments = () => {
   const { set } = useNotification()
 
   useEffect(() => {
-    loadCourseAssesments(pagination)
+    loadCourseAssessments(pagination)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 
   useEffect(() => {
     if (isFirstLoad) {
-      loadCourseAssesments(pagination)
+      loadCourseAssessments(pagination)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFirstLoad])
@@ -51,11 +51,11 @@ const CourseAssesments = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
-  const handleEdit = (courseAssesment) =>
-    navigate(`/course-assesment/${courseAssesment.id}`)
+  const handleEdit = (courseAssessment) =>
+    navigate(`/course-assessment/${courseAssessment.id}`)
 
-  const handleDelete = (courseAssesment) =>
-    removeCourseAssesment(courseAssesment.id)
+  const handleDelete = (courseAssessment) =>
+    removeCourseAssessment(courseAssessment.course, courseAssessment.item)
 
   const fields = [{ name: 'name', label: 'Name' }]
 
@@ -67,11 +67,11 @@ const CourseAssesments = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>Course Assesments</li>
+          <li>Course Assessments</li>
         </ul>
       </nav>
 
-      <AddButton url="/course-assesment" />
+      <AddButton url="/course-assessment" />
 
       <ListView
         data={data}
@@ -81,10 +81,10 @@ const CourseAssesments = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadItems={loadCourseAssesments}
+        loadItems={loadCourseAssessments}
       />
     </main>
   )
 }
 
-export default CourseAssesments
+export default CourseAssessments

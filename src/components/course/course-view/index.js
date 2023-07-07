@@ -1,3 +1,3 @@
 export * from './Course'
-export * from './CourseAssesments'
+export * from './CourseAssessments'
 export * from './CourseItems'

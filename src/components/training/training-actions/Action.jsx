@@ -31,7 +31,7 @@ export const Action = ({ training, onUpdate }) => {
       <Medical {...props} role={ROLES.MEDICAL} />
       <Picture {...props} role={ROLES.TRAINING_COORDINATOR} />
       <Signature {...props} role={ROLES.TRAINING_COORDINATOR} />
-      {/* <Assesment {...props} role={ROLES.ASSESSMENT}/> */}
+      {/* <Assessment {...props} role={ROLES.ASSESSMENT}/> */}
       <QAApproval {...props} role={ROLES.QA} />
       <Payment {...props} role={ROLES.FINANCE} />
       <MDApproval {...props} role={ROLES.MD} />

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form } from '@/components'
 
-import useCourseAssesments from '@/hooks/useCourseAssesments'
+import useCourseAssessments from '@/hooks/useCourseAssessments'
 
 import schema from './schema.json'
 import { loadSchema } from '@/helpers'
 
-export const CourseAssesment = ({ courseAssesment }) => {
-  const { courseAssesments, add, modify } = useCourseAssesments()
-  const { isLoading, isSuccess } = courseAssesments
+export const CourseAssessment = ({ courseAssessment }) => {
+  const { courseAssessments, add, modify } = useCourseAssessments()
+  const { isLoading, isSuccess } = courseAssessments
 
   const initialValues = loadSchema(schema)
 
@@ -17,13 +17,13 @@ export const CourseAssesment = ({ courseAssesment }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (courseAssesment) {
-      Object.entries(courseAssesment).forEach(([id, value]) => {
+    if (courseAssessment) {
+      Object.entries(courseAssessment).forEach(([id, value]) => {
         const data = { value, error: '' }
         setValues((values) => ({ ...values, [id]: data }))
       })
     }
-  }, [courseAssesment])
+  }, [courseAssessment])
 
   useEffect(() => {
     if (isSuccess) {
@@ -45,8 +45,8 @@ export const CourseAssesment = ({ courseAssesment }) => {
       .filter((id) => id !== 'id')
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
 
-    if (courseAssesment?.id) {
-      modify(courseAssesment.id, payload)
+    if (courseAssessment?.id) {
+      modify(courseAssessment.id, payload)
     } else {
       add(payload)
     }
@@ -60,7 +60,7 @@ export const CourseAssesment = ({ courseAssesment }) => {
   return (
     <Form
       schema={schema}
-      object={courseAssesment}
+      object={courseAssessment}
       isLoading={isLoading}
       onChange={handleChange}
       values={values}

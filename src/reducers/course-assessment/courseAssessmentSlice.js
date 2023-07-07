@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-  createCourseAssesment,
-  updateCourseAssesment,
-  getCourseAssesments,
-  deleteCourseAssesment
+  createCourseAssessment,
+  updateCourseAssessment,
+  getCourseAssessments,
+  deleteCourseAssessment
 } from '@/services'
 import { handleError } from '../error'
 
@@ -16,8 +16,8 @@ const initialState = {
   error: null
 }
 
-export const courseAssesmentSlice = createSlice({
-  name: 'course-assesments',
+export const courseAssessmentSlice = createSlice({
+  name: 'course-assessments',
   initialState: initialState,
   reducers: {
     setLoading(state) {
@@ -49,18 +49,18 @@ export const courseAssesmentSlice = createSlice({
   }
 })
 
-export default courseAssesmentSlice.reducer
+export default courseAssessmentSlice.reducer
 
 let lastPagination = null
 
-export function loadCourseAssesments(pagination) {
-  const { setLoading, setData, reset } = courseAssesmentSlice.actions
+export function loadCourseAssessments(pagination) {
+  const { setLoading, setData, reset } = courseAssessmentSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
       lastPagination = pagination
-      const { data } = await getCourseAssesments(pagination)
+      const { data } = await getCourseAssessments(pagination)
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
@@ -69,14 +69,14 @@ export function loadCourseAssesments(pagination) {
   }
 }
 
-export function removeCourseAssesment(id) {
-  const { setLoading, setSuccess, reset } = courseAssesmentSlice.actions
+export function removeCourseAssessment(id) {
+  const { setLoading, setSuccess, reset } = courseAssessmentSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await deleteCourseAssesment(id)
-      dispatch(loadCourseAssesments(lastPagination))
+      await deleteCourseAssessment(id)
+      dispatch(loadCourseAssessments(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -84,14 +84,14 @@ export function removeCourseAssesment(id) {
   }
 }
 
-export function addCourseAssesment(payload) {
-  const { setLoading, setSuccess, reset } = courseAssesmentSlice.actions
+export function addCourseAssessment(payload) {
+  const { setLoading, setSuccess, reset } = courseAssessmentSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await createCourseAssesment(payload)
-      dispatch(loadCourseAssesments(lastPagination))
+      await createCourseAssessment(payload)
+      dispatch(loadCourseAssessments(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -99,14 +99,14 @@ export function addCourseAssesment(payload) {
   }
 }
 
-export function modifyCourseAssesment(id, payload) {
-  const { setLoading, setSuccess, reset } = courseAssesmentSlice.actions
+export function modifyCourseAssessment(id, payload) {
+  const { setLoading, setSuccess, reset } = courseAssessmentSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      await updateCourseAssesment(id, payload)
-      dispatch(loadCourseAssesments(lastPagination))
+      await updateCourseAssessment(id, payload)
+      dispatch(loadCourseAssessments(lastPagination))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

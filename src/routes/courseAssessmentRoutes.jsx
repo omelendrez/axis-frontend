@@ -2,32 +2,32 @@ import { lazy } from 'react'
 import { Route } from 'react-router-dom'
 import { ProtectedRoute } from '@/guard'
 
-const CourseAssesments = lazy(() => import('@/pages/CourseAssesments'))
-const CourseAssesment = lazy(() => import('@/pages/CourseAssesment'))
+const CourseAssessments = lazy(() => import('@/pages/CourseAssessments'))
+const CourseAssessment = lazy(() => import('@/pages/CourseAssessment'))
 
-export const courseAssesmentRoutes = (
+export const courseAssessmentRoutes = (
   <>
     <Route
-      path="/course-assesments"
+      path="/course-assessments"
       element={
         <ProtectedRoute>
-          <CourseAssesments />
+          <CourseAssessments />
         </ProtectedRoute>
       }
     />
     <Route
-      path="/course-assesment/:id"
+      path="/course-assessment/:id"
       element={
         <ProtectedRoute>
-          <CourseAssesment />
+          <CourseAssessment />
         </ProtectedRoute>
       }
     />
     <Route
-      path="/course-assesment"
+      path="/course-assessment"
       element={
         <ProtectedRoute>
-          <CourseAssesment />
+          <CourseAssessment />
         </ProtectedRoute>
       }
     />
