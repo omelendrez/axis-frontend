@@ -18,16 +18,12 @@
   border-radius: 3px;
 }
 
-.card.trainings .card-body .status-0 {
+.card.trainings .card-body .status-1 {
   background-color: #888;
 }
 
-.card.trainings .card-body .status-1 {
-  background-color: var(--primary);
-}
-
 .card.trainings .card-body .status-2 {
-  background-color: var(--purple);
+  background-color: var(--primary);
 }
 
 .card.trainings .card-body .status-3 {
@@ -63,10 +59,14 @@
 }
 
 .card.trainings .card-body .status-11 {
-  background-color: var(--success);
+  background-color: var(--purple);
 }
 
 .card.trainings .card-body .status-12 {
+  background-color: var(--success);
+}
+
+.card.trainings .card-body .status-13 {
   background-color: var(--error);
 }
 
