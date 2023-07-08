@@ -24,6 +24,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   const { canView, canUpdate } = getUserAuth(role, roles, status, tracking)
 
+  const [update, setUpdate] = useState(false)
+
   const [isDoc, setIsDoc] = useState(false)
 
   const documentUrl = getWelcomeLetterUrl(id)
@@ -34,7 +36,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [update])
 
   const handleGenerate = (e) => {
     e.preventDefault()
@@ -49,7 +51,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
           message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
         }
         apiMessage({ data })
-
+        setUpdate((u) => !u)
         onUpdate()
       })
       .catch((e) => apiMessage(e))
