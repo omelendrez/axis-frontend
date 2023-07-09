@@ -55,7 +55,7 @@ const CourseAssessments = () => {
     navigate(`/course-assessment/${courseAssessment.id}`)
 
   const handleDelete = (courseAssessment) =>
-    removeCourseAssessment(courseAssessment.course, courseAssessment.item)
+    removeCourseAssessment(courseAssessment.id)
 
   const fields = [{ name: 'name', label: 'Name' }]
 

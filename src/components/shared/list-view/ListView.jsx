@@ -1,82 +1,7 @@
 import { useState } from 'react'
-import useUser from '@/hooks/useUser'
-import { ActionButton, Search, Pagination } from '@/components'
-
-const Row = ({ item, fields, onEdit, onDelete }) => {
-  const { user } = useUser()
-  let isLocked = false
-  fields.forEach((f) => {
-    const lock = f.lock
-    if (lock) {
-      if (lock.values.includes(item[f.name])) {
-        isLocked = true
-      }
-    }
-  })
-
-  return (
-    <tr>
-      {fields.map((f) => {
-        let style = {}
-
-        if (f.noWrap) {
-          style = { ...style, whiteSpace: 'nowrap' }
-        }
-
-        if (f.center) {
-          style = { ...style, textAlign: 'center' }
-        }
-
-        if (f.right) {
-          style = { ...style, textAlign: 'right' }
-        }
-
-        if (f.maxWidth) {
-          style = {
-            ...style,
-            maxWidth: f.maxWidth
-          }
-        }
-
-        if (f.ellipsis) {
-          style = {
-            ...style,
-            maxWidth: f.maxWidth,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis'
-          }
-        }
-
-        return (
-          <td key={f.name} style={style}>
-            {item[f.name]}
-          </td>
-        )
-      })}
-
-      <td className="action-cell">
-        {onEdit && (
-          <ActionButton
-            label="edit"
-            className="primary"
-            tooltip="Click to Edit"
-            disabled={user.role !== 1 || isLocked}
-            onClick={() => onEdit(item)}
-          />
-        )}
-        {onDelete && (
-          <ActionButton
-            label="remove_circle_outline"
-            className="delete"
-            tooltip="Click to Delete"
-            disabled={user.role !== 1 || isLocked}
-            onClick={() => onDelete(item)}
-          />
-        )}
-      </td>
-    </tr>
-  )
-}
+import { Search, Pagination, Confirm } from '@/components'
+import { RowView } from './RowView'
+import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 
 export const ListView = ({
   data,
@@ -89,6 +14,11 @@ export const ListView = ({
 }) => {
   const [searchText, setSearchText] = useState('')
   const { page, limit, search } = pagination
+
+  const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
+    useDeleteConfirm()
+
+  const [selectedItem, setSelectedItem] = useState()
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -108,6 +38,35 @@ export const ListView = ({
       page: newPage,
       offset: (newPage - 1) * limit
     }))
+  }
+
+  const handleDelete = (row) => {
+    setSelectedItem(row)
+
+    const item = data.rows.find((t) => t.id === row.id)
+
+    const message = (
+      <span>
+        Are you sure you want to delete{' '}
+        <span className="primary">{Object.values(item)[1]}</span>?
+      </span>
+    )
+
+    setMessage(message)
+  }
+
+  const handleDeleteConfirm = (e) => {
+    e.preventDefault()
+
+    onDelete(selectedItem)
+
+    closeConfirm()
+  }
+
+  const handleCancel = (e) => {
+    e.preventDefault()
+
+    closeConfirm()
   }
 
   return (
@@ -158,12 +117,12 @@ export const ListView = ({
             )}
 
             {data.rows.map((item) => (
-              <Row
+              <RowView
                 item={item}
                 fields={fields}
                 key={item.id}
                 onEdit={onEdit}
-                onDelete={onDelete}
+                onDelete={handleDelete}
               />
             ))}
           </tbody>
@@ -177,6 +136,12 @@ export const ListView = ({
           count={data.count}
         />
       )}
+      <Confirm
+        open={isConfirmOpen}
+        onCofirm={handleDeleteConfirm}
+        onCancel={handleCancel}
+        message={confirmMessage}
+      />
     </main>
   )
 }

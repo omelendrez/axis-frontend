@@ -1,4 +1,3 @@
-export * from './calendar'
 export * from './change-password'
 export * from './company'
 export * from './contact'

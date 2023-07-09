@@ -1,0 +1,13 @@
+.dashboard .grid {
+  grid-template-columns: auto;
+}
+
+@media screen and (min-width: 992px) {
+  .dashboard .form-control {
+    margin: 0 auto;
+    width: fit-content;
+  }
+  .dashboard .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
