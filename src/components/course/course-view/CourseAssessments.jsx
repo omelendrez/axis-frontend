@@ -31,7 +31,7 @@ export const CourseAssessments = ({ items, onAdd, onDelete }) => {
       const message = (
         <span>
           Are you sure you want to delete{' '}
-          <span className="primary">{item.name}</span>?
+          <span className="primary">{item?.name}</span>?
         </span>
       )
 
