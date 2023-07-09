@@ -19,7 +19,7 @@
 
 @media screen and (min-width: 992px) {
   .course-view article {
-    width: unset;
+    min-width: 30rem;
   }
 }
 

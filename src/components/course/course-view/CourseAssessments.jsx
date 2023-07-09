@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import fields from './course-assessment-fields.json'
-import { Table, Buttons } from '@/components'
+import { Table, Buttons, Confirm } from '@/components'
+import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 // Ok
 
 export const CourseAssessments = ({ items, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
+
+  const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
+    useDeleteConfirm()
 
   useEffect(() => {
     const filtered = selected.filter((s) => items.find((t) => t.id === s))
@@ -19,10 +23,34 @@ export const CourseAssessments = ({ items, onAdd, onDelete }) => {
     )
   }
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.preventDefault()
+
     if (selected.length) {
-      onDelete(selected[0])
+      const item = items.find((t) => t.id === parseInt(selected[0], 10))
+      const message = (
+        <span>
+          Are you sure you want to delete{' '}
+          <span className="primary">{item.name}</span>?
+        </span>
+      )
+
+      setMessage(message)
     }
+  }
+
+  const handleDeleteConfirm = (e) => {
+    e.preventDefault()
+
+    onDelete(selected[0])
+
+    closeConfirm()
+  }
+
+  const handleCancel = (e) => {
+    e.preventDefault()
+
+    closeConfirm()
   }
 
   return (
@@ -34,6 +62,12 @@ export const CourseAssessments = ({ items, onAdd, onDelete }) => {
         fields={fields}
         selected={selected}
         onSelect={handleSelect}
+      />
+      <Confirm
+        open={isConfirmOpen}
+        onCofirm={handleDeleteConfirm}
+        onCancel={handleCancel}
+        message={confirmMessage}
       />
     </article>
   )

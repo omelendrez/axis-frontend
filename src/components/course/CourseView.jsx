@@ -33,7 +33,7 @@ export const CourseView = () => {
 
   const { apiMessage } = useApiMessages()
 
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [update, setUpdate] = useState(false)
 
   const [course, setCourse] = useState(null)
   const [courseEditData, setCourseEditData] = useState(null)
@@ -66,7 +66,7 @@ export const CourseView = () => {
 
   const handleDeleteCourse = (e) => {
     e.preventDefault()
-    setIsDeleting(true)
+
     deleteCourse(id)
       .then((res) => {
         apiMessage(res)
@@ -90,7 +90,10 @@ export const CourseView = () => {
 
   const handleDeleteCourseAssessment = (courseAssessmentId) =>
     deleteCourseAssessmentRel(courseAssessmentId)
-      .then((res) => apiMessage(res))
+      .then((res) => {
+        apiMessage(res)
+        setUpdate((u) => !u)
+      })
       .catch((e) => apiMessage(e))
 
   // Course item
@@ -108,11 +111,16 @@ export const CourseView = () => {
 
   const handleDeleteCourseItem = (courseItemId) =>
     deleteCourseItemRel(courseItemId)
-      .then((res) => apiMessage(res))
+      .then((res) => {
+        apiMessage(res)
+        setUpdate((u) => !u)
+      })
       .catch((e) => apiMessage(e))
 
   const handleClose = (e) => {
     e?.preventDefault()
+
+    setUpdate((u) => !u)
 
     if (isCourseAssessmentEdit) {
       setCourseAssessmentEditData(null)
@@ -129,7 +137,7 @@ export const CourseView = () => {
   }
 
   useEffect(() => {
-    if (id && !isDeleting) {
+    if (id) {
       // Course
       getCourseView(id)
         .then((res) => {
@@ -164,7 +172,7 @@ export const CourseView = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  }, [id, update])
 
   if (!course) {
     return <Loading />

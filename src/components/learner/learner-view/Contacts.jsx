@@ -36,7 +36,15 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
     e.preventDefault()
 
     if (selected.length) {
-      setMessage('Are you sure you want to delete')
+      const item = contacts.find((t) => t.id === parseInt(selected[0], 10))
+      const message = (
+        <span>
+          Are you sure you want to delete{' '}
+          <span className="primary">{item?.value}</span>?
+        </span>
+      )
+
+      setMessage(message)
     }
   }
 

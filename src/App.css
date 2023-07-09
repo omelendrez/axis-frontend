@@ -96,3 +96,7 @@ div.routes-container {
 .italic {
   font-style: italic;
 }
+
+span.primary {
+  color: var(--primary);
+}
