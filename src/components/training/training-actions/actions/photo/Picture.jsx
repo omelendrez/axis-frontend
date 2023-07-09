@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Modal, Task, PhotoUpload } from '@/components'
+import { Modal, Task, PhotoUpload, Preview } from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
 import {
   trainingCoordinatorApproval,
@@ -100,11 +100,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
       isSubmitting={isSubmitting}
     >
       <div className="picture-children">
-        {isImage && (
-          <figure>
-            <img src={imageUrl} alt={imageUrl} />
-          </figure>
-        )}
+        {isImage && <Preview imageUrl={imageUrl} />}
         {canUpdate && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>

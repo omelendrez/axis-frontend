@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Modal, Task } from '@/components'
+import { Modal, Preview, Task } from '@/components'
 import { FoetUpload } from './FoetUpload'
 import useApiMessages from '@/hooks/useApiMessages'
 import { foetExists, getFOETUrl, adminApproval } from '@/services'
@@ -13,6 +13,8 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
+
+  const [update, setUpdate] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -39,7 +41,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [update])
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -75,7 +77,9 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   const handleClose = (e) => {
     e?.preventDefault()
     setIsFormOpen(false)
+
     onUpdate()
+    setUpdate((u) => !u)
   }
 
   const title = <strong>Previous FOET</strong>
@@ -97,11 +101,8 @@ export const Foet = ({ training, onUpdate, role, user }) => {
       isSubmitting={isSubmitting}
     >
       <div className="foet-children">
-        {isImage && (
-          <figure>
-            <img src={imageUrl} alt={imageUrl} />
-          </figure>
-        )}
+        {isImage && <Preview imageUrl={imageUrl} />}
+
         {canUpdate && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>

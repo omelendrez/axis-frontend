@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import fields from './contact-fields.json'
+import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 
-import { Table, Buttons } from '@/components'
+import { Table, Buttons, Confirm } from '@/components'
 
 export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])
+
+  const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
+    useDeleteConfirm()
 
   useEffect(() => {
     const filtered = selected.filter((s) => contacts.find((t) => t.id === s))
@@ -28,10 +32,26 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
     }
   }
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.preventDefault()
+
     if (selected.length) {
-      onDelete(selected[0])
+      setMessage('Are you sure you want to delete')
     }
+  }
+
+  const handleDeleteConfirm = (e) => {
+    e.preventDefault()
+
+    onDelete(selected[0])
+
+    closeConfirm()
+  }
+
+  const handleCancel = (e) => {
+    e.preventDefault()
+
+    closeConfirm()
   }
 
   return (
@@ -48,6 +68,12 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
         fields={fields}
         selected={selected}
         onSelect={handleSelect}
+      />
+      <Confirm
+        open={isConfirmOpen}
+        onCofirm={handleDeleteConfirm}
+        onCancel={handleCancel}
+        message={confirmMessage}
       />
     </article>
   )

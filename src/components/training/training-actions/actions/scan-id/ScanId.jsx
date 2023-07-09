@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Modal, IdCardUpload, Task } from '@/components'
+import { Modal, IdCardUpload, Task, Preview } from '@/components'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
 import {
@@ -143,11 +143,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
       isSubmitting={isSubmitting}
     >
       <div className="scan-id-children">
-        {isImage && (
-          <figure>
-            <img src={imageUrl} alt={imageUrl} />
-          </figure>
-        )}
+        {isImage && <Preview imageUrl={imageUrl} />}
 
         {opitoFile && (
           <a

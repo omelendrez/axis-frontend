@@ -41,7 +41,6 @@ export const FoetUpload = ({ fileName, onClose }) => {
     formData.append('file', selectedFile)
     uploadFOET(formData)
       .then((res) => {
-        setPreview(res.data)
         apiMessage(res)
         onClose()
       })
@@ -54,7 +53,12 @@ export const FoetUpload = ({ fileName, onClose }) => {
         <label htmlFor="file">
           Choose file to upload or take a picture (mobile)
         </label>
-        <input type="file" accept="image/*" id="file" onChange={handleChange} />
+        <input
+          type="file"
+          accept="image/jpeg"
+          id="file"
+          onChange={handleChange}
+        />
       </div>
       <div className="preview">
         {preview ? <img src={preview} alt="selected" /> : <div></div>}

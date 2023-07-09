@@ -114,7 +114,10 @@ export const LearnerView = () => {
 
   const handleDeleteContact = (contactId) =>
     deleteContact(contactId)
-      .then((res) => apiMessage(res))
+      .then((res) => {
+        apiMessage(res)
+        setUpdate((u) => !u)
+      })
       .catch((e) => apiMessage(e))
 
   const handleEditPhoto = (e) => {

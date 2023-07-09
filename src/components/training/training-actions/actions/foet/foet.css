@@ -1,13 +1,3 @@
 .training-view div.actions article.foet div.children div.foet-children {
   flex-direction: column;
 }
-
-.training-view .actions .foet-children img {
-  width: fit-content;
-}
-
-@media screen and (min-width: 992px) {
-  .training-view .actions .foet-children img {
-    width: 20rem;
-  }
-}
