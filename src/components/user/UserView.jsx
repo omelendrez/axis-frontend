@@ -29,7 +29,7 @@ export const UserView = () => {
 
   const { apiMessage } = useApiMessages()
 
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [update, setUpdate] = useState(false)
 
   const [user, setUser] = useState(null)
   const [userEditData, setUserEditData] = useState(null)
@@ -48,6 +48,7 @@ export const UserView = () => {
   // User
   const handleEditUser = (e) => {
     e?.preventDefault()
+
     getUser(id)
       .then((res) => {
         setUserEditData(res.data)
@@ -58,7 +59,7 @@ export const UserView = () => {
 
   const handleDeleteUser = (e) => {
     e.preventDefault()
-    setIsDeleting(true)
+
     deleteUser(id)
       .then((res) => {
         apiMessage(res)
@@ -79,13 +80,19 @@ export const UserView = () => {
     setIsUserRoleEdit(true)
   }
 
-  const handleDeleteUserRole = (userRoleId) =>
+  const handleDeleteUserRole = (userRoleId) => {
     deleteUserRole(userRoleId)
-      .then((res) => apiMessage(res))
+      .then((res) => {
+        apiMessage(res)
+
+        setUpdate((u) => !u)
+      })
       .catch((e) => apiMessage(e))
+  }
 
   const handleClose = (e) => {
     e?.preventDefault()
+    setUpdate((u) => !u)
 
     if (isUserRoleEdit) {
       setUserRoleEditData(null)
@@ -102,7 +109,7 @@ export const UserView = () => {
   }
 
   useEffect(() => {
-    if (id && !isDeleting) {
+    if (id) {
       // User
       getUserView(id)
         .then((res) => {
@@ -124,7 +131,7 @@ export const UserView = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  }, [id, update])
 
   if (!user) {
     return <Loading />
