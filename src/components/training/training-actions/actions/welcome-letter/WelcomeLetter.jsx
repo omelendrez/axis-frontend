@@ -10,13 +10,14 @@ import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './print.css'
 import { useEffect, useState } from 'react'
 import { Status } from '../status-container/Status'
+import { sendWelcomeLetter } from '@/services/assets/email'
 
 export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
 
-  const { id, status_id: status, tracking } = training
+  const { id, status_id: status, tracking, full_name: fullName } = training
 
   const trackingRecord = tracking.find(
     (t) => t.status_id === TRAINING_STATUS.ADMIN
@@ -57,6 +58,26 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       .catch((e) => apiMessage(e))
   }
 
+  const handleSendLetter = (e) => {
+    e.preventDefault()
+    const payload = {
+      ...training,
+      to: 'omar.melendrez@gmail.com',
+      user
+    }
+
+    sendWelcomeLetter(id, payload)
+      .then((res) => {
+        const data = {
+          message: `${res.data.subject} email, sent Successfully!`
+        }
+        apiMessage({ data })
+        setUpdate((u) => !u)
+        onUpdate()
+      })
+      .catch((e) => apiMessage(e))
+  }
+
   const props = {
     type: 'application/pdf'
   }
@@ -72,7 +93,10 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       className="welcome-letter"
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
       approveDisabled={!canUpdate}
-      rejectLabel="Print"
+      rejectLabel="Send Letter"
+      rejectTooltip={`sends welcome letter by email to ${fullName}`}
+      rejectDisabled={!canUpdate}
+      onReject={handleSendLetter}
       onApprove={canUpdate ? handleGenerate : null}
     >
       {isDoc && (

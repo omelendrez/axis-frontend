@@ -10,7 +10,9 @@ export const Task = ({
   rejectDisabled,
   onReject,
   approveLabel,
+  approveTooltip,
   rejectLabel,
+  rejectTooltip,
   children,
   isSubmitting
 }) => {
@@ -27,6 +29,7 @@ export const Task = ({
             onClick={onApprove}
             disabled={approveDisabled}
             aria-busy={isSubmitting}
+            data-tooltip={approveTooltip}
           >
             {approveLabel || 'Approve'}
           </button>
@@ -37,6 +40,7 @@ export const Task = ({
             disabled={rejectDisabled}
             className="delete"
             aria-busy={isSubmitting}
+            data-tooltip={rejectTooltip}
           >
             {rejectLabel || 'Reject'}
           </button>
