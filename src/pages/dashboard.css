@@ -1,13 +1,7 @@
-.dashboard .grid {
-  grid-template-columns: auto;
+.card.dashboard .course-name {
+  color: var(--primary);
 }
 
-@media screen and (min-width: 992px) {
-  .dashboard .form-control {
-    margin: 0 auto;
-    width: fit-content;
-  }
-  .dashboard .grid {
-    grid-template-columns: 1fr 1fr;
-  }
+.card.dashboard .learners {
+  color: var(--purple);
 }

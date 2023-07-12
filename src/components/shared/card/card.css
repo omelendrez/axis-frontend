@@ -4,8 +4,7 @@
   margin: 0;
   padding: 0;
   position: relative;
-  align-items: flex-start;
-  border-radius: 0.5rem;
+  align-items: center;
   cursor: pointer;
   overflow: hidden;
   width: var(--card-width-mobile);
@@ -57,7 +56,6 @@
   .card {
     max-width: var(--card-width-tablet);
     min-width: var(--card-width-tablet);
-    width: var(--card-width-tablet);
   }
 
   .card .card-body .ellipsis {

@@ -1,8 +1,0 @@
-.classrooms article div.course-name {
-  color: var(--primary);
-}
-
-.classrooms article div.learners {
-  color: var(--purple);
-  font-size: medium;
-}

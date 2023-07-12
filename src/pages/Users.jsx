@@ -16,22 +16,26 @@ const Card = ({ item, onView }) => {
   return (
     <article className="card users" onClick={() => onView(item)}>
       <div className="card-body">
-        <div className="username">{item.name}</div>
-        <div className="medium-font">{item.full_name}</div>
-        <div className="small-font">{item.email}</div>
-        {item.id !== 1 && (
+        <div>
+          <span className="username">{item.name}</span>
+        </div>
+
+        {roles.length > 0 ? (
+          <div className="roles-container small-font">
+            <div className="label">Roles: </div>
+            <div className="value">{roles}</div>
+          </div>
+        ) : (
+          <div className="label small-font">No roles assigned</div>
+        )}
+        {item.id !== 1 ? (
           <div>
             <Tag className={item.status}>{item.status}</Tag>
           </div>
-        )}
-        {roles.length > 0 && (
-          <div className="roles-container">
-            <div className="label extra-small-font">Roles: </div>
-            <div className="value extra-small-font">{roles}</div>
+        ) : (
+          <div>
+            <Tag className="active">Active</Tag>
           </div>
-        )}
-        {roles.length === 0 && (
-          <div className="label extra-small-font">No roles assigned</div>
         )}
       </div>
     </article>

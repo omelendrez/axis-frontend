@@ -4,56 +4,22 @@
   --extra-min-font-size: 12px;
   --min-font-size: 14px;
   --mid-font-size: 16px;
-  --card-width-desktop: 27rem;
-  --card-width-tablet: 18rem;
-  --card-width-mobile: 100%;
+  --card-width-desktop: 22rem;
+  --card-width-tablet: 23rem;
+  --card-width-mobile: 22rem;
   --ellipsis-desktop: 25rem;
   --ellipsis-tablet: 16rem;
-  --ellipsis-mobile: 20rem;
+  --ellipsis-mobile: 12rem;
   --row-gap: 2rem;
   --col-gap: 2rem;
-}
-
-[data-theme='light'],
-:root:not([data-theme='dark']) {
-  --purple: #8e24aa;
-  --purple-hover: #7b1fa2;
-  --purple-focus: rgba(142, 36, 170, 0.125);
-  --purple-inverse: #ffffff;
-  --primary: #42a5f5;
-  --secondary: #ab47bc;
   --error: #d32f2f;
   --warning: #f57c00;
   --info: #0288d1;
   --success: #388e3c;
-}
-
-@media only screen and (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --purple: #8e24aa;
-    --purple-hover: #9c27b0;
-    --purple-focus: rgba(142, 36, 170, 0.25);
-    --purple-inverse: #ffffff;
-    --primary: #42a5f5;
-    --secondary: #ab47bc;
-    --error: #d32f2f;
-    --warning: #f57c00;
-    --info: #0288d1;
-    --success: #388e3c;
-  }
-}
-
-[data-theme='dark'] {
-  --purple: #8e24aa;
-  --purple-hover: #9c27b0;
-  --purple-focus: rgba(142, 36, 170, 0.25);
-  --purple-inverse: #ffffff;
-  --primary: #42a5f5;
-  --secondary: #ab47bc;
-  --error: #d32f2f;
-  --warning: #f57c00;
-  --info: #0288d1;
-  --success: #388e3c;
+  --purple: var(--secondary);
+  --purple-hover: var(--secondary-hover);
+  --purple-inverse: var(--secondary-inverse);
+  --purple-inverse: var(--primary);
 }
 
 /* Picocss affects the way buttons are displayed */
@@ -67,16 +33,12 @@
 }
 
 .breadcrumb li {
-  color: var(--color);
+  color: var(--secondary);
 }
 
 .error-fallback footer {
   display: flex;
   justify-content: space-around;
-}
-
-.error {
-  background-color: #e53935;
 }
 
 div.routes-container {

@@ -7,7 +7,7 @@ import useNotification from '@/hooks/useNotification'
 
 import { initialValues } from '@/helpers'
 
-import './classroom-card.css'
+import './dashboard.css'
 
 const Card = ({ item, onView }) => (
   <article className="card dashboard" onClick={() => onView(item)}>
@@ -58,7 +58,7 @@ const Dashboard = () => {
   }
 
   return (
-    <main className="container classrooms">
+    <main className="container-fluid classrooms">
       {isLoading && <Loading />}
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>

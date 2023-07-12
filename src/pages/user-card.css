@@ -4,12 +4,10 @@
 
 .card.users .tag.active {
   background-color: var(--success);
-  padding: 0.3rem 0.6rem;
 }
 
 .card.users .tag.inactive {
   background: var(--error);
-  padding: 0.3rem 0.6rem;
 }
 
 .card.users .roles-container {
@@ -18,10 +16,9 @@
 }
 
 .card.users .card-body .label {
-  color: #888;
+  color: var(--secondary);
 }
 
 .card.users .card-body .roles-container .value {
   font-weight: 900;
-  color: #000;
 }

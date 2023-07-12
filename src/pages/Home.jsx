@@ -2,7 +2,7 @@ import { Home as HomeComponent } from '@/components'
 
 const Home = () => {
   return (
-    <main className="container menu">
+    <main className="container-fluid menu">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>Home</li>
