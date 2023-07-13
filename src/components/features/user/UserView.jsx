@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Modal } from '@/components'
 
 import { User, UserRoles } from './user-view'
-import { UserForm } from '..'
+import { UserForm } from '../..'
 import { UserRoles as UserRoleList } from './user-role'
 
 import useApiMessages from '@/hooks/useApiMessages'

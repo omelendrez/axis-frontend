@@ -126,7 +126,6 @@ function App() {
         <UserContext.Provider value={userContextValues}>
           <NetworkContext.Provider value={networkContextValues}>
             <Navbar />
-            {/* <Toolbar /> */}
             <TrainingContext.Provider value={trainingContextValues}>
               <AppRoutes />
             </TrainingContext.Provider>

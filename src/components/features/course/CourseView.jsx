@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Modal } from '@/components'
 
 import { Course, CourseItems, CourseAssessments } from './course-view'
-import { CourseForm } from '..'
+import { CourseForm } from '../..'
 import { CourseItemRels as CourseItemRelList } from './course-item-rel'
 import { CourseAssessmentRels as CourseAssessmentRelList } from './course-assessment-rel'
 

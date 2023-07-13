@@ -14,7 +14,7 @@ import {
 } from '@/services'
 import { Modal } from '@/components'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
-import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '..'
+import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '../..'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
