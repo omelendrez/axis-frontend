@@ -8,7 +8,8 @@ import {
   lock,
   unlock,
   dataURItoBlob,
-  getUserAuth
+  getUserAuth,
+  isDesktop
 } from '@/helpers'
 
 import './signature.css'
@@ -90,7 +91,7 @@ export const Signature = ({ training, role, user }) => {
     width: window.visualViewport.width - 100
   }
 
-  if (!canView) {
+  if (!canView || isDesktop()) {
     return null
   }
 
