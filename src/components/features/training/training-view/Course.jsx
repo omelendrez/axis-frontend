@@ -29,6 +29,8 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
         onUndo={onUndo}
         noCheckboxes
       />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <div>
         {fields
           .filter((f) =>

@@ -6,7 +6,7 @@ export const AddButton = ({ url, onClick }) => (
     <Link
       to={url}
       role="button"
-      className="purple"
+      className="primary"
       data-tooltip="Click to Add"
       onClick={onClick ? onClick : () => {}}
     >

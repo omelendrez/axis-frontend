@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Table, Buttons } from '@/components'
+import { Table, Buttons, Divider } from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
 import useNotification from '@/hooks/useNotification'
 import './multiselect.css'
@@ -53,6 +53,8 @@ export const Multiselect = ({ id, fields, items, onClose, onSave }) => {
   return (
     <article className="multiselect-view">
       <Buttons selected={selected} onSave={handleSaveRoles} noCheckboxes />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <Table
         items={items}
         fields={fields}

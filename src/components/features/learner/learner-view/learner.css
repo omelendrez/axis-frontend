@@ -19,14 +19,23 @@
   margin-left: 6px;
 }
 
+.learner-view div .row-line div:first-child:not(.tag):not(.no-label) {
+  width: 6rem;
+  text-align: right;
+}
+.learner-view div .row-line div:last-child.no-label {
+  margin-left: 0;
+  flex-grow: 1;
+  text-align: left;
+  font-size: 1.3rem;
+}
+
 .learner-view div .row-line div.highlighted {
   color: var(--primary);
 }
 
 @media screen and (min-width: 992px) {
-  .learner-view div .row-line div:first-child:not(.tag) {
-    width: 5rem;
-    text-align: right;
-    margin-right: 1rem;
+  .learner-view div .row-line div:first-child:not(.tag):not(.no-label) {
+    font-size: 1;
   }
 }

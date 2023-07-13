@@ -59,7 +59,7 @@ export const Buttons = ({
       {onUndo && (
         <button
           data-tooltip="Click to Undo last status"
-          className="delete-inverted"
+          className="delete"
           disabled={!forced && selected?.length !== 1}
           onClick={onUndo}
         >

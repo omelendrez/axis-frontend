@@ -28,7 +28,7 @@
     "divider": true
   },
   {
-    "label": "Course current state",
+    "label": "Course state",
     "field": "course_state"
   }
 ]

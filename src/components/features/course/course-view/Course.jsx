@@ -1,4 +1,4 @@
-import { Tag, Buttons } from '@/components'
+import { Tag, Buttons, Divider } from '@/components'
 
 import fields from './course-fields.json'
 import './course.css'
@@ -20,6 +20,8 @@ export const Course = ({ course, onEdit, onDelete }) => {
     <article className="course">
       <h6 className="title">Course data</h6>
       <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <div>
         <div className="row-line">
           <div>Type:</div>

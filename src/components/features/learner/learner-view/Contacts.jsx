@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import fields from './contact-fields.json'
 import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 
-import { Table, Buttons, Confirm } from '@/components'
+import { Table, Buttons, Confirm, Divider } from '@/components'
 
 export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])
@@ -71,6 +71,8 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <Table
         items={contacts}
         fields={fields}

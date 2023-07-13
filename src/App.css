@@ -16,10 +16,6 @@
   --warning: #f57c00;
   --info: #0288d1;
   --success: #388e3c;
-  --purple: var(--secondary);
-  --purple-hover: var(--secondary-hover);
-  --purple-inverse: var(--secondary-inverse);
-  --purple-inverse: var(--primary);
 }
 
 @media screen and (min-width: 640px) {
@@ -53,20 +49,15 @@ div.routes-container {
   overflow: hidden;
 }
 
-.purple {
-  background-color: var(--purple);
-}
-.purple:hover {
-  background-color: var(--purple-hover);
-}
-.purple:focus {
-  background-color: var(--purple-focus);
-}
-
 .italic {
   font-style: italic;
 }
 
 span.primary {
   color: var(--primary);
+}
+
+main.container,
+main.container-fluid {
+  margin-bottom: 1rem;
 }

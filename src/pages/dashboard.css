@@ -1,7 +1,3 @@
 .card.dashboard .course-name {
   color: var(--primary);
 }
-
-.card.dashboard .learners {
-  color: var(--purple);
-}

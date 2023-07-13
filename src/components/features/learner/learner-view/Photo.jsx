@@ -1,5 +1,5 @@
 import { getPhotoUrl } from '@/services'
-import { Buttons } from '@/components'
+import { Buttons, Divider } from '@/components'
 import './photo.css'
 
 export const Photo = ({ badge, onEdit }) => {
@@ -11,6 +11,8 @@ export const Photo = ({ badge, onEdit }) => {
     <article className="photo">
       <h6 className="title">Learner picture</h6>
       <Buttons onEdit={onEdit} noCheckboxes />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <div>
         <img
           src={photoUrl}

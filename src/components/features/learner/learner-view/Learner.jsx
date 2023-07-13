@@ -1,4 +1,4 @@
-import { Buttons, Tag } from '@/components'
+import { Buttons, Divider, Tag } from '@/components'
 
 import fields from './learner-fields.json'
 import './learner.css'
@@ -6,7 +6,7 @@ import './learner-card.css'
 
 const Row = ({ label, value, className, isTag }) => (
   <div className="row-line" key={label}>
-    <div>{label}:</div>
+    {label && <div>{label}:</div>}
     {isTag ? (
       <Tag className={value}>{value}</Tag>
     ) : (
@@ -24,6 +24,7 @@ export const Learner = ({ learner, onEdit, onDelete }) => {
     <article className="learner">
       <h6 className="title">Learner data</h6>
       <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
+      <Divider style={{ margin: '1rem 0' }} />
       <div>
         {fields
           .filter((f) => Boolean(learner[f.field]))

@@ -50,13 +50,16 @@ div.actions div.buttons button {
   font-weight: 900;
   background-color: var(--primary);
   transition: opacity var(--transition);
+  opacity: 0.8;
 }
 
 div.actions div button.delete {
-  background-color: var(--error);
+  color: var(--secondary);
+  background-color: var(--background);
+  border-color: var(--secondary);
 }
 
 div.actions div button:hover,
 div.actions div button.delete:hover {
-  opacity: 0.9;
+  opacity: 1;
 }

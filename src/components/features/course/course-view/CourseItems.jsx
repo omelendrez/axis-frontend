@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import fields from './course-item-fields.json'
-import { Table, Buttons, Confirm } from '@/components'
+import { Table, Buttons, Confirm, Divider } from '@/components'
 import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 
 export const CourseItems = ({ items, onAdd, onDelete }) => {
@@ -56,6 +56,8 @@ export const CourseItems = ({ items, onAdd, onDelete }) => {
     <article>
       <h6 className="title">Course Item records</h6>
       <Buttons selected={selected} onAdd={onAdd} onDelete={handleDelete} />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <Table
         items={items}
         fields={fields}

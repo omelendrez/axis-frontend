@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import fields from './course-assessment-fields.json'
-import { Table, Buttons, Confirm } from '@/components'
+import { Table, Buttons, Confirm, Divider } from '@/components'
 import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 // Ok
 
@@ -57,6 +57,8 @@ export const CourseAssessments = ({ items, onAdd, onDelete }) => {
     <article>
       <h6 className="title">Course Assessment records</h6>
       <Buttons selected={selected} onAdd={onAdd} onDelete={handleDelete} />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <Table
         items={items}
         fields={fields}

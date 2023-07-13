@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import fields from './training-fields.json'
-import { Table, Buttons } from '@/components'
+import { Table, Buttons, Divider } from '@/components'
 // Ok
 
 export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
@@ -41,6 +41,8 @@ export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <Table
         items={trainings}
         fields={fields}

@@ -19,6 +19,7 @@ div.action-button span.small {
 
 div.action-button span {
   font-size: 2rem;
+  opacity: 0.8;
 }
 
 div.action-button span.primary {
@@ -31,10 +32,10 @@ div.action-button span.primary:hover {
 }
 
 div.action-button span.delete {
-  color: hsl(0, 66%, 60%);
-  transition: color var(--transition);
+  color: var(--secondary);
+  border-color: var(--secondary);
 }
 
 div.action-button span.delete:hover {
-  color: hsl(0, 66%, 40%);
+  opacity: 1;
 }
