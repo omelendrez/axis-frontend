@@ -1,4 +1,4 @@
-import { Loading, Buttons, Tag } from '@/components'
+import { Buttons, Tag } from '@/components'
 
 import fields from './learner-fields.json'
 import './learner.css'
@@ -17,7 +17,7 @@ const Row = ({ label, value, className, isTag }) => (
 
 export const Learner = ({ learner, onEdit, onDelete }) => {
   if (!learner) {
-    return <Loading />
+    return null
   }
 
   return (

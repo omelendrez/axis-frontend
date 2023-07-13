@@ -125,7 +125,8 @@ function App() {
       <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
         <UserContext.Provider value={userContextValues}>
           <NetworkContext.Provider value={networkContextValues}>
-            <Navbar me={user} />
+            <Navbar />
+            {/* <Toolbar /> */}
             <TrainingContext.Provider value={trainingContextValues}>
               <AppRoutes />
             </TrainingContext.Provider>

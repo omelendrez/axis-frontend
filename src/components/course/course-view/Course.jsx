@@ -1,4 +1,4 @@
-import { Loading, Tag, Buttons } from '@/components'
+import { Tag, Buttons } from '@/components'
 
 import fields from './course-fields.json'
 import './course.css'
@@ -13,7 +13,7 @@ const Row = ({ label, value, className }) => (
 
 export const Course = ({ course, onEdit, onDelete }) => {
   if (!course) {
-    return <Loading />
+    return null
   }
 
   return (

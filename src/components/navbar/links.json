@@ -1,0 +1,37 @@
+{
+  "appRoutes": {
+    "authorized": [
+      {
+        "path": "/",
+        "label": "Home",
+        "icon": "home"
+      },
+      {
+        "path": "/dashboard",
+        "label": "Dashboard",
+        "icon": "dashboard"
+      }
+    ],
+    "notAuthorized": []
+  },
+  "userRoutes": {
+    "authorized": [
+      {
+        "path": "/change-password",
+        "label": "Change Password",
+        "icon": "key"
+      },
+      {
+        "label": "Logout",
+        "icon": "logout"
+      }
+    ],
+    "notAuthorized": [
+      {
+        "path": "/login",
+        "label": "Login",
+        "icon": "key"
+      }
+    ]
+  }
+}

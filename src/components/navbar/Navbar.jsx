@@ -4,6 +4,7 @@ import { SP } from '@/services'
 import { UserContext, ThemeContext, NetworkContext } from '@/context'
 import { Divider } from '@/components'
 import useNotification from '@/hooks/useNotification'
+import links from './links.json'
 
 import './navbar.css'
 
@@ -16,10 +17,19 @@ const LiElement = ({ route, path, label, icon, onClick }) => (
   </li>
 )
 
-export const Navbar = ({ me }) => {
+export const Navbar = () => {
   const { theme, toggle } = useContext(ThemeContext)
   const { user, setUser } = useContext(UserContext)
   const { network } = useContext(NetworkContext)
+
+  const isUserAuthenticated = Boolean(user?.id)
+
+  const logout = () => {
+    const session = new SP()
+    session.clear()
+    setUser(null)
+    window.close()
+  }
 
   const { set } = useNotification()
 
@@ -32,56 +42,14 @@ export const Navbar = ({ me }) => {
   const handleLogout = (e) => {
     e.preventDefault()
     detailsRef.current.removeAttribute('open')
-    const session = new SP()
-    session.clear()
-    setUser(null)
-    window.close()
+    logout()
   }
 
-  const links = {
-    appRoutes: {
-      authorized: [
-        {
-          path: '/',
-          label: 'Home',
-          icon: 'home'
-        },
-        {
-          path: '/dashboard',
-          label: 'Dashboard',
-          icon: 'dashboard'
-        }
-      ],
-      notAuthorized: []
-    },
-    userRoutes: {
-      authorized: [
-        {
-          path: '/change-password',
-          label: 'Change Password',
-          icon: 'key'
-        },
-        {
-          label: 'Logout',
-          icon: 'logout',
-          onClick: handleLogout
-        }
-      ],
-      notAuthorized: [
-        {
-          path: '/login',
-          label: 'Login',
-          icon: 'key'
-        }
-      ]
-    }
-  }
-
-  const appRoutes = me?.id
+  const appDefaultRoutes = isUserAuthenticated
     ? links.appRoutes.authorized
     : links.appRoutes.notAuthorized
 
-  const userRoutes = me?.id
+  const userAuthorizedRoutes = isUserAuthenticated
     ? links.userRoutes.authorized
     : links.userRoutes.notAuthorized
 
@@ -103,13 +71,13 @@ export const Navbar = ({ me }) => {
   }, [network])
 
   return (
-    <nav className="container-fluid">
+    <nav className="container-fluid navbar">
       <ul>
         <li>
           <details ref={detailsRef} role="list" dir="ltr">
             <summary aria-haspopup="listbox" role="link"></summary>
             <ul>
-              {appRoutes
+              {appDefaultRoutes
                 .filter((r) => !r.role || r.role === user.role)
                 .map((r) => (
                   <LiElement
@@ -122,7 +90,7 @@ export const Navbar = ({ me }) => {
                   />
                 ))}
               <Divider />
-              {userRoutes.map((r) => (
+              {userAuthorizedRoutes.map((r) => (
                 <LiElement
                   route={route}
                   path={r.path}
@@ -137,7 +105,7 @@ export const Navbar = ({ me }) => {
         </li>
       </ul>
       <ul>
-        <li>{me?.full_name || 'Not logged in'}</li>
+        <li>{user?.full_name || 'Not logged in'}</li>
       </ul>
       <ul>
         <li>

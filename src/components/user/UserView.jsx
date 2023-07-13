@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { Loading, Modal } from '@/components'
+import { Modal } from '@/components'
 
 import { User, UserRoles } from './user-view'
 import { UserForm } from '..'
@@ -134,7 +134,7 @@ export const UserView = () => {
   }, [id, update])
 
   if (!user) {
-    return <Loading />
+    return null
   }
 
   return (

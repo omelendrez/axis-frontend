@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { Loading, Modal } from '@/components'
+import { Modal } from '@/components'
 
 import { Course, CourseItems, CourseAssessments } from './course-view'
 import { CourseForm } from '..'
@@ -175,7 +175,7 @@ export const CourseView = () => {
   }, [id, update])
 
   if (!course) {
-    return <Loading />
+    return null
   }
 
   return (

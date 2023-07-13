@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Confirm, Loading, Form } from '@/components'
+import { Confirm, Form } from '@/components'
 // Ok
 import useLearners from '@/hooks/useLearners'
 import useStates from '@/hooks/useStates'
@@ -189,7 +189,7 @@ export const LearnerForm = ({ learner, onClose }) => {
     !statesList.length ||
     !companiesList.length
   ) {
-    return <Loading />
+    return null
   }
 
   const options = {

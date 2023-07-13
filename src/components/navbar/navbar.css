@@ -1,10 +1,10 @@
-nav {
+nav.navbar {
   background-color: var(--primary-hover);
   position: fixed;
   z-index: 1;
 }
 
-nav > * {
+nav.navbar > * {
   color: #fff;
 }
 
@@ -23,22 +23,22 @@ details[open] > *:not(summary) {
   animation: details-show 150ms ease-in-out;
 }
 
-nav li a.link-option {
+nav.navbar li a.link-option {
   display: flex !important;
   flex-direction: row;
   align-items: center;
   column-gap: 8px;
 }
 
-nav li a.link-option img {
+nav.navbar li a.link-option img {
   margin-right: 1rem;
 }
 
-nav li.active {
+nav.navbar li.active {
   background-color: hsl(205deg, 18%, 86%);
 }
 
-nav li.active a.link-option {
+nav.navbar li.active a.link-option {
   color: #111;
 }
 

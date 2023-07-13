@@ -1,4 +1,4 @@
-import { Loading, Buttons } from '@/components'
+import { Buttons } from '@/components'
 
 import fields from './user-fields.json'
 import './user.css'
@@ -12,7 +12,7 @@ const Row = ({ label, value, className }) => (
 
 export const User = ({ user, onEdit, onDelete }) => {
   if (!user) {
-    return <Loading />
+    return null
   }
 
   const roles = JSON.parse(user.roles).map((r) => r.name)

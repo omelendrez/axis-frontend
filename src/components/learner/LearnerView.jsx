@@ -12,7 +12,7 @@ import {
   getTraining,
   deleteTraining
 } from '@/services'
-import { Loading, Modal } from '@/components'
+import { Modal } from '@/components'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
 import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '..'
 import trainingFields from './learner-view/training-fields.json'
@@ -168,7 +168,7 @@ export const LearnerView = () => {
   }, [id, update])
 
   if (!learner) {
-    return <Loading />
+    return null
   }
 
   return (

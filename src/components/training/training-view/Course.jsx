@@ -1,4 +1,4 @@
-import { Loading, Buttons, Divider } from '@/components'
+import { Buttons, Divider } from '@/components'
 // import { Tracking } from './Tracking'
 import fields from './course-fields.json'
 
@@ -17,7 +17,7 @@ const Row = ({ label, value, className, divider }) => {
 
 export const Course = ({ training, onEdit, onDelete, onUndo }) => {
   if (!training) {
-    return <Loading />
+    return null
   }
 
   return (
