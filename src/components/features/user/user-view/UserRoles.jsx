@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import fields from './user-role-fields.json'
-import { Table, Buttons, Confirm } from '@/components'
+import { Table, Buttons, Confirm, Divider } from '@/components'
 import useDeleteConfirm from '@/hooks/useDeleteConfirm'
 // Ok
 
@@ -61,6 +61,8 @@ export const UserRoles = ({ items, onAdd, onDelete }) => {
         onAdd={onAdd}
         onDelete={items.length > 1 ? handleDelete : null}
       />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <Table
         items={items}
         fields={fields}

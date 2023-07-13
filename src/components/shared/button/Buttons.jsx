@@ -53,7 +53,7 @@ export const Buttons = ({
           disabled={!forced && selected?.length !== 1}
           onClick={onDelete}
         >
-          <span className="material-icons">delete</span>
+          <span className="material-icons">remove</span>
         </button>
       )}
       {onUndo && (

@@ -17,27 +17,6 @@
   flex-grow: 1;
 }
 
-@media screen and (min-width: 992px) {
-  .user-view article {
-    width: unset;
-  }
-}
-
-/* Title */
-
-.user-view article .title {
-  color: var(--background-color);
-  background-color: var(--primary);
-  padding: 0.3rem 1rem;
-  border-radius: 0 1rem 1rem 0;
-  width: fit-content;
-  margin: 0;
-}
-
-.user-view div:not(:first-child) {
-  flex-grow: 1;
-}
-
 /* Tables  */
 
 .user-view figure {

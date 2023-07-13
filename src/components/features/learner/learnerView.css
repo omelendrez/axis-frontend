@@ -23,21 +23,6 @@
   }
 }
 
-/* Title */
-
-.learner-view div article .title {
-  color: var(--background-color);
-  background-color: var(--primary);
-  padding: 0.3rem 1rem;
-  border-radius: 0 1rem 1rem 0;
-  width: fit-content;
-  margin: 0;
-}
-
-.learner-view div:not(:first-child) {
-  flex-grow: 1;
-}
-
 /* Tables  */
 
 .learner-view figure {

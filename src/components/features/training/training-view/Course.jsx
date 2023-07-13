@@ -23,6 +23,7 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
   return (
     <article className="course">
       <h6 className="title">Course info</h6>
+
       <Buttons
         onEdit={onEdit}
         onDelete={onDelete}

@@ -65,6 +65,7 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
   return (
     <article>
       <h6 className="title">Contact info</h6>
+
       <Buttons
         selected={selected}
         onAdd={onAdd}

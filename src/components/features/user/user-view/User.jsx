@@ -1,4 +1,4 @@
-import { Buttons } from '@/components'
+import { Buttons, Divider } from '@/components'
 
 import fields from './user-fields.json'
 import './user.css'
@@ -21,6 +21,8 @@ export const User = ({ user, onEdit, onDelete }) => {
     <article className="user">
       <h6 className="title">User data</h6>
       <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
+      <Divider style={{ margin: '1rem 0' }} />
+
       <div>
         {fields.map(
           (f) =>

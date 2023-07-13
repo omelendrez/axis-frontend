@@ -15,8 +15,9 @@
 
 .buttons-main button span.material-icons {
   position: relative;
-  top: 3px;
-  font-weight: 900;
+  top: calc(
+    (24px - 14.25px) / 2
+  ); /* actual icon meassures (width - padding-top) / 2 */
 }
 
 .buttons-main button.primary {
