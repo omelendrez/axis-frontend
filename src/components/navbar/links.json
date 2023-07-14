@@ -12,7 +12,7 @@
         "icon": "dashboard"
       },
       {
-        "path": "/pending",
+        "path": "/pending-tasks",
         "label": "Pending tasks",
         "icon": "pending_actions"
       }

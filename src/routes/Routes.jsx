@@ -11,6 +11,7 @@ import { homeRoutes } from './homeRoutes'
 import { learnerRoutes } from './learnerRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
 import { notFoundRoutes } from './notFoundRoutes'
+import { pendingTasksRoutes } from './pendingTasksRoutes'
 import { roleRoutes } from './roleRoutes'
 import { stateRoutes } from './stateRoutes'
 import { trainingRoutes } from './trainingRoutes'
@@ -20,23 +21,22 @@ export const AppRoutes = () => {
   return (
     <div className="routes-container">
       <Routes>
-        {homeRoutes}
-        {dashboardRoutes}
-        {defaultRoutes}
-        {/* ------ */}
         {classroomRoutes}
         {companyRoutes}
         {courseAssessmentRoutes}
         {courseItemRoutes}
         {courseRoutes}
+        {dashboardRoutes}
+        {defaultRoutes}
+        {homeRoutes}
         {learnerRoutes}
         {nationalityRoutes}
+        {notFoundRoutes}
+        {pendingTasksRoutes}
         {roleRoutes}
         {stateRoutes}
         {trainingRoutes}
         {userRoutes}
-        {/* ------ */}
-        {notFoundRoutes}
       </Routes>
     </div>
   )

@@ -60,6 +60,7 @@ export const Navbar = () => {
             isUserAuthenticated={isUserAuthenticated}
             onClick={handleClick}
             onLogout={handleLogout}
+            detailsRef={detailsRef}
           />
         ) : (
           <BackButton />
