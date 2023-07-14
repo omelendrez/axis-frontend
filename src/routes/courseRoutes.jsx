@@ -42,13 +42,13 @@ export const courseRoutes = (
       }
     />
 
-    <Route
+    {/* <Route
       path="/course/:id/edit"
       element={
         <ProtectedRoute>
           <Course isEditing />
         </ProtectedRoute>
       }
-    />
+    /> */}
   </>
 )

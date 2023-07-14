@@ -15,7 +15,6 @@ import { KEYS, SP } from '@/services'
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
-import { log } from './helpers'
 
 const errorHandler = (error, info) => {
   console.info(info.componentStack)
@@ -49,11 +48,6 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 function App() {
   const { data, clear } = useNotification()
   const navigate = useNavigate()
-
-  // TODO: Remove this when pushing to github
-  console.clear()
-
-  log.warning('Remove console.clear in App')
 
   useEffect(() => {
     if (data.type && data.message) {
@@ -122,16 +116,19 @@ function App() {
   return (
     <>
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
-      <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
-        <UserContext.Provider value={userContextValues}>
-          <NetworkContext.Provider value={networkContextValues}>
-            <Navbar />
-            <TrainingContext.Provider value={trainingContextValues}>
+      <UserContext.Provider value={userContextValues}>
+        <NetworkContext.Provider value={networkContextValues}>
+          <Navbar />
+          <TrainingContext.Provider value={trainingContextValues}>
+            <ErrorBoundary
+              FallbackComponent={ErrorFallback}
+              onError={errorHandler}
+            >
               <AppRoutes />
-            </TrainingContext.Provider>
-          </NetworkContext.Provider>
-        </UserContext.Provider>
-      </ErrorBoundary>
+            </ErrorBoundary>
+          </TrainingContext.Provider>
+        </NetworkContext.Provider>
+      </UserContext.Provider>
     </>
   )
 }

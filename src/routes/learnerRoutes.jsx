@@ -40,13 +40,13 @@ export const learnerRoutes = (
         </ProtectedRoute>
       }
     />
-    <Route
+    {/* <Route
       path="/learner/:id/edit"
       element={
         <ProtectedRoute>
           <Learner isEditing />
         </ProtectedRoute>
       }
-    />
+    /> */}
   </>
 )

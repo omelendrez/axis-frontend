@@ -42,13 +42,13 @@ export const userRoutes = (
       }
     />
 
-    <Route
+    {/* <Route
       path="/user/:id/edit"
       element={
         <ProtectedRoute>
           <User isEditing />
         </ProtectedRoute>
       }
-    />
+    /> */}
   </>
 )
