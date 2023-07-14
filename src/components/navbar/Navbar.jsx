@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useContext, useEffect, useRef } from 'react'
 import { SP } from '@/services'
 import { UserContext, ThemeContext, NetworkContext } from '@/context'
-import { Divider } from '@/components'
+import { Divider, BackButton } from '@/components'
 import useNotification from '@/hooks/useNotification'
 import links from './links.json'
 
@@ -70,39 +70,46 @@ export const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [network])
 
+  const showHamburger =
+    location.pathname === '/' || location.pathname === '/dashboard'
+
   return (
     <nav className="container-fluid navbar">
       <ul>
-        <li>
-          <details ref={detailsRef} role="list" dir="ltr">
-            <summary aria-haspopup="listbox" role="link"></summary>
-            <ul>
-              {appDefaultRoutes
-                .filter((r) => !r.role || r.role === user.role)
-                .map((r) => (
+        {showHamburger ? (
+          <li>
+            <details ref={detailsRef} role="list" dir="ltr">
+              <summary aria-haspopup="listbox" role="link"></summary>
+              <ul>
+                {appDefaultRoutes
+                  .filter((r) => !r.role || r.role === user.role)
+                  .map((r) => (
+                    <LiElement
+                      route={route}
+                      path={r.path}
+                      icon={r.icon}
+                      key={r.label}
+                      label={r.label}
+                      onClick={handleClick}
+                    />
+                  ))}
+                <Divider />
+                {userAuthorizedRoutes.map((r) => (
                   <LiElement
                     route={route}
                     path={r.path}
                     icon={r.icon}
                     key={r.label}
                     label={r.label}
-                    onClick={handleClick}
+                    onClick={r.label === 'Logout' ? handleLogout : handleClick}
                   />
                 ))}
-              <Divider />
-              {userAuthorizedRoutes.map((r) => (
-                <LiElement
-                  route={route}
-                  path={r.path}
-                  icon={r.icon}
-                  key={r.label}
-                  label={r.label}
-                  onClick={r.label === 'Logout' ? handleLogout : handleClick}
-                />
-              ))}
-            </ul>
-          </details>
-        </li>
+              </ul>
+            </details>
+          </li>
+        ) : (
+          <BackButton />
+        )}
       </ul>
       <ul>
         <li>{user?.full_name || 'Not logged in'}</li>

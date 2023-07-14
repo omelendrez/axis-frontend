@@ -25,7 +25,7 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
   const handleClose = () => navigate('/learners')
 
   return (
-    <main className="container">
+    <main className="container-fluid">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>

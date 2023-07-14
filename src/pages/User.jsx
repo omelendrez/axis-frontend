@@ -30,7 +30,7 @@ const User = ({ isViewing, isAdding, isEditing }) => {
   }
 
   return (
-    <main className="container">
+    <main className="container-fluid">
       <nav aria-label="breadcrumb" className="breadcrumb">
         <ul>
           <li>

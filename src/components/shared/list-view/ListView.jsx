@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Search, Pagination, Confirm } from '@/components'
 import { RowView } from './RowView'
 import useDeleteConfirm from '@/hooks/useDeleteConfirm'
+import './listView.css'
 
 export const ListView = ({
   data,
