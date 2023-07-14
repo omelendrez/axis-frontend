@@ -4,11 +4,7 @@ import {
   updateTraining,
   getTrainings,
   deleteTraining,
-  getTrainingView,
-  getTracking,
-  getMedicalData,
-  getCourseItemsData,
-  getCourseData
+  getTrainingView
 } from '@/services'
 import { handleError } from '../error'
 
@@ -83,18 +79,7 @@ export function loadTrainingView(id) {
 
   return async (dispatch) => {
     try {
-      const view = await getTrainingView(id)
-      const tracking = await getTracking(id)
-      const medical = await getMedicalData(id)
-      const items = await getCourseItemsData(id)
-      const course = await getCourseData(id)
-      const data = {
-        ...view.data,
-        tracking: tracking.data,
-        medical: medical.data,
-        items: items.data,
-        course: course.data[0]
-      }
+      const { data } = await getTrainingView(id)
       dispatch(setView(data))
     } catch (error) {
       handleError(error, dispatch, reset)
