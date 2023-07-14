@@ -16,15 +16,17 @@ export const nationalityRoutes = (
       }
     />
     <Route
-      path="/nationality/:id"
+      exact
+      path="/nationality"
       element={
         <ProtectedRoute>
           <Nationality />
         </ProtectedRoute>
       }
     />
+
     <Route
-      path="/nationality"
+      path="/nationality/:id"
       element={
         <ProtectedRoute>
           <Nationality />

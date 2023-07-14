@@ -16,7 +16,8 @@ export const companyRoutes = (
       }
     />
     <Route
-      path="/company/:id"
+      exact
+      path="/company"
       element={
         <ProtectedRoute>
           <Company />
@@ -24,7 +25,7 @@ export const companyRoutes = (
       }
     />
     <Route
-      path="/company"
+      path="/company/:id"
       element={
         <ProtectedRoute>
           <Company />

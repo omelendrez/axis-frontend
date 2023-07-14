@@ -16,7 +16,8 @@ export const courseAssessmentRoutes = (
       }
     />
     <Route
-      path="/course-assessment/:id"
+      exact
+      path="/course-assessment"
       element={
         <ProtectedRoute>
           <CourseAssessment />
@@ -24,7 +25,7 @@ export const courseAssessmentRoutes = (
       }
     />
     <Route
-      path="/course-assessment"
+      path="/course-assessment/:id"
       element={
         <ProtectedRoute>
           <CourseAssessment />

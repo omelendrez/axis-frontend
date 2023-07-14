@@ -16,7 +16,8 @@ export const stateRoutes = (
       }
     />
     <Route
-      path="/state/:id"
+      exact
+      path="/state"
       element={
         <ProtectedRoute>
           <State />
@@ -24,7 +25,7 @@ export const stateRoutes = (
       }
     />
     <Route
-      path="/state"
+      path="/state/:id"
       element={
         <ProtectedRoute>
           <State />

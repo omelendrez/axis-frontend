@@ -16,7 +16,8 @@ export const courseItemRoutes = (
       }
     />
     <Route
-      path="/course-item/:id"
+      exact
+      path="/course-item"
       element={
         <ProtectedRoute>
           <CourseItem />
@@ -24,7 +25,7 @@ export const courseItemRoutes = (
       }
     />
     <Route
-      path="/course-item"
+      path="/course-item/:id"
       element={
         <ProtectedRoute>
           <CourseItem />

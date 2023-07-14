@@ -2,15 +2,14 @@ import { lazy } from 'react'
 import { Route } from 'react-router-dom'
 import { ProtectedRoute } from '@/guard'
 
-const Home = lazy(() => import('@/pages/Home'))
+const NotFound = lazy(() => import('@/components'))
 
-export const homeRoutes = (
+export const notFoundRoutes = (
   <Route
-    exact
-    path="/"
+    path="*"
     element={
       <ProtectedRoute>
-        <Home />
+        <NotFound />
       </ProtectedRoute>
     }
   />

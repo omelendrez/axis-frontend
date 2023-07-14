@@ -10,6 +10,11 @@
         "path": "/dashboard",
         "label": "Dashboard",
         "icon": "dashboard"
+      },
+      {
+        "path": "/pending",
+        "label": "Pending tasks",
+        "icon": "pending_actions"
       }
     ],
     "notAuthorized": []

@@ -16,7 +16,8 @@ export const roleRoutes = (
       }
     />
     <Route
-      path="/role/:id"
+      exact
+      path="/role"
       element={
         <ProtectedRoute>
           <Role />
@@ -24,7 +25,7 @@ export const roleRoutes = (
       }
     />
     <Route
-      path="/role"
+      path="/role/:id"
       element={
         <ProtectedRoute>
           <Role />

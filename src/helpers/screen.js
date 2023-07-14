@@ -40,7 +40,7 @@ export const lock = () => {
     .then(function () {})
     .catch(function (err) {
       document[exitFullScreen] && document[exitFullScreen]()
-      console.log(err)
+      console.error(err)
     })
 }
 

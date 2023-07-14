@@ -1,24 +1,12 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useContext, useEffect, useRef } from 'react'
 import { SP } from '@/services'
-import { UserContext, ThemeContext, NetworkContext } from '@/context'
-import { Divider, BackButton } from '@/components'
+import { UserContext, NetworkContext } from '@/context'
+import { BackButton, Hamburger, ToggleTheme } from './'
 import useNotification from '@/hooks/useNotification'
-import links from './links.json'
-
 import './navbar.css'
 
-const LiElement = ({ route, path, label, icon, onClick }) => (
-  <li className={route === `${path}` ? 'active' : undefined}>
-    <Link to={path} onClick={onClick} className="link-option">
-      <span className="material-icons">{icon}</span>
-      <div>{label}</div>
-    </Link>
-  </li>
-)
-
 export const Navbar = () => {
-  const { theme, toggle } = useContext(ThemeContext)
   const { user, setUser } = useContext(UserContext)
   const { network } = useContext(NetworkContext)
 
@@ -45,16 +33,7 @@ export const Navbar = () => {
     logout()
   }
 
-  const appDefaultRoutes = isUserAuthenticated
-    ? links.appRoutes.authorized
-    : links.appRoutes.notAuthorized
-
-  const userAuthorizedRoutes = isUserAuthenticated
-    ? links.userRoutes.authorized
-    : links.userRoutes.notAuthorized
-
   const location = useLocation()
-  const route = location.pathname
 
   useEffect(() => {
     if (network !== null) {
@@ -77,36 +56,11 @@ export const Navbar = () => {
     <nav className="container-fluid navbar">
       <ul>
         {showHamburger ? (
-          <li>
-            <details ref={detailsRef} role="list" dir="ltr">
-              <summary aria-haspopup="listbox" role="link"></summary>
-              <ul>
-                {appDefaultRoutes
-                  .filter((r) => !r.role || r.role === user.role)
-                  .map((r) => (
-                    <LiElement
-                      route={route}
-                      path={r.path}
-                      icon={r.icon}
-                      key={r.label}
-                      label={r.label}
-                      onClick={handleClick}
-                    />
-                  ))}
-                <Divider />
-                {userAuthorizedRoutes.map((r) => (
-                  <LiElement
-                    route={route}
-                    path={r.path}
-                    icon={r.icon}
-                    key={r.label}
-                    label={r.label}
-                    onClick={r.label === 'Logout' ? handleLogout : handleClick}
-                  />
-                ))}
-              </ul>
-            </details>
-          </li>
+          <Hamburger
+            isUserAuthenticated={isUserAuthenticated}
+            onClick={handleClick}
+            onLogout={handleLogout}
+          />
         ) : (
           <BackButton />
         )}
@@ -116,17 +70,7 @@ export const Navbar = () => {
       </ul>
       <ul>
         <li>
-          <label htmlFor="theme">
-            <span className="material-icons">
-              {theme === 'dark' ? 'sunny' : 'bedtime'}
-              <input
-                type="checkbox"
-                id="theme"
-                role="switch"
-                onChange={toggle}
-              ></input>
-            </span>
-          </label>
+          <ToggleTheme />
         </li>
       </ul>
     </nav>

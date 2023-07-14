@@ -10,6 +10,7 @@ import { defaultRoutes } from './defaultRoutes'
 import { homeRoutes } from './homeRoutes'
 import { learnerRoutes } from './learnerRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
+import { notFoundRoutes } from './notFoundRoutes'
 import { roleRoutes } from './roleRoutes'
 import { stateRoutes } from './stateRoutes'
 import { trainingRoutes } from './trainingRoutes'
@@ -21,19 +22,21 @@ export const AppRoutes = () => {
       <Routes>
         {homeRoutes}
         {dashboardRoutes}
+        {defaultRoutes}
         {/* ------ */}
         {classroomRoutes}
         {companyRoutes}
         {courseAssessmentRoutes}
         {courseItemRoutes}
         {courseRoutes}
-        {defaultRoutes}
         {learnerRoutes}
         {nationalityRoutes}
         {roleRoutes}
         {stateRoutes}
         {trainingRoutes}
         {userRoutes}
+        {/* ------ */}
+        {notFoundRoutes}
       </Routes>
     </div>
   )
