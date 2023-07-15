@@ -9,11 +9,14 @@ import useUser from '@/hooks/useUser'
 
 import './trainingView.css'
 import { TRAINING_STATUS } from '@/helpers'
+import { useNavigate } from 'react-router-dom'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
   const { user } = useUser()
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const navigate = useNavigate()
 
   if (!training) {
     return (
@@ -23,7 +26,12 @@ export const TrainingView = ({ training, onUpdate }) => {
     )
   }
 
-  const { id, status_id: statusId, course_state: stateName } = training
+  const {
+    id,
+    status_id: statusId,
+    course_state: stateName,
+    learner_id
+  } = training
 
   const { roles } = user
 
@@ -41,11 +49,19 @@ export const TrainingView = ({ training, onUpdate }) => {
       .finally(() => setIsSubmitting(false))
   }
 
+  const handleView = (e) => {
+    e.preventDefault()
+    navigate(`/learner/${learner_id}`)
+  }
+
   return (
     <main className="training-view">
       <StatusStamp status={{ statusId, stateName }} />
       <Photo {...training} />
-      <Learner learner={{ ...training, status: undefined }} />
+      <Learner
+        learner={{ ...training, status: undefined }}
+        onView={handleView}
+      />
       <Course
         training={training}
         onUndo={isAdmin && statusId > TRAINING_STATUS.NEW ? handleUndo : null}

@@ -61,7 +61,7 @@ export const Login = () => {
         if (user.roles.includes(1) || user.roles.includes(2)) {
           navigate('/')
         } else {
-          navigate('/dashboard')
+          navigate('/')
         }
         const notification = {
           type: 'success',

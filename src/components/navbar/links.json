@@ -7,9 +7,19 @@
         "icon": "home"
       },
       {
+        "path": "/learners",
+        "label": "Learners",
+        "icon": "people"
+      },
+      {
         "path": "/dashboard",
         "label": "Dashboard",
         "icon": "dashboard"
+      },
+      {
+        "path": "/trainings",
+        "label": "Trainings",
+        "icon": "library_books"
       },
       {
         "path": "/pending-tasks",

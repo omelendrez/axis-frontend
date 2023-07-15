@@ -15,7 +15,7 @@ const Row = ({ label, value, className, isTag }) => (
   </div>
 )
 
-export const Learner = ({ learner, onEdit, onDelete }) => {
+export const Learner = ({ learner, onView, onEdit, onDelete }) => {
   if (!learner) {
     return null
   }
@@ -23,7 +23,12 @@ export const Learner = ({ learner, onEdit, onDelete }) => {
   return (
     <article className="learner">
       <h6 className="title">Learner data</h6>
-      <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
+      <Buttons
+        onEdit={onEdit}
+        onView={onView}
+        onDelete={onDelete}
+        noCheckboxes
+      />
       <Divider style={{ margin: '1rem 0' }} />
       <div>
         {fields

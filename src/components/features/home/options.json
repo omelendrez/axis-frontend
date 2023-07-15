@@ -8,9 +8,25 @@
     ]
   },
   {
-    "title": "Companies",
-    "description": "Manage companies.",
-    "path": "/companies",
+    "title": "Dashboard",
+    "description": "See dashboard.",
+    "path": "/dashboard",
+    "roles": [
+      1
+    ]
+  },
+  {
+    "title": "Trainings",
+    "description": "Manage training records.",
+    "path": "/library_books",
+    "roles": [
+      1
+    ]
+  },
+  {
+    "title": "Pending Tasks",
+    "description": "Act on your pending tasks.",
+    "path": "/pending_actions",
     "roles": [
       1
     ],
@@ -40,6 +56,14 @@
       1
     ],
     "divider": true
+  },
+  {
+    "title": "Companies",
+    "description": "Manage companies.",
+    "path": "/companies",
+    "roles": [
+      1
+    ]
   },
   {
     "title": "States",
