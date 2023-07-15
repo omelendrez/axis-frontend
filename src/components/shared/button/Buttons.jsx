@@ -2,6 +2,7 @@ import './buttons.css'
 
 export const Buttons = ({
   selected,
+  onView,
   onSave,
   onAdd,
   onEdit,
@@ -18,17 +19,17 @@ export const Buttons = ({
     <div className="buttons-main">
       {onSave && (
         <button
-          data-tooltip="Click to Save"
+          data-tooltip="Save"
           className="primary"
           disabled={!forced && selected?.length !== 0}
           onClick={onSave}
         >
           <span className="material-icons">save</span>
         </button>
-      )}{' '}
+      )}
       {onAdd && (
         <button
-          data-tooltip="Click to Add"
+          data-tooltip="Add"
           className="primary"
           disabled={!forced && selected?.length !== 0}
           onClick={onAdd}
@@ -36,9 +37,19 @@ export const Buttons = ({
           <span className="material-icons">add</span>
         </button>
       )}
+      {onView && (
+        <button
+          data-tooltip="View"
+          className="primary"
+          disabled={!forced && selected?.length !== 1}
+          onClick={onView}
+        >
+          <span className="material-icons">visibility</span>
+        </button>
+      )}
       {onEdit && (
         <button
-          data-tooltip="Click to Edit"
+          data-tooltip="Edit"
           className="primary"
           disabled={!forced && selected?.length !== 1}
           onClick={onEdit}
@@ -48,7 +59,7 @@ export const Buttons = ({
       )}
       {onDelete && (
         <button
-          data-tooltip="Click to Delete"
+          data-tooltip="Delete"
           className="delete"
           disabled={!forced && selected?.length !== 1}
           onClick={onDelete}
@@ -58,7 +69,7 @@ export const Buttons = ({
       )}
       {onUndo && (
         <button
-          data-tooltip="Click to Undo last status"
+          data-tooltip="Undo last status"
           className="delete"
           disabled={!forced && selected?.length !== 1}
           onClick={onUndo}

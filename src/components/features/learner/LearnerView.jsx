@@ -88,6 +88,10 @@ export const LearnerView = () => {
     setIsContactEdit(true)
   }
 
+  const handleViewTraining = (id) => {
+    navigate(`/training/${id}`)
+  }
+
   const handleEditTraining = (id) =>
     getTraining(id)
       .then((res) => {
@@ -104,16 +108,16 @@ export const LearnerView = () => {
       })
       .catch((e) => apiMessage(e))
 
-  const handleDeleteTraining = (trainingId) =>
-    deleteTraining(trainingId)
+  const handleDeleteTraining = (id) =>
+    deleteTraining(id)
       .then((res) => {
         apiMessage(res)
         setUpdate((u) => !u)
       })
       .catch((e) => apiMessage(e))
 
-  const handleDeleteContact = (contactId) =>
-    deleteContact(contactId)
+  const handleDeleteContact = (id) =>
+    deleteContact(id)
       .then((res) => {
         apiMessage(res)
         setUpdate((u) => !u)
@@ -205,6 +209,7 @@ export const LearnerView = () => {
         <div>
           <Trainings
             trainings={trainings}
+            onView={handleViewTraining}
             onAdd={handleAddTraining}
             onEdit={handleEditTraining}
             onDelete={handleDeleteTraining}

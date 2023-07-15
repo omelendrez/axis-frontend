@@ -3,7 +3,7 @@ import fields from './training-fields.json'
 import { Table, Buttons, Divider } from '@/components'
 // Ok
 
-export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
+export const Trainings = ({ trainings, onView, onAdd, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   useEffect(() => {
@@ -17,6 +17,13 @@ export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
     setSelected((selected) =>
       checked ? [...selected, value] : selected.filter((s) => s !== value)
     )
+  }
+
+  const handleView = (e) => {
+    e.preventDefault()
+    if (selected.length) {
+      onView(selected[0])
+    }
   }
 
   const handleEdit = (e) => {
@@ -37,6 +44,7 @@ export const Trainings = ({ trainings, onAdd, onEdit, onDelete }) => {
       <h6 className="title">Training records</h6>
       <Buttons
         selected={selected}
+        onView={handleView}
         onAdd={onAdd}
         onEdit={handleEdit}
         onDelete={handleDelete}
