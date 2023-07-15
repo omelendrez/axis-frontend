@@ -4,28 +4,16 @@
     "field": "course"
   },
   {
+    "label": "Instructor",
+    "field": "instructor"
+  },
+  {
     "label": "Course start",
     "field": "start"
   },
   {
     "label": "Course end",
     "field": "end"
-  },
-  {
-    "label": "Prev.Exp.",
-    "field": "prev_expiry"
-  },
-  {
-    "label": "Issued",
-    "field": "issued"
-  },
-  {
-    "label": "Expiry",
-    "field": "expiry"
-  },
-  {
-    "label": "Certificate",
-    "field": "certificate"
   },
   {
     "label": "State",

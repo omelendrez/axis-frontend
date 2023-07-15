@@ -3,7 +3,6 @@ import { Buttons, Divider } from '@/components'
 import fields from './course-fields.json'
 
 const Row = ({ label, value, className, divider }) => {
-  // console.log(label, value)
   return (
     <>
       <div className="row-line" key={label}>
