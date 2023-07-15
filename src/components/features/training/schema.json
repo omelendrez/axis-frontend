@@ -31,5 +31,12 @@
     "id": "prev_expiry",
     "label": "Previous certificate expiring date",
     "placeholder": "Enter Previous Certificate Expiring Date"
+  },
+  {
+    "type": "dropdown-search",
+    "id": "instructor",
+    "label": "Instructor",
+    "options": "instructors",
+    "required": true
   }
 ]

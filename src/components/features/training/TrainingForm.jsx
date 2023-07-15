@@ -4,10 +4,11 @@ import { Form } from '@/components'
 
 import useTrainings from '@/hooks/useTrainings'
 import useCourses from '@/hooks/useCourses'
+import useUsers from '@/hooks/useUsers'
 import useNotification from '@/hooks/useNotification'
 
 import schema from './schema.json'
-import { loadSchema } from '@/helpers'
+import { ROLES, loadSchema } from '@/helpers'
 
 const MANUAL_INPUT = 2
 
@@ -20,9 +21,14 @@ export const TrainingForm = ({ training, onClose }) => {
   const { courses, load: loadCourses } = useCourses()
   const { data: courseList } = courses
 
+  const { users, load: loadUsers } = useUsers()
+  const { data: userList } = users
+
   const initialValues = loadSchema(schema)
 
   const [filteredSchema, setFilteredSchema] = useState([])
+
+  const [instructors, setInstructors] = useState([])
 
   const [values, setValues] = useState(initialValues)
 
@@ -52,8 +58,16 @@ export const TrainingForm = ({ training, onClose }) => {
   useEffect(() => {
     setFilteredSchema(schema.filter((f) => f.id !== 'prev_expiry'))
     loadCourses()
+    loadUsers()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const instructors = userList.rows
+      .filter((u) => u.roles.includes(ROLES.ASSESSMENT))
+      .map((u) => ({ id: u.id, name: u.full_name }))
+    setInstructors(instructors)
+  }, [userList])
 
   const setFields = (course) => {
     const option = options.courseList.find((o) => o.id === parseInt(course))
@@ -90,7 +104,8 @@ export const TrainingForm = ({ training, onClose }) => {
   }
 
   const options = {
-    courseList: courseList.rows
+    courseList: courseList.rows,
+    instructors
   }
 
   return (
