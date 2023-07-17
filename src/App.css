@@ -6,7 +6,7 @@
   --mid-font-size: 16px;
   --card-width-desktop: 22rem;
   --card-width-tablet: 23rem;
-  --card-width-mobile: 22rem;
+  --card-width-mobile: 100%;
   --ellipsis-desktop: 13rem;
   --ellipsis-tablet: 15rem;
   --ellipsis-mobile: 12rem;

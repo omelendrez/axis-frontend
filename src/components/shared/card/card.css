@@ -10,6 +10,7 @@
   width: var(--card-width-mobile);
   max-width: var(--card-width-mobile);
   min-width: var(--card-width-mobile);
+  border-radius: 10px;
 }
 
 .card .card-avatar-root .card-avatar-img {
