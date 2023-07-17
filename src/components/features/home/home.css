@@ -16,6 +16,10 @@ main.card-list article.home-item div span {
   font-size: 4rem;
 }
 
+main.card-list article.home-item div.button {
+  min-width: 90px;
+}
+
 main.card-list .menu-separator {
   width: 100%;
   margin: 1rem 0;
