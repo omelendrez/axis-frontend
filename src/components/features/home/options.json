@@ -3,6 +3,7 @@
     "title": "Learners",
     "description": "Manage learners.",
     "path": "/learners",
+    "icon": "group",
     "roles": [
       1
     ]
@@ -10,6 +11,7 @@
   {
     "title": "Dashboard",
     "description": "See dashboard.",
+    "icon": "dashboard",
     "path": "/dashboard",
     "roles": [
       1
@@ -19,6 +21,7 @@
     "title": "Trainings",
     "description": "Manage training records.",
     "path": "/trainings",
+    "icon": "school",
     "roles": [
       1
     ]
@@ -27,6 +30,7 @@
     "title": "Pending Tasks",
     "description": "Act on your pending tasks.",
     "path": "/pending_actions",
+    "icon": "pending_actions",
     "roles": [
       1
     ],
@@ -36,6 +40,7 @@
     "title": "Courses",
     "description": "Manage training courses.",
     "path": "/courses",
+    "icon": "local_library",
     "roles": [
       1
     ]
@@ -44,6 +49,7 @@
     "title": "Course Assessments",
     "description": "Manage courses assessments.",
     "path": "/course-assessments",
+    "icon": "quiz",
     "roles": [
       1
     ]
@@ -52,6 +58,7 @@
     "title": "Course Items",
     "description": "Manage course items. Those extra lines that are printed in some certificates.",
     "path": "/course-items",
+    "icon": "description",
     "roles": [
       1
     ],
@@ -61,6 +68,7 @@
     "title": "Companies",
     "description": "Manage companies.",
     "path": "/companies",
+    "icon": "corporate_fare",
     "roles": [
       1
     ]
@@ -69,6 +77,7 @@
     "title": "States",
     "description": "Manage states master table.",
     "path": "/states",
+    "icon": "signpost",
     "roles": [
       1
     ]
@@ -77,6 +86,7 @@
     "title": "Nationalities",
     "description": "Manage nationalities.",
     "path": "/nationalities",
+    "icon": "language",
     "roles": [
       1
     ],
@@ -86,6 +96,7 @@
     "title": "Users",
     "description": "Manage Axis users.",
     "path": "/users",
+    "icon": "person",
     "roles": [
       1
     ]
@@ -94,6 +105,7 @@
     "title": "Roles",
     "description": "Manage user roles.",
     "path": "/roles",
+    "icon": "assignment",
     "roles": [
       1
     ]

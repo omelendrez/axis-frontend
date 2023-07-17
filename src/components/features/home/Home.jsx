@@ -26,6 +26,7 @@ export const Home = () => {
               path={o.path}
               divider={o.divider}
               title={o.title}
+              icon={o.icon}
             />
           ))}
     </main>
