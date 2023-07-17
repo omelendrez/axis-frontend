@@ -26,8 +26,9 @@
 .learner-view div .row-line div:last-child.no-label {
   margin-left: 0;
   flex-grow: 1;
-  text-align: left;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  display: flex;
+  color: var(--primary);
 }
 
 .learner-view div .row-line div.highlighted {
