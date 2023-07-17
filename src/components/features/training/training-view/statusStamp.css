@@ -30,10 +30,7 @@ div.alert-status-container div.alert-status {
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   transform: rotate(30deg);
-}
-
-div.alert-status-container div.alert-status.status-0 {
-  color: #888;
+  font-size: xx-small;
 }
 
 div.alert-status-container div.alert-status.status-12 {

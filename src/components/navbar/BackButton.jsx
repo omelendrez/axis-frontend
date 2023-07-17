@@ -11,7 +11,7 @@ export const BackButton = () => {
 
   return (
     <div onClick={handleBack} className="back-button-container">
-      <span className="material-icons">arrow_back_ios</span>
+      <span className="material-icons">arrow_back</span>
     </div>
   )
 }
