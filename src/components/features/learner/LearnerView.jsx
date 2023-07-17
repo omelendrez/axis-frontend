@@ -196,35 +196,31 @@ export const LearnerView = () => {
       </Modal>
       <main className="learner-view">
         {/* Data components */}
-        <div>
-          <Photo badge={photoBadge} onEdit={handleEditPhoto} />
-        </div>
-        <div>
-          <Learner
-            learner={learner}
-            onEdit={handleEditLearner}
-            onDelete={handleDeleteLearner}
-          />
-        </div>
-        <div>
-          <Trainings
-            trainings={trainings}
-            onView={handleViewTraining}
-            onAdd={handleAddTraining}
-            onEdit={handleEditTraining}
-            onDelete={handleDeleteTraining}
-            key={trainingEditData?.id}
-          />
-        </div>
-        <div>
-          <Contacts
-            contacts={contacts}
-            onAdd={handleAddContact}
-            onEdit={handleEditContact}
-            onDelete={handleDeleteContact}
-            key={contactEditData?.id}
-          />
-        </div>
+
+        <Photo badge={photoBadge} onEdit={handleEditPhoto} />
+
+        <Learner
+          learner={learner}
+          onEdit={handleEditLearner}
+          onDelete={handleDeleteLearner}
+        />
+
+        <Trainings
+          trainings={trainings}
+          onView={handleViewTraining}
+          onAdd={handleAddTraining}
+          onEdit={handleEditTraining}
+          onDelete={handleDeleteTraining}
+          key={trainingEditData?.id}
+        />
+
+        <Contacts
+          contacts={contacts}
+          onAdd={handleAddContact}
+          onEdit={handleEditContact}
+          onDelete={handleDeleteContact}
+          key={contactEditData?.id}
+        />
       </main>
     </>
   )

@@ -7,35 +7,104 @@
   flex-wrap: wrap;
 }
 
-.learner-view div {
+.learner-view article {
   display: flex;
   flex-direction: column;
   width: 100%;
+  border-radius: 10px;
 }
 
-.learner-view div:nth-child(2) {
+.learner-view div .row-line {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.5rem;
+}
+
+.learner-view div .row-line div:first-child {
+  white-space: nowrap;
+}
+
+.learner-view div .row-line div:last-child {
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.learner-view div .row-line div.highlighted {
+  color: var(--primary);
+}
+
+.learner-view article .title {
+  color: var(--background-color);
+  background-color: var(--primary);
+  padding: 0.3rem 1rem;
+  border-radius: 0 1rem 1rem 0;
+  width: fit-content;
+}
+
+.learner-view .photo img {
+  aspect-ratio: 4/3;
+}
+
+.learner-view .actions {
   flex-grow: 1;
 }
 
-@media screen and (min-width: 992px) {
-  .learner-view div {
+.learner-view .actions article .title {
+  border: 1px solid;
+  background-color: transparent;
+  color: var(--secondary);
+}
+
+.learner-view .actions article div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.learner-view .learner .row-line div:first-child:not(.tag) {
+  width: 5rem;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.learner-view .course .row-line div:first-child:not(.tag) {
+  width: 8rem;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.learner-view .actions .modal .modal-container div {
+  flex-direction: column;
+}
+
+@media screen and (min-width: 640px) {
+  .learner-view article {
     width: unset;
+    margin: 0 0 1rem 0;
+  }
+
+  .learner-view .photo img {
+    margin: 0 auto;
+  }
+
+  .learner-view article.course,
+  .learner-view article.learner {
+    flex-grow: 1;
   }
 }
 
-/* Tables  */
+@media screen and (min-width: 992px) {
+  .learner-view article {
+    width: unset;
+  }
 
-.learner-view figure {
-  overflow: auto;
-  max-width: 80vw;
-}
+  .learner-view .photo img {
+    max-width: 20rem;
+    margin: 0 auto;
+  }
 
-.learner-view figure table tbody td input[type='checkbox'] {
-  font-size: 0.8rem;
-}
-
-.learner-view table th,
-.learner-view table td {
-  white-space: nowrap;
-  padding: 6px;
+  .learner-view article.course,
+  .learner-view article.learner {
+    flex-grow: 1;
+  }
 }
