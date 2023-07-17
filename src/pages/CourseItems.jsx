@@ -13,8 +13,7 @@ const CourseItems = () => {
     load: loadCourseItems,
     remove: removeCourseItem
   } = useCourseItems()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } =
-    courseItems
+  const { data, isLoading, isSuccess, isError, error } = courseItems
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -27,11 +26,10 @@ const CourseItems = () => {
   }, [pagination])
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadCourseItems(pagination)
-    }
+    loadCourseItems(pagination)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstLoad])
+  }, [])
 
   useEffect(() => {
     if (isError) {

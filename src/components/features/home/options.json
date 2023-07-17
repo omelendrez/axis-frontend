@@ -18,7 +18,7 @@
   {
     "title": "Trainings",
     "description": "Manage training records.",
-    "path": "/library_books",
+    "path": "/trainings",
     "roles": [
       1
     ]

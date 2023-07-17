@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
   createTraining,
-  updateTraining,
-  getTrainings,
   deleteTraining,
-  getTrainingView
+  getLearnerTrainings,
+  getTrainingView,
+  getTrainings,
+  updateTraining
 } from '@/services'
 import { handleError } from '../error'
 
@@ -12,8 +13,8 @@ let learner = null
 
 const initialState = {
   data: { rows: [], count: 0 },
+  learnerTrainings: { rows: [], count: 0 },
   view: {},
-  isFirstLoad: true,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -36,7 +37,9 @@ export const trainingSlice = createSlice({
       state.isError = false
     },
     setData(state, action) {
-      state.isFirstLoad = false
+      state.data = action.payload
+    },
+    setLearnerTrainings(state, action) {
       state.data = action.payload
     },
     setView(state, action) {
@@ -58,15 +61,30 @@ export const trainingSlice = createSlice({
 
 export default trainingSlice.reducer
 
-export function loadTrainings(id) {
+export function loadTrainings({ date, statuses }) {
   const { setLoading, setData, reset } = trainingSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      learner = id
-      const { data } = await getTrainings(id)
+      const { data } = await getTrainings({ date, statuses })
       dispatch(setData(data))
+      dispatch(reset())
+    } catch (error) {
+      handleError(error, dispatch, reset)
+    }
+  }
+}
+
+export function loadLearnerTrainings(id) {
+  const { setLoading, setLearnerTrainings, reset } = trainingSlice.actions
+
+  return async (dispatch) => {
+    dispatch(setLoading())
+    try {
+      learner = id
+      const { data } = await getLearnerTrainings(id)
+      dispatch(setLearnerTrainings(data))
       dispatch(reset())
     } catch (error) {
       handleError(error, dispatch, reset)

@@ -9,7 +9,7 @@ import { initialValues } from '@/helpers'
 
 const Roles = () => {
   const { roles, load: loadRoles, remove: removeRole } = useRoles()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = roles
+  const { data, isLoading, isSuccess, isError, error } = roles
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -22,11 +22,10 @@ const Roles = () => {
   }, [pagination])
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadRoles(pagination)
-    }
+    loadRoles(pagination)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstLoad])
+  }, [])
 
   useEffect(() => {
     if (isError) {

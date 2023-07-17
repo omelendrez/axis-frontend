@@ -13,8 +13,7 @@ const Nationalities = () => {
     load: loadNationalities,
     remove: removeNationality
   } = useNationalities()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } =
-    nationalities
+  const { data, isLoading, isSuccess, isError, error } = nationalities
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -27,11 +26,10 @@ const Nationalities = () => {
   }, [pagination])
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadNationalities(pagination)
-    }
+    loadNationalities(pagination)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstLoad])
+  }, [])
 
   useEffect(() => {
     if (isError) {

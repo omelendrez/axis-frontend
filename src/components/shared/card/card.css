@@ -14,7 +14,7 @@
 
 .card .card-avatar-root .card-avatar-img {
   object-fit: cover;
-  max-width: 100px;
+  max-width: 6rem;
   aspect-ratio: 4/3;
   margin-left: 1rem;
 }
@@ -25,11 +25,32 @@
   padding: 1rem;
   flex-direction: column;
   pointer-events: none;
+  width: fit-content;
 }
 
 .card .card-body div {
   margin-right: 3px;
-  width: fit-content;
+}
+
+.card .card-body div.card-line-buttons {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 2rem;
+  position: absolute;
+  bottom: 0;
+  right: 0.5rem;
+}
+
+.card .card-body div.card-line-buttons div {
+  cursor: pointer;
+}
+
+.card .card-body div.card-line-buttons .thumb-up {
+  color: var(--primary);
+}
+
+.card .card-body div.card-line-buttons .thumb-down {
+  color: var(--error);
 }
 
 .card .card-body .extra-small-font {
@@ -62,6 +83,10 @@
     max-width: var(--ellipsis-tablet);
     min-width: var(--ellipsis-tablet);
   }
+
+  .card .card-body div.card-line-buttons {
+    max-width: var(--ellipsis-tablet);
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -74,5 +99,9 @@
   .card .card-body .ellipsis {
     max-width: var(--ellipsis-desktop);
     min-width: var(--ellipsis-desktop);
+  }
+
+  .card .card-body div.card-line-buttons {
+    max-width: var(--ellipsis-desktop);
   }
 }

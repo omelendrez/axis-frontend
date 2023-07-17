@@ -9,7 +9,7 @@ import { initialValues } from '@/helpers'
 
 const Companies = () => {
   const { companies, load: loadCompanies, remove: removeCompany } = useUsers()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = companies
+  const { data, isLoading, isSuccess, isError, error } = companies
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -22,11 +22,10 @@ const Companies = () => {
   }, [pagination])
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadCompanies(pagination)
-    }
+    loadCompanies(pagination)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstLoad])
+  }, [])
 
   useEffect(() => {
     if (isError) {

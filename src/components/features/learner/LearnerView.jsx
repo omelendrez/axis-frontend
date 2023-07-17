@@ -8,7 +8,7 @@ import {
   getLearner,
   getLearnerView,
   deleteLearner,
-  getTrainings,
+  getLearnerTrainings,
   getTraining,
   deleteTraining
 } from '@/services'
@@ -162,7 +162,7 @@ export const LearnerView = () => {
             .then((res) => setContacts(res.data))
             .catch((e) => apiMessage(e))
 
-          getTrainings(id)
+          getLearnerTrainings(id)
             .then((res) => setTrainings(res.data))
             .catch((e) => apiMessage(e))
         })

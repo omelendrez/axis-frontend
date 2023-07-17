@@ -16,6 +16,7 @@
   color: white;
   padding: 4px 8px;
   border-radius: 3px;
+  width: fit-content;
 }
 
 .card.trainings .card-body .status-1 {

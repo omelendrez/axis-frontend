@@ -13,8 +13,7 @@ const CourseAssessments = () => {
     load: loadCourseAssessments,
     remove: removeCourseAssessment
   } = useCourseAssessments()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } =
-    courseAssessments
+  const { data, isLoading, isSuccess, isError, error } = courseAssessments
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -27,11 +26,10 @@ const CourseAssessments = () => {
   }, [pagination])
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadCourseAssessments(pagination)
-    }
+    loadCourseAssessments(pagination)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstLoad])
+  }, [])
 
   useEffect(() => {
     if (isError) {

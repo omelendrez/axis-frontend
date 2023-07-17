@@ -4,7 +4,6 @@ import { handleError } from '../error'
 
 const initialState = {
   data: { rows: [], count: 0 },
-  isFirstLoad: true,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -27,7 +26,6 @@ export const userSlice = createSlice({
       state.isError = false
     },
     setData(state, action) {
-      state.isFirstLoad = false
       state.data = action.payload
     },
     setError(state, action) {

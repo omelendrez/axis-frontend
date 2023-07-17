@@ -44,7 +44,7 @@ const Card = ({ item, onView }) => {
 
 const Users = () => {
   const { users, load: loadUsers } = useUsers()
-  const { data, isLoading, isSuccess, isError, error, isFirstLoad } = users
+  const { data, isLoading, isSuccess, isError, error } = users
 
   const [pagination, setPagination] = useState(initialValues)
 
@@ -57,11 +57,10 @@ const Users = () => {
   }, [pagination])
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadUsers(pagination)
-    }
+    loadUsers(pagination)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFirstLoad])
+  }, [])
 
   useEffect(() => {
     if (isError) {
