@@ -23,6 +23,7 @@
   width: 6rem;
   text-align: right;
 }
+.training-view div .row-line div:last-child.no-label,
 .learner-view div .row-line div:last-child.no-label {
   margin-left: 0;
   flex-grow: 1;

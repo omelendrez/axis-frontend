@@ -7,6 +7,7 @@ import { undoLastApproval } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
 
+import '../learner/learner-view/learner.css'
 import './trainingView.css'
 import { TRAINING_STATUS } from '@/helpers'
 import { useNavigate } from 'react-router-dom'
