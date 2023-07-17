@@ -1,4 +1,4 @@
-import { Divider } from '@/components'
+const Separator = () => <div className="menu-separator"></div>
 
 export const MenuOption = ({
   title,
@@ -6,7 +6,7 @@ export const MenuOption = ({
   icon,
   path,
   onNavigate,
-  divider
+  separator
 }) => (
   <>
     <article
@@ -16,7 +16,7 @@ export const MenuOption = ({
         onNavigate(path)
       }}
     >
-      <div>
+      <div className="button">
         <span className="material-icons">{icon}</span>
       </div>
       <hgroup>
@@ -24,6 +24,6 @@ export const MenuOption = ({
         <h4>{description}</h4>
       </hgroup>
     </article>
-    {divider && <Divider />}
+    {separator && <Separator />}
   </>
 )

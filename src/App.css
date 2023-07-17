@@ -16,6 +16,7 @@
   --warning: #f57c00;
   --info: #0288d1;
   --success: #388e3c;
+  --other-green: #7c4dff;
 }
 
 @media screen and (min-width: 640px) {
@@ -63,10 +64,10 @@ main.container-fluid {
 }
 
 main article h6.title {
-  color: var(--background-color);
-  background-color: var(--primary);
+  border: none;
   padding: 0.3rem 1rem;
-  border-radius: 0 1rem 1rem 0;
-  width: fit-content;
   margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  color: var(--background-color);
+  text-align: right;
 }

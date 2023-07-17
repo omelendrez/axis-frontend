@@ -24,7 +24,7 @@ export const Home = () => {
               description={o.description}
               onNavigate={handleNavigate}
               path={o.path}
-              divider={o.divider}
+              separator={o.separator}
               title={o.title}
               icon={o.icon}
             />

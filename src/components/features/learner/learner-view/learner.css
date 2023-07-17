@@ -35,6 +35,7 @@
 
 .learner-view div .row-line div.highlighted {
   color: var(--primary);
+  background-color: transparent;
 }
 
 @media screen and (min-width: 992px) {

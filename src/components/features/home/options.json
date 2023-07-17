@@ -3,7 +3,7 @@
     "title": "Learners",
     "description": "Manage learners.",
     "path": "/learners",
-    "icon": "group",
+    "icon": "person",
     "roles": [
       1
     ]
@@ -34,7 +34,7 @@
     "roles": [
       1
     ],
-    "divider": true
+    "separator": true
   },
   {
     "title": "Courses",
@@ -49,7 +49,7 @@
     "title": "Course Assessments",
     "description": "Manage courses assessments.",
     "path": "/course-assessments",
-    "icon": "quiz",
+    "icon": "thumb_up",
     "roles": [
       1
     ]
@@ -62,7 +62,7 @@
     "roles": [
       1
     ],
-    "divider": true
+    "separator": true
   },
   {
     "title": "Companies",
@@ -90,7 +90,7 @@
     "roles": [
       1
     ],
-    "divider": true
+    "separator": true
   },
   {
     "title": "Users",
