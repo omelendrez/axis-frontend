@@ -10,8 +10,8 @@
   --ellipsis-desktop: 13rem;
   --ellipsis-tablet: 15rem;
   --ellipsis-mobile: 12rem;
-  --row-gap: 2rem;
-  --col-gap: 2rem;
+  --row-gap: 1rem;
+  --col-gap: 1rem;
   --error: #d32f2f;
   --warning: #f57c00;
   --info: #0288d1;
