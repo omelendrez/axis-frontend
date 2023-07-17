@@ -55,7 +55,7 @@ export const UserRoles = ({ items, onAdd, onDelete }) => {
 
   return (
     <article>
-      <h6 className="title">User role records</h6>
+      <h6 className="title">User roles assigned</h6>
       <Buttons
         selected={selected}
         onAdd={onAdd}
