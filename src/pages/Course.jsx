@@ -5,22 +5,31 @@ import { FormContainer, CourseView, CourseForm } from '@/components'
 import { getCourse } from '@/services'
 
 import useApiMessages from '@/hooks/useApiMessages'
+import usePage from '@/hooks/usePage'
 
 const Course = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
+  const id = params?.id
 
   const { apiMessage } = useApiMessages()
+  const { set: setPage } = usePage()
+
   const [course, setCourse] = useState(null)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    const id = params?.id
+    setPage('Course')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     if (id) {
       getCourse(id)
         .then((res) => setCourse(res.data))
         .catch((e) => apiMessage(e))
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 

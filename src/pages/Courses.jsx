@@ -8,6 +8,7 @@ import useNotification from '@/hooks/useNotification'
 import { initialValues } from '@/helpers'
 
 import './course-card.css'
+import usePage from '@/hooks/usePage'
 
 const Card = ({ item, onView }) => (
   <article className="card courses" onClick={() => onView(item)}>
@@ -31,17 +32,13 @@ const Courses = () => {
 
   const navigate = useNavigate()
   const { set } = useNotification()
+  const { set: setPage } = usePage()
 
   useEffect(() => {
     loadCourses(pagination)
+    setPage('Courses')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
-
-  useEffect(() => {
-    loadCourses(pagination)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (isError) {

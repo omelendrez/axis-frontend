@@ -8,6 +8,7 @@ import useNotification from '@/hooks/useNotification'
 import { initialValues } from '@/helpers'
 
 import './dashboard.css'
+import usePage from '@/hooks/usePage'
 
 const Card = ({ item, onView }) => (
   <article className="card dashboard" onClick={() => onView(item)}>
@@ -29,9 +30,11 @@ const Dashboard = () => {
 
   const { set } = useNotification()
   const navigate = useNavigate()
+  const { set: setPage } = usePage()
 
   useEffect(() => {
     loadClasses(pagination)
+    setPage('Dashboard')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 

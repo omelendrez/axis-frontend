@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useNotification from '@/hooks/useNotification'
 import useApiMessages from '@/hooks/useApiMessages'
-import { InputField } from '@/components'
+import { FormButtonRow, InputField } from '@/components'
 import {
   validatePasswordLength,
   validateNotEmpty,
@@ -86,6 +86,11 @@ export const ChangePassword = () => {
     }
   }
 
+  const handleCancel = (e) => {
+    e.preventDefault()
+    navigate(-1)
+  }
+
   const { prevPass, password, verPass } = values
 
   return (
@@ -123,9 +128,19 @@ export const ChangePassword = () => {
         required
       />
 
-      <button type="submit" aria-busy={isSubmitting}>
-        Change
-      </button>
+      <FormButtonRow>
+        <button type="submit" aria-busy={isSubmitting}>
+          Change
+        </button>
+        <button
+          type="button"
+          aria-busy={isSubmitting}
+          className="secondary"
+          onClick={handleCancel}
+        >
+          Cancel
+        </button>
+      </FormButtonRow>
     </form>
   )
 }

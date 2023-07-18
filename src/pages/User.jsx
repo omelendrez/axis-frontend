@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom'
 import { FormContainer, UserView, UserForm } from '@/components'
 import { getUser } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
+import usePage from '@/hooks/usePage'
 
 const User = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
 
   const { apiMessage } = useApiMessages()
+  const { set: setPage } = usePage()
 
   const [user, setUser] = useState(null)
 
@@ -21,6 +23,7 @@ const User = ({ isViewing, isAdding, isEditing }) => {
         .then((res) => setUser(res.data))
         .catch((e) => apiMessage(e))
     }
+    setPage('User')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 

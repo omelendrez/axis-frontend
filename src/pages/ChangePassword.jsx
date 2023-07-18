@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom'
 import { ChangePassword as ChangePasswordComponent } from '@/components'
+import usePage from '@/hooks/usePage'
+import { useEffect } from 'react'
 
 const ChangePassword = () => {
+  const { set: setPage } = usePage()
+
+  useEffect(() => {
+    setPage('Change password')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <main className="container-fluid">
-      <nav aria-label="breadcrumb" className="breadcrumb">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>Roles</li>
-        </ul>
-      </nav>
       <article className="change-password-form-container">
         <ChangePasswordComponent />
       </article>

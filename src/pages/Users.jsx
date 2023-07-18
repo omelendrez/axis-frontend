@@ -8,6 +8,7 @@ import useNotification from '@/hooks/useNotification'
 import { initialValues } from '@/helpers'
 
 import './user-card.css'
+import usePage from '@/hooks/usePage'
 
 const Card = ({ item, onView }) => {
   const roles = JSON.parse(item.roles)
@@ -50,17 +51,13 @@ const Users = () => {
 
   const navigate = useNavigate()
   const { set } = useNotification()
+  const { set: setPage } = usePage()
 
   useEffect(() => {
     loadUsers(pagination)
+    setPage('Users')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
-
-  useEffect(() => {
-    loadUsers(pagination)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (isError) {

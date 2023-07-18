@@ -56,7 +56,7 @@ export const Navbar = () => {
   }, [network])
 
   const showHamburger =
-    location.pathname === '/' || location.pathname === '/dashboard'
+    location.pathname === '/' || location.pathname === '/login'
 
   return (
     <nav className="container-fluid navbar">
