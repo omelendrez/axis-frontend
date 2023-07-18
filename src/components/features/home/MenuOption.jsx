@@ -16,7 +16,7 @@ export const MenuOption = ({
         onNavigate(path)
       }}
     >
-      <div className="button">
+      <div className="button home-item-button">
         <span className="material-icons">{icon}</span>
       </div>
       <hgroup>
