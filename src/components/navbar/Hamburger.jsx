@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Divider } from '@/components'
+import { Divider, ToggleTheme } from '@/components'
 
 import links from './links.json'
 
@@ -56,6 +56,10 @@ export const Hamburger = ({
               onClick={r.label === 'Logout' ? onLogout : onClick}
             />
           ))}
+          <Divider style={{ margin: '0.3rem 0' }} />
+          <li>
+            <ToggleTheme />
+          </li>
         </ul>
       </details>
     </li>

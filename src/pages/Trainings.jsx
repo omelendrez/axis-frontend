@@ -8,6 +8,7 @@ import { initialValues } from '@/helpers'
 import { getPhotoUrl } from '@/services'
 
 import './trainings-card.css'
+import usePage from '@/hooks/usePage'
 
 const Card = ({ item, onView }) => {
   const { badge, course_name, full_name, company_name, status_name, status } =
@@ -52,8 +53,15 @@ const Trainings = () => {
   const { data, isLoading } = trainings
   const [pagination, setPagination] = useState(initialValues)
 
+  const { set: setPage } = usePage()
+
   useEffect(() => {
     loadTrainings({ date: '2023-03-28', statuses: '2' })
+    setPage('Trainings')
+
+    return () => {
+      setPage('')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

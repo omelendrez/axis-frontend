@@ -2,13 +2,19 @@ import { useLocation } from 'react-router-dom'
 import { useContext, useEffect, useRef } from 'react'
 import { SP } from '@/services'
 import { UserContext, NetworkContext } from '@/context'
-import { BackButton, Hamburger, ToggleTheme } from './'
+import { BackButton, Hamburger } from './'
 import useNotification from '@/hooks/useNotification'
+import usePage from '@/hooks/usePage'
 import './navbar.css'
 
 export const Navbar = () => {
   const { user, setUser } = useContext(UserContext)
+
   const { network } = useContext(NetworkContext)
+
+  const { page } = usePage()
+
+  console.log(page)
 
   const isUserAuthenticated = Boolean(user?.id)
 
@@ -67,12 +73,7 @@ export const Navbar = () => {
         )}
       </ul>
       <ul>
-        <li>{user?.full_name || 'Not logged in'}</li>
-      </ul>
-      <ul>
-        <li>
-          <ToggleTheme />
-        </li>
+        <li className="page-title">{page?.title}</li>
       </ul>
     </nav>
   )

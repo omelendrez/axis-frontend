@@ -4,6 +4,7 @@ import { Loading, CardList, AddButton, Tag } from '@/components'
 
 import useLearners from '@/hooks/useLearners'
 import useNotification from '@/hooks/useNotification'
+import usePage from '@/hooks/usePage'
 
 import { initialValues } from '@/helpers'
 
@@ -44,17 +45,17 @@ const Learners = () => {
 
   const navigate = useNavigate()
   const { set } = useNotification()
+  const { set: setPage } = usePage()
 
   useEffect(() => {
     loadLearners(pagination)
+    setPage('Learners')
+
+    return () => {
+      setPage('')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
-
-  useEffect(() => {
-    loadLearners(pagination)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (isError) {

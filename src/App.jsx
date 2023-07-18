@@ -8,7 +8,12 @@ import useNotification from '@/hooks/useNotification'
 
 import { Navbar } from '@/components'
 import { AppRoutes } from '@/routes'
-import { UserContext, TrainingContext, NetworkContext } from '@/context'
+import {
+  UserContext,
+  TrainingContext,
+  NetworkContext,
+  PageContext
+} from '@/context'
 
 import { KEYS, SP } from '@/services'
 
@@ -97,6 +102,7 @@ function App() {
   const [user, setUser] = useState(currentUser)
   const [changes, setChanges] = useState(null)
   const [network, setNetwork] = useState(navigator.onLine)
+  const [page, setPage] = useState(null)
 
   const userContextValues = {
     user,
@@ -113,20 +119,27 @@ function App() {
     setNetwork
   }
 
+  const pageContextValues = {
+    page,
+    setPage
+  }
+
   return (
     <>
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
       <UserContext.Provider value={userContextValues}>
         <NetworkContext.Provider value={networkContextValues}>
-          <Navbar />
-          <TrainingContext.Provider value={trainingContextValues}>
-            <ErrorBoundary
-              FallbackComponent={ErrorFallback}
-              onError={errorHandler}
-            >
-              <AppRoutes />
-            </ErrorBoundary>
-          </TrainingContext.Provider>
+          <PageContext.Provider value={pageContextValues}>
+            <Navbar />
+            <TrainingContext.Provider value={trainingContextValues}>
+              <ErrorBoundary
+                FallbackComponent={ErrorFallback}
+                onError={errorHandler}
+              >
+                <AppRoutes />
+              </ErrorBoundary>
+            </TrainingContext.Provider>
+          </PageContext.Provider>
         </NetworkContext.Provider>
       </UserContext.Provider>
     </>

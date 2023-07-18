@@ -2,6 +2,7 @@ nav.navbar {
   background-color: var(--primary-hover);
   position: fixed;
   z-index: 1;
+  height: 64px;
 }
 
 nav.navbar > * {
@@ -45,6 +46,10 @@ nav.navbar li.active a.link-option {
 label span.material-icons {
   display: flex;
   flex-direction: row;
+}
+
+nav.navbar li.page-title {
+  font-size: 2rem;
 }
 
 nav.breadcrumb {
