@@ -55,8 +55,9 @@ export const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [network])
 
-  const showHamburger =
-    location.pathname === '/' || location.pathname === '/login'
+  const showHamburger = location.pathname === '/'
+
+  const isLoginPage = location.pathname === '/login'
 
   return (
     <nav className="container-fluid navbar">
@@ -69,12 +70,13 @@ export const Navbar = () => {
             detailsRef={detailsRef}
           />
         ) : (
-          <BackButton />
+          !isLoginPage && <BackButton />
         )}
       </ul>
       <ul>
         <li className="page-title">{page?.title}</li>
       </ul>
+      <ul></ul>
     </nav>
   )
 }

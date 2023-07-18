@@ -29,7 +29,7 @@
   {
     "title": "Pending Tasks",
     "description": "Act on your pending tasks.",
-    "path": "/pending_actions",
+    "path": "/pending-tasks",
     "icon": "pending_actions",
     "roles": [
       1

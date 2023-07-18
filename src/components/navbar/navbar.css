@@ -55,3 +55,7 @@ nav.navbar li.page-title {
 nav.breadcrumb {
   position: unset;
 }
+
+nav.navbar ul:nth-child(2) {
+  width: calc(100vw - 5rem);
+}
