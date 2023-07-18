@@ -56,7 +56,7 @@
   },
   {
     "title": "Course Items",
-    "description": "Manage course items. Those extra lines that are printed in some certificates.",
+    "description": "Manage lines that are printed in some certificates.",
     "path": "/course-items",
     "icon": "description",
     "roles": [

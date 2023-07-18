@@ -3,6 +3,7 @@ main.card-list article.home-item {
   justify-content: start;
   column-gap: 1rem;
   padding: 1rem;
+  align-items: start;
 }
 
 main.card-list article.home-item hgroup {
