@@ -5,8 +5,8 @@ main.home-list {
 main.home-list article.home-card {
   cursor: pointer;
   justify-content: start;
-  column-gap: 2rem;
-  padding: 2rem;
+  column-gap: 1rem;
+  padding: 1rem;
   align-items: start;
 }
 
