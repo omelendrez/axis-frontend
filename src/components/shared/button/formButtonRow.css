@@ -3,14 +3,12 @@
   justify-content: space-around;
   align-items: center;
   box-shadow: none;
-  padding: 0px;
+  padding: 1rem;
+  background-color: transparent;
 }
 
-.form-button-row button:not(:last-child) {
-  margin-right: 1rem;
-}
 .form-button-row button {
-  width: auto;
+  width: fit-content;
   display: flex;
   align-items: center;
 }

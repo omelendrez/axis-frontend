@@ -1,3 +1,10 @@
 .form-control {
   position: relative;
 }
+
+.form-control input,
+.form-control select,
+.form-control summary {
+  background-color: white;
+  border: none;
+}

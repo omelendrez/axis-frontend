@@ -1,5 +1,7 @@
 details.dropdown-search summary:not([role]) {
   color: rgb(85, 85, 85);
+  background-color: white;
+  border: none;
 }
 
 details.dropdown-search summary.placeholder:not([role]) {
@@ -7,5 +9,5 @@ details.dropdown-search summary.placeholder:not([role]) {
 }
 
 details.dropdown-search ul li.active {
-  background-color: hsl(205deg, 18%, 86%);
+  background-color: #bbdefb;
 }
