@@ -17,13 +17,17 @@ const User = ({ isViewing, isAdding, isEditing }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    setPage('User')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     const id = params?.id
     if (id) {
       getUser(id)
         .then((res) => setUser(res.data))
         .catch((e) => apiMessage(e))
     }
-    setPage('User')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
