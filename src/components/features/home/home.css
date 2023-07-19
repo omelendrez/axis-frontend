@@ -1,4 +1,4 @@
-main.card-list article.home-item {
+main.home-list article.home-card {
   cursor: pointer;
   justify-content: start;
   column-gap: 1rem;
@@ -6,19 +6,19 @@ main.card-list article.home-item {
   align-items: start;
 }
 
-main.card-list article.home-item hgroup {
+main.home-list article.home-card hgroup {
   margin: 0;
 }
 
-main.card-list article.home-item div span {
+main.home-list article.home-card div span {
   font-size: 4rem;
 }
 
-main.card-list article.home-item div.button {
+main.home-list article.home-card div.home-card-button {
   min-width: 108px;
 }
 
-main.card-list .menu-separator {
+main.home-list .menu-separator {
   width: 100%;
   margin: 1rem 0;
 }

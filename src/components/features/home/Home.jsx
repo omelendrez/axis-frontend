@@ -13,7 +13,7 @@ export const Home = () => {
   const handleNavigate = (link) => navigate(link)
 
   return (
-    <main className="card-list">
+    <main className="card-list home-list container-fluid">
       {user &&
         options
           .map((o) => ({ ...o, roles: o?.roles || [] }))

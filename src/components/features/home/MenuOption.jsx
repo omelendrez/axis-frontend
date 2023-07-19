@@ -10,13 +10,13 @@ export const MenuOption = ({
 }) => (
   <>
     <article
-      className="card home-item"
+      className="card home-card"
       onClick={(e) => {
         e.preventDefault()
         onNavigate(path)
       }}
     >
-      <div className="button home-item-button">
+      <div className="button home-card-button">
         <span className="material-icons">{icon}</span>
       </div>
       <hgroup>
