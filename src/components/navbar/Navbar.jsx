@@ -14,7 +14,7 @@ export const Navbar = () => {
 
   const { page } = usePage()
 
-  console.log(page)
+  // console.log(page)
 
   const isUserAuthenticated = Boolean(user?.id)
 

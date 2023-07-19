@@ -60,7 +60,6 @@
     "type": "date",
     "id": "birth_date",
     "label": "Birth date",
-    "placeholder": "Enter badge",
     "required": true
   },
   {

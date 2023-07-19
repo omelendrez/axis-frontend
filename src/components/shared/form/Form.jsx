@@ -13,7 +13,10 @@ export const Form = ({
 }) => (
   <form>
     {schema.map((field) => {
-      if (field.if && object?.hasOwnProperty(field.if) && !object[field.id]) {
+      if (
+        field.if &&
+        (!object?.hasOwnProperty(field.if) || !object[field.if])
+      ) {
         return null
       }
       return (
