@@ -6,7 +6,9 @@ export const Switch = ({ id, label, onChange, value }) => (
       justifyContent: 'space-between',
       marginBottom: '1rem',
       padding: '1rem',
-      border: '1px solid rgb(162,175,185)',
+      border: 'none',
+      backgroundColor: 'white',
+
       borderRadius: 6
     }}
   >

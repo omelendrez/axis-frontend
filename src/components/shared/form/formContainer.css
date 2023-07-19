@@ -1,3 +1,7 @@
+article.form-container {
+  background-color: #e3f2fd;
+}
+
 article.form-container .form-control {
   width: auto;
 }
