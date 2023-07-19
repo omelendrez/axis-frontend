@@ -9,7 +9,7 @@ div.add-button-container a {
   border-radius: 50%;
   cursor: pointer;
   border: none;
-  background-color: var(--other-green);
+  background-color: #aa00ff;
 }
 
 div.add-button-container a span {

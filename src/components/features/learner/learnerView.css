@@ -29,21 +29,12 @@
   margin-left: 6px;
 }
 
-.learner-view article .title {
-  color: var(--primary);
-  border-color: #dadada;
-}
-
 .learner-view .photo img {
   aspect-ratio: 4/3;
 }
 
 .learner-view .actions {
   flex-grow: 1;
-}
-
-.learner-view .actions article .title {
-  color: var(--secondary);
 }
 
 .learner-view .actions article div {

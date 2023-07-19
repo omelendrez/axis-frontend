@@ -17,7 +17,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   const { roles } = user
 
-  const { id, status_id: status, tracking, full_name: fullName } = training
+  const { id, status_id: status, tracking } = training
 
   const trackingRecord = tracking.find(
     (t) => t.status_id === TRAINING_STATUS.ADMIN
@@ -94,9 +94,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
       approveDisabled={!canUpdate}
       rejectLabel="Send Letter"
-      rejectTooltip={`sends welcome letter by email to ${fullName}`}
-      rejectDisabled={!canUpdate}
-      onReject={handleSendLetter}
+      rejectTooltip={'Send letter email'}
+      onReject={isDoc ? handleSendLetter : null}
       onApprove={canUpdate ? handleGenerate : null}
     >
       {isDoc && (

@@ -64,11 +64,9 @@ main.container-fluid {
 }
 
 main article h6.title {
-  border: none;
-  padding: 0.3rem 1rem;
-  margin: 0 0 1rem 0;
   text-transform: uppercase;
-  color: var(--background-color);
-  background-color: #0288d1;
-  text-align: right;
+  background-color: #e1f5fe;
+
+  padding: 1rem 1.6rem;
+  border-radius: 1rem 1rem 0 0;
 }

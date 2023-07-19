@@ -33,20 +33,12 @@
   color: var(--primary);
 }
 
-.training-view article .title {
-  background-color: var(--other-green);
-}
-
 .training-view .photo img {
   aspect-ratio: 4/3;
 }
 
 .training-view .actions {
   flex-grow: 1;
-}
-
-.training-view .actions article .title {
-  background-color: #00e676;
 }
 
 .training-view .actions article div {
