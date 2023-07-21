@@ -38,7 +38,7 @@ export const CourseItem = ({ courseItem }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const payload = Object.entries(values)
@@ -64,7 +64,7 @@ export const CourseItem = ({ courseItem }) => {
       isLoading={isLoading}
       onChange={handleChange}
       values={values}
-      onSave={handleSave}
+      onSubmit={handleSubmit}
       onClose={handleFormCancel}
     />
   )

@@ -38,7 +38,7 @@ export const CourseAssessment = ({ courseAssessment }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const payload = Object.entries(values)
@@ -64,7 +64,7 @@ export const CourseAssessment = ({ courseAssessment }) => {
       isLoading={isLoading}
       onChange={handleChange}
       values={values}
-      onSave={handleSave}
+      onSubmit={handleSubmit}
       onClose={handleFormCancel}
     />
   )

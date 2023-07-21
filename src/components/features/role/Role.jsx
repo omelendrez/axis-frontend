@@ -39,7 +39,7 @@ export const Role = ({ role }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const payload = Object.entries(values)
@@ -65,7 +65,7 @@ export const Role = ({ role }) => {
       isLoading={isLoading}
       onChange={handleChange}
       values={values}
-      onSave={handleSave}
+      onSubmit={handleSubmit}
       onClose={handleFormCancel}
     />
   )

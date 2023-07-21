@@ -8,10 +8,10 @@ export const Form = ({
   onChange,
   values,
   options,
-  onSave,
+  onSubmit,
   onClose
 }) => (
-  <form>
+  <form onSubmit={onSubmit}>
     {schema.map((field) => {
       if (
         field.if &&
@@ -30,7 +30,7 @@ export const Form = ({
       )
     })}
     <FormButtonRow>
-      <SaveButton isSubmitting={isLoading} onSave={onSave} />
+      <SaveButton isSubmitting={isLoading} />
       <CloseButton isSubmitting={isLoading} onClose={onClose} />
     </FormButtonRow>
   </form>

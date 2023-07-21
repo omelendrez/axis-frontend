@@ -171,7 +171,7 @@ export const LearnerForm = ({ learner, onClose }) => {
     setIsConfirmOpen(false)
   }
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
@@ -216,7 +216,7 @@ export const LearnerForm = ({ learner, onClose }) => {
         onChange={handleChange}
         values={values}
         options={options}
-        onSave={handleSave}
+        onSubmit={handleSubmit}
         onClose={onClose}
       />
     </>

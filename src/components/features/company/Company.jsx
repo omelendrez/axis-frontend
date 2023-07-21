@@ -38,7 +38,7 @@ export const Company = ({ company }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const payload = Object.entries(values)
       .filter((id) => id !== 'id')
@@ -67,7 +67,7 @@ export const Company = ({ company }) => {
       isLoading={isLoading}
       onChange={handleChange}
       values={values}
-      onSave={handleSave}
+      onSubmit={handleSubmit}
       onClose={handleFormCancel}
       options={options}
     />

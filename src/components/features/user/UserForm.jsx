@@ -44,7 +44,7 @@ export const UserForm = ({ user, onClose }) => {
     setValues((values) => ({ ...values, [id]: data }))
   }
 
-  const handleSave = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const payload = Object.entries(values)
@@ -69,7 +69,7 @@ export const UserForm = ({ user, onClose }) => {
       isLoading={isLoading}
       onChange={handleChange}
       values={values}
-      onSave={handleSave}
+      onSubmit={handleSubmit}
       onClose={onClose}
       options={options}
     />

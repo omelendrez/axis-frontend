@@ -7,7 +7,7 @@
     "required": true
   },
   {
-    "type": "text",
+    "type": "email",
     "id": "email",
     "label": "Email",
     "placeholder": "Enter email address"
