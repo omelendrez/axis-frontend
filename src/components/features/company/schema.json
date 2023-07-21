@@ -7,6 +7,18 @@
     "required": true
   },
   {
+    "type": "text",
+    "id": "email",
+    "label": "Email",
+    "placeholder": "Enter email address"
+  },
+  {
+    "type": "text",
+    "id": "contact",
+    "label": "Contact",
+    "placeholder": "Enter contact name"
+  },
+  {
     "type": "dropdown",
     "id": "status",
     "label": "Status",
