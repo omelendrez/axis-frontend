@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Search, Pagination, Confirm } from '@/components'
 import { RowView } from './RowView'
-import useDeleteConfirm from '@/hooks/useDeleteConfirm'
+import useConfirm from '@/hooks/useConfirm'
 import './listView.css'
 
 export const ListView = ({
@@ -17,7 +17,7 @@ export const ListView = ({
   const { page, limit, search } = pagination
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
-    useDeleteConfirm()
+    useConfirm()
 
   const [selectedItem, setSelectedItem] = useState()
 

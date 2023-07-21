@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import fields from './course-assessment-fields.json'
 import { Table, Buttons, Confirm, Divider } from '@/components'
-import useDeleteConfirm from '@/hooks/useDeleteConfirm'
+import useConfirm from '@/hooks/useConfirm'
 // Ok
 
 export const CourseAssessments = ({ items, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
-    useDeleteConfirm()
+    useConfirm()
 
   useEffect(() => {
     const filtered = selected.filter((s) => items.find((t) => t.id === s))

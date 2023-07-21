@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import fields from './contact-fields.json'
-import useDeleteConfirm from '@/hooks/useDeleteConfirm'
+import useConfirm from '@/hooks/useConfirm'
 
 import { Table, Buttons, Confirm, Divider } from '@/components'
 
@@ -8,7 +8,7 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
-    useDeleteConfirm()
+    useConfirm()
 
   useEffect(() => {
     const filtered = selected.filter((s) => contacts.find((t) => t.id === s))

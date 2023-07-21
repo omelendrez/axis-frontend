@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const useDeleteConfirm = () => {
+const useConfirm = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
   const [confirmMessage, setCofirmMessage] = useState('')
@@ -23,4 +23,4 @@ const useDeleteConfirm = () => {
   }
 }
 
-export default useDeleteConfirm
+export default useConfirm

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import fields from './course-item-fields.json'
 import { Table, Buttons, Confirm, Divider } from '@/components'
-import useDeleteConfirm from '@/hooks/useDeleteConfirm'
+import useConfirm from '@/hooks/useConfirm'
 
 export const CourseItems = ({ items, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
-    useDeleteConfirm()
+    useConfirm()
 
   useEffect(() => {
     const filtered = selected.filter((s) => items.find((t) => t.id === s))
