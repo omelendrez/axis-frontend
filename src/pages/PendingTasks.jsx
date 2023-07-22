@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Loading } from '@/components'
+import { Loading, Calendar } from '@/components'
 import usePage from '@/hooks/usePage'
 
 const PendingTasks = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const [date, setDate] = useState(new Date())
 
   const { set: setPage } = usePage()
 
@@ -18,14 +18,12 @@ const PendingTasks = () => {
   return (
     <main className="container-fluid">
       {isLoading && <Loading />}
-      <nav aria-label="breadcrumb" className="breadcrumb">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>Pending Tasks</li>
-        </ul>
-      </nav>
+      <article className="pending-tasks">
+        <div>Date: {new Date().toDateString()}</div>
+        <div>
+          <Calendar onChange={setDate} value={date} />
+        </div>
+      </article>
     </main>
   )
 }
