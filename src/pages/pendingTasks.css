@@ -1,10 +1,11 @@
 .pending-tasks {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.pending-tasks div .calendar-today-button {
+.pending-tasks .calendar-today-button {
   width: fit-content;
   margin: 1rem auto;
 }
