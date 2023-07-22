@@ -32,9 +32,9 @@ export const Action = ({ training, onUpdate }) => {
       <Picture {...props} role={ROLES.TRAINING_COORDINATOR} />
       <Signature {...props} role={ROLES.TRAINING_COORDINATOR} />
       {/* <Assessment {...props} role={ROLES.ASSESSMENT}/> */}
+      <MDApproval {...props} role={ROLES.MD} />
       <QAApproval {...props} role={ROLES.QA} />
       <Payment {...props} role={ROLES.FINANCE} />
-      <MDApproval {...props} role={ROLES.MD} />
       <Print {...props} type={DOC_TYPE.CERTIFICATE} role={ROLES.CERT_PRINT} />
       <Print {...props} type={DOC_TYPE.ID_CARD} role={ROLES.ID_CARD_PRINT} />
     </>

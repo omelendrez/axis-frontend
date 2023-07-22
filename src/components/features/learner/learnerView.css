@@ -61,32 +61,33 @@
 
 @media screen and (min-width: 640px) {
   .learner-view article {
-    width: unset;
     margin: 0 0 1rem 0;
+    flex-grow: 1;
   }
 
   .learner-view .photo img {
     margin: 0 auto;
-  }
-
-  .learner-view article.course,
-  .learner-view article.learner {
-    flex-grow: 1;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .learner-view article {
+  .learner-view article.trainings,
+  .learner-view article.contacts {
+    width: 100%;
+  }
+
+  .learner-view article.photo,
+  .learner-view article.learner {
     width: unset;
+    flex-grow: unset;
   }
 
-  .learner-view .photo img {
-    max-width: 20rem;
-    margin: 0 auto;
-  }
-
-  .learner-view article.course,
   .learner-view article.learner {
     flex-grow: 1;
+  }
+
+  .learner-view article.photo img {
+    max-width: 20rem;
+    margin: 0 auto;
   }
 }

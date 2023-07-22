@@ -21,9 +21,9 @@ const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
-  // if (componentRole === ROLES.ADMIN) {
-  //   log.info('getUserAuth', { componentRole, userRoles, status, tracking })
-  // }
+  if (componentRole === ROLES.ADMIN) {
+    log.info('getUserAuth', { componentRole, userRoles, status, tracking })
+  }
 
   const isApproved = tracking.map((t) => t.status_id).includes(componentRole)
 
@@ -41,16 +41,16 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const canUpdate = matchRoleStatus(userRoles, status)
 
-  // if (componentRole === ROLES.ADMIN) {
-  //   log.info({
-  //     canView,
-  //     canApprove,
-  //     canUpdate,
-  //     isComplete,
-  //     isApproved,
-  //     isCancelled
-  //   })
-  // }
+  if (componentRole === ROLES.ADMIN) {
+    log.info({
+      canView,
+      canApprove,
+      canUpdate,
+      isComplete,
+      isApproved,
+      isCancelled
+    })
+  }
 
   return { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled }
 }

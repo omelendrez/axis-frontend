@@ -40,7 +40,7 @@ export const Trainings = ({ trainings, onView, onAdd, onEdit, onDelete }) => {
   }
 
   return (
-    <article>
+    <article className="trainings">
       <h6 className="title">Training records</h6>
       <Buttons
         selected={selected}

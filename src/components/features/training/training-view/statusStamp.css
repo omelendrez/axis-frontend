@@ -6,20 +6,6 @@ div.alert-status-container {
   height: fit-content;
 }
 
-@media screen and (min-width: 640px) {
-  div.alert-status-container {
-    top: 6rem;
-    right: 1rem;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  div.alert-status-container {
-    top: 6rem;
-    right: 0;
-  }
-}
-
 div.alert-status-container div.alert-status {
   border-radius: 4px;
   border: 2px solid transparent;
@@ -30,7 +16,6 @@ div.alert-status-container div.alert-status {
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   transform: rotate(30deg);
-  font-size: xx-small;
 }
 
 div.alert-status-container div.alert-status.status-12 {
@@ -39,4 +24,18 @@ div.alert-status-container div.alert-status.status-12 {
 
 div.alert-status-container div.alert-status.status-13 {
   color: var(--error);
+}
+
+@media screen and (min-width: 640px) {
+  div.alert-status-container {
+    top: 6rem;
+    right: 1rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  div.alert-status-container {
+    top: 5rem;
+    right: 0;
+  }
 }

@@ -63,7 +63,7 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
   }
 
   return (
-    <article>
+    <article className="contacts">
       <h6 className="title">Contact info</h6>
 
       <Buttons

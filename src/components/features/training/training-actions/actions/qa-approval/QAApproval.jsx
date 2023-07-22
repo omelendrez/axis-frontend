@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Task } from '@/components'
+import { Task, RejectReason } from '@/components'
 
 import description from './description'
 import { Status } from '../status-container/Status'
@@ -13,6 +13,8 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
   const { roles } = user
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const [isRejectOpen, setIsRejectOpen] = useState(false)
 
   const { id, status_id: status, tracking } = training
 
@@ -47,6 +49,14 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
 
   const handleReject = (e) => {
     e.preventDefault()
+    setIsRejectOpen(true)
+  }
+
+  const handleCancel = () => {
+    setIsRejectOpen(false)
+  }
+
+  const handleConfirmReject = () => {
     process({
       approved: 0
     })
@@ -63,24 +73,32 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <Task
-      title={title}
-      status={<Status trackingRecord={trackingRecord} />}
-      description={
-        !isApproved ? (
-          description
-        ) : (
-          <div className="description-large">{result}</div>
-        )
-      }
-      className="md-approval"
-      onApprove={!isApproved ? handleApprove : null}
-      onReject={!isApproved ? handleReject : null}
-      approveDisabled={isCancelled}
-      rejectDisabled={isCancelled}
-      approveLabel="Approve"
-      rejectLabel="Reject"
-      isSubmitting={isSubmitting}
-    ></Task>
+    <>
+      <Task
+        title={title}
+        status={<Status trackingRecord={trackingRecord} />}
+        description={
+          !isApproved ? (
+            description
+          ) : (
+            <div className="description-large">{result}</div>
+          )
+        }
+        className="md-approval"
+        onApprove={!isApproved ? handleApprove : null}
+        onReject={!isApproved ? handleReject : null}
+        approveDisabled={isCancelled}
+        rejectDisabled={isCancelled}
+        approveLabel="Approve"
+        rejectLabel="Reject"
+        isSubmitting={isSubmitting}
+      ></Task>
+
+      <RejectReason
+        open={isRejectOpen}
+        onReject={handleConfirmReject}
+        onCancel={handleCancel}
+      />
+    </>
   )
 }
