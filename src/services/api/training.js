@@ -1,3 +1,4 @@
+import { setURLParams } from '@/helpers'
 import { api } from './apiClient'
 
 const endpoint = '/training'
@@ -6,8 +7,8 @@ export const createTraining = (payload) => api.post(endpoint, payload)
 
 export const getLearnerTrainings = (id) => api.get(`${endpoint}/${id}/all`)
 
-export const getTrainings = ({ date, statuses }) =>
-  api.get(`${endpoint}/${date}/${statuses}`)
+export const getTrainings = ({ date, statuses, pagination }) =>
+  api.get(`${endpoint}/${date}/${statuses}${setURLParams(pagination)}`)
 
 export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 

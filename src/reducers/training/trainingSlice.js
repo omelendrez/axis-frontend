@@ -61,13 +61,13 @@ export const trainingSlice = createSlice({
 
 export default trainingSlice.reducer
 
-export function loadTrainings({ date, statuses }) {
+export function loadTrainings({ date, statuses, pagination }) {
   const { setLoading, setData, reset } = trainingSlice.actions
 
   return async (dispatch) => {
     dispatch(setLoading())
     try {
-      const { data } = await getTrainings({ date, statuses })
+      const { data } = await getTrainings({ date, statuses, pagination })
       dispatch(setData(data))
       dispatch(reset())
     } catch (error) {
