@@ -1,0 +1,16 @@
+main.not-found header.header {
+  display: flex;
+  column-gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  align-items: center;
+}
+
+main.not-found header.header span {
+  font-size: 2rem;
+  color: var(--error);
+}
+
+main.not-found footer.footer span {
+  font-size: 1.6rem;
+}

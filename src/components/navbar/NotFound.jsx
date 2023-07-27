@@ -1,18 +1,21 @@
 import { Link } from 'react-router-dom'
+import './notFound.css'
 
 const NotFound = () => {
   return (
-    <div className="container">
+    <main className="container not-found">
       <article>
-        <h2>Page not found!</h2>
+        <header className="header">
+          <span className="material-icons">error</span> Page not found!
+        </header>
         <p>The page you are looking for does not exist.</p>
-        <footer>
-          <Link to="/dashboard" role="button">
-            Back to Dashboard
+        <footer className="footer">
+          <Link to="/" role="button">
+            <span className="material-icons">home</span>
           </Link>
         </footer>
       </article>
-    </div>
+    </main>
   )
 }
 
