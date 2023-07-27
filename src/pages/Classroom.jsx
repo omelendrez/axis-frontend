@@ -61,7 +61,7 @@ const Classroom = () => {
 
   const [classroom, setClassoom] = useState({})
 
-  const [records, setRecords] = useState({ rows: [], count: 0 })
+  // const [records, setRecords] = useState({ rows: [], count: 0 })
 
   const handleView = (training) => navigate(`/training/${training.id}`)
 
@@ -73,10 +73,10 @@ const Classroom = () => {
         .then((res) => {
           setClassoom(res.data)
 
-          getTrainingsByClassroom(id, pagination)
-            .then((res) => setRecords(res.data))
-            .catch((e) => apiMessage(e))
-            .finally(() => setIsLoading(false))
+          // getTrainingsByClassroom(id, pagination)
+          //   .then((res) => setRecords(res.data))
+          //   .catch((e) => apiMessage(e))
+          //   .finally(() => setIsLoading(false))
         })
         .catch((e) => apiMessage(e))
         .finally(() => setIsLoading(false))
@@ -100,7 +100,7 @@ const Classroom = () => {
 
       <CardList
         Card={Card}
-        data={records}
+        // data={records}
         pagination={pagination}
         onPagination={setPagination}
         onView={handleView}
