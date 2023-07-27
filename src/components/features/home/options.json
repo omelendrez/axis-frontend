@@ -49,7 +49,7 @@
     "title": "Course Assessments",
     "description": "Manage courses assessments.",
     "path": "/course-assessments",
-    "icon": "thumb_up",
+    "icon": "rules",
     "roles": [
       1
     ]
