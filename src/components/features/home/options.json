@@ -108,6 +108,16 @@
     "icon": "assignment",
     "roles": [
       1
+    ],
+    "separator": true
+  },
+  {
+    "title": "Document Manager",
+    "description": "Manage certificate and ID Card document backgrounds.",
+    "path": "/document-manager",
+    "icon": "upload_file",
+    "roles": [
+      1
     ]
   }
 ]

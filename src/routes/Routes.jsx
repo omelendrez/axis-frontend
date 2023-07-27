@@ -7,6 +7,7 @@ import { courseItemRoutes } from './courseItemRoutes'
 import { courseRoutes } from './courseRoutes'
 import { dashboardRoutes } from './dashboardRoutes'
 import { defaultRoutes } from './defaultRoutes'
+import { docManagerRoutes } from './docManagerRoutes'
 import { homeRoutes } from './homeRoutes'
 import { learnerRoutes } from './learnerRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
@@ -28,6 +29,7 @@ export const AppRoutes = () => {
         {courseRoutes}
         {dashboardRoutes}
         {defaultRoutes}
+        {docManagerRoutes}
         {homeRoutes}
         {learnerRoutes}
         {nationalityRoutes}
