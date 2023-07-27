@@ -111,7 +111,6 @@ const Users = () => {
         fields={fields}
         onView={handleView}
         isLoading={isLoading}
-        loadItems={loadUsers}
       />
     </main>
   )

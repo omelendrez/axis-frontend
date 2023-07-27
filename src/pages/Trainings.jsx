@@ -86,7 +86,6 @@ const Trainings = () => {
         data={data}
         onView={handleView}
         isLoading={isLoading}
-        loadItems={loadTrainings}
         pagination={pagination}
         onPagination={setPagination}
       />

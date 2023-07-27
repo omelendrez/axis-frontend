@@ -77,7 +77,6 @@ const Companies = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadItems={loadCompanies}
       />
     </main>
   )

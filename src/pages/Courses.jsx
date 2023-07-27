@@ -92,7 +92,6 @@ const Courses = () => {
         fields={fields}
         onView={handleView}
         isLoading={isLoading}
-        loadItems={loadCourses}
       />
     </main>
   )

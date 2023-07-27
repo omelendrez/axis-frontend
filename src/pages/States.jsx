@@ -82,7 +82,6 @@ const States = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadItems={loadStates}
       />
     </main>
   )

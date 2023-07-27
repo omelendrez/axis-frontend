@@ -116,7 +116,6 @@ const Learners = () => {
         fields={fields}
         onView={handleView}
         isLoading={isLoading}
-        loadItems={loadLearners}
       />
     </main>
   )

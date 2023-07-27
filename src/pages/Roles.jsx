@@ -75,7 +75,6 @@ const Roles = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadItems={loadRoles}
       />
     </main>
   )

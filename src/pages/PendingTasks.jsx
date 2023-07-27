@@ -243,7 +243,6 @@ const PendingTasks = () => {
         onPagination={setPagination}
         onView={handleView}
         isLoading={isLoading}
-        // loadItems={handleLoadItems}
       />
     </main>
   )

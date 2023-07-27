@@ -79,7 +79,6 @@ const CourseAssessments = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadItems={loadCourseAssessments}
       />
     </main>
   )

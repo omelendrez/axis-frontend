@@ -84,7 +84,6 @@ const Nationalities = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
-        loadItems={loadNationalities}
       />
     </main>
   )
