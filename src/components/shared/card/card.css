@@ -78,11 +78,13 @@
   .card {
     max-width: var(--card-width-tablet);
     min-width: var(--card-width-tablet);
+    width: var(--card-width-tablet);
   }
 
   .card .card-body .ellipsis {
     max-width: var(--ellipsis-tablet);
     min-width: var(--ellipsis-tablet);
+    width: var(--ellipsis-tablet);
   }
 
   .card .card-body div.card-line-buttons {
@@ -100,6 +102,7 @@
   .card .card-body .ellipsis {
     max-width: var(--ellipsis-desktop);
     min-width: var(--ellipsis-desktop);
+    width: var(--ellipsis-desktop);
   }
 
   .card .card-body div.card-line-buttons {
