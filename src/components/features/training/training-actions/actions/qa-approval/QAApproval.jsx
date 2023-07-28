@@ -63,7 +63,9 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
   }
 
   const result = (
-    <strong>{isCancelled ? 'CANCELLED' : isApproved ? 'APPROVED' : ''}</strong>
+    <strong>
+      {isCancelled ? 'CANCELLED' : isApproved ? 'QA/QC APPROVED' : ''}
+    </strong>
   )
 
   const title = <strong>QA/QC Approval</strong>

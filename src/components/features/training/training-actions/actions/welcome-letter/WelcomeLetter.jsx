@@ -23,7 +23,12 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.ADMIN
   )
 
-  const { canView, canUpdate } = getUserAuth(role, roles, status, tracking)
+  const { canView, canUpdate, canApprove } = getUserAuth(
+    role,
+    roles,
+    status,
+    tracking
+  )
 
   const [update, setUpdate] = useState(false)
 
@@ -95,8 +100,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       approveDisabled={!canUpdate}
       rejectLabel="Send Letter"
       rejectTooltip={'Send letter email'}
-      onReject={isDoc ? handleSendLetter : null}
-      onApprove={canUpdate ? handleGenerate : null}
+      onReject={canApprove ? handleSendLetter : null}
+      onApprove={canApprove ? handleGenerate : null}
     >
       {isDoc && (
         <figure>

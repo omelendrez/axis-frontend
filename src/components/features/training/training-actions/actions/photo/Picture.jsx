@@ -28,7 +28,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.TRAINING_COORDINATOR
   )
 
-  const { isApproved, isCancelled, canView, canUpdate } = getUserAuth(
+  const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
     roles,
     status,
@@ -93,7 +93,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
       title={title}
       status={<Status trackingRecord={trackingRecord} />}
       className="picture"
-      onApprove={!isApproved && canUpdate ? handleApprove : null}
+      onApprove={canApprove ? handleApprove : null}
       onReject={!isApproved ? handleReject : null}
       approveDisabled={isCancelled}
       rejectDisabled={isCancelled}
@@ -101,7 +101,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
     >
       <div className="picture-children">
         {isImage && <Preview imageUrl={imageUrl} />}
-        {canUpdate && (
+        {canApprove && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>
               {isImage ? 'Re-take picture' : 'Take picture'}

@@ -1,4 +1,5 @@
 import {
+  Assessment,
   Foet,
   ScanId,
   Medical,
@@ -24,19 +25,19 @@ export const Action = ({ training, onUpdate }) => {
   }
 
   return (
-    <>
+    <section className="training-view-actions">
       <WelcomeLetter {...props} role={ROLES.ADMIN} />
       <Foet {...props} role={ROLES.ADMIN} />
       <ScanId {...props} role={ROLES.FRONTDESK} />
       <Medical {...props} role={ROLES.MEDICAL} />
       <Picture {...props} role={ROLES.TRAINING_COORDINATOR} />
       <Signature {...props} role={ROLES.TRAINING_COORDINATOR} />
-      {/* <Assessment {...props} role={ROLES.ASSESSMENT}/> */}
+      <Assessment {...props} role={ROLES.ASSESSMENT} />
       <MDApproval {...props} role={ROLES.MD} />
       <QAApproval {...props} role={ROLES.QA} />
       <Payment {...props} role={ROLES.FINANCE} />
       <Print {...props} type={DOC_TYPE.CERTIFICATE} role={ROLES.CERT_PRINT} />
       <Print {...props} type={DOC_TYPE.ID_CARD} role={ROLES.ID_CARD_PRINT} />
-    </>
+    </section>
   )
 }

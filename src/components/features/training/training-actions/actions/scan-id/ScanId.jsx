@@ -31,7 +31,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.FRONTDESK
   )
 
-  const { canApprove, isCancelled, canView, canUpdate } = getUserAuth(
+  const { canApprove, isCancelled, canView } = getUserAuth(
     role,
     roles,
     status,
@@ -156,7 +156,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
           </a>
         )}
 
-        {canUpdate && (
+        {canApprove && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>
               {isImage ? 'Re-scan Id' : 'Scan Id'}

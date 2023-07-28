@@ -55,7 +55,9 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
   }
 
   const result = (
-    <strong>{isCancelled ? 'CANCELLED' : isApproved ? 'APPROVED' : ''}</strong>
+    <strong>
+      {isCancelled ? 'CANCELLED' : isApproved ? 'MD APPROVED' : ''}
+    </strong>
   )
 
   const title = <strong>MD Approval</strong>

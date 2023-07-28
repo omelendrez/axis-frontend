@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Task } from '@/components'
 import {
   generateCertificate,
@@ -8,11 +9,10 @@ import {
   idCardExists
 } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
+import { Status } from '../status-container/Status'
 
 import { DOC_TYPE, TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './print.css'
-import { useEffect, useState } from 'react'
-import { Status } from '../status-container/Status'
 
 export const Print = ({ training, onUpdate, type, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -47,6 +47,11 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   const docExists =
     type === DOC_TYPE.CERTIFICATE ? certificateExists : idCardExists
 
+  const isPrinted =
+    type === DOC_TYPE.CERTIFICATE
+      ? status >= TRAINING_STATUS.CERT_PRINT
+      : status >= TRAINING_STATUS.ID_CARD_PRINT
+
   useEffect(() => {
     docExists(id)
       .then((res) => setIsDoc(res.data.exists))
@@ -77,18 +82,36 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     type: 'application/pdf'
   }
 
-  if (!canView || (role === TRAINING_STATUS.ID_CARD_PRINT && id_card !== 1)) {
+  if (
+    !canView ||
+    (role === TRAINING_STATUS.ID_CARD_PRINT && parseInt(id_card, 10) !== 1)
+  ) {
     return null
+  }
+
+  const handleMarkAsPrinted = (e) => {
+    e.preventDefault()
+
+    console.log('MarkAsPrinted')
   }
 
   return (
     <Task
       title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
       status={<Status trackingRecord={trackingRecord} />}
-      className="document"
+      className="print"
+      description={
+        isPrinted ? (
+          <center>
+            This document is already printed{' '}
+            <span className="material-icons">check</span>
+          </center>
+        ) : null
+      }
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
       approveDisabled={!canUpdate || isCancelled}
-      rejectLabel="Print"
+      rejectLabel="Mark as printed"
+      onReject={isDoc && !isPrinted ? handleMarkAsPrinted : null}
       onApprove={canUpdate && !isCancelled ? handleGenerate : null}
     >
       {isDoc && (

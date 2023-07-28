@@ -1,32 +1,46 @@
-.document .children {
+.print .children {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.document .children .certificate,
-.document .children .id-card {
+.print .children .certificate,
+.print .children .id-card {
   width: fit-content;
   height: fit-content;
   background-color: var(--primary);
 }
 
+div.actions .print article.description {
+  padding: 0.5rem 1rem;
+  margin: 1rem auto;
+  width: fit-content;
+  background-color: var(--success);
+  color: white;
+}
+
+div.actions .print article.description span {
+  position: relative;
+  font-size: 1rem;
+  top: 2px;
+}
+
 @media screen and (min-width: 640px) {
-  .document .children .certificate,
-  .document .children .id-card {
+  .print .children .certificate,
+  .print .children .id-card {
     height: fit-content;
     width: fit-content;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .document .children .certificate {
+  .print .children .certificate {
     height: 47vw;
     width: 30vw;
   }
 
-  .document .children .id-card {
+  .print .children .id-card {
     height: 44vw;
     width: 30vw;
   }
