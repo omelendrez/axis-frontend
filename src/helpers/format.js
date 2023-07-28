@@ -30,7 +30,7 @@ export const formatFullDate = (date) => {
 }
 
 export const documentNumber = (num) =>
-  (parseInt(num, 10) + (10 ^ 12)).toString().substring(1)
+  (parseInt(num, 10) + 10 ** 12).toString().substring(1)
 
 export const signatureNumber = (num) => parseInt(num, 10).toString(16)
 
