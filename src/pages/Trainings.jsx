@@ -11,8 +11,15 @@ import './trainings-card.css'
 import usePage from '@/hooks/usePage'
 
 const Card = ({ item, onView }) => {
-  const { badge, course_name, full_name, company_name, status_name, status } =
-    item
+  const {
+    badge,
+    start,
+    course_name,
+    full_name,
+    company_name,
+    status_name,
+    status
+  } = item
   const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
 
   const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
@@ -29,6 +36,7 @@ const Card = ({ item, onView }) => {
       </div>
       <div className="card-body">
         <div className="ellipsis course">{course_name}</div>
+        <div className="small-font">{start}</div>
         <div className="ellipsis name">{full_name}</div>
         <div className="small-font">{company_name}</div>
         <div className={`status status-${status} small-font`}>
@@ -56,14 +64,11 @@ const Trainings = () => {
   const { set: setPage } = usePage()
 
   useEffect(() => {
-    loadTrainings({ date: '2023-03-28', statuses: '2' })
+    loadTrainings({ pagination })
     setPage('Trainings')
 
-    return () => {
-      setPage('')
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [pagination])
 
   const handleView = (id) => {
     navigate(`/training/${id}`)

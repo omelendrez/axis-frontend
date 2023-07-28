@@ -8,7 +8,9 @@ export const createTraining = (payload) => api.post(endpoint, payload)
 export const getLearnerTrainings = (id) => api.get(`${endpoint}/${id}/all`)
 
 export const getTrainings = ({ date, statuses, pagination }) =>
-  api.get(`${endpoint}/${date}/${statuses}${setURLParams(pagination)}`)
+  date && statuses
+    ? api.get(`${endpoint}/${date}/${statuses}${setURLParams(pagination)}`)
+    : api.get(`${endpoint}${setURLParams(pagination)}`)
 
 export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 
