@@ -1,13 +1,10 @@
 import { roleStatus } from '@/static-lists'
-import { ROLES, TRAINING_STATUS } from './constants'
+import { USER_ROLE, TRAINING_STATUS } from './constants'
 import { log } from './log'
 
 export const hasRequiredRole = (optionRoles, userRoles) =>
   optionRoles.length === 0 ||
-  userRoles
-    .map((userRole) => userRole.id)
-    .join('-')
-    .includes(optionRoles)
+  Boolean(optionRoles.find((r) => userRoles.find((ur) => ur.id === r)))
 
 const matchRoleStatus = (userRoles, status) => {
   let statuses = []
@@ -21,7 +18,7 @@ const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
-  // if (componentRole === ROLES.ADMIN) {
+  // if (componentRole === USER_ROLE.ADMIN) {
   //   log.info('getUserAuth', { componentRole, userRoles, status, tracking })
   // }
 
@@ -41,7 +38,7 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const canUpdate = matchRoleStatus(userRoles, status)
 
-  if (componentRole === ROLES.ADMIN) {
+  if (componentRole === USER_ROLE.ADMIN) {
     log.info({
       canView,
       canApprove,

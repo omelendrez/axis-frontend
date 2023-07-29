@@ -12,7 +12,8 @@ import {
   UserContext,
   TrainingContext,
   NetworkContext,
-  PageContext
+  PageContext,
+  PendingTasksContext
 } from '@/context'
 
 import { KEYS, SP } from '@/services'
@@ -102,6 +103,11 @@ function App() {
   const [user, setUser] = useState(currentUser)
   const [changes, setChanges] = useState(null)
   const [network, setNetwork] = useState(navigator.onLine)
+  const [pendingTasksParams, setPendingTaksParams] = useState({
+    date: new Date(),
+    selectedStatuses: []
+  })
+
   const [page, setPage] = useState(null)
 
   const userContextValues = {
@@ -124,21 +130,28 @@ function App() {
     setPage
   }
 
+  const pendingTasksContextValues = {
+    pendingTasksParams,
+    setPendingTaksParams
+  }
+
   return (
     <>
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
       <UserContext.Provider value={userContextValues}>
         <NetworkContext.Provider value={networkContextValues}>
           <PageContext.Provider value={pageContextValues}>
-            <Navbar />
-            <TrainingContext.Provider value={trainingContextValues}>
-              <ErrorBoundary
-                FallbackComponent={ErrorFallback}
-                onError={errorHandler}
-              >
-                <AppRoutes />
-              </ErrorBoundary>
-            </TrainingContext.Provider>
+            <PendingTasksContext.Provider value={pendingTasksContextValues}>
+              <Navbar />
+              <TrainingContext.Provider value={trainingContextValues}>
+                <ErrorBoundary
+                  FallbackComponent={ErrorFallback}
+                  onError={errorHandler}
+                >
+                  <AppRoutes />
+                </ErrorBoundary>
+              </TrainingContext.Provider>
+            </PendingTasksContext.Provider>
           </PageContext.Provider>
         </NetworkContext.Provider>
       </UserContext.Provider>

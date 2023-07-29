@@ -1,5 +1,6 @@
 export * from './network-context'
 export * from './page-context'
+export * from './pending-tasks-context'
 export * from './theme-provider'
 export * from './training-context'
 export * from './user-context'

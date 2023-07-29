@@ -5,7 +5,7 @@ import { FormButtonRow, InputField } from '@/components'
 import { login, SP, KEYS } from '@/services'
 import { UserContext } from '@/context'
 import useApiMessages from '@/hooks/useApiMessages'
-import { loadSchema } from '@/helpers'
+import { USER_ROLE, loadSchema } from '@/helpers'
 import schema from './schema.json'
 
 import './login.css'
@@ -52,8 +52,9 @@ export const Login = () => {
         const user = {
           ...res.data,
           token: undefined,
-          roles: await JSON.parse(res.data.roles)
+          roles: [{ id: USER_ROLE.FRONTDESK, name: 'Frontdesk' }] //await JSON.parse(res.data.roles)
         }
+
         session.save(KEYS.token, token)
         session.save(KEYS.user, user)
 

@@ -92,7 +92,7 @@ export const Signature = ({ training, role, user }) => {
     width: window.visualViewport.width - 100
   }
 
-  if (!canView || isDesktop() || status > TRAINING_STATUS.ASSESSMENT) {
+  if (isDesktop() || !canView || status > TRAINING_STATUS.ASSESSMENT) {
     return null
   }
 

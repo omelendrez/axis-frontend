@@ -8,7 +8,7 @@ import useUsers from '@/hooks/useUsers'
 import useNotification from '@/hooks/useNotification'
 
 import schema from './schema.json'
-import { ROLES, loadSchema } from '@/helpers'
+import { USER_ROLE, loadSchema } from '@/helpers'
 
 const MANUAL_INPUT = 2
 
@@ -64,7 +64,7 @@ export const TrainingForm = ({ training, onClose }) => {
 
   useEffect(() => {
     const instructors = userList.rows
-      .filter((u) => u.roles.includes(ROLES.ASSESSMENT))
+      .filter((u) => u.roles.includes(USER_ROLE.ASSESSMENT))
       .map((u) => ({ id: u.id, name: u.full_name }))
     setInstructors(instructors)
   }, [userList])
