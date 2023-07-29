@@ -1,0 +1,61 @@
+.pending-tasks .card.trainings .course {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status {
+  font-weight: 900;
+  background-color: transparent;
+  margin: 0;
+}
+
+.pending-tasks .card.trainings .card-body .status-1 {
+  color: #888;
+}
+
+.pending-tasks .card.trainings .card-body .status-2 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-3 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-4 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-5 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-6 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-7 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-8 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-9 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-10 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-11 {
+  color: var(--primary);
+}
+
+.pending-tasks .card.trainings .card-body .status-12 {
+  color: var(--success);
+}
+
+.pending-tasks .card.trainings .card-body .status-13 {
+  color: var(--error);
+}

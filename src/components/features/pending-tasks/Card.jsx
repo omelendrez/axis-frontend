@@ -1,4 +1,5 @@
 import { getPhotoUrl } from '@/services'
+import './card.css'
 
 export const Card = ({ item, onView }) => {
   const {
@@ -8,7 +9,8 @@ export const Card = ({ item, onView }) => {
     company_name,
     status_name,
     state_name,
-    status
+    status,
+    start
   } = item
 
   const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
@@ -26,8 +28,12 @@ export const Card = ({ item, onView }) => {
         />
       </div>
       <div className="card-body">
-        <div className="ellipsis course">{course_name}</div>
+        <div className="ellipsis course">
+          {start} - {course_name}
+        </div>
+
         <div className="ellipsis name">{full_name}</div>
+        <div className="small-font">{badge}</div>
         <div className="small-font">{company_name}</div>
         <div className={`status status-${status} small-font`}>
           {status_name} - {state_name}

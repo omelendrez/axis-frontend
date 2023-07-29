@@ -1,6 +1,12 @@
 import { useEffect, useState, useContext } from 'react'
 
-import { Loading, CardList } from '@/components'
+import {
+  Loading,
+  CardList,
+  SelectedDateView,
+  InputParameters,
+  Card
+} from '@/components'
 
 import usePage from '@/hooks/usePage'
 import useTrainings from '@/hooks/useTrainings'
@@ -11,9 +17,9 @@ import { PendingTasksContext } from '@/context'
 
 import { formatYMD, initialValues } from '@/helpers'
 
-import './pendingTasks.css'
 import { useNavigate } from 'react-router-dom'
-import { SelectedDateView, InputParameters, Card } from './pending-tasks'
+
+import '../components/features/pending-tasks/pendingTasks.css'
 
 const PendingTasks = () => {
   const { pendingTasksParams, setPendingTaksParams } =
@@ -101,7 +107,7 @@ const PendingTasks = () => {
   }
 
   return (
-    <main className="container-fluid">
+    <main className="container-fluid pending-tasks">
       {isLoading && <Loading />}
       {!showInputParameters && date && (
         <SelectedDateView date={date} onClick={handleSelectedDateView} />

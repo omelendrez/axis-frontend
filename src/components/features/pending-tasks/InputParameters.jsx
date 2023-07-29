@@ -1,4 +1,4 @@
-import { InputStatus, InputCalendar } from './'
+import { InputStatus, InputCalendar } from './input-parameters'
 
 export const InputParameters = ({
   date,
@@ -21,7 +21,9 @@ export const InputParameters = ({
       selected={selected}
     />
     <div className="pending-tasks-confirm-button-container">
-      <button onClick={onConfirm}>Go</button>
+      <button className="pending-tasks-confirm-button" onClick={onConfirm}>
+        load tasks
+      </button>
     </div>
   </article>
 )

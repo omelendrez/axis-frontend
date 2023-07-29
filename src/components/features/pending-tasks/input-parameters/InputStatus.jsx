@@ -1,4 +1,4 @@
-import { StatusSwitcher } from './'
+import { StatusSwitcher } from '..'
 
 export const InputStatus = ({ statuses, onChange, selected }) => (
   <section className="pending-tasks-statuses">
