@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Photo, Learner } from '../learner/learner-view'
 import { Course, StatusStamp } from './training-view'
 import { Action } from './training-actions'
-import { Divider } from '@/components'
-import { undoLastApproval } from '@/services'
+import { Divider, Modal, TrainingForm } from '@/components'
+import { getTraining, undoLastApproval } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
 
@@ -16,6 +16,8 @@ export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
   const { user } = useUser()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isTrainingEdit, setIsTrainingEdit] = useState(false)
+  const [trainingEditData, setTrainingEditData] = useState(null)
 
   const navigate = useNavigate()
 
@@ -50,9 +52,24 @@ export const TrainingView = ({ training, onUpdate }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  const handleView = (e) => {
+  const handleLearnerView = (e) => {
     e.preventDefault()
     navigate(`/learner/${learner_id}`)
+  }
+
+  const handleEditTraining = () =>
+    getTraining(id)
+      .then((res) => {
+        setTrainingEditData(res.data)
+        setIsTrainingEdit(true)
+      })
+      .catch((e) => apiMessage(e))
+
+  const handleClose = (e) => {
+    e?.preventDefault()
+    onUpdate()
+    setTrainingEditData(null)
+    setIsTrainingEdit(false)
   }
 
   return (
@@ -61,18 +78,22 @@ export const TrainingView = ({ training, onUpdate }) => {
       <Photo {...training} />
       <Learner
         learner={{ ...training, status: undefined }}
-        onView={handleView}
+        onView={handleLearnerView}
       />
       <Course
         training={training}
         onUndo={isAdmin && statusId > TRAINING_STATUS.NEW ? handleUndo : null}
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}
+        onEdit={handleEditTraining}
       />
       <Divider />
       <div className="actions">
         <Action training={training} onUpdate={onUpdate} />
       </div>
+      <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
+        <TrainingForm training={trainingEditData} onClose={handleClose} />
+      </Modal>
     </main>
   )
 }

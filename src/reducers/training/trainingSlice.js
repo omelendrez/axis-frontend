@@ -112,7 +112,7 @@ export function removeTraining(id) {
     dispatch(setLoading())
     try {
       await deleteTraining(id)
-      dispatch(loadTrainings(learner))
+      dispatch(loadLearnerTrainings(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -127,7 +127,7 @@ export function addTraining(payload) {
     dispatch(setLoading())
     try {
       await createTraining(payload)
-      dispatch(loadTrainings(learner))
+      dispatch(loadLearnerTrainings(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)
@@ -142,7 +142,7 @@ export function modifyTraining(id, payload) {
     dispatch(setLoading())
     try {
       await updateTraining(id, payload)
-      dispatch(loadTrainings(learner))
+      dispatch(loadLearnerTrainings(learner))
       dispatch(setSuccess())
     } catch (error) {
       handleError(error, dispatch, reset)

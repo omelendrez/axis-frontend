@@ -11,7 +11,11 @@
   },
   {
     "label": "Course end",
-    "field": "end",
+    "field": "end"
+  },
+  {
+    "label": "Instructor",
+    "field": "instructor",
     "divider": true
   },
   {

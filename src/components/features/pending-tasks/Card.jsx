@@ -4,13 +4,14 @@ import './card.css'
 export const Card = ({ item, onView }) => {
   const {
     badge,
+    company_name,
     course_name,
     full_name,
-    company_name,
-    status_name,
+    instructor,
+    start,
     state_name,
-    status,
-    start
+    status_name,
+    status
   } = item
 
   const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
@@ -31,6 +32,7 @@ export const Card = ({ item, onView }) => {
         <div className="ellipsis course">
           {start} - {course_name}
         </div>
+        <div className="small-font instructor">{instructor}</div>
 
         <div className="ellipsis name">{full_name}</div>
         <div className="small-font">{badge}</div>
