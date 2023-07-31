@@ -1,3 +1,15 @@
+.pending-tasks .card {
+  align-items: flex-start;
+}
+
+.pending-tasks .card .card-avatar-root {
+  margin-top: 1rem;
+}
+
+.pending-tasks .card.trainings .card-body {
+  padding: 0.6rem;
+}
+
 .pending-tasks .card.trainings .course {
   color: var(--primary);
   white-space: nowrap;

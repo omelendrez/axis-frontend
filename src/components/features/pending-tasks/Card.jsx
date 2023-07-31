@@ -1,6 +1,5 @@
 import { getPhotoUrl } from '@/services'
 import './card.css'
-import { Divider } from '@/components/shared'
 
 export const Card = ({ item, onView }) => {
   const {
@@ -34,11 +33,10 @@ export const Card = ({ item, onView }) => {
           {start} - {course_name}
         </div>
         <div className="small-font instructor">{instructor}</div>
-        <Divider style={{ margin: '.3rem 0' }} />
+
         <div className="ellipsis name">{full_name}</div>
         {/* <div className="small-font">{badge}</div> */}
         <div className="small-font">{company_name}</div>
-        <Divider style={{ margin: '.3rem 0' }} />
 
         <div className={`status status-${status} small-font`}>
           {status_name} - {state_name}
