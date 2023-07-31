@@ -106,6 +106,10 @@ const PendingTasks = () => {
     }
   }
 
+  if (!data.rows) {
+    return null
+  }
+
   return (
     <main className="container-fluid pending-tasks">
       {isLoading && <Loading />}

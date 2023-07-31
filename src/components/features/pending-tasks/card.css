@@ -1,5 +1,9 @@
 .pending-tasks .card.trainings .course {
   color: var(--primary);
+  white-space: nowrap;
+}
+.pending-tasks .card.trainings .instructor {
+  color: var(#888);
 }
 
 .pending-tasks .card.trainings .card-body .status {
