@@ -57,12 +57,11 @@ const PendingTasks = () => {
 
   useEffect(() => {
     if (statusList.count) {
-      statusList.rows.map((s) =>
-        setPendingTaksParams((p) => ({
-          ...p,
-          selectedStatuses: [...p.selectedStatuses, parseInt(s.id, 10)]
-        }))
-      )
+      const selectedStatuses = statusList.rows.map((s) => parseInt(s.id, 10))
+      setPendingTaksParams((p) => ({
+        ...p,
+        selectedStatuses
+      }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusList.rows])

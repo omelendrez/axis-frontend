@@ -22,7 +22,7 @@ export const InputParameters = ({
     />
     <div className="pending-tasks-confirm-button-container">
       <button className="pending-tasks-confirm-button" onClick={onConfirm}>
-        load tasks
+        load pending tasks
       </button>
     </div>
   </article>
