@@ -9,7 +9,7 @@
       {
         "path": "/learners",
         "label": "Learners",
-        "icon": "people"
+        "icon": "person"
       },
       {
         "path": "/dashboard",
@@ -19,7 +19,7 @@
       {
         "path": "/trainings",
         "label": "Trainings",
-        "icon": "library_books"
+        "icon": "school"
       },
       {
         "path": "/pending-tasks",

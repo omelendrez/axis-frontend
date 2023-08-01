@@ -55,6 +55,18 @@ const PendingTasks = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 
+  useEffect(() => {
+    if (statusList.count) {
+      statusList.rows.map((s) =>
+        setPendingTaksParams((p) => ({
+          ...p,
+          selectedStatuses: [...p.selectedStatuses, parseInt(s.id, 10)]
+        }))
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusList.rows])
+
   const handleView = (training) => navigate(`/training/${training}`)
 
   const handleSelectedDateView = (e) => {
@@ -89,7 +101,7 @@ const PendingTasks = () => {
 
   const handleConfirm = (e) => {
     e?.preventDefault()
-    if (selectedStatuses.length) {
+    if (selectedStatuses?.length) {
       const payload = {
         date: formatYMD(date),
         statuses: selectedStatuses.join('-'),
