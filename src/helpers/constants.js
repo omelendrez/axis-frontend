@@ -38,5 +38,8 @@ export const TRAINING_STATUS = {
   CERT_PRINT: 10,
   ID_CARD_PRINT: 11,
   COMPLETED: 12,
-  CANCELLED: 13
+  CANCELLED: 13,
+  REJECTED: 14
 }
+
+export const FUTURE_DAYS = 10 // Number of future days to see in pending tasks view

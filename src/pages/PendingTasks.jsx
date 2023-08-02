@@ -12,10 +12,11 @@ import usePage from '@/hooks/usePage'
 import useTrainings from '@/hooks/useTrainings'
 import useStatuses from '@/hooks/useStatuses'
 import useNotification from '@/hooks/useNotification'
+import useUser from '@/hooks/useUser'
 
 import { PendingTasksContext } from '@/context'
 
-import { formatYMD, initialValues } from '@/helpers'
+import { formatYMD, matchRoleStatus, initialValues } from '@/helpers'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -24,6 +25,8 @@ import '../components/features/pending-tasks/pendingTasks.css'
 const PendingTasks = () => {
   const { pendingTasksParams, setPendingTaksParams } =
     useContext(PendingTasksContext)
+
+  const { user } = useUser()
 
   const { date, selectedStatuses } = pendingTasksParams
 
@@ -40,6 +43,8 @@ const PendingTasks = () => {
   const { statuses, load: loadStatuses } = useStatuses()
   const { data: statusList } = statuses
 
+  const [authorizedStatuses, setAuthorizedStatuses] = useState([])
+
   const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
 
@@ -50,21 +55,27 @@ const PendingTasks = () => {
   }, [])
 
   useEffect(() => {
-    handleConfirm()
-
+    if (statusList.rows && !authorizedStatuses.length) {
+      setAuthorizedStatuses(
+        statusList.rows.filter((s) => matchRoleStatus(user.roles, s.id))
+      )
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination])
+  }, [statusList])
 
   useEffect(() => {
-    if (statusList.count) {
-      const selectedStatuses = statusList.rows.map((s) => parseInt(s.id, 10))
+    if (authorizedStatuses.length) {
+      const selectedStatuses = authorizedStatuses.map((s) => parseInt(s.id, 10))
+
       setPendingTaksParams((p) => ({
         ...p,
         selectedStatuses
       }))
     }
+    handleConfirm()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusList.rows])
+  }, [authorizedStatuses, pagination])
 
   const handleView = (training) => navigate(`/training/${training}`)
 
@@ -133,7 +144,7 @@ const PendingTasks = () => {
           onStatusChange={handleStatusChange}
           date={date}
           setToday={setToday}
-          statuses={statusList.rows}
+          statuses={authorizedStatuses}
           selected={selectedStatuses}
           onConfirm={handleConfirm}
         />

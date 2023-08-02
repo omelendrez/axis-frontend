@@ -46,19 +46,24 @@ export const Login = () => {
 
     setIsSubmitting(true)
 
+    // TODO: Restore roles
     login(payload)
       .then(async (res) => {
         const token = res.data.token
         const user = {
           ...res.data,
           token: undefined,
-          roles: [{ id: USER_ROLE.FRONTDESK, name: 'Frontdesk' }] //await JSON.parse(res.data.roles)
+          roles: await JSON.parse(res.data.roles)
         }
 
         session.save(KEYS.token, token)
         session.save(KEYS.user, user)
 
-        setUserContext(user)
+        setUserContext({
+          ...user,
+          roles: [{ id: USER_ROLE.FRONTDESK, name: 'Frontdesk' }]
+        })
+
         if (user.roles.includes(1) || user.roles.includes(2)) {
           navigate('/')
         } else {

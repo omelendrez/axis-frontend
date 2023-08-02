@@ -6,7 +6,7 @@ export const hasRequiredRole = (optionRoles, userRoles) =>
   optionRoles.length === 0 ||
   Boolean(optionRoles.find((r) => userRoles.find((ur) => ur.id === r)))
 
-const matchRoleStatus = (userRoles, status) => {
+export const matchRoleStatus = (userRoles, status) => {
   let statuses = []
   userRoles.forEach((userRole) => {
     const match = roleStatus.find(
@@ -26,12 +26,15 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const isCancelled = status === TRAINING_STATUS.CANCELLED
 
+  const isRejected = status === TRAINING_STATUS.REJECTED
+
   const isComplete = status === TRAINING_STATUS.COMPLETED
 
   const canView =
     isComplete ||
     isApproved ||
     isCancelled ||
+    isRejected ||
     matchRoleStatus([{ id: componentRole }], status)
 
   const canApprove = matchRoleStatus(userRoles, status) && !isApproved
@@ -45,9 +48,18 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
       canUpdate,
       isComplete,
       isApproved,
-      isCancelled
+      isCancelled,
+      isRejected
     })
   }
 
-  return { canView, canApprove, canUpdate, isComplete, isApproved, isCancelled }
+  return {
+    canView,
+    canApprove,
+    canUpdate,
+    isComplete,
+    isApproved,
+    isCancelled,
+    isRejected
+  }
 }

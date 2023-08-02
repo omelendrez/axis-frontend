@@ -1,11 +1,13 @@
 import compareDesc from 'date-fns/compareDesc'
 import formatDistance from 'date-fns/formatDistance'
 import format from 'date-fns/format'
+import addDays from 'date-fns/addDays'
 
 export const formatShortDate = (date) =>
   new Intl.DateTimeFormat('en-GB').format(new Date(date))
 
-export const isNewer = (date) => compareDesc(new Date(), date) > 0
+export const isNewer = (date, days = 0) =>
+  compareDesc(addDays(new Date(), days), date) > 0
 
 export const isEqual = (date) =>
   formatShortDate(date) === formatShortDate(new Date())
