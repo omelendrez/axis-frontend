@@ -26,8 +26,8 @@ main.home-list article.home-card div span {
 main.home-list .menu-separator {
   width: 100%;
   margin: 1rem 0;
-  background: green;
+  background: var(--success);
   opacity: 0.2;
-  height: 0.5rem;
+  height: 1rem;
   border-radius: 10px;
 }
