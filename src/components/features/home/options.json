@@ -22,7 +22,7 @@
     "title": "Trainings",
     "description": "Manage training records.",
     "path": "/trainings",
-    "icon": "school",
+    "icon": "local_library",
     "roles": [
       1,
       2
@@ -51,7 +51,7 @@
     "title": "Courses",
     "description": "Manage training courses.",
     "path": "/courses",
-    "icon": "local_library",
+    "icon": "school",
     "roles": [
       1
     ]
@@ -60,7 +60,7 @@
     "title": "Course Assessments",
     "description": "Manage courses assessments.",
     "path": "/course-assessments",
-    "icon": "rules",
+    "icon": "checklist",
     "roles": [
       1
     ]
@@ -107,7 +107,7 @@
     "title": "Users",
     "description": "Manage Axis users.",
     "path": "/users",
-    "icon": "person",
+    "icon": "admin_panel_settings",
     "roles": [
       1
     ]
@@ -116,7 +116,7 @@
     "title": "Roles",
     "description": "Manage user roles.",
     "path": "/roles",
-    "icon": "assignment",
+    "icon": "local_police",
     "roles": [
       1
     ],

@@ -5,7 +5,7 @@ import { FormButtonRow, InputField } from '@/components'
 import { login, SP, KEYS } from '@/services'
 import { UserContext } from '@/context'
 import useApiMessages from '@/hooks/useApiMessages'
-import { USER_ROLE, loadSchema } from '@/helpers'
+import { loadSchema } from '@/helpers'
 import schema from './schema.json'
 
 import './login.css'
@@ -46,7 +46,6 @@ export const Login = () => {
 
     setIsSubmitting(true)
 
-    // TODO: Restore roles
     login(payload)
       .then(async (res) => {
         const token = res.data.token
@@ -61,7 +60,7 @@ export const Login = () => {
 
         setUserContext({
           ...user,
-          roles: [{ id: USER_ROLE.FRONTDESK, name: 'Frontdesk' }]
+          roles: user.roles
         })
 
         if (user.roles.includes(1) || user.roles.includes(2)) {

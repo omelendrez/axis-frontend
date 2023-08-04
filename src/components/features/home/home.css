@@ -14,15 +14,20 @@ main.home-list article.home-card hgroup {
   margin: 0;
 }
 
-main.home-list article.home-card div span {
-  font-size: 4rem;
+main.home-list article.home-card div {
+  min-width: auto;
+  background-color: var(--info);
 }
 
-main.home-list article.home-card div.home-card-button {
-  min-width: 108px;
+main.home-list article.home-card div span {
+  font-size: 4rem;
 }
 
 main.home-list .menu-separator {
   width: 100%;
   margin: 1rem 0;
+  background: green;
+  opacity: 0.2;
+  height: 0.5rem;
+  border-radius: 10px;
 }
