@@ -14,9 +14,16 @@ main.home-list article.home-card hgroup {
   margin: 0;
 }
 
+main.home-list article.home-card hgroup h3,
+main.home-list article.home-card hgroup h4 {
+  text-transform: none;
+}
+
 main.home-list article.home-card div {
-  min-width: auto;
-  background-color: var(--info);
+  padding: 0;
+  background: none;
+  color: var(--primary);
+  box-shadow: none;
 }
 
 main.home-list article.home-card div span {
@@ -26,8 +33,7 @@ main.home-list article.home-card div span {
 main.home-list .menu-separator {
   width: 100%;
   margin: 1rem 0;
-  background: var(--success);
+  background: var(--secondary);
   opacity: 0.2;
-  height: 1rem;
-  border-radius: 10px;
+  height: 1px;
 }

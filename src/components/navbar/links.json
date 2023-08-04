@@ -12,11 +12,6 @@
         "icon": "person"
       },
       {
-        "path": "/dashboard",
-        "label": "Dashboard",
-        "icon": "dashboard"
-      },
-      {
         "path": "/trainings",
         "label": "Trainings",
         "icon": "school"

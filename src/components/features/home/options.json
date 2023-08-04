@@ -1,34 +1,5 @@
 [
   {
-    "title": "Learners",
-    "description": "Manage learners.",
-    "path": "/learners",
-    "icon": "person",
-    "roles": [
-      1,
-      2
-    ]
-  },
-  {
-    "title": "Dashboard",
-    "description": "See dashboard.",
-    "icon": "dashboard",
-    "path": "/dashboard",
-    "roles": [
-      1
-    ]
-  },
-  {
-    "title": "Trainings",
-    "description": "Manage training records.",
-    "path": "/trainings",
-    "icon": "local_library",
-    "roles": [
-      1,
-      2
-    ]
-  },
-  {
     "title": "Pending Tasks",
     "description": "Act on your pending tasks.",
     "path": "/pending-tasks",
@@ -44,6 +15,26 @@
       8,
       9,
       10
+    ]
+  },
+  {
+    "title": "Trainings",
+    "description": "Manage/view all existing training records.",
+    "path": "/trainings",
+    "icon": "local_library",
+    "roles": [
+      1,
+      2
+    ]
+  },
+  {
+    "title": "Learners",
+    "description": "Manage learners.",
+    "path": "/learners",
+    "icon": "person",
+    "roles": [
+      1,
+      2
     ],
     "separator": true
   },
