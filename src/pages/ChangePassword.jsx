@@ -12,7 +12,7 @@ const ChangePassword = () => {
 
   return (
     <main className="container-fluid">
-      <article className="change-password-form-container">
+      <article className="form-container change-password-form-container">
         <ChangePasswordComponent />
       </article>
     </main>

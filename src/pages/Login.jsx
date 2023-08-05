@@ -1,6 +1,6 @@
+import { useEffect } from 'react'
 import { Login as LoginComponent } from '@/components'
 import usePage from '@/hooks/usePage'
-import { useEffect } from 'react'
 
 const Login = () => {
   const { set: setPage } = usePage()
@@ -11,9 +11,11 @@ const Login = () => {
   }, [])
 
   return (
-    <article className="login-form-container">
-      <LoginComponent />
-    </article>
+    <main className="container-fluid">
+      <article className="form-container login-form-container">
+        <LoginComponent />
+      </article>
+    </main>
   )
 }
 

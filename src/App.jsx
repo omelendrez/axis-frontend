@@ -18,6 +18,8 @@ import {
 
 import { KEYS, SP } from '@/services'
 
+import { USER_ROLE } from './helpers'
+
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
@@ -100,7 +102,11 @@ function App() {
   const session = new SP()
   const currentUser = session.get(KEYS.user) || null
 
-  const [user, setUser] = useState(currentUser)
+  // TODO: Remove fake roles
+  const [user, setUser] = useState({
+    ...currentUser,
+    roles: [{ id: USER_ROLE.FRONTDESK }]
+  })
   const [changes, setChanges] = useState(null)
   const [network, setNetwork] = useState(navigator.onLine)
   const [pendingTasksParams, setPendingTaksParams] = useState({
