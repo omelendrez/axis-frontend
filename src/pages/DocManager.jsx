@@ -33,7 +33,7 @@ const DocManager = () => {
 
   useEffect(() => {
     loadCourses(pagination)
-    setPage('Document Manager')
+    setPage('Document manager')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 

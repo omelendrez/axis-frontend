@@ -49,7 +49,7 @@ const PendingTasks = () => {
   const { data, isLoading } = trainings
 
   useEffect(() => {
-    setPage('Pending Tasks')
+    setPage('My pending tasks')
     loadStatuses()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
