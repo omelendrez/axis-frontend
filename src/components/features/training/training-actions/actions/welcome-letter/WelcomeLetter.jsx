@@ -1,16 +1,22 @@
+import { useEffect, useState } from 'react'
+
 import { Task } from '@/components'
-import {
-  generateWelcomeLetter,
-  getWelcomeLetterUrl,
-  welcomeLetterExists
-} from '@/services'
+
 import useApiMessages from '@/hooks/useApiMessages'
 
+import {
+  adminApproval,
+  generateWelcomeLetter,
+  getWelcomeLetterUrl,
+  welcomeLetterExists,
+  sendWelcomeLetter
+} from '@/services'
+
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
-import './print.css'
-import { useEffect, useState } from 'react'
+
 import { Status } from '../status-container/Status'
-import { sendWelcomeLetter } from '@/services/assets/email'
+
+import './welcome-letter.css'
 
 export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -23,12 +29,14 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.ADMIN
   )
 
-  const { canView, canUpdate, canApprove } = getUserAuth(
+  const { canView, canUpdate, isCancelled } = getUserAuth(
     role,
     roles,
     status,
     tracking
   )
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [update, setUpdate] = useState(false)
 
@@ -43,6 +51,32 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update])
+
+  const process = (payload) => {
+    setIsSubmitting(true)
+
+    adminApproval(id, payload)
+      .then((res) => {
+        onUpdate()
+        apiMessage(res)
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
+  }
+
+  const handleApprove = (e) => {
+    e.preventDefault()
+    process({
+      approved: 1
+    })
+  }
+
+  const handleReject = (e) => {
+    e.preventDefault()
+    process({
+      approved: 0
+    })
+  }
 
   const handleGenerate = (e) => {
     e.preventDefault()
@@ -96,12 +130,27 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       title="Welcome Letter"
       status={<Status trackingRecord={trackingRecord} />}
       className="welcome-letter"
-      approveLabel={isDoc ? 'Re-generate' : 'Generate'}
-      approveDisabled={!canUpdate}
-      rejectLabel="Send Letter"
-      rejectTooltip={'Send letter email'}
-      onReject={canApprove ? handleSendLetter : null}
-      onApprove={canApprove ? handleGenerate : null}
+      approveLabel="Approve"
+      rejectLabel="Reject"
+      description={
+        canUpdate && (
+          <div className="buttons">
+            <button onClick={handleGenerate} disabled={isCancelled}>
+              {isDoc ? 'Re-generate' : 'generate'}
+            </button>
+            {isDoc && (
+              <button onClick={handleSendLetter} disabled={isCancelled}>
+                Send letter
+              </button>
+            )}
+          </div>
+        )
+      }
+      onApprove={canUpdate ? handleApprove : null}
+      onReject={canUpdate ? handleReject : null}
+      approveDisabled={isCancelled}
+      rejectDisabled={isCancelled}
+      isSubmitting={isSubmitting}
     >
       {isDoc && (
         <figure>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Modal, Preview, Task } from '@/components'
 import { FoetUpload } from './FoetUpload'
 import useApiMessages from '@/hooks/useApiMessages'
-import { foetExists, getFOETUrl, adminApproval } from '@/services'
+import { foetExists, getFOETUrl } from '@/services'
 import { documentNumber, getUserAuth } from '@/helpers'
 
 import './foet.css'
@@ -15,8 +15,6 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   const { roles } = user
 
   const [update, setUpdate] = useState(false)
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [isFormOpen, setIsFormOpen] = useState(false)
 
@@ -43,32 +41,6 @@ export const Foet = ({ training, onUpdate, role, user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update])
 
-  const process = (payload) => {
-    setIsSubmitting(true)
-
-    adminApproval(id, payload)
-      .then((res) => {
-        onUpdate()
-        apiMessage(res)
-      })
-      .catch((e) => apiMessage(e))
-      .finally(() => setIsSubmitting(false))
-  }
-
-  const handleApprove = (e) => {
-    e.preventDefault()
-    process({
-      approved: 1
-    })
-  }
-
-  const handleReject = (e) => {
-    e.preventDefault()
-    process({
-      approved: 0
-    })
-  }
-
   const handleScan = (e) => {
     e.preventDefault()
     setIsFormOpen(true)
@@ -89,17 +61,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <Task
-      title={title}
-      className="foet"
-      approveLabel="Approve"
-      rejectLabel="Reject"
-      onApprove={canUpdate ? handleApprove : null}
-      onReject={canUpdate ? handleReject : null}
-      approveDisabled={isCancelled}
-      rejectDisabled={isCancelled}
-      isSubmitting={isSubmitting}
-    >
+    <Task title={title} className="foet">
       <div className="foet-children">
         {isImage && <Preview imageUrl={imageUrl} />}
 

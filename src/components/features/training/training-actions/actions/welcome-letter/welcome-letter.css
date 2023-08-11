@@ -29,3 +29,13 @@
     width: 30vw;
   }
 }
+
+.welcome-letter .description {
+  padding: 0;
+  box-shadow: none;
+}
+
+.welcome-letter .description .buttons,
+.welcome-letter .buttons {
+  margin: 0 !important;
+}
