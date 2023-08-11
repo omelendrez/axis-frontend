@@ -41,17 +41,17 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const canUpdate = matchRoleStatus(userRoles, status)
 
-  if (componentRole === USER_ROLE.ADMIN) {
-    log.info({
-      canView,
-      canApprove,
-      canUpdate,
-      isComplete,
-      isApproved,
-      isCancelled,
-      isRejected
-    })
-  }
+  // if (componentRole === USER_ROLE.ADMIN) {
+  //   log.info({
+  //     canView,
+  //     canApprove,
+  //     canUpdate,
+  //     isComplete,
+  //     isApproved,
+  //     isCancelled,
+  //     isRejected
+  //   })
+  // }
 
   return {
     canView,

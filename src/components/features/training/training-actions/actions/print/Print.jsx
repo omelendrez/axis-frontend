@@ -19,7 +19,12 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const { roles } = user
 
-  const { id, status_id: status, id_card, tracking } = training
+  const {
+    id,
+    status_id: status,
+    course: { id_card },
+    tracking
+  } = training
 
   const trackingRecord = tracking.find(
     (t) =>
@@ -82,10 +87,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     type: 'application/pdf'
   }
 
-  if (
-    !canView ||
-    (role === TRAINING_STATUS.ID_CARD_PRINT && parseInt(id_card, 10) !== 1)
-  ) {
+  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
     return null
   }
 

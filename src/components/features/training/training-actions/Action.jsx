@@ -41,11 +41,7 @@ export const Action = ({ training, onUpdate }) => {
         type={DOC_TYPE.CERTIFICATE}
         role={USER_ROLE.CERT_PRINT}
       />
-      <Print
-        {...props}
-        type={DOC_TYPE.ID_CARD}
-        role={USER_ROLE.ID_CARD_PRINT}
-      />
+      <Print {...props} type={DOC_TYPE.ID_CARD} role={USER_ROLE.PRINTER} />
     </section>
   )
 }
