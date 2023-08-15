@@ -29,14 +29,14 @@ export const Card = ({ item, onView }) => {
         />
       </div>
       <div className="card-body">
-        <div className="course">
+        <div className="ellipsis course">
           {start} - {course_name}
         </div>
         <div className="small-font instructor">{instructor}</div>
 
         <div className="ellipsis name">{full_name}</div>
-        {/* <div className="small-font">{badge}</div> */}
-        <div className="small-font">{company_name}</div>
+        <div className="small-font badge">{badge}</div>
+        <div className="small-font company">{company_name}</div>
 
         <div className={`status status-${status} small-font`}>
           {status_name} - {state_name}

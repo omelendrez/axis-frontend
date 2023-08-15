@@ -10,62 +10,34 @@
   padding: 0.6rem;
 }
 
-.pending-tasks .card.trainings .course {
-  color: var(--primary);
-  white-space: nowrap;
+.pending-tasks .card.trainings .name {
+  font-weight: 900;
 }
+
+.pending-tasks .card.trainings .course {
+  padding: 0 0.2rem;
+  background-color: var(--primary);
+  color: #fff;
+  min-width: 100%;
+  border-radius: 0 10px 0 0;
+}
+
+.pending-tasks .card.trainings .badge {
+  color: var(--secondary);
+}
+
+.pending-tasks .card.trainings .company {
+  font-weight: 900;
+}
+
 .pending-tasks .card.trainings .instructor {
-  color: var(#888);
+  color: var(--primary);
 }
 
 .pending-tasks .card.trainings .card-body .status {
-  font-weight: 900;
   background-color: transparent;
   margin: 0;
-}
-
-.pending-tasks .card.trainings .card-body .status-1 {
-  color: #888;
-}
-
-.pending-tasks .card.trainings .card-body .status-2 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-3 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-4 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-5 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-6 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-7 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-8 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-9 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-10 {
-  color: var(--primary);
-}
-
-.pending-tasks .card.trainings .card-body .status-11 {
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .pending-tasks .card.trainings .card-body .status-12 {
