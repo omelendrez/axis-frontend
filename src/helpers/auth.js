@@ -18,7 +18,7 @@ export const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
-  // if (componentRole === USER_ROLE.ADMIN) {
+  // if (componentRole !== USER_ROLE.FINANCE) {
   //   log.info('getUserAuth', { componentRole, userRoles, status, tracking })
   // }
 
@@ -41,7 +41,7 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const canUpdate = matchRoleStatus(userRoles, status)
 
-  // if (componentRole === USER_ROLE.ADMIN) {
+  // if (componentRole === USER_ROLE.FINANCE) {
   //   log.info({
   //     canView,
   //     canApprove,

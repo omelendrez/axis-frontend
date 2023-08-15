@@ -1,12 +1,12 @@
 import {
-  Assessment,
+  // Assessment,
   Foet,
   ScanId,
   Medical,
   Print,
   Payment,
   Picture,
-  Signature,
+  // Signature,
   QAApproval,
   MDApproval,
   WelcomeLetter
@@ -31,11 +31,11 @@ export const Action = ({ training, onUpdate }) => {
       <ScanId {...props} role={USER_ROLE.FRONTDESK} />
       <Medical {...props} role={USER_ROLE.MEDICAL} />
       <Picture {...props} role={USER_ROLE.TRAINING_COORDINATOR} />
-      <Signature {...props} role={USER_ROLE.TRAINING_COORDINATOR} />
-      <Assessment {...props} role={USER_ROLE.ASSESSMENT} />
+      <Payment {...props} role={USER_ROLE.FINANCE} />
+      {/* <Signature {...props} role={USER_ROLE.TRAINING_COORDINATOR} /> */}
+      {/* <Assessment {...props} role={USER_ROLE.ASSESSMENT} /> */}
       <MDApproval {...props} role={USER_ROLE.MD} />
       <QAApproval {...props} role={USER_ROLE.QA} />
-      <Payment {...props} role={USER_ROLE.FINANCE} />
       <Print
         {...props}
         type={DOC_TYPE.CERTIFICATE}

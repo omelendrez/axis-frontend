@@ -104,8 +104,8 @@ function App() {
 
   // TODO: Remove fake roles
   const [user, setUser] = useState({
-    ...currentUser,
-    roles: [{ id: USER_ROLE.ADMIN }]
+    ...currentUser
+    // roles: [{ id: USER_ROLE.ADMIN }]
   })
   const [changes, setChanges] = useState(null)
   const [network, setNetwork] = useState(navigator.onLine)

@@ -24,7 +24,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   const { expiry_type: expiryType } = course
 
-  const { isCancelled, canView, canUpdate } = getUserAuth(
+  const { isCancelled, canView, canApprove } = getUserAuth(
     role,
     roles,
     status,
@@ -65,7 +65,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
       <div className="foet-children">
         {isImage && <Preview imageUrl={imageUrl} />}
 
-        {canUpdate && (
+        {canApprove && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>
               {isImage ? 'Re-scan foet' : 'scan foet'}

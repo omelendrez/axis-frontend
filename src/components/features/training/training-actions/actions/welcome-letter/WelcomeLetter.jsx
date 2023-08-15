@@ -29,7 +29,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.ADMIN
   )
 
-  const { canView, canUpdate, isCancelled } = getUserAuth(
+  const { canView, canApprove, isCancelled } = getUserAuth(
     role,
     roles,
     status,
@@ -133,7 +133,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       approveLabel="Approve"
       rejectLabel="Reject"
       description={
-        canUpdate && (
+        canApprove && (
           <div className="buttons">
             <button onClick={handleGenerate} disabled={isCancelled}>
               {isDoc ? 'Re-generate' : 'generate'}
@@ -146,8 +146,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
           </div>
         )
       }
-      onApprove={canUpdate ? handleApprove : null}
-      onReject={canUpdate ? handleReject : null}
+      onApprove={canApprove ? handleApprove : null}
+      onReject={canApprove ? handleReject : null}
       approveDisabled={isCancelled}
       rejectDisabled={isCancelled}
       isSubmitting={isSubmitting}
