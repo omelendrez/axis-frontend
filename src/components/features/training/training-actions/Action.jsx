@@ -1,12 +1,10 @@
 import {
-  // Assessment,
   Foet,
   ScanId,
   Medical,
   Print,
   Payment,
   Picture,
-  // Signature,
   QAApproval,
   MDApproval,
   WelcomeLetter
@@ -26,21 +24,24 @@ export const Action = ({ training, onUpdate }) => {
 
   return (
     <section className="training-view-actions">
-      <WelcomeLetter {...props} role={USER_ROLE.ADMIN} />
       <Foet {...props} role={USER_ROLE.ADMIN} />
+
+      <WelcomeLetter {...props} role={USER_ROLE.ADMIN} />
+
       <ScanId {...props} role={USER_ROLE.FRONTDESK} />
-      <Medical {...props} role={USER_ROLE.MEDICAL} />
+
+      <Medical {...props} role={USER_ROLE.MEDIC} />
+
       <Picture {...props} role={USER_ROLE.TRAINING_COORDINATOR} />
-      <Payment {...props} role={USER_ROLE.FINANCE} />
-      {/* <Signature {...props} role={USER_ROLE.TRAINING_COORDINATOR} /> */}
-      {/* <Assessment {...props} role={USER_ROLE.ASSESSMENT} /> */}
-      <MDApproval {...props} role={USER_ROLE.MD} />
+
+      <Payment {...props} role={USER_ROLE.ACCOUNTS} />
+
       <QAApproval {...props} role={USER_ROLE.QA} />
-      <Print
-        {...props}
-        type={DOC_TYPE.CERTIFICATE}
-        role={USER_ROLE.CERT_PRINT}
-      />
+
+      <MDApproval {...props} role={USER_ROLE.MD} />
+
+      <Print {...props} type={DOC_TYPE.CERTIFICATE} role={USER_ROLE.PRINTER} />
+
       <Print {...props} type={DOC_TYPE.ID_CARD} role={USER_ROLE.PRINTER} />
     </section>
   )

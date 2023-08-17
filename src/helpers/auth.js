@@ -2,6 +2,8 @@ import { roleStatus } from '@/static-lists'
 import { USER_ROLE, TRAINING_STATUS } from './constants'
 import { log } from './log'
 
+const ROLE_TEST = USER_ROLE.ACCOUNTS
+
 export const hasRequiredRole = (optionRoles, userRoles) =>
   optionRoles.length === 0 ||
   Boolean(optionRoles.find((r) => userRoles.find((ur) => ur.id === r)))
@@ -18,9 +20,9 @@ export const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
-  // if (componentRole !== USER_ROLE.FINANCE) {
-  //   log.info('getUserAuth', { componentRole, userRoles, status, tracking })
-  // }
+  if (componentRole !== ROLE_TEST) {
+    log.info('getUserAuth', { componentRole, userRoles, status, tracking })
+  }
 
   const isApproved = tracking.map((t) => t.status_id).includes(componentRole)
 
@@ -41,17 +43,17 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const canUpdate = matchRoleStatus(userRoles, status)
 
-  // if (componentRole === USER_ROLE.FINANCE) {
-  //   log.info({
-  //     canView,
-  //     canApprove,
-  //     canUpdate,
-  //     isComplete,
-  //     isApproved,
-  //     isCancelled,
-  //     isRejected
-  //   })
-  // }
+  if (componentRole === ROLE_TEST) {
+    log.info({
+      canView,
+      canApprove,
+      canUpdate,
+      isComplete,
+      isApproved,
+      isCancelled,
+      isRejected
+    })
+  }
 
   return {
     canView,

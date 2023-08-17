@@ -24,7 +24,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
   const { id, status_id: status, tracking } = training
 
   const trackingRecord = tracking.find(
-    (t) => t.status_id === TRAINING_STATUS.MEDICAL
+    (t) => t.status_id === TRAINING_STATUS.MEDIC_DONE
   )
 
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
@@ -84,7 +84,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
     })
   })
 
-  const title = <strong>MEDICAL TEST</strong>
+  const title = <strong>MEDIC TEST</strong>
 
   if (!canView || !canApprove) {
     return null

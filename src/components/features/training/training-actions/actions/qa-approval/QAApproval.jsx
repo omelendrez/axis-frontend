@@ -19,7 +19,7 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
   const { id, status_id: status, tracking } = training
 
   const trackingRecord = tracking.find(
-    (t) => t.status_id === TRAINING_STATUS.QA
+    (t) => t.status_id === TRAINING_STATUS.QA_DONE
   )
 
   const { isApproved, isCancelled, canView } = getUserAuth(

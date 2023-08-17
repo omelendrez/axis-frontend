@@ -64,7 +64,7 @@ export const TrainingForm = ({ training, onClose }) => {
 
   useEffect(() => {
     const instructors = userList.rows
-      .filter((u) => u.roles.includes(USER_ROLE.ASSESSMENT))
+      .filter((u) => u.roles.includes(USER_ROLE.INSTRUCTOR))
       .map((u) => ({ id: u.id, name: u.full_name }))
     setInstructors(instructors)
   }, [userList])

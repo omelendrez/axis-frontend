@@ -18,7 +18,7 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
   const { id, status_id: status, tracking } = training
 
   const trackingRecord = tracking.find(
-    (t) => t.status_id === TRAINING_STATUS.MD
+    (t) => t.status_id === TRAINING_STATUS.MD_DONE
   )
 
   const { isApproved, isCancelled, canView } = getUserAuth(

@@ -30,8 +30,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     (t) =>
       t.status_id ===
       (type === DOC_TYPE.CERTIFICATE
-        ? TRAINING_STATUS.CERT_PRINT
-        : TRAINING_STATUS.ID_CARD_PRINT)
+        ? TRAINING_STATUS.CERT_PRINT_DONE
+        : TRAINING_STATUS.ID_CARD_PRINT_DONE)
   )
 
   const { isCancelled, canView, canUpdate } = getUserAuth(
@@ -54,8 +54,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const isPrinted =
     type === DOC_TYPE.CERTIFICATE
-      ? status >= TRAINING_STATUS.CERT_PRINT
-      : status >= TRAINING_STATUS.ID_CARD_PRINT
+      ? status >= TRAINING_STATUS.CERT_PRINT_DONE
+      : status >= TRAINING_STATUS.ID_CARD_PRINT_DONE
 
   useEffect(() => {
     docExists(id)

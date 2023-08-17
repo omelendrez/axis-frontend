@@ -15,7 +15,7 @@ export const undoLastApproval = (id) => api.delete(`${endpoint}/${id}`)
 export const adminApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.ADMIN,
+    status: TRAINING_STATUS.ADMIN_DONE,
     payload
   })
 
@@ -23,7 +23,7 @@ export const adminApproval = (id, payload) =>
 export const frontdeskApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.FRONTDESK,
+    status: TRAINING_STATUS.FRONTDESK_DONE,
     payload
   })
 
@@ -31,7 +31,7 @@ export const frontdeskApproval = (id, payload) =>
 export const medicalApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.MEDICAL,
+    status: TRAINING_STATUS.MEDIC_DONE,
     payload
   })
 
@@ -39,30 +39,24 @@ export const medicalApproval = (id, payload) =>
 export const trainingCoordinatorApproval = (id) =>
   approvals({
     id,
-    status: TRAINING_STATUS.TRAINING_COORDINATOR
+    status: TRAINING_STATUS.TRAINING_COORDINATOR_DONE
   })
 
 // 5 Assessment
-export const assessmentApproval = (id, payload) =>
-  approvals({
-    id,
-    status: TRAINING_STATUS.ASSESSMENT,
-    payload
-  })
 
 // 6 QA
 export const QAApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.QA,
+    status: TRAINING_STATUS.QA_DONE,
     payload
   })
 
-// 7 Finance
-export const financeApproval = (id, payload) =>
+// 7 Accounts
+export const accountsApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.FINANCE,
+    status: TRAINING_STATUS.ACCOUNTS_DONE,
     payload
   })
 
@@ -70,6 +64,6 @@ export const financeApproval = (id, payload) =>
 export const MDApproval = (id, payload) =>
   approvals({
     id,
-    status: TRAINING_STATUS.MD,
+    status: TRAINING_STATUS.MD_DONE,
     payload
   })

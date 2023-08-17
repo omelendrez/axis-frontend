@@ -4,7 +4,7 @@ import { Task } from '@/components'
 import description from './description'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
-import { financeApproval } from '@/services'
+import { accountsApproval } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 export const Payment = ({ training, onUpdate, role, user }) => {
@@ -17,12 +17,12 @@ export const Payment = ({ training, onUpdate, role, user }) => {
   const {
     id,
     status_id: status,
-    finance_status: financeStatus,
+    accounts_status: accountsStatus,
     tracking
   } = training
 
   const trackingRecord = tracking.find(
-    (t) => t.status_id === TRAINING_STATUS.FINANCE
+    (t) => t.status_id === TRAINING_STATUS.ACCOUNTS_DONE
   )
 
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
@@ -35,7 +35,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
   const process = (payload) => {
     setIsSubmitting(true)
 
-    financeApproval(id, payload)
+    accountsApproval(id, payload)
       .then((res) => {
         onUpdate()
         apiMessage(res)
@@ -63,7 +63,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
       PAYMENT
       {!isApproved
         ? ' PENDING'
-        : financeStatus === 0
+        : accountsStatus === 0
         ? ' NOT RECEIVED'
         : ' RECEIVED'}
     </strong>

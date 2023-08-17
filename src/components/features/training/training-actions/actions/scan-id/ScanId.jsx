@@ -28,7 +28,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
   const { id, status_id: status, badge, tracking } = training
 
   const trackingRecord = tracking.find(
-    (t) => t.status_id === TRAINING_STATUS.FRONTDESK
+    (t) => t.status_id === TRAINING_STATUS.FRONTDESK_DONE
   )
 
   const { canApprove, isCancelled, canView } = getUserAuth(

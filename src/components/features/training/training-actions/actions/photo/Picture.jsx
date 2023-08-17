@@ -25,7 +25,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
   const { id, status_id: status, badge, tracking } = training
 
   const trackingRecord = tracking.find(
-    (t) => t.status_id === TRAINING_STATUS.TRAINING_COORDINATOR
+    (t) => t.status_id === TRAINING_STATUS.TRAINING_COORDINATOR_DONE
   )
 
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
