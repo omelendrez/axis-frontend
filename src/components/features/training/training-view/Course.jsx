@@ -1,5 +1,6 @@
 import { Buttons, Divider } from '@/components'
 import fields from './course-fields.json'
+import { TRAINING_STATUS } from '@/helpers'
 
 const Row = ({ label, value, className, divider }) => {
   return (
@@ -18,12 +19,14 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
     return null
   }
 
+  const canEdit = training.status < TRAINING_STATUS.TRAINING_COORDINATOR_DONE
+
   return (
     <article className="course">
       <h6 className="title">Course info</h6>
 
       <Buttons
-        onEdit={onEdit}
+        onEdit={canEdit && onEdit}
         onDelete={onDelete}
         onUndo={onUndo}
         noCheckboxes

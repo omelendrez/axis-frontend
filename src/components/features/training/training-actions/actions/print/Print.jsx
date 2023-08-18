@@ -6,7 +6,9 @@ import {
   getCertificateUrl,
   getIdCardUrl,
   certificateExists,
-  idCardExists
+  idCardExists,
+  certificatePrintDone,
+  idCardPrintDone
 } from '@/services'
 import useApiMessages from '@/hooks/useApiMessages'
 import { Status } from '../status-container/Status'
@@ -43,6 +45,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const [isDoc, setIsDoc] = useState(false)
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const documentUrl =
     type === DOC_TYPE.CERTIFICATE ? getCertificateUrl(id) : getIdCardUrl(id)
 
@@ -51,6 +55,9 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const docExists =
     type === DOC_TYPE.CERTIFICATE ? certificateExists : idCardExists
+
+  const markAsPrinted =
+    type === DOC_TYPE.CERTIFICATE ? certificatePrintDone : idCardPrintDone
 
   const isPrinted =
     type === DOC_TYPE.CERTIFICATE
@@ -93,8 +100,15 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const handleMarkAsPrinted = (e) => {
     e.preventDefault()
-
-    console.log('MarkAsPrinted')
+    const hasId = parseInt(id_card, 10)
+    const payload = { hasId }
+    markAsPrinted(id, payload)
+      .then((res) => {
+        onUpdate()
+        apiMessage(res)
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
 
   return (
@@ -105,14 +119,15 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       description={
         isPrinted ? (
           <center>
-            This document is already printed{' '}
+            This document is already printed
             <span className="material-icons">check</span>
           </center>
         ) : null
       }
       approveLabel={isDoc ? 'Re-generate' : 'Generate'}
-      approveDisabled={!canUpdate || isCancelled}
+      approveDisabled={!canUpdate || isCancelled || isSubmitting}
       rejectLabel="Mark as printed"
+      rejectDisabled={!canUpdate || isCancelled || isSubmitting}
       onReject={isDoc && !isPrinted ? handleMarkAsPrinted : null}
       onApprove={canUpdate && !isCancelled ? handleGenerate : null}
     >

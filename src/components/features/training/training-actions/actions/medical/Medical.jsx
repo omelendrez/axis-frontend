@@ -104,8 +104,6 @@ export const Medical = ({ training, onUpdate, role, user }) => {
       className="blood-pressure"
       onApprove={canApprove ? handleApprove : null}
       onReject={canApprove ? handleReject : null}
-      approveLabel="Fit"
-      rejectLabel="No fit"
       approveDisabled={!systolic || !diastolic || isCancelled}
       rejectDisabled={!systolic || !diastolic || isCancelled}
       isSubmitting={isSubmitting}

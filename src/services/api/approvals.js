@@ -44,6 +44,14 @@ export const trainingCoordinatorApproval = (id) =>
 
 // 5 Assessment
 
+// 5 Accounts
+export const accountsApproval = (id, payload) =>
+  approvals({
+    id,
+    status: TRAINING_STATUS.ACCOUNTS_DONE,
+    payload
+  })
+
 // 6 QA
 export const QAApproval = (id, payload) =>
   approvals({
@@ -52,18 +60,25 @@ export const QAApproval = (id, payload) =>
     payload
   })
 
-// 7 Accounts
-export const accountsApproval = (id, payload) =>
-  approvals({
-    id,
-    status: TRAINING_STATUS.ACCOUNTS_DONE,
-    payload
-  })
-
-// 8 MD
+// 7 MD
 export const MDApproval = (id, payload) =>
   approvals({
     id,
     status: TRAINING_STATUS.MD_DONE,
     payload
+  })
+
+// 8 Cert Print
+export const certificatePrintDone = (id, payload) =>
+  approvals({
+    id,
+    status: TRAINING_STATUS.CERT_PRINT_DONE,
+    payload
+  })
+
+// 9 ID Card Print
+export const idCardPrintDone = (id) =>
+  approvals({
+    id,
+    status: TRAINING_STATUS.ID_CARD_PRINT_DONE
   })
