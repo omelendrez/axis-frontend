@@ -5,7 +5,7 @@ const useApiMessages = () => {
 
   const apiMessage = (e) => {
     set({
-      type: e?.response?.data?.message ? 'error' : 'success',
+      type: e?.response?.data?.message ? 'error' : 'info',
       message: e?.data?.message || e?.response?.data?.message
     })
   }

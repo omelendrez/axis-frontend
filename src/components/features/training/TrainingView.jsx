@@ -45,7 +45,11 @@ export const TrainingView = ({ training, onUpdate }) => {
 
     undoLastApproval(id)
       .then((res) => {
-        apiMessage(res)
+        const data = {
+          message: `Status "${stateName}" has been reverted!`
+        }
+        apiMessage({ data })
+
         onUpdate()
       })
       .catch((e) => apiMessage(e))
