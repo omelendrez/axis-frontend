@@ -5,15 +5,17 @@ import { TrainingView } from '@/components'
 import { TrainingContext } from '@/context'
 
 import useTrainings from '@/hooks/useTrainings'
+import usePage from '@/hooks/usePage'
 
 const Training = () => {
   const params = useParams()
+  const { set: setPage } = usePage()
 
   const { changes } = useContext(TrainingContext)
 
   const { loadView, trainings } = useTrainings()
 
-  const { view } = trainings
+  const { view: training } = trainings
 
   const [update, setUpdate] = useState(false)
 
@@ -23,6 +25,7 @@ const Training = () => {
     const id = params?.id
 
     loadView(id)
+    setPage(`${training?.full_name}`)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update, changes])
@@ -40,7 +43,9 @@ const Training = () => {
           <li>Training</li>
         </ul>
       </nav>
-      {view?.id && <TrainingView training={view} onUpdate={updateView} />}
+      {training?.id && (
+        <TrainingView training={training} onUpdate={updateView} />
+      )}
     </main>
   )
 }

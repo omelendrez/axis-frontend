@@ -49,7 +49,7 @@ label span.material-icons {
 }
 
 nav.navbar li.page-title {
-  font-size: 2rem;
+  text-transform: uppercase;
 }
 
 nav.breadcrumb {
