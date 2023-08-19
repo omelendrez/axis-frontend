@@ -18,11 +18,11 @@ div.alert-status-container div.alert-status {
   transform: rotate(30deg);
 }
 
-div.alert-status-container div.alert-status.status-12 {
+div.alert-status-container div.alert-status.status-11 {
   color: var(--success);
 }
 
-div.alert-status-container div.alert-status.status-13 {
+div.alert-status-container div.alert-status.status-12 {
   color: var(--error);
 }
 
