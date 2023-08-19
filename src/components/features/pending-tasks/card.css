@@ -34,16 +34,23 @@
   color: var(--primary);
 }
 
-.pending-tasks .card.trainings .card-body .status {
-  background-color: transparent;
-  margin: 0;
-  color: var(--secondary);
+.card.trainings .card-body .status {
+  font-weight: 900;
+  color: white;
+  padding: 0 4px;
+  border-radius: 3px;
+  width: fit-content;
+  background-color: var(--primary);
 }
 
-.pending-tasks .card.trainings .card-body .status-12 {
-  color: var(--success);
+.card.trainings .card-body .status-1 {
+  background-color: var(--secondary);
 }
 
-.pending-tasks .card.trainings .card-body .status-13 {
-  color: var(--error);
+.card.trainings .card-body .status-11 {
+  background-color: var(--success);
+}
+
+.card.trainings .card-body .status-12 {
+  background-color: var(--error);
 }

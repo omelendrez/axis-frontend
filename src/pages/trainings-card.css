@@ -10,19 +10,7 @@
 .card.trainings .name {
   font-size: 18px;
 }
-
-.card.trainings .card-body .status {
-  font-weight: 900;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 3px;
-  width: fit-content;
-}
-
-.card.trainings .card-body .status-1 {
-  background-color: #888;
-}
-
+/*
 .card.trainings .card-body .status-2 {
   background-color: var(--primary);
 }
@@ -69,4 +57,4 @@
 
 .card.trainings .card-body .status-13 {
   background-color: var(--error);
-}
+} */
