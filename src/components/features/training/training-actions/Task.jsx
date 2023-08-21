@@ -23,29 +23,31 @@ export const Task = ({
 
       {description && <article className="description">{description}</article>}
 
-      <div className="buttons">
-        {onApprove && (
-          <button
-            onClick={onApprove}
-            disabled={approveDisabled}
-            aria-busy={isSubmitting}
-            data-tooltip={approveTooltip}
-          >
-            {approveLabel || 'Approve'}
-          </button>
-        )}
-        {onReject && (
-          <button
-            onClick={onReject}
-            disabled={rejectDisabled}
-            className="delete"
-            aria-busy={isSubmitting}
-            data-tooltip={rejectTooltip}
-          >
-            {rejectLabel || 'Reject'}
-          </button>
-        )}
-      </div>
+      {(onApprove || onReject) && (
+        <div className="buttons">
+          {onApprove && (
+            <button
+              onClick={onApprove}
+              disabled={approveDisabled}
+              aria-busy={isSubmitting}
+              data-tooltip={approveTooltip}
+            >
+              {approveLabel || 'Approve'}
+            </button>
+          )}
+          {onReject && (
+            <button
+              onClick={onReject}
+              disabled={rejectDisabled}
+              className="delete"
+              aria-busy={isSubmitting}
+              data-tooltip={rejectTooltip}
+            >
+              {rejectLabel || 'Reject'}
+            </button>
+          )}
+        </div>
+      )}
       {status && status}
     </article>
   )

@@ -43,7 +43,7 @@ div.actions div.children {
 
 div.actions div.buttons {
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 div.actions div.buttons button {
@@ -51,6 +51,7 @@ div.actions div.buttons button {
   text-transform: uppercase;
   font-weight: 900;
   background-color: var(--primary);
+  border-color: var(--primary);
   transition: opacity var(--transition);
   opacity: 0.8;
 }
@@ -58,7 +59,7 @@ div.actions div.buttons button {
 div.actions div button.delete {
   color: var(--secondary);
   background-color: var(--background);
-  border-color: var(--secondary);
+  border: 1px solid var(--secondary);
 }
 
 div.actions div button:hover,
