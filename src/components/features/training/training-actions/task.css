@@ -8,6 +8,7 @@ div.actions article div label {
 
 div.actions article article.description {
   margin: 0;
+  padding: 0;
   box-shadow: none;
 }
 
@@ -42,7 +43,7 @@ div.actions div.children {
 
 div.actions div.buttons {
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 div.actions div.buttons button {
