@@ -7,7 +7,7 @@ export const InputStatus = ({ statuses, onChange, selected }) => (
       <StatusSwitcher
         key={status.id}
         id={status.id}
-        label={`${status.status}, ${status.state}`}
+        label={status.status}
         value={selected.includes(status.id) ? 1 : 0}
         onChange={onChange}
       />

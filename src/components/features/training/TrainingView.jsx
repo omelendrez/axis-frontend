@@ -29,12 +29,7 @@ export const TrainingView = ({ training, onUpdate }) => {
     )
   }
 
-  const {
-    id,
-    status_id: statusId,
-    course_state: stateName,
-    learner_id
-  } = training
+  const { id, status_id: statusId, status: statusName, learner_id } = training
 
   const { roles } = user
 
@@ -46,7 +41,7 @@ export const TrainingView = ({ training, onUpdate }) => {
     undoLastApproval(id)
       .then((res) => {
         const data = {
-          message: `Status "${stateName}" has been reverted!`
+          message: `Status "${statusName}" has been reverted!`
         }
         apiMessage({ data })
 
@@ -78,7 +73,7 @@ export const TrainingView = ({ training, onUpdate }) => {
 
   return (
     <main className="training-view">
-      <StatusStamp status={{ statusId, stateName }} />
+      <StatusStamp status={{ statusId, statusName }} />
       <Photo {...training} />
       <Learner
         learner={{ ...training, status: undefined }}
