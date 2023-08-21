@@ -1,9 +1,14 @@
+div.actions article {
+  padding: 1rem;
+}
+
 div.actions article div label {
   white-space: nowrap;
 }
 
 div.actions article article.description {
   margin: 0;
+  box-shadow: none;
 }
 
 div.actions article div.description-large {
