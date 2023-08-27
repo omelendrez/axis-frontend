@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { Task } from '@/components'
+import { Task, RejectReason } from '@/components'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
 import {
   adminApproval,
+  cancelTraining,
   generateWelcomeLetter,
   getWelcomeLetterUrl,
   welcomeLetterExists,
@@ -37,6 +38,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   )
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
   const [update, setUpdate] = useState(false)
 
@@ -52,7 +54,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update])
 
-  const process = (payload) => {
+  const approve = (payload) => {
     setIsSubmitting(true)
 
     adminApproval(id, payload)
@@ -64,18 +66,36 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       .finally(() => setIsSubmitting(false))
   }
 
+  const cancel = () => {
+    setIsSubmitting(true)
+
+    cancelTraining(id)
+      .then((res) => {
+        onUpdate()
+        apiMessage(res)
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
+  }
+
   const handleApprove = (e) => {
     e.preventDefault()
-    process({
+    approve({
       approved: 1
     })
   }
 
-  const handleReject = (e) => {
+  const handleCancel = (e) => {
     e.preventDefault()
-    process({
-      approved: 0
-    })
+    setIsRejectReasonOpen(true)
+  }
+
+  const handleRejectReasonCancel = () => {
+    setIsRejectReasonOpen(false)
+  }
+
+  const handleRejectReasonReject = (reason) => {
+    cancel()
   }
 
   const handleGenerate = (e) => {
@@ -126,39 +146,49 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <Task
-      title="Welcome Letter"
-      status={<Status trackingRecord={trackingRecord} />}
-      className="welcome-letter"
-      approveLabel="Approve"
-      rejectLabel="Reject"
-      description={
-        canApprove && (
-          <div className="buttons">
-            <button onClick={handleGenerate} disabled={isCancelled}>
-              {isDoc ? 'Re-generate' : 'generate'}
-            </button>
-            {isDoc && (
-              <button onClick={handleSendLetter} disabled={isCancelled}>
-                Send letter
+    <>
+      <Task
+        title="Welcome Letter"
+        status={<Status trackingRecord={trackingRecord} />}
+        className="welcome-letter"
+        approveLabel="Approve"
+        rejectLabel="Cancel"
+        description={
+          canApprove && (
+            <div className="buttons">
+              <button onClick={handleGenerate} disabled={isCancelled}>
+                {isDoc ? 'Re-generate' : 'generate'}
               </button>
-            )}
-          </div>
-        )
-      }
-      onApprove={canApprove ? handleApprove : null}
-      onReject={canApprove ? handleReject : null}
-      approveDisabled={isCancelled}
-      rejectDisabled={isCancelled}
-      isSubmitting={isSubmitting}
-    >
-      {isDoc && (
-        <figure>
-          <object data={documentUrl} {...props} className="welcome-letter">
-            <embed src={documentUrl} {...props} className="welcome-letter" />
-          </object>
-        </figure>
-      )}
-    </Task>
+              {isDoc && (
+                <button onClick={handleSendLetter} disabled={isCancelled}>
+                  Send letter
+                </button>
+              )}
+            </div>
+          )
+        }
+        onApprove={canApprove ? handleApprove : null}
+        onReject={canApprove ? handleCancel : null}
+        approveDisabled={isCancelled}
+        rejectDisabled={isCancelled}
+        isSubmitting={isSubmitting}
+      >
+        {isDoc && (
+          <figure>
+            <object data={documentUrl} {...props} className="welcome-letter">
+              <embed src={documentUrl} {...props} className="welcome-letter" />
+            </object>
+          </figure>
+        )}
+      </Task>
+      <RejectReason
+        title="Cancel reason"
+        placeholder="Enter the reason why you are cancelling this training record"
+        rejectLabel="Cancel"
+        open={isRejectReasonOpen}
+        onCancel={handleRejectReasonCancel}
+        onReject={handleRejectReasonReject}
+      />
+    </>
   )
 }

@@ -1,8 +1,5 @@
 import { roleStatus } from '@/static-lists'
-import { USER_ROLE, TRAINING_STATUS } from './constants'
-import { log } from './log'
-
-const ROLE_TEST = USER_ROLE.ACCOUNTS
+import { TRAINING_STATUS } from './constants'
 
 export const hasRequiredRole = (optionRoles, userRoles) =>
   optionRoles.length === 0 ||
@@ -20,40 +17,21 @@ export const matchRoleStatus = (userRoles, status) => {
 }
 
 export const getUserAuth = (componentRole, userRoles, status, tracking) => {
-  if (componentRole !== ROLE_TEST) {
-    log.info('getUserAuth', { componentRole, userRoles, status, tracking })
-  }
-
   const isApproved = tracking.map((t) => t.status_id).includes(componentRole)
 
   const isCancelled = status === TRAINING_STATUS.CANCELLED
 
-  const isRejected = status === TRAINING_STATUS.REJECTED
-
   const isComplete = status === TRAINING_STATUS.COMPLETED
 
   const canView =
-    isComplete ||
-    isApproved ||
-    isCancelled ||
-    isRejected ||
-    matchRoleStatus([{ id: componentRole }], status)
+    (isComplete ||
+      isApproved ||
+      matchRoleStatus([{ id: componentRole }], status)) &&
+    !isCancelled
 
   const canApprove = matchRoleStatus(userRoles, status) && !isApproved
 
   const canUpdate = matchRoleStatus(userRoles, status)
-
-  if (componentRole === ROLE_TEST) {
-    log.info({
-      canView,
-      canApprove,
-      canUpdate,
-      isComplete,
-      isApproved,
-      isCancelled,
-      isRejected
-    })
-  }
 
   return {
     canView,
@@ -61,7 +39,6 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
     canUpdate,
     isComplete,
     isApproved,
-    isCancelled,
-    isRejected
+    isCancelled
   }
 }

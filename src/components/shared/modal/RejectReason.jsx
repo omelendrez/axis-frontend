@@ -1,6 +1,15 @@
 import { useState } from 'react'
+import './rejectReason.css'
+import { ActionButton } from '../button'
 
-export const RejectReason = ({ open, onReject, onCancel }) => {
+export const RejectReason = ({
+  title,
+  placeholder,
+  rejectLabel,
+  open,
+  onReject,
+  onCancel
+}) => {
   const [reason, setReason] = useState('')
 
   const handleChange = (e) => {
@@ -20,28 +29,28 @@ export const RejectReason = ({ open, onReject, onCancel }) => {
   }
 
   return (
-    <dialog open={open}>
-      <article>
-        <h3>Reject Reason</h3>
+    <dialog open={open} className="modal">
+      <article className="modal-container reject-reason-container">
+        <ActionButton
+          label="close"
+          onClick={handleCancel}
+          className="modal-close-button"
+        />
+        <h3>{title}</h3>
         <textarea
           rows={3}
           cols={40}
           onChange={handleChange}
           value={reason}
-          placeholder="Enter the reason for this rejection"
+          placeholder={placeholder}
         />
         <footer>
-          <a
-            href="/#"
-            className="secondary"
-            role="button"
-            onClick={handleCancel}
-          >
-            Cancel
-          </a>
-          <a href="/#" onClick={handleReject} role="button">
-            Reject
-          </a>
+          <button className="secondary" onClick={handleCancel}>
+            Close
+          </button>
+          <button onClick={handleReject} disabled={!reason}>
+            {rejectLabel}
+          </button>
         </footer>
       </article>
     </dialog>

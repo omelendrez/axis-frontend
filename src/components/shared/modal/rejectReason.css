@@ -1,0 +1,21 @@
+.reject-reason-container h3 {
+  margin-bottom: 1rem;
+}
+
+.reject-reason-container textarea {
+  background-color: #fff;
+}
+
+.reject-reason-container footer {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  column-gap: 1rem;
+}
+
+.reject-reason-container footer button {
+  width: fit-content;
+}
