@@ -11,6 +11,7 @@ import '../learner/learner-view/learner.css'
 import './trainingView.css'
 import { TRAINING_STATUS } from '@/helpers'
 import { useNavigate } from 'react-router-dom'
+import { RejectReason } from './training-view/RejectReason'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -29,7 +30,13 @@ export const TrainingView = ({ training, onUpdate }) => {
     )
   }
 
-  const { id, status_id: statusId, status: statusName, learner_id } = training
+  const {
+    id,
+    status_id: statusId,
+    status: statusName,
+    learner_id,
+    reject_reason: reason
+  } = training
 
   const { roles } = user
 
@@ -73,6 +80,7 @@ export const TrainingView = ({ training, onUpdate }) => {
 
   return (
     <main className="training-view">
+      {reason && <RejectReason reason={reason} />}
       <StatusStamp status={{ statusId, statusName }} />
       <Photo {...training} />
       <Learner

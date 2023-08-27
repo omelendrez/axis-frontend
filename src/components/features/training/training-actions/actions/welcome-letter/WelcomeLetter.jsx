@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import { Task, RejectReason } from '@/components'
+import { Task, RejectReasonForm } from '@/components'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
 import {
   adminApproval,
   cancelTraining,
+  saveReason,
   generateWelcomeLetter,
   getWelcomeLetterUrl,
   welcomeLetterExists,
@@ -66,13 +67,17 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  const cancel = () => {
+  const cancel = (reason) => {
     setIsSubmitting(true)
 
     cancelTraining(id)
       .then((res) => {
-        onUpdate()
-        apiMessage(res)
+        const payload = { reason }
+        saveReason(id, payload).then(() => {
+          onUpdate()
+          apiMessage(res)
+        })
+        setIsRejectReasonOpen(false)
       })
       .catch((e) => apiMessage(e))
       .finally(() => setIsSubmitting(false))
@@ -95,7 +100,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   }
 
   const handleRejectReasonReject = (reason) => {
-    cancel()
+    cancel(reason)
   }
 
   const handleGenerate = (e) => {
@@ -181,7 +186,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
           </figure>
         )}
       </Task>
-      <RejectReason
+      <RejectReasonForm
         title="Cancel reason"
         placeholder="Enter the reason why you are cancelling this training record"
         rejectLabel="Cancel"

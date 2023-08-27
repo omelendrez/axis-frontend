@@ -1,0 +1,11 @@
+article.exit-reason {
+  position: fixed;
+  width: fit-content;
+  padding: 1rem;
+  max-width: 80%;
+  bottom: 0;
+  left: 7px;
+  background-color: greenyellow;
+  z-index: 1;
+  box-shadow: 2px 4px 6px #aaa;
+}

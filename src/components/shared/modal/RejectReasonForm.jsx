@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import './rejectReason.css'
+import './rejectReasonForm.css'
 import { ActionButton } from '../button'
 
-export const RejectReason = ({
+export const RejectReasonForm = ({
   title,
   placeholder,
   rejectLabel,

@@ -4,6 +4,7 @@ div.alert-status-container {
   right: 0rem;
   width: fit-content;
   height: fit-content;
+  z-index: 2;
 }
 
 div.alert-status-container div.alert-status {

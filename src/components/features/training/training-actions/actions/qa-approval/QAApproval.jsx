@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Task, RejectReason } from '@/components'
+import { Task, RejectReasonForm } from '@/components'
 
 import description from './description'
 import { Status } from '../status-container/Status'
@@ -96,7 +96,7 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
         isSubmitting={isSubmitting}
       ></Task>
 
-      <RejectReason
+      <RejectReasonForm
         open={isRejectOpen}
         onReject={handleConfirmReject}
         onCancel={handleCancel}

@@ -4,6 +4,9 @@ import { TRAINING_STATUS } from '@/helpers'
 
 const endpoint = '/approval'
 
+export const saveReason = (id, payload) =>
+  api.post(`${endpoint}/${id}/reason`, payload)
+
 // Generic approval
 export const approvals = ({ id, status, payload }) =>
   api.post(`${endpoint}/${id}/${status}`, payload)
