@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Modal, IdCardUpload, Task, Preview } from '@/components'
+import {
+  Modal,
+  IdCardUpload,
+  Task,
+  Preview,
+  RejectReasonForm
+} from '@/components'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
 import {
   frontdeskApproval,
+  undoLastApproval,
   learnerIdCardExists,
   getLearnerIdUrl,
-  generateOpitoCertificate
+  generateOpitoCertificate,
+  saveReason
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './scanId.css'
@@ -24,6 +32,8 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
   const [isImage, setIsImage] = useState(false)
+
+  const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
   const { id, status_id: status, badge, tracking } = training
 
@@ -48,30 +58,49 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const process = (payload) => {
+  const handleApprove = (e) => {
+    e.preventDefault()
     setIsSubmitting(true)
+    const payload = {
+      approved: 1
+    }
 
     frontdeskApproval(id, payload)
       .then((res) => {
-        onUpdate()
-        apiMessage(res)
+        saveReason(id, payload).then(() => {
+          onUpdate()
+          apiMessage(res)
+        })
       })
       .catch((e) => apiMessage(e))
       .finally(() => setIsSubmitting(false))
   }
 
-  const handleApprove = (e) => {
-    e.preventDefault()
-    process({
-      approved: 1
-    })
+  const handleRejectReasonCancel = () => {
+    setIsRejectReasonOpen(false)
+  }
+
+  const handleRejectReasonReject = (reason) => {
+    setIsSubmitting(true)
+    const payload = {
+      reason
+    }
+
+    undoLastApproval(id)
+      .then((res) => {
+        saveReason(id, payload).then(() => {
+          onUpdate()
+          setIsRejectReasonOpen(false)
+          apiMessage(res)
+        })
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
 
   const handleReject = (e) => {
     e.preventDefault()
-    process({
-      approved: 0
-    })
+    setIsRejectReasonOpen(true)
   }
 
   const handleScan = (e) => {
@@ -132,45 +161,55 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <Task
-      title={title}
-      status={<Status trackingRecord={trackingRecord} />}
-      className="scan-id"
-      onApprove={canApprove ? handleApprove : null}
-      onReject={canApprove ? handleReject : null}
-      approveDisabled={isCancelled}
-      rejectDisabled={isCancelled}
-      isSubmitting={isSubmitting}
-    >
-      <div className="scan-id-children">
-        {isImage && <Preview imageUrl={imageUrl} />}
+    <>
+      <Task
+        title={title}
+        status={<Status trackingRecord={trackingRecord} />}
+        className="scan-id"
+        onApprove={canApprove ? handleApprove : null}
+        onReject={canApprove ? handleReject : null}
+        approveDisabled={isCancelled}
+        rejectDisabled={isCancelled}
+        isSubmitting={isSubmitting}
+      >
+        <div className="scan-id-children">
+          {isImage && <Preview imageUrl={imageUrl} />}
 
-        {opitoFile && (
-          <a
-            href={`${import.meta.env.VITE_ASSETS_URL}${opitoFile}`}
-            alt={opitoFile}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {opitoFile}
-          </a>
-        )}
+          {opitoFile && (
+            <a
+              href={`${import.meta.env.VITE_ASSETS_URL}${opitoFile}`}
+              alt={opitoFile}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {opitoFile}
+            </a>
+          )}
 
-        {canApprove && (
-          <div className="buttons">
-            <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-scan Id' : 'Scan Id'}
-            </button>
-            {false && <button onClick={handleOpito}>Generate xlsx</button>}
-          </div>
-        )}
-      </div>
-
-      <Modal open={isPhotoOpen} title="Scan Id card" onClose={handleClose}>
-        <div className="form-container">
-          <IdCardUpload onClose={handleClose} badge={badge} />
+          {canApprove && (
+            <div className="buttons">
+              <button onClick={handleScan} disabled={isCancelled}>
+                {isImage ? 'Re-scan Id' : 'Scan Id'}
+              </button>
+              {false && <button onClick={handleOpito}>Generate xlsx</button>}
+            </div>
+          )}
         </div>
-      </Modal>
-    </Task>
+
+        <Modal open={isPhotoOpen} title="Scan Id card" onClose={handleClose}>
+          <div className="form-container">
+            <IdCardUpload onClose={handleClose} badge={badge} />
+          </div>
+        </Modal>
+      </Task>
+      <RejectReasonForm
+        title="Reject reason"
+        placeholder="Enter the reason why you are rejecting this training record"
+        rejectLabel="Reject"
+        open={isRejectReasonOpen}
+        onCancel={handleRejectReasonCancel}
+        onReject={handleRejectReasonReject}
+      />
+    </>
   )
 }
