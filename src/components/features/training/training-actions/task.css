@@ -66,3 +66,7 @@ div.actions div button:hover,
 div.actions div button.delete:hover {
   opacity: 1;
 }
+
+div.actions div button:disabled {
+  opacity: 0.5;
+}

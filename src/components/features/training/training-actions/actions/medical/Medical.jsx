@@ -4,7 +4,7 @@ import { Status } from '../status-container/Status'
 
 import description from './description'
 import useApiMessages from '@/hooks/useApiMessages'
-import { medicalApproval } from '@/services'
+import { medicalApproval, saveReason, cancelTraining } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './medical.css'
 
@@ -58,11 +58,18 @@ export const Medical = ({ training, onUpdate, role, user }) => {
 
   const handleReject = (e) => {
     e.preventDefault()
-    process({
-      systolic,
-      diastolic,
-      approved: 0
-    })
+    const payload = {
+      reason: `Did not fit for training: ${systolic}/${diastolic}`
+    }
+    cancelTraining(id)
+      .then((res) => {
+        saveReason(id, payload).then(() => {
+          onUpdate()
+          apiMessage(res)
+        })
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
 
   const { systolic, diastolic } = bp
@@ -104,6 +111,8 @@ export const Medical = ({ training, onUpdate, role, user }) => {
       className="blood-pressure"
       onApprove={canApprove ? handleApprove : null}
       onReject={canApprove ? handleReject : null}
+      approveLabel="FIT"
+      rejectLabel="NO FIT"
       approveDisabled={!systolic || !diastolic || isCancelled}
       rejectDisabled={!systolic || !diastolic || isCancelled}
       isSubmitting={isSubmitting}
