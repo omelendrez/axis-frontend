@@ -1,7 +1,6 @@
 export * from './change-password'
 export * from './company'
 export * from './contact'
-export * from './course-assessment'
 export * from './course-item'
 export * from './course'
 export * from './home'

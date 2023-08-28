@@ -1,9 +1,0 @@
-[
-  {
-    "type": "text",
-    "id": "name",
-    "label": "Name",
-    "placeholder": "Enter name",
-    "required": true
-  }
-]

@@ -48,15 +48,6 @@
     ]
   },
   {
-    "title": "Course Assessments",
-    "description": "Manage courses assessments.",
-    "path": "/course-assessments",
-    "icon": "checklist",
-    "roles": [
-      1
-    ]
-  },
-  {
     "title": "Course Items",
     "description": "Manage lines that are printed in some certificates.",
     "path": "/course-items",

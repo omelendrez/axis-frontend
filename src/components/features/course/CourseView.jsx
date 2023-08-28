@@ -3,23 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import { Modal } from '@/components'
 
-import { Course, CourseItems, CourseAssessments } from './course-view'
+import { Course, CourseItems } from './course-view'
 import { CourseForm } from '../..'
 import { CourseItemRels as CourseItemRelList } from './course-item-rel'
-import { CourseAssessmentRels as CourseAssessmentRelList } from './course-assessment-rel'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
 import courseItemFields from './course-view/course-item-fields.json'
-import courseAssessmentFields from './course-view/course-assessment-fields.json'
 
 import {
   deleteCourse,
-  deleteCourseAssessmentRel,
   deleteCourseItemRel,
   getCourse,
-  getCourseAssessmentsRel,
-  getCourseAvailableAssessments,
   getCourseAvailableItems,
   getCourseItemsRel,
   getCourseView
@@ -44,13 +39,6 @@ export const CourseView = () => {
   const [courseItemsAvailable, setCourseItemsAvailable] = useState([])
   const [isCourseItemEdit, setIsCourseItemEdit] = useState(false)
 
-  const [courseAssessments, setCourseAssessments] = useState([])
-  const [courseAssessmentEditData, setCourseAssessmentEditData] = useState(null)
-  const [courseAssessmentsAvailable, setCourseAssessmentsAvailable] = useState(
-    []
-  )
-  const [isCourseAssessmentEdit, setIsCourseAssessmentEdit] = useState(false)
-
   const id = params?.id
 
   // Course
@@ -74,27 +62,6 @@ export const CourseView = () => {
       })
       .catch((e) => apiMessage(e))
   }
-
-  // Course assessment
-  const handleAddCourseAssessment = (e) => {
-    e.preventDefault()
-
-    const fields = courseAssessmentFields.map((f) => f.field)
-
-    const fieldData = {}
-    fields.forEach((f) => (fieldData[f] = ''))
-
-    setCourseAssessmentEditData({ ...fieldData, course: id, id: undefined })
-    setIsCourseAssessmentEdit(true)
-  }
-
-  const handleDeleteCourseAssessment = (courseAssessmentId) =>
-    deleteCourseAssessmentRel(courseAssessmentId)
-      .then((res) => {
-        apiMessage(res)
-        setUpdate((u) => !u)
-      })
-      .catch((e) => apiMessage(e))
 
   // Course item
   const handleAddCourseItem = (e) => {
@@ -122,10 +89,6 @@ export const CourseView = () => {
 
     setUpdate((u) => !u)
 
-    if (isCourseAssessmentEdit) {
-      setCourseAssessmentEditData(null)
-      setIsCourseAssessmentEdit(false)
-    }
     if (isCourseItemEdit) {
       setCourseItemEditData(null)
       setIsCourseItemEdit(false)
@@ -142,19 +105,6 @@ export const CourseView = () => {
       getCourseView(id)
         .then((res) => {
           setCourse(res.data)
-        })
-        .catch((e) => apiMessage(e))
-
-      // Course assessment
-      getCourseAssessmentsRel(id)
-        .then((res) => {
-          setCourseAssessments(res.data)
-        })
-        .catch((e) => apiMessage(e))
-
-      getCourseAvailableAssessments(id)
-        .then((res) => {
-          setCourseAssessmentsAvailable(res.data)
         })
         .catch((e) => apiMessage(e))
 
@@ -187,19 +137,6 @@ export const CourseView = () => {
       </Modal>
 
       <Modal
-        open={isCourseAssessmentEdit}
-        title="Insert course assessments"
-        onClose={handleClose}
-      >
-        <CourseAssessmentRelList
-          id={course.id}
-          items={courseAssessmentsAvailable}
-          key={courseItemEditData?.id}
-          onClose={handleClose}
-        />
-      </Modal>
-
-      <Modal
         open={isCourseItemEdit}
         title="Insert course items"
         onClose={handleClose}
@@ -219,13 +156,6 @@ export const CourseView = () => {
           course={course}
           onEdit={handleEditCourse}
           onDelete={handleDeleteCourse}
-        />
-
-        <CourseAssessments
-          items={courseAssessments}
-          onAdd={handleAddCourseAssessment}
-          onDelete={handleDeleteCourseAssessment}
-          key={courseAssessmentEditData?.id}
         />
 
         <CourseItems
