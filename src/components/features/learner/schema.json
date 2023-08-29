@@ -24,12 +24,6 @@
   },
   {
     "type": "text",
-    "id": "middle_name",
-    "label": "Middle name",
-    "placeholder": "Enter middle name"
-  },
-  {
-    "type": "text",
     "id": "last_name",
     "label": "Last name",
     "placeholder": "Enter last name",
