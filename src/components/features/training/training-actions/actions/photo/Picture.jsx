@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react'
-import { Modal, Task, PhotoUpload, Preview } from '@/components'
+import {
+  Modal,
+  Task,
+  PhotoUpload,
+  Preview,
+  RejectReasonForm
+} from '@/components'
 import useApiMessages from '@/hooks/useApiMessages'
 import {
   trainingCoordinatorApproval,
   pictureExists,
-  getPhotoUrl
+  getPhotoUrl,
+  cancelTraining,
+  saveReason
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
@@ -37,6 +45,8 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const imageUrl = getPhotoUrl(badge)
 
+  const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
+
   useEffect(() => {
     pictureExists(badge)
       .then((res) => setIsImage(res.data.exists))
@@ -64,11 +74,31 @@ export const Picture = ({ training, onUpdate, role, user }) => {
     })
   }
 
+  const handleRejectReasonCancel = () => {
+    setIsRejectReasonOpen(false)
+  }
+
+  const handleRejectReasonReject = (reason) => {
+    setIsSubmitting(true)
+    const payload = {
+      reason
+    }
+
+    cancelTraining(id)
+      .then((res) => {
+        saveReason(id, payload).then(() => {
+          onUpdate()
+          setIsRejectReasonOpen(false)
+          apiMessage(res)
+        })
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
+  }
+
   const handleReject = (e) => {
     e.preventDefault()
-    process({
-      approved: 0
-    })
+    setIsRejectReasonOpen(true)
   }
 
   const handleScan = (e) => {
@@ -89,32 +119,42 @@ export const Picture = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <Task
-      title={title}
-      status={<Status trackingRecord={trackingRecord} />}
-      className="picture"
-      onApprove={canApprove ? handleApprove : null}
-      onReject={!isApproved ? handleReject : null}
-      approveDisabled={isCancelled}
-      rejectDisabled={isCancelled}
-      isSubmitting={isSubmitting}
-    >
-      <div className="picture-children">
-        {isImage && <Preview imageUrl={imageUrl} />}
-        {canApprove && (
-          <div className="buttons">
-            <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-take picture' : 'Take picture'}
-            </button>
-          </div>
-        )}
-      </div>
-
-      <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>
-        <div className="form-container">
-          <PhotoUpload onClose={handleClose} badge={badge} />
+    <>
+      <Task
+        title={title}
+        status={<Status trackingRecord={trackingRecord} />}
+        className="picture"
+        onApprove={canApprove ? handleApprove : null}
+        onReject={!isApproved ? handleReject : null}
+        approveDisabled={isCancelled}
+        rejectDisabled={isCancelled}
+        isSubmitting={isSubmitting}
+      >
+        <div className="picture-children">
+          {isImage && <Preview imageUrl={imageUrl} />}
+          {canApprove && (
+            <div className="buttons">
+              <button onClick={handleScan} disabled={isCancelled}>
+                {isImage ? 'Re-take picture' : 'Take picture'}
+              </button>
+            </div>
+          )}
         </div>
-      </Modal>
-    </Task>
+
+        <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>
+          <div className="form-container">
+            <PhotoUpload onClose={handleClose} badge={badge} />
+          </div>
+        </Modal>
+      </Task>
+      <RejectReasonForm
+        title="Reject reason"
+        placeholder="Enter the reason why you are rejecting this training record"
+        rejectLabel="Reject"
+        open={isRejectReasonOpen}
+        onCancel={handleRejectReasonCancel}
+        onReject={handleRejectReasonReject}
+      />
+    </>
   )
 }

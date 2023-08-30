@@ -56,7 +56,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
     })
   }
 
-  const handleReject = (e) => {
+  const handleCancel = (e) => {
     e.preventDefault()
     const payload = {
       reason: `Did not fit for training: ${systolic}/${diastolic}`
@@ -110,7 +110,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
       }
       className="blood-pressure"
       onApprove={canApprove ? handleApprove : null}
-      onReject={canApprove ? handleReject : null}
+      onReject={canApprove ? handleCancel : null}
       approveLabel="FIT"
       rejectLabel="NO FIT"
       approveDisabled={!systolic || !diastolic || isCancelled}
