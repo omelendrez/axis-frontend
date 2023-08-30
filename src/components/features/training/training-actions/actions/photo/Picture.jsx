@@ -126,6 +126,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
         className="picture"
         onApprove={canApprove ? handleApprove : null}
         onReject={!isApproved ? handleReject : null}
+        rejectLabel="Cancel"
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}
         isSubmitting={isSubmitting}
