@@ -47,13 +47,6 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
     })
   }
 
-  const handleReject = (e) => {
-    e.preventDefault()
-    process({
-      approved: 0
-    })
-  }
-
   const result = (
     <strong>
       {isCancelled ? 'CANCELLED' : isApproved ? 'MD APPROVED' : ''}
@@ -79,11 +72,11 @@ export const MDApproval = ({ training, onUpdate, role, user }) => {
       }
       className="md-approval"
       onApprove={!isApproved ? handleApprove : null}
-      onReject={!isApproved ? handleReject : null}
+      // onReject={!isApproved ? handleReject : null}
       approveDisabled={isCancelled}
-      rejectDisabled={isCancelled}
+      // rejectDisabled={isCancelled}
       approveLabel="Approve"
-      rejectLabel="Reject"
+      // rejectLabel="Reject"
       isSubmitting={isSubmitting}
     ></Task>
   )
