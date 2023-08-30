@@ -1,22 +1,23 @@
 div.alert-status-container {
   position: fixed;
-  top: 6rem;
-  right: 0rem;
+  top: 2rem;
+  right: 1rem;
   width: fit-content;
   height: fit-content;
   z-index: 2;
 }
 
 div.alert-status-container div.alert-status {
-  border-radius: 4px;
+  border-radius: 3px;
   border: 2px solid transparent;
   box-shadow: 0 0 0 3px, 0 0 0 2px inset;
   color: var(--primary);
   font-family: 'Black Ops One', cursive;
-  opacity: 0.5;
+  opacity: 1;
   padding: 0.5rem 1rem;
   text-transform: uppercase;
-  transform: rotate(30deg);
+  transform: rotate(15deg);
+  background-color: white;
 }
 
 div.alert-status-container div.alert-status.status-11 {
@@ -29,14 +30,14 @@ div.alert-status-container div.alert-status.status-12 {
 
 @media screen and (min-width: 640px) {
   div.alert-status-container {
-    top: 6rem;
+    top: 2rem;
     right: 1rem;
   }
 }
 
 @media screen and (min-width: 992px) {
   div.alert-status-container {
-    top: 5rem;
-    right: 0;
+    top: 2rem;
+    right: 1rem;
   }
 }
