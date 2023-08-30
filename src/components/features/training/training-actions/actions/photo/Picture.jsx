@@ -15,7 +15,6 @@ import {
   saveReason
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
-
 import './picture.css'
 import { Status } from '../status-container/Status'
 
@@ -149,9 +148,9 @@ export const Picture = ({ training, onUpdate, role, user }) => {
         </Modal>
       </Task>
       <RejectReasonForm
-        title="Reject reason"
-        placeholder="Enter the reason why you are rejecting this training record"
-        rejectLabel="Reject"
+        title="cancel reason"
+        placeholder="Enter the reason why you are cancelling this training record"
+        rejectLabel="Cancel"
         open={isRejectReasonOpen}
         onCancel={handleRejectReasonCancel}
         onReject={handleRejectReasonReject}

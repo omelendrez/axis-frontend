@@ -4,7 +4,11 @@ import { Task, RejectReasonForm } from '@/components'
 import description from './description'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
-import { QAApproval as approval } from '@/services'
+import {
+  QAApproval as approval,
+  saveReason,
+  undoLastApproval
+} from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 export const QAApproval = ({ training, onUpdate, role, user }) => {
@@ -56,10 +60,22 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
     setIsRejectOpen(false)
   }
 
-  const handleConfirmReject = () => {
-    process({
-      approved: 0
-    })
+  const handleConfirmReject = async (reason) => {
+    setIsSubmitting(true)
+    const payload = {
+      reason
+    }
+    try {
+      await undoLastApproval(id)
+      await undoLastApproval(id)
+      await saveReason(id, payload)
+      onUpdate()
+      setIsRejectOpen(false)
+      setIsSubmitting(false)
+    } catch (error) {
+      apiMessage(error)
+      setIsSubmitting(false)
+    }
   }
 
   const result = (
@@ -91,12 +107,13 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
         onReject={!isApproved ? handleReject : null}
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}
-        approveLabel="Approve"
-        rejectLabel="Reject"
         isSubmitting={isSubmitting}
       ></Task>
 
       <RejectReasonForm
+        title="reject reason"
+        placeholder="Enter the reason why you are rejecting this training record"
+        rejectLabel="Reject"
         open={isRejectOpen}
         onReject={handleConfirmReject}
         onCancel={handleCancel}
