@@ -30,11 +30,15 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const [isImage, setIsImage] = useState(false)
 
+  const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
+
   const { id, status_id: status, badge, tracking } = training
 
   const trackingRecord = tracking.find(
     (t) => t.status_id === TRAINING_STATUS.TRAINING_COORDINATOR_DONE
   )
+
+  const imageUrl = getPhotoUrl(badge)
 
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
@@ -42,10 +46,6 @@ export const Picture = ({ training, onUpdate, role, user }) => {
     status,
     tracking
   )
-
-  const imageUrl = getPhotoUrl(badge)
-
-  const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
   useEffect(() => {
     pictureExists(badge)

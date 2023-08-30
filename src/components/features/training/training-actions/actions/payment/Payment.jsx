@@ -4,7 +4,7 @@ import { Task } from '@/components'
 import description from './description'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
-import { accountsApproval } from '@/services'
+import { accountsApproval, cancelTraining, saveReason } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 
 export const Payment = ({ training, onUpdate, role, user }) => {
@@ -53,9 +53,18 @@ export const Payment = ({ training, onUpdate, role, user }) => {
 
   const handleReject = (e) => {
     e.preventDefault()
-    process({
-      approved: 0
-    })
+    const payload = {
+      reason: 'NOT PAID.'
+    }
+    cancelTraining(id)
+      .then((res) => {
+        saveReason(id, payload).then(() => {
+          onUpdate()
+          apiMessage(res)
+        })
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
 
   const result = (
