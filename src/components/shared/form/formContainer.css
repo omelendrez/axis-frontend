@@ -1,5 +1,5 @@
 article.form-container {
-  background-color: var(--form-background-color);
+  background-color: var(--page-background-color);
 }
 
 article.form-container .form-control {

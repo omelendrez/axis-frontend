@@ -7,7 +7,7 @@ dialog.modal article.modal-container {
   height: auto;
   position: relative;
   width: 100%;
-  background-color: var(--form-background-color);
+  background-color: var(--page-background-color);
 }
 
 div.action-button.modal-close-button {
