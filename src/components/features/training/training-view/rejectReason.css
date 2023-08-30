@@ -5,7 +5,8 @@ article.exit-reason {
   max-width: 80%;
   bottom: 0;
   left: 7px;
-  background-color: greenyellow;
+  background-color: var(--error);
+  color: white;
   z-index: 1;
-  box-shadow: 2px 4px 6px #aaa;
+  box-shadow: 2px 4px 6px #cdcdcd;
 }

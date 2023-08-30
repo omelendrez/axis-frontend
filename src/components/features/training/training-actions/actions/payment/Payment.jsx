@@ -54,7 +54,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
   const handleReject = (e) => {
     e.preventDefault()
     const payload = {
-      reason: 'NOT PAID.'
+      reason: 'The payment was not made.'
     }
     cancelTraining(id)
       .then((res) => {
