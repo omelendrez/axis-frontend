@@ -20,7 +20,13 @@
   {
     "type": "date",
     "id": "issued",
-    "label": "Certificate issued",
+    "label": "Certificate issuance",
+    "if": "id"
+  },
+  {
+    "type": "date",
+    "id": "expiry",
+    "label": "Certificate expiration",
     "if": "id"
   },
   {
