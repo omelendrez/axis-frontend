@@ -11,12 +11,16 @@
   },
   {
     "label": "End",
-    "field": "end"
+    "field": "end",
+    "divider": true
   },
   {
     "label": "Instructor",
-    "field": "instructor",
-    "divider": true
+    "field": "instructor"
+  },
+  {
+    "label": "Certificate",
+    "field": "certificate"
   },
   {
     "label": "Issued",
@@ -24,7 +28,8 @@
   },
   {
     "label": "Expiry",
-    "field": "expiry"
+    "field": "expiry",
+    "divider": true
   },
   {
     "label": "Previous expiring date",
@@ -32,7 +37,8 @@
     "divider": true
   },
   {
-    "label": "Course state",
-    "field": "course_state"
+    "label": "Status",
+    "field": "status",
+    "className": "status"
   }
 ]

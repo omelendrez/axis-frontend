@@ -1,0 +1,14 @@
+article.course div.row-line div.status {
+  background-color: var(--info);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+}
+
+article.course div.row-line div.status.completed {
+  background-color: var(--success);
+}
+
+article.course div.row-line div.status.cancelled {
+  background-color: var(--error);
+}

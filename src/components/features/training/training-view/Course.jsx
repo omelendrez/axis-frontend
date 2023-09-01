@@ -1,6 +1,7 @@
 import { Buttons, Divider } from '@/components'
 import fields from './course-fields.json'
 import { TRAINING_STATUS } from '@/helpers'
+import './course.css'
 
 const Row = ({ label, value, className, divider }) => {
   return (
@@ -42,7 +43,11 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
             key={f.label}
             label={f.label}
             value={f.model ? training[f.model][f.field] : training[f.field]}
-            className={f.className}
+            className={`${f.className} ${
+              f.model
+                ? training[f.model][f.field].toLowerCase()
+                : training[f.field].toLowerCase()
+            }`}
             divider={f.divider}
           />
         ))}
