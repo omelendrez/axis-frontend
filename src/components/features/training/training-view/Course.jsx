@@ -33,21 +33,19 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
       />
       <Divider style={{ margin: '1rem 0' }} />
 
-      <div>
-        {fields
-          .filter((f) =>
-            Boolean(f.model ? training[f.model][f.field] : training[f.field])
-          )
-          .map((f) => (
-            <Row
-              key={f.label}
-              label={f.label}
-              value={f.model ? training[f.model][f.field] : training[f.field]}
-              className={f.className}
-              divider={f.divider}
-            />
-          ))}
-      </div>
+      {fields
+        .filter((f) =>
+          Boolean(f.model ? training[f.model][f.field] : training[f.field])
+        )
+        .map((f) => (
+          <Row
+            key={f.label}
+            label={f.label}
+            value={f.model ? training[f.model][f.field] : training[f.field]}
+            className={f.className}
+            divider={f.divider}
+          />
+        ))}
     </article>
   )
 }

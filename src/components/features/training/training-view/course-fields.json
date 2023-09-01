@@ -6,11 +6,11 @@
     "divider": true
   },
   {
-    "label": "Course start",
+    "label": "Start",
     "field": "start"
   },
   {
-    "label": "Course end",
+    "label": "End",
     "field": "end"
   },
   {
@@ -19,11 +19,11 @@
     "divider": true
   },
   {
-    "label": "Certificate issued",
+    "label": "Issued",
     "field": "issued"
   },
   {
-    "label": "Certificate expiry",
+    "label": "Expiry",
     "field": "expiry"
   },
   {
