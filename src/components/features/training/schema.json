@@ -15,7 +15,8 @@
   {
     "type": "date",
     "id": "end",
-    "label": "Course end"
+    "label": "Course end",
+    "if": "id"
   },
   {
     "type": "date",
