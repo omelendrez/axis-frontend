@@ -8,17 +8,23 @@
     "field": "instructor"
   },
   {
-    "label": "Course",
+    "label": "Start",
     "field": "start"
   },
   {
+    "label": "End",
     "field": "end"
   },
   {
     "label": "Certificate",
+    "field": "certificate"
+  },
+  {
+    "label": "Issued",
     "field": "issued"
   },
   {
+    "label": "Expiry",
     "field": "expiry"
   },
   {
