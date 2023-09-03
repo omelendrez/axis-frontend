@@ -150,40 +150,38 @@ const PendingTasks = () => {
   }
 
   return (
-    <>
-      <main className="container-fluid pending-tasks">
-        {isLoading && <Loading />}
-        {!showInputParameters && (
-          <SelectedDateView date={date} onClick={handleSelectedDateView} />
-        )}
-        {showInputParameters && (
-          <InputParameters
-            onCalendarChange={handleCalendarChange}
-            onStatusChange={handleStatusChange}
-            date={date}
-            setToday={setToday}
-            statuses={authorizedStatuses}
-            selectedStatuses={selectedStatuses}
-            onConfirm={handleConfirm}
-          />
-        )}
-        <CardList
-          Card={Card}
-          data={data}
-          pagination={pagination}
-          onPagination={setPagination}
-          onView={handleView}
-          isLoading={isLoading}
-          selectedItems={selectedRows}
-          setSelected={setSelectedRows}
+    <main className="container-fluid pending-tasks">
+      {isLoading && <Loading />}
+      {!showInputParameters && (
+        <SelectedDateView date={date} onClick={handleSelectedDateView} />
+      )}
+      {showInputParameters && (
+        <InputParameters
+          onCalendarChange={handleCalendarChange}
+          onStatusChange={handleStatusChange}
+          date={date}
+          setToday={setToday}
+          statuses={authorizedStatuses}
+          selectedStatuses={selectedStatuses}
+          onConfirm={handleConfirm}
         />
-      </main>
+      )}
+      <CardList
+        Card={Card}
+        data={data}
+        pagination={pagination}
+        onPagination={setPagination}
+        onView={handleView}
+        isLoading={isLoading}
+        selectedItems={selectedRows}
+        setSelected={setSelectedRows}
+      />
       <FloatingButtons
         isVisible={selectedRows.length}
         onApprove={handleApprove}
         onReject={handleReject}
       />
-    </>
+    </main>
   )
 }
 

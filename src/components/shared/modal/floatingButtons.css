@@ -15,7 +15,7 @@
 }
 
 .floating-buttons button.approve {
-  background: var(--info);
+  background: var(--primary);
 }
 
 .floating-buttons button.reject {
