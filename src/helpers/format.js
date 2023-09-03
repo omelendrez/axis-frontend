@@ -13,22 +13,26 @@ export const isEqual = (date) =>
   formatShortDate(date) === formatShortDate(new Date())
 
 export const formatYMD = (date) =>
-  new Intl.DateTimeFormat('en-GB')
-    .format(new Date(date))
-    .split('/')
-    .reverse()
-    .join('-')
+  date
+    ? new Intl.DateTimeFormat('en-GB')
+        .format(new Date(date))
+        .split('/')
+        .reverse()
+        .join('-')
+    : null
 
 export const formatFullDate = (date) => {
-  return formatYMD(date) === formatYMD(new Date())
-    ? format(date, 'PPPP')
-    : `${format(date, 'PPPP')} (${formatDistance(
-        new Date(formatYMD(date)),
-        new Date(formatYMD(new Date())),
-        {
-          addSuffix: true
-        }
-      )})`
+  return date
+    ? formatYMD(date) === formatYMD(new Date())
+      ? format(date, 'PPPP')
+      : `${format(date, 'PPPP')} (${formatDistance(
+          new Date(formatYMD(date)),
+          new Date(formatYMD(new Date())),
+          {
+            addSuffix: true
+          }
+        )})`
+    : null
 }
 
 export const documentNumber = (num) =>

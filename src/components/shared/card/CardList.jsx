@@ -13,6 +13,8 @@ export const CardList = ({
   onEdit,
   onDelete,
   onView,
+  selectedItems,
+  setSelected,
   isLoading
 }) => {
   const [searchText, setSearchText] = useState('')
@@ -34,6 +36,14 @@ export const CardList = ({
       offset: (newPage - 1) * limit
     }
     onPagination((p) => ({ ...p, ...newValues }))
+  }
+
+  const handleSelectItem = (item) => {
+    if (!selectedItems.find((it) => it.id === item.id)) {
+      setSelected((items) => [...items, item])
+    } else {
+      setSelected((items) => items.filter((it) => it.id !== item.id))
+    }
   }
 
   return (
@@ -67,6 +77,12 @@ export const CardList = ({
             onEdit={onEdit}
             onDelete={onDelete}
             onView={onView}
+            isSelected={
+              selectedItems
+                ? Boolean(selectedItems.find((it) => it.id === item.id))
+                : []
+            }
+            onSelect={handleSelectItem}
           />
         ))}
       </div>

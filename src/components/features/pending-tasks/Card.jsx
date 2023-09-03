@@ -1,7 +1,10 @@
 import { getPhotoUrl } from '@/services'
+import useUser from '@/hooks/useUser'
 import './card.css'
+import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
+import { useEffect, useState } from 'react'
 
-export const Card = ({ item, onView }) => {
+export const Card = ({ item, onView, isSelected, onSelect }) => {
   const {
     badge,
     company_name,
@@ -9,17 +12,45 @@ export const Card = ({ item, onView }) => {
     full_name,
     instructor,
     start,
-    state_name,
     status_name,
     status
   } = item
+
+  const { user } = useUser()
+
+  const [multiple, setMultiple] = useState(false)
 
   const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
 
   const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 
+  const handleClick = (e) => {
+    e.preventDefault()
+    onView(item.id)
+  }
+
+  const handleSelectItem = (e) => {
+    e.stopPropagation()
+    onSelect(item)
+  }
+
+  useEffect(() => {
+    if (user.roles?.length) {
+      setMultiple(
+        Boolean(
+          user.roles.find(
+            (role) =>
+              role.id === USER_ROLE.ACCOUNTS ||
+              role.id === USER_ROLE.MD ||
+              role.id === USER_ROLE.SYS_ADMIN
+          )
+        )
+      )
+    }
+  }, [user.roles])
+
   return (
-    <article className="card trainings" onClick={() => onView(item.id)}>
+    <article className="card trainings" onClick={handleClick}>
       <div className="card-avatar-root">
         <img
           src={photoUrl}
@@ -29,9 +60,9 @@ export const Card = ({ item, onView }) => {
         />
       </div>
       <div className="card-body">
-        <div className="ellipsis course">
-          {start} - {course_name}
-        </div>
+        <div className="ellipsis course">{course_name}</div>
+        <div className="small-font">{start}</div>
+
         <div className="small-font instructor">{instructor}</div>
 
         <div className="ellipsis name">{full_name}</div>
@@ -39,18 +70,19 @@ export const Card = ({ item, onView }) => {
         <div className="small-font company">{company_name}</div>
 
         <div className={`status status-${status} small-font`}>
-          {status_name} - {state_name}
+          {status_name}
         </div>
-
-        {/* <div className="card-line-buttons">
-          <div>
-            <span className="material-icons thumb-up">thumb_up</span>
-          </div>
-          <div>
-            <span className="material-icons thumb-down">thumb_down</span>
-          </div>
-        </div> */}
       </div>
+      {status !== TRAINING_STATUS.COMPLETED && multiple && (
+        <div className="card-line-buttons">
+          <input
+            type="checkbox"
+            onClick={handleSelectItem}
+            checked={isSelected}
+            readOnly
+          />
+        </div>
+      )}
     </article>
   )
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
   Loading,
@@ -11,14 +12,11 @@ import {
 import usePage from '@/hooks/usePage'
 import useTrainings from '@/hooks/useTrainings'
 import useStatuses from '@/hooks/useStatuses'
-import useNotification from '@/hooks/useNotification'
 import useUser from '@/hooks/useUser'
 
 import { PendingTasksContext } from '@/context'
 
 import { formatYMD, matchRoleStatus, initialValues } from '@/helpers'
-
-import { useNavigate } from 'react-router-dom'
 
 import '../components/features/pending-tasks/pendingTasks.css'
 
@@ -32,13 +30,13 @@ const PendingTasks = () => {
 
   const [pagination, setPagination] = useState(initialValues)
 
+  const [selectedRows, setSelectedRows] = useState([])
+
   const [showInputParameters, setShowInputParameters] = useState(false)
 
   const navigate = useNavigate()
 
   const { set: setPage } = usePage()
-
-  const { set } = useNotification()
 
   const { statuses, load: loadStatuses } = useStatuses()
   const { data: statusList } = statuses
@@ -51,31 +49,45 @@ const PendingTasks = () => {
   useEffect(() => {
     setPage('My pending tasks')
     loadStatuses()
+
+    return () => {
+      setPendingTaksParams((params) => ({
+        ...params,
+        date: null
+      }))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    if (statusList.rows && !authorizedStatuses.length) {
-      setAuthorizedStatuses(
-        statusList.rows.filter((s) => matchRoleStatus(user.roles, s.id))
+    if (statusList.rows) {
+      const authorizedStatuses = statusList.rows.filter((s) =>
+        matchRoleStatus(user.roles, s.id)
       )
+      setAuthorizedStatuses(authorizedStatuses)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusList])
+  }, [statusList.rows])
 
   useEffect(() => {
     if (authorizedStatuses.length) {
-      const selectedStatuses = authorizedStatuses.map((s) => parseInt(s.id, 10))
+      const selectedStatuses = authorizedStatuses.map((status) =>
+        parseInt(status.id, 10)
+      )
 
-      setPendingTaksParams((p) => ({
-        ...p,
+      setPendingTaksParams((params) => ({
+        ...params,
         selectedStatuses
       }))
     }
-    handleConfirm()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorizedStatuses, pagination])
+
+  useEffect(() => {
+    if (!showInputParameters) handleConfirm()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedStatuses])
 
   const handleView = (training) => navigate(`/training/${training}`)
 
@@ -90,7 +102,7 @@ const PendingTasks = () => {
   }
 
   const handleCalendarChange = (date) =>
-    setPendingTaksParams((p) => ({ ...p, date }))
+    setPendingTaksParams((params) => ({ ...params, date }))
 
   const handleStatusChange = (e) => {
     const { id, checked } = e.target
@@ -117,14 +129,10 @@ const PendingTasks = () => {
         statuses: selectedStatuses.join('-'),
         pagination
       }
+
       loadTrainings(payload)
+
       setShowInputParameters(false)
-    } else {
-      const notification = {
-        type: 'info',
-        message: 'Please select a status'
-      }
-      set(notification)
     }
   }
 
@@ -135,7 +143,7 @@ const PendingTasks = () => {
   return (
     <main className="container-fluid pending-tasks">
       {isLoading && <Loading />}
-      {!showInputParameters && date && (
+      {!showInputParameters && (
         <SelectedDateView date={date} onClick={handleSelectedDateView} />
       )}
       {showInputParameters && (
@@ -145,7 +153,7 @@ const PendingTasks = () => {
           date={date}
           setToday={setToday}
           statuses={authorizedStatuses}
-          selected={selectedStatuses}
+          selectedRows={selectedStatuses}
           onConfirm={handleConfirm}
         />
       )}
@@ -156,6 +164,8 @@ const PendingTasks = () => {
         onPagination={setPagination}
         onView={handleView}
         isLoading={isLoading}
+        selectedItems={selectedRows}
+        setSelected={setSelectedRows}
       />
     </main>
   )

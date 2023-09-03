@@ -7,10 +7,20 @@ export const createTraining = (payload) => api.post(endpoint, payload)
 
 export const getLearnerTrainings = (id) => api.get(`${endpoint}/${id}/all`)
 
-export const getTrainings = ({ date, statuses, pagination }) =>
-  date && statuses
-    ? api.get(`${endpoint}/${date}/${statuses}${setURLParams(pagination)}`)
-    : api.get(`${endpoint}${setURLParams(pagination)}`)
+export const getTrainings = ({ date, statuses, pagination }) => {
+  let path = []
+
+  path.push(endpoint)
+  path.push(date || 'no-date')
+
+  if (statuses) {
+    path.push(statuses)
+  }
+
+  path.push(setURLParams(pagination))
+
+  return api.get(path.join('/'))
+}
 
 export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 

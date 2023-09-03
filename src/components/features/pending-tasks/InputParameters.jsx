@@ -6,7 +6,7 @@ export const InputParameters = ({
   onCalendarChange,
   onStatusChange,
   statuses,
-  selected,
+  selectedRows,
   onConfirm
 }) => (
   <article className="pending-tasks-container">
@@ -18,7 +18,7 @@ export const InputParameters = ({
     <InputStatus
       statuses={statuses}
       onChange={onStatusChange}
-      selected={selected}
+      selected={selectedRows}
     />
     <div className="pending-tasks-confirm-button-container">
       <button className="pending-tasks-confirm-button" onClick={onConfirm}>

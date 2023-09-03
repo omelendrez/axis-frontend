@@ -12,14 +12,13 @@
 
 .pending-tasks .card.trainings .name {
   font-weight: 900;
+  font-size: 18px;
 }
 
 .pending-tasks .card.trainings .course {
-  padding: 0 0.2rem;
-  background-color: var(--primary);
-  color: #fff;
   min-width: 100%;
-  border-radius: 0 10px 0 0;
+  font-size: 18px;
+  color: var(--primary);
 }
 
 .pending-tasks .card.trainings .badge {
@@ -37,10 +36,11 @@
 .card.trainings .card-body .status {
   font-weight: 900;
   color: white;
-  padding: 0 4px;
-  border-radius: 3px;
+  padding: 0 6px;
+  border-radius: 5px;
   width: fit-content;
   background-color: var(--primary);
+  text-transform: uppercase;
 }
 
 .card.trainings .card-body .status-1 {
@@ -53,4 +53,13 @@
 
 .card.trainings .card-body .status-12 {
   background-color: var(--error);
+}
+
+.card.card.trainings div.card-line-buttons {
+  bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 2rem;
+  position: absolute;
+  right: 0.5rem;
 }

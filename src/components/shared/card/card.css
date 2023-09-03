@@ -42,16 +42,8 @@
   right: 0.5rem;
 }
 
-.card .card-body div.card-line-buttons div {
+.card .card-body div.card-line-buttons {
   cursor: pointer;
-}
-
-.card .card-body div.card-line-buttons .thumb-up {
-  color: var(--primary);
-}
-
-.card .card-body div.card-line-buttons .thumb-down {
-  color: var(--error);
 }
 
 .card .card-body .extra-small-font {
