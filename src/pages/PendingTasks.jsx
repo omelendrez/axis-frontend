@@ -6,7 +6,8 @@ import {
   CardList,
   SelectedDateView,
   InputParameters,
-  Card
+  Card,
+  FloatingButtons
 } from '@/components'
 
 import usePage from '@/hooks/usePage'
@@ -136,38 +137,53 @@ const PendingTasks = () => {
     }
   }
 
+  const handleApprove = () => {
+    console.log('approve', selectedRows)
+  }
+
+  const handleReject = () => {
+    console.log('reject', selectedRows)
+  }
+
   if (!data.rows) {
     return null
   }
 
   return (
-    <main className="container-fluid pending-tasks">
-      {isLoading && <Loading />}
-      {!showInputParameters && (
-        <SelectedDateView date={date} onClick={handleSelectedDateView} />
-      )}
-      {showInputParameters && (
-        <InputParameters
-          onCalendarChange={handleCalendarChange}
-          onStatusChange={handleStatusChange}
-          date={date}
-          setToday={setToday}
-          statuses={authorizedStatuses}
-          selectedRows={selectedStatuses}
-          onConfirm={handleConfirm}
+    <>
+      <main className="container-fluid pending-tasks">
+        {isLoading && <Loading />}
+        {!showInputParameters && (
+          <SelectedDateView date={date} onClick={handleSelectedDateView} />
+        )}
+        {showInputParameters && (
+          <InputParameters
+            onCalendarChange={handleCalendarChange}
+            onStatusChange={handleStatusChange}
+            date={date}
+            setToday={setToday}
+            statuses={authorizedStatuses}
+            selectedStatuses={selectedStatuses}
+            onConfirm={handleConfirm}
+          />
+        )}
+        <CardList
+          Card={Card}
+          data={data}
+          pagination={pagination}
+          onPagination={setPagination}
+          onView={handleView}
+          isLoading={isLoading}
+          selectedItems={selectedRows}
+          setSelected={setSelectedRows}
         />
-      )}
-      <CardList
-        Card={Card}
-        data={data}
-        pagination={pagination}
-        onPagination={setPagination}
-        onView={handleView}
-        isLoading={isLoading}
-        selectedItems={selectedRows}
-        setSelected={setSelectedRows}
+      </main>
+      <FloatingButtons
+        isVisible={selectedRows.length}
+        onApprove={handleApprove}
+        onReject={handleReject}
       />
-    </main>
+    </>
   )
 }
 
