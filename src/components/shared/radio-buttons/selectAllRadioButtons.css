@@ -1,0 +1,11 @@
+.select-all-radio-buttons {
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.select-all-radio-buttons div label {
+  margin-right: 6px;
+}

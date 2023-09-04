@@ -7,7 +7,8 @@ import {
   SelectedDateView,
   InputParameters,
   Card,
-  FloatingButtons
+  FloatingButtons,
+  SelectAllRadioButtons
 } from '@/components'
 
 import usePage from '@/hooks/usePage'
@@ -17,7 +18,7 @@ import useUser from '@/hooks/useUser'
 
 import { PendingTasksContext } from '@/context'
 
-import { formatYMD, matchRoleStatus, initialValues } from '@/helpers'
+import { formatYMD, matchRoleStatus, initialValues, RADIO } from '@/helpers'
 
 import '../components/features/pending-tasks/pendingTasks.css'
 
@@ -34,6 +35,8 @@ const PendingTasks = () => {
   const [selectedRows, setSelectedRows] = useState([])
 
   const [showInputParameters, setShowInputParameters] = useState(false)
+
+  const [radioSelected, setRadioSelected] = useState(RADIO.NONE)
 
   const navigate = useNavigate()
 
@@ -90,6 +93,19 @@ const PendingTasks = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStatuses])
 
+  useEffect(() => {
+    if (radioSelected === RADIO.NONE) {
+      setSelectedRows([])
+    } else {
+      setSelectedRows(
+        data.rows.filter((row) =>
+          authorizedStatuses.find((r) => r.id === row.status)
+        )
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [radioSelected])
+
   const handleView = (training) => navigate(`/training/${training}`)
 
   const handleSelectedDateView = (e) => {
@@ -137,6 +153,10 @@ const PendingTasks = () => {
     }
   }
 
+  const handleRadioButtonsChange = (option) => {
+    setRadioSelected(option)
+  }
+
   const handleApprove = () => {
     console.log('approve', selectedRows)
   }
@@ -166,6 +186,12 @@ const PendingTasks = () => {
           onConfirm={handleConfirm}
         />
       )}
+
+      <SelectAllRadioButtons
+        onChange={handleRadioButtonsChange}
+        selected={radioSelected}
+      />
+
       <CardList
         Card={Card}
         data={data}

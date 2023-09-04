@@ -42,3 +42,8 @@ export const TRAINING_STATUS = {
 }
 
 export const FUTURE_DAYS = 10 // Number of future days to see in pending tasks view
+
+export const RADIO = {
+  ALL: 'all',
+  NONE: 'none'
+}
