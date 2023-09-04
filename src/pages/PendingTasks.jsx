@@ -103,10 +103,13 @@ const PendingTasks = () => {
         )
       )
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioSelected])
 
-  const handleView = (training) => navigate(`/training/${training}`)
+  const handleView = (training) => {
+    navigate(`/training/${training}`)
+  }
 
   const handleSelectedDateView = (e) => {
     e.preventDefault()
@@ -187,10 +190,12 @@ const PendingTasks = () => {
         />
       )}
 
-      <SelectAllRadioButtons
-        onChange={handleRadioButtonsChange}
-        selected={radioSelected}
-      />
+      {data.count > 0 && (
+        <SelectAllRadioButtons
+          onChange={handleRadioButtonsChange}
+          selected={radioSelected}
+        />
+      )}
 
       <CardList
         Card={Card}
@@ -203,7 +208,7 @@ const PendingTasks = () => {
         setSelected={setSelectedRows}
       />
       <FloatingButtons
-        isVisible={selectedRows.length}
+        isVisible={selectedRows.length > 0}
         onApprove={handleApprove}
         onReject={handleReject}
       />
