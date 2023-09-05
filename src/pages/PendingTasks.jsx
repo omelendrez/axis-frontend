@@ -20,6 +20,8 @@ import { PendingTasksContext } from '@/context'
 
 import { formatYMD, matchRoleStatus, initialValues, RADIO } from '@/helpers'
 
+import { approveMultiple, rejectMultiple } from '@/services'
+
 import '../components/features/pending-tasks/pendingTasks.css'
 
 const PendingTasks = () => {
@@ -161,11 +163,15 @@ const PendingTasks = () => {
   }
 
   const handleApprove = () => {
-    console.log('approve', selectedRows)
+    approveMultiple({ payload: selectedRows.map((r) => r.id) })
+      .then((r) => console.log(r))
+      .catch((e) => console.log(e))
   }
 
   const handleReject = () => {
-    console.log('reject', selectedRows)
+    rejectMultiple({ payload: selectedRows.map((r) => r.id) })
+      .then((r) => console.log(r))
+      .catch((e) => console.log(e))
   }
 
   if (!data.rows) {
@@ -192,7 +198,7 @@ const PendingTasks = () => {
 
       {data.count > 0 && (
         <SelectAllRadioButtons
-          onClick={handleRadioButtonsChange}
+          onChange={handleRadioButtonsChange}
           selected={radioSelected}
         />
       )}
