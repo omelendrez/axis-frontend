@@ -1,33 +1,46 @@
 import { RADIO } from '@/helpers'
 import './selectAllRadioButtons.css'
 
-export const SelectAllRadioButtons = ({ selected, onChange }) => {
+const OPTIONS = [
+  {
+    label: 'Select all',
+    value: RADIO.ALL
+  },
+  {
+    label: 'Select none',
+    value: RADIO.NONE
+  }
+]
+
+const RadioButton = ({ label, value, checked, onClick }) => {
   const handleChange = (e) => {
-    onChange(e.target.value)
+    onClick(e.target.value)
   }
 
   return (
-    <div className="select-all-radio-buttons">
-      <div key="1">
-        <input
-          type="radio"
-          value={RADIO.ALL}
-          id="select-all"
-          checked={selected === RADIO.ALL}
-          onChange={handleChange}
-        />
-        <label for="select-all">Select all</label>
-      </div>
-      <div key="2">
-        <input
-          type="radio"
-          value={RADIO.NONE}
-          id="select-none"
-          checked={selected === RADIO.NONE}
-          onChange={handleChange}
-        />
-        <label for="select-all">Select none</label>
-      </div>
+    <div>
+      <input
+        type="radio"
+        value={value}
+        id="select-all"
+        checked={checked}
+        onChange={handleChange}
+      />
+      <label for="select-all">{label}</label>
     </div>
   )
 }
+
+export const SelectAllRadioButtons = ({ selected, onClick }) => (
+  <div className="select-all-radio-buttons">
+    {OPTIONS.map((o) => (
+      <RadioButton
+        key={o.value}
+        label={o.label}
+        value={o.value}
+        checked={selected === o.value}
+        onClick={onClick}
+      />
+    ))}
+  </div>
+)

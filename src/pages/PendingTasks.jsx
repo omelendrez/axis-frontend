@@ -192,7 +192,7 @@ const PendingTasks = () => {
 
       {data.count > 0 && (
         <SelectAllRadioButtons
-          onChange={handleRadioButtonsChange}
+          onClick={handleRadioButtonsChange}
           selected={radioSelected}
         />
       )}
