@@ -1,4 +1,4 @@
-import { useEffect, useContext, useReducer } from 'react'
+import { useEffect, useContext, useReducer, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import {
@@ -33,7 +33,6 @@ import '../components/features/pending-tasks/pendingTasks.css'
 
 const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
-  PAGINATION: 'PAGINATION',
   REFRESH: 'REFRESH',
   SELECTED_RADIO: 'SELECTED_RADIO',
   SELECTED_ROWS: 'SELECTED_ROWS',
@@ -42,7 +41,6 @@ const REDUCER_TYPES = {
 
 const initialState = {
   authorizedStatuses: [],
-  pagination: initialValues,
   refresh: false,
   selectedRadioOption: RADIO.NONE,
   selectedRows: [],
@@ -52,7 +50,6 @@ const initialState = {
 const reducer = (state, action) => {
   const {
     AUTHORIZED_STATUSES,
-    PAGINATION,
     REFRESH,
     SELECTED_RADIO,
     SELECTED_ROWS,
@@ -64,12 +61,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         authorizedStatuses: action.payload
-      }
-
-    case PAGINATION:
-      return {
-        ...state,
-        pagination: action.payload
       }
 
     case REFRESH:
@@ -118,11 +109,12 @@ const PendingTasks = () => {
   const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
 
+  const [pagination, setPagination] = useState(initialValues)
+
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const {
     AUTHORIZED_STATUSES,
-    PAGINATION,
     REFRESH,
     SELECTED_RADIO,
     SELECTED_ROWS,
@@ -168,7 +160,7 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.authorizedStatuses.length, state.pagination])
+  }, [state.authorizedStatuses.length, pagination])
 
   useEffect(() => {
     if (!state.showInputParameters) handleConfirm()
@@ -194,17 +186,20 @@ const PendingTasks = () => {
     const payload = {
       date: formatYMD(date),
       statuses: selectedStatuses.join('-'),
-      pagination: state.pagination
+      pagination: { ...pagination }
     }
 
     loadTrainings(payload)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.refresh])
+  }, [pagination])
 
-  const handleView = (training) => {
-    navigate(`/training/${training}`)
+  const handleSelected = async (getState) => {
+    const data = await getState()
+    dispatch({ type: SELECTED_ROWS, payload: data })
   }
+
+  const handleView = (training) => navigate(`/training/${training}`)
 
   const handleSelectedDateView = (e) => {
     e.preventDefault()
@@ -244,9 +239,8 @@ const PendingTasks = () => {
     }
   }
 
-  const handleRadioButtonsChange = (option) => {
+  const handleRadioButtonsChange = (option) =>
     dispatch({ type: SELECTED_RADIO, payload: option })
-  }
 
   const buildPayload = (status) => ({
     records: state.selectedRows.map((r) => [r.id, status, user.id])
@@ -304,12 +298,12 @@ const PendingTasks = () => {
       <CardList
         Card={Card}
         data={data}
-        pagination={state.pagination}
-        onPagination={(pag) => dispatch({ type: PAGINATION, payload: pag })}
+        pagination={pagination}
+        onPagination={setPagination}
         onView={handleView}
         isLoading={isLoading}
         selectedItems={state.selectedRows}
-        setSelected={(rows) => dispatch({ type: SELECTED_ROWS, payload: rows })}
+        setSelected={handleSelected}
       />
       <FloatingButtons
         isVisible={state.selectedRows.length > 0}
