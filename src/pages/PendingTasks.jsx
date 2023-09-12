@@ -17,7 +17,7 @@ import useStatuses from '@/hooks/useStatuses'
 import useUser from '@/hooks/useUser'
 import useApiMessages from '@/hooks/useApiMessages'
 
-import { PendingTasksContext } from '@/context'
+import { PendingTasksContext as PendingContext } from '@/context'
 
 import {
   formatYMD,
@@ -31,60 +31,69 @@ import { approveMultiple, rejectMultiple } from '@/services'
 
 import '../components/features/pending-tasks/pendingTasks.css'
 
-const REDUCER_TYPE = {
+const REDUCER_TYPES = {
+  AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
   PAGINATION: 'PAGINATION',
-  SELECTED_ROWS: 'SELECTED_ROWS',
-  SHOW_INPUT_PARAMS: 'SHOW_INPUT_PARAMS',
   REFRESH: 'REFRESH',
   SELECTED_RADIO: 'SELECTED_RADIO',
-  AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES'
+  SELECTED_ROWS: 'SELECTED_ROWS',
+  SHOW_INPUT_PARAMS: 'SHOW_INPUT_PARAMS'
 }
 
 const initialState = {
+  authorizedStatuses: [],
   pagination: initialValues,
-  selectedRows: [],
-  showInputParameters: false,
   refresh: false,
   selectedRadioOption: RADIO.NONE,
-  authorizedStatuses: []
+  selectedRows: [],
+  showInputParameters: false
 }
 
 const reducer = (state, action) => {
+  const {
+    AUTHORIZED_STATUSES,
+    PAGINATION,
+    REFRESH,
+    SELECTED_RADIO,
+    SELECTED_ROWS,
+    SHOW_INPUT_PARAMS
+  } = REDUCER_TYPES
+
   switch (action.type) {
-    case REDUCER_TYPE.PAGINATION:
+    case AUTHORIZED_STATUSES:
+      return {
+        ...state,
+        authorizedStatuses: action.payload
+      }
+
+    case PAGINATION:
       return {
         ...state,
         pagination: action.payload
       }
 
-    case REDUCER_TYPE.SELECTED_ROWS:
-      return {
-        ...state,
-        selectedRows: action.payload
-      }
-
-    case REDUCER_TYPE.SHOW_INPUT_PARAMS:
-      return {
-        ...state,
-        showInputParameters: action.payload
-      }
-
-    case REDUCER_TYPE.REFRESH:
+    case REFRESH:
       return {
         ...state,
         refresh: action.payload
       }
 
-    case REDUCER_TYPE.SELECTED_RADIO:
+    case SELECTED_RADIO:
       return {
         ...state,
         selectedRadioOption: action.payload
       }
 
-    case REDUCER_TYPE.AUTHORIZED_STATUSES:
+    case SELECTED_ROWS:
       return {
         ...state,
-        authorizedStatuses: action.payload
+        selectedRows: action.payload
+      }
+
+    case SHOW_INPUT_PARAMS:
+      return {
+        ...state,
+        showInputParameters: action.payload
       }
 
     default:
@@ -99,9 +108,9 @@ const PendingTasks = () => {
   const { apiMessage } = useApiMessages()
   const { set: setPage } = usePage()
 
-  const { pendingTasksParams, setPendingTaksParams } =
-    useContext(PendingTasksContext)
-  const { date, selectedStatuses } = pendingTasksParams
+  const { pendingTasksParams: pending, setPendingTaksParams: setPending } =
+    useContext(PendingContext)
+  const { date, selectedStatuses } = pending
 
   const { statuses, load: loadStatuses } = useStatuses()
   const { data: statusList } = statuses
@@ -111,12 +120,21 @@ const PendingTasks = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const {
+    AUTHORIZED_STATUSES,
+    PAGINATION,
+    REFRESH,
+    SELECTED_RADIO,
+    SELECTED_ROWS,
+    SHOW_INPUT_PARAMS
+  } = REDUCER_TYPES
+
   useEffect(() => {
     setPage('My pending tasks')
     loadStatuses()
 
     return () => {
-      setPendingTaksParams((params) => ({
+      setPending((params) => ({
         ...params,
         date: null
       }))
@@ -130,7 +148,7 @@ const PendingTasks = () => {
         matchRoleStatus(user.roles, s.id)
       )
       dispatch({
-        type: REDUCER_TYPE.AUTHORIZED_STATUSES,
+        type: AUTHORIZED_STATUSES,
         payload: authorizedStatuses
       })
     }
@@ -143,7 +161,7 @@ const PendingTasks = () => {
         parseInt(status.id, 10)
       )
 
-      setPendingTaksParams((params) => ({
+      setPending((params) => ({
         ...params,
         selectedStatuses
       }))
@@ -159,10 +177,10 @@ const PendingTasks = () => {
 
   useEffect(() => {
     if (state.selectedRadioOption === RADIO.NONE) {
-      dispatch({ type: REDUCER_TYPE.SELECTED_ROWS, payload: [] })
+      dispatch({ type: SELECTED_ROWS, payload: [] })
     } else {
       dispatch({
-        type: REDUCER_TYPE.SELECTED_ROWS,
+        type: SELECTED_ROWS,
         payload: data.rows.filter((row) =>
           state.authorizedStatuses.find((r) => r.id === row.status)
         )
@@ -190,7 +208,7 @@ const PendingTasks = () => {
 
   const handleSelectedDateView = (e) => {
     e.preventDefault()
-    dispatch({ type: REDUCER_TYPE.SHOW_INPUT_PARAMS, payload: true })
+    dispatch({ type: SHOW_INPUT_PARAMS, payload: true })
   }
 
   const setToday = (e) => {
@@ -199,17 +217,17 @@ const PendingTasks = () => {
   }
 
   const handleCalendarChange = (date) =>
-    setPendingTaksParams((params) => ({ ...params, date }))
+    setPending((params) => ({ ...params, date }))
 
   const handleStatusChange = (e) => {
     const { id, checked } = e.target
     if (checked) {
-      setPendingTaksParams((p) => ({
+      setPending((p) => ({
         ...p,
         selectedStatuses: [...p.selectedStatuses, parseInt(id, 10)]
       }))
     } else {
-      setPendingTaksParams((p) => ({
+      setPending((p) => ({
         ...p,
         selectedStatuses: p.selectedStatuses.filter(
           (status) => status !== parseInt(id, 10)
@@ -221,13 +239,13 @@ const PendingTasks = () => {
   const handleConfirm = (e) => {
     e?.preventDefault()
     if (selectedStatuses?.length) {
-      dispatch({ type: REDUCER_TYPE.REFRESH, payload: !state.refresh })
-      dispatch({ type: REDUCER_TYPE.SHOW_INPUT_PARAMS, payload: false })
+      dispatch({ type: REFRESH, payload: !state.refresh })
+      dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
     }
   }
 
   const handleRadioButtonsChange = (option) => {
-    dispatch({ type: REDUCER_TYPE.SELECTED_RADIO, payload: option })
+    dispatch({ type: SELECTED_RADIO, payload: option })
   }
 
   const buildPayload = (status) => ({
@@ -238,8 +256,8 @@ const PendingTasks = () => {
     approveMultiple(buildPayload(8))
       .then((res) => {
         apiMessage(res)
-        dispatch({ type: REDUCER_TYPE.SELECTED_RADIO, payload: RADIO.NONE })
-        dispatch({ type: REDUCER_TYPE.REFRESH, payload: !state.refresh })
+        dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
+        dispatch({ type: REFRESH, payload: !state.refresh })
       })
       .catch((e) => apiMessage(e))
   }
@@ -248,8 +266,8 @@ const PendingTasks = () => {
     rejectMultiple(buildPayload(TRAINING_STATUS.CANCELLED))
       .then((res) => {
         apiMessage(res)
-        dispatch({ type: REDUCER_TYPE.SELECTED_RADIO, payload: RADIO.NONE })
-        dispatch({ type: REDUCER_TYPE.REFRESH, payload: !state.refresh })
+        dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
+        dispatch({ type: REFRESH, payload: !state.refresh })
       })
       .catch((e) => apiMessage(e))
   }
@@ -287,15 +305,11 @@ const PendingTasks = () => {
         Card={Card}
         data={data}
         pagination={state.pagination}
-        onPagination={(pagination) =>
-          dispatch({ type: REDUCER_TYPE.PAGINATION, payload: pagination })
-        }
+        onPagination={(pag) => dispatch({ type: PAGINATION, payload: pag })}
         onView={handleView}
         isLoading={isLoading}
         selectedItems={state.selectedRows}
-        setSelected={(rows) =>
-          dispatch({ type: REDUCER_TYPE.SELECTED_ROWS, payload: rows })
-        }
+        setSelected={(rows) => dispatch({ type: SELECTED_ROWS, payload: rows })}
       />
       <FloatingButtons
         isVisible={state.selectedRows.length > 0}
