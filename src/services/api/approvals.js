@@ -6,7 +6,7 @@ const endpoint = '/approval'
 
 export const approveMultiple = (payload) => api.post(endpoint, payload)
 
-export const rejectMultiple = (payload) => api.delete(endpoint, payload)
+export const rejectMultiple = (payload) => api.put(endpoint, payload)
 
 export const saveReason = (id, payload) =>
   api.post(`${endpoint}/${id}/reason`, payload)

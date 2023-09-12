@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 export const Card = ({ item, onView, isSelected, onSelect }) => {
   const {
+    id,
     badge,
     company_name,
     course_name,
@@ -66,7 +67,6 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
         <div className="small-font instructor">{instructor}</div>
 
         <div className="ellipsis name">{full_name}</div>
-        <div className="small-font badge">{badge}</div>
         <div className="small-font company">{company_name}</div>
 
         <div className={`status status-${status} small-font`}>
@@ -75,7 +75,9 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
       </div>
       {status !== TRAINING_STATUS.COMPLETED && multiple && (
         <div className="card-line-buttons">
+          <label htmlFor={`chk_${id}`}>{id}</label>
           <input
+            id={`chk_${id}`}
             type="checkbox"
             onClick={handleSelectItem}
             checked={isSelected}

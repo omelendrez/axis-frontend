@@ -21,9 +21,9 @@
   color: var(--primary);
 }
 
-.pending-tasks .card.trainings .badge {
+/* .pending-tasks .card.trainings .badge {
   color: var(--secondary);
-}
+} */
 
 .pending-tasks .card.trainings .company {
   font-weight: 900;
@@ -56,10 +56,16 @@
 }
 
 .card.card.trainings div.card-line-buttons {
-  bottom: 1rem;
   display: flex;
-  justify-content: flex-end;
-  column-gap: 2rem;
   position: absolute;
   right: 0.5rem;
+  bottom: 0.5rem;
+}
+
+.card.card.trainings div.card-line-buttons label {
+  position: relative;
+  font-size: 12px;
+  margin-right: 5px;
+  top: 1px;
+  color: var(--secondary);
 }

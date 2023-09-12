@@ -15,10 +15,17 @@ import usePage from '@/hooks/usePage'
 import useTrainings from '@/hooks/useTrainings'
 import useStatuses from '@/hooks/useStatuses'
 import useUser from '@/hooks/useUser'
+import useApiMessages from '@/hooks/useApiMessages'
 
 import { PendingTasksContext } from '@/context'
 
-import { formatYMD, matchRoleStatus, initialValues, RADIO } from '@/helpers'
+import {
+  formatYMD,
+  matchRoleStatus,
+  initialValues,
+  RADIO,
+  TRAINING_STATUS
+} from '@/helpers'
 
 import { approveMultiple, rejectMultiple } from '@/services'
 
@@ -38,6 +45,8 @@ const PendingTasks = () => {
 
   const [showInputParameters, setShowInputParameters] = useState(false)
 
+  const [refresh, setRefresh] = useState(false)
+
   const [radioSelected, setRadioSelected] = useState(RADIO.NONE)
 
   const navigate = useNavigate()
@@ -51,6 +60,8 @@ const PendingTasks = () => {
 
   const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
+
+  const { apiMessage } = useApiMessages()
 
   useEffect(() => {
     setPage('My pending tasks')
@@ -88,7 +99,7 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authorizedStatuses, pagination])
+  }, [authorizedStatuses.length, pagination])
 
   useEffect(() => {
     if (!showInputParameters) handleConfirm()
@@ -108,6 +119,18 @@ const PendingTasks = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioSelected])
+
+  useEffect(() => {
+    const payload = {
+      date: formatYMD(date),
+      statuses: selectedStatuses.join('-'),
+      pagination
+    }
+
+    loadTrainings(payload)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh])
 
   const handleView = (training) => {
     navigate(`/training/${training}`)
@@ -146,14 +169,7 @@ const PendingTasks = () => {
   const handleConfirm = (e) => {
     e?.preventDefault()
     if (selectedStatuses?.length) {
-      const payload = {
-        date: formatYMD(date),
-        statuses: selectedStatuses.join('-'),
-        pagination
-      }
-
-      loadTrainings(payload)
-
+      setRefresh((s) => !s)
       setShowInputParameters(false)
     }
   }
@@ -162,16 +178,28 @@ const PendingTasks = () => {
     setRadioSelected(option)
   }
 
+  const buildPayload = (status) => ({
+    records: selectedRows.map((r) => [r.id, status, user.id])
+  })
+
   const handleApprove = () => {
-    approveMultiple({ payload: selectedRows.map((r) => r.id) })
-      .then((r) => console.log(r))
-      .catch((e) => console.log(e))
+    approveMultiple(buildPayload(8))
+      .then((res) => {
+        apiMessage(res)
+        setRadioSelected(RADIO.NONE)
+        setRefresh((s) => !s)
+      })
+      .catch((e) => apiMessage(e))
   }
 
   const handleReject = () => {
-    rejectMultiple({ payload: selectedRows.map((r) => r.id) })
-      .then((r) => console.log(r))
-      .catch((e) => console.log(e))
+    rejectMultiple(buildPayload(TRAINING_STATUS.CANCELLED))
+      .then((res) => {
+        apiMessage(res)
+        setRadioSelected(RADIO.NONE)
+        setRefresh((s) => !s)
+      })
+      .catch((e) => apiMessage(e))
   }
 
   if (!data.rows) {
