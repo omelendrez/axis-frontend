@@ -24,7 +24,8 @@ import {
   matchRoleStatus,
   initialValues,
   RADIO,
-  TRAINING_STATUS
+  TRAINING_STATUS,
+  USER_ROLE
 } from '@/helpers'
 
 import { approveMultiple, rejectMultiple } from '@/services'
@@ -114,6 +115,14 @@ const PendingTasks = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const {
+    authorizedStatuses,
+    showInputParameters,
+    selectedRadioOption,
+    refresh,
+    selectedRows
+  } = state
+
+  const {
     AUTHORIZED_STATUSES,
     REFRESH,
     SELECTED_RADIO,
@@ -145,11 +154,11 @@ const PendingTasks = () => {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusList.rows])
+  }, [statusList])
 
   useEffect(() => {
-    if (state.authorizedStatuses.length) {
-      const selectedStatuses = state.authorizedStatuses.map((status) =>
+    if (authorizedStatuses.length) {
+      const selectedStatuses = authorizedStatuses.map((status) =>
         parseInt(status.id, 10)
       )
 
@@ -160,27 +169,27 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.authorizedStatuses.length, pagination])
+  }, [authorizedStatuses, pagination])
 
   useEffect(() => {
-    if (!state.showInputParameters) handleConfirm()
+    if (!showInputParameters) handleConfirm()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStatuses])
 
   useEffect(() => {
-    if (state.selectedRadioOption === RADIO.NONE) {
+    if (selectedRadioOption === RADIO.NONE) {
       dispatch({ type: SELECTED_ROWS, payload: [] })
     } else {
       dispatch({
         type: SELECTED_ROWS,
         payload: data.rows.filter((row) =>
-          state.authorizedStatuses.find((r) => r.id === row.status)
+          authorizedStatuses.find((r) => r.id === row.status)
         )
       })
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedRadioOption])
+  }, [selectedRadioOption])
 
   useEffect(() => {
     const payload = {
@@ -189,10 +198,12 @@ const PendingTasks = () => {
       pagination: { ...pagination }
     }
 
-    loadTrainings(payload)
+    if (selectedStatuses.length) {
+      loadTrainings(payload)
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination])
+  }, [pagination, selectedStatuses])
 
   const handleSelected = async (getState) => {
     const data = await getState()
@@ -234,7 +245,7 @@ const PendingTasks = () => {
   const handleConfirm = (e) => {
     e?.preventDefault()
     if (selectedStatuses?.length) {
-      dispatch({ type: REFRESH, payload: !state.refresh })
+      dispatch({ type: REFRESH, payload: !refresh })
       dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
     }
   }
@@ -243,7 +254,7 @@ const PendingTasks = () => {
     dispatch({ type: SELECTED_RADIO, payload: option })
 
   const buildPayload = (status) => ({
-    records: state.selectedRows.map((r) => [r.id, status, user.id])
+    records: selectedRows.map((r) => [r.id, status, user.id])
   })
 
   const handleApprove = () => {
@@ -251,7 +262,7 @@ const PendingTasks = () => {
       .then((res) => {
         apiMessage(res)
         dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
-        dispatch({ type: REFRESH, payload: !state.refresh })
+        dispatch({ type: REFRESH, payload: !refresh })
       })
       .catch((e) => apiMessage(e))
   }
@@ -261,10 +272,14 @@ const PendingTasks = () => {
       .then((res) => {
         apiMessage(res)
         dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
-        dispatch({ type: REFRESH, payload: !state.refresh })
+        dispatch({ type: REFRESH, payload: !refresh })
       })
       .catch((e) => apiMessage(e))
   }
+
+  const multiApprover = Boolean(
+    user.roles.find((r) => r.id === USER_ROLE.ACCOUNTS || r.id === USER_ROLE.MD)
+  )
 
   if (!data.rows) {
     return null
@@ -273,25 +288,25 @@ const PendingTasks = () => {
   return (
     <main className="container-fluid pending-tasks">
       {isLoading && <Loading />}
-      {!state.showInputParameters && (
+      {!showInputParameters && (
         <SelectedDateView date={date} onClick={handleSelectedDateView} />
       )}
-      {state.showInputParameters && (
+      {showInputParameters && (
         <InputParameters
           onCalendarChange={handleCalendarChange}
           onStatusChange={handleStatusChange}
           date={date}
           setToday={setToday}
-          statuses={state.authorizedStatuses}
+          statuses={authorizedStatuses}
           selectedStatuses={selectedStatuses}
           onConfirm={handleConfirm}
         />
       )}
 
-      {data.count > 0 && (
+      {data.count > 0 && multiApprover && (
         <SelectAllRadioButtons
           onChange={handleRadioButtonsChange}
-          selected={state.selectedRadioOption}
+          selected={selectedRadioOption}
         />
       )}
 
@@ -302,11 +317,11 @@ const PendingTasks = () => {
         onPagination={setPagination}
         onView={handleView}
         isLoading={isLoading}
-        selectedItems={state.selectedRows}
-        setSelected={handleSelected}
+        selectedItems={selectedRows}
+        setSelected={multiApprover ? handleSelected : null}
       />
       <FloatingButtons
-        isVisible={state.selectedRows.length > 0}
+        isVisible={selectedRows.length > 0}
         onApprove={handleApprove}
         onReject={handleReject}
       />
