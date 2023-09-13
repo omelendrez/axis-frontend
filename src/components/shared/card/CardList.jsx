@@ -20,6 +20,8 @@ export const CardList = ({
   const [searchText, setSearchText] = useState('')
   const { page, limit, search } = pagination
 
+  const { rows: dataRows, count: dataCount } = data
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       onPagination((p) => ({ ...p, search: searchText, page: 1, offset: 0 }))
@@ -42,13 +44,13 @@ export const CardList = ({
     if (!selectedItems.find((it) => it.id === item.id)) {
       setSelected((items) => [...items, item])
     } else {
-      setSelected((items) => items.filter((it) => it.id !== item.id))
+      setSelected((items) => items?.filter((it) => it.id !== item.id))
     }
   }
 
   return (
     <>
-      {(data.rows.length > 0 || search.length > 0) && (
+      {(dataCount > 0 || search.length > 0) && (
         <Search
           onChange={handleSearchChange}
           value={searchText}
@@ -69,7 +71,7 @@ export const CardList = ({
         </article>
       )}
       <div className="card-list">
-        {data.rows.map((item) => (
+        {dataRows.map((item) => (
           <Card
             item={item}
             fields={fields}
@@ -86,12 +88,12 @@ export const CardList = ({
           />
         ))}
       </div>
-      {data.count > 0 && (
+      {dataCount > 0 && (
         <Pagination
           onPage={handlePageChange}
           page={page}
           limit={limit}
-          count={data.count}
+          count={dataCount}
         />
       )}
     </>

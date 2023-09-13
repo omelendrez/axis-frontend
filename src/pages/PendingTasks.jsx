@@ -36,7 +36,6 @@ const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
   REFRESH: 'REFRESH',
   SELECTED_RADIO: 'SELECTED_RADIO',
-  SELECTED_ROWS: 'SELECTED_ROWS',
   SHOW_INPUT_PARAMS: 'SHOW_INPUT_PARAMS'
 }
 
@@ -44,18 +43,12 @@ const initialState = {
   authorizedStatuses: [],
   refresh: false,
   selectedRadioOption: RADIO.NONE,
-  selectedRows: [],
   showInputParameters: false
 }
 
 const reducer = (state, action) => {
-  const {
-    AUTHORIZED_STATUSES,
-    REFRESH,
-    SELECTED_RADIO,
-    SELECTED_ROWS,
-    SHOW_INPUT_PARAMS
-  } = REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH, SELECTED_RADIO, SHOW_INPUT_PARAMS } =
+    REDUCER_TYPES
 
   switch (action.type) {
     case AUTHORIZED_STATUSES:
@@ -76,12 +69,6 @@ const reducer = (state, action) => {
         selectedRadioOption: action.payload
       }
 
-    case SELECTED_ROWS:
-      return {
-        ...state,
-        selectedRows: action.payload
-      }
-
     case SHOW_INPUT_PARAMS:
       return {
         ...state,
@@ -97,6 +84,8 @@ const PendingTasks = () => {
   const navigate = useNavigate()
 
   const { user } = useUser()
+  const { roles: userRoles } = user
+
   const { apiMessage } = useApiMessages()
   const { set: setPage } = usePage()
 
@@ -111,6 +100,7 @@ const PendingTasks = () => {
   const { data, isLoading } = trainings
 
   const [pagination, setPagination] = useState(initialValues)
+  const [selectedRows, setSelectedRows] = useState([])
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -118,17 +108,11 @@ const PendingTasks = () => {
     authorizedStatuses,
     showInputParameters,
     selectedRadioOption,
-    refresh,
-    selectedRows
+    refresh
   } = state
 
-  const {
-    AUTHORIZED_STATUSES,
-    REFRESH,
-    SELECTED_RADIO,
-    SELECTED_ROWS,
-    SHOW_INPUT_PARAMS
-  } = REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH, SELECTED_RADIO, SHOW_INPUT_PARAMS } =
+    REDUCER_TYPES
 
   useEffect(() => {
     setPage('My pending tasks')
@@ -144,9 +128,9 @@ const PendingTasks = () => {
   }, [])
 
   useEffect(() => {
-    if (statusList.rows) {
+    if (statusList.rows && userRoles) {
       const authorizedStatuses = statusList.rows.filter((s) =>
-        matchRoleStatus(user.roles, s.id)
+        matchRoleStatus(userRoles, s.id)
       )
       dispatch({
         type: AUTHORIZED_STATUSES,
@@ -171,21 +155,19 @@ const PendingTasks = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorizedStatuses, pagination])
 
-  useEffect(() => {
-    if (!showInputParameters) handleConfirm()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedStatuses])
+  // useEffect(() => {
+  //   if (!showInputParameters) handleConfirm()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedStatuses])
 
   useEffect(() => {
     if (selectedRadioOption === RADIO.NONE) {
-      dispatch({ type: SELECTED_ROWS, payload: [] })
+      setSelectedRows([])
     } else {
-      dispatch({
-        type: SELECTED_ROWS,
-        payload: data.rows.filter((row) =>
-          authorizedStatuses.find((r) => r.id === row.status)
-        )
-      })
+      const payload = data.rows.filter((row) =>
+        authorizedStatuses.find((r) => r.id === row.status)
+      )
+      setSelectedRows(payload)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -205,9 +187,8 @@ const PendingTasks = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination, selectedStatuses])
 
-  const handleSelected = async (getState) => {
-    const data = await getState()
-    dispatch({ type: SELECTED_ROWS, payload: data })
+  const handleSelected = (payload) => {
+    setSelectedRows(payload)
   }
 
   const handleView = (training) => navigate(`/training/${training}`)
@@ -258,11 +239,18 @@ const PendingTasks = () => {
   })
 
   const handleApprove = () => {
-    approveMultiple(buildPayload(8))
+    approveMultiple(
+      buildPayload(
+        userRoles.find((r) => r.id === USER_ROLE.ACCOUNTS) // Either Accounts role or MD role
+          ? TRAINING_STATUS.ACCOUNTS_DONE
+          : TRAINING_STATUS.MD_DONE
+      )
+    )
       .then((res) => {
         apiMessage(res)
         dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
         dispatch({ type: REFRESH, payload: !refresh })
+        navigate('/pending-tasks')
       })
       .catch((e) => apiMessage(e))
   }
@@ -273,12 +261,13 @@ const PendingTasks = () => {
         apiMessage(res)
         dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
         dispatch({ type: REFRESH, payload: !refresh })
+        navigate('/pending-tasks')
       })
       .catch((e) => apiMessage(e))
   }
 
   const multiApprover = Boolean(
-    user.roles.find((r) => r.id === USER_ROLE.ACCOUNTS || r.id === USER_ROLE.MD)
+    userRoles.find((r) => r.id === USER_ROLE.ACCOUNTS || r.id === USER_ROLE.MD)
   )
 
   if (!data.rows) {
@@ -321,7 +310,7 @@ const PendingTasks = () => {
         setSelected={multiApprover ? handleSelected : null}
       />
       <FloatingButtons
-        isVisible={selectedRows.length > 0}
+        isVisible={selectedRows?.length > 0}
         onApprove={handleApprove}
         onReject={handleReject}
       />

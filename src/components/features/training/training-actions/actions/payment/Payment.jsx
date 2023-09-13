@@ -14,12 +14,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const {
-    id,
-    status_id: status,
-    accounts_status: accountsStatus,
-    tracking
-  } = training
+  const { id, status_id: status, tracking } = training
 
   const trackingRecord = tracking.find(
     (t) => t.status_id === TRAINING_STATUS.ACCOUNTS_DONE
@@ -70,11 +65,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
   const result = (
     <strong>
       PAYMENT
-      {!isApproved
-        ? ' PENDING'
-        : accountsStatus === 0
-        ? ' NOT RECEIVED'
-        : ' RECEIVED'}
+      {!isApproved ? ' NOT RECEIVED' : ' RECEIVED'}
     </strong>
   )
   const title = <strong>Payment</strong>

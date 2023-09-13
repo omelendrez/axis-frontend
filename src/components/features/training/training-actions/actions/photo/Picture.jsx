@@ -124,7 +124,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
         status={<Status trackingRecord={trackingRecord} />}
         className="picture"
         onApprove={canApprove ? handleApprove : null}
-        onReject={!isApproved ? handleReject : null}
+        onReject={canApprove && !isApproved ? handleReject : null}
         rejectLabel="Cancel"
         approveDisabled={isCancelled}
         rejectDisabled={isCancelled}

@@ -105,7 +105,7 @@ function App() {
   // TODO: Remove fake roles
   const [user, setUser] = useState({
     ...currentUser,
-    roles: [{ id: USER_ROLE.MEDIC }]
+    roles: [{ id: USER_ROLE.PRINTER }]
   })
 
   const [changes, setChanges] = useState(null)

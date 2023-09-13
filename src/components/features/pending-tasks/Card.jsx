@@ -19,6 +19,8 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
 
   const { user } = useUser()
 
+  const { roles: userRoles } = user
+
   const [multiple, setMultiple] = useState(false)
 
   const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
@@ -36,10 +38,10 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
   }
 
   useEffect(() => {
-    if (user.roles?.length) {
+    if (userRoles?.length) {
       setMultiple(
         Boolean(
-          user.roles.find(
+          userRoles.find(
             (role) =>
               role.id === USER_ROLE.ACCOUNTS ||
               role.id === USER_ROLE.MD ||
@@ -48,7 +50,7 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
         )
       )
     }
-  }, [user.roles])
+  }, [userRoles])
 
   return (
     <article className="card trainings" onClick={handleClick}>
@@ -73,7 +75,7 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
           {status_name}
         </div>
       </div>
-      {status !== TRAINING_STATUS.COMPLETED && multiple && (
+      {status !== TRAINING_STATUS.COMPLETED && multiple && onSelect && (
         <div className="card-line-buttons">
           <label htmlFor={`chk_${id}`}>{id}</label>
           <input
