@@ -42,11 +42,10 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
     if (userRoles?.length) {
       setIsMultiple(
         Boolean(
-          userRoles.find(
-            (role) =>
-              role.id === USER_ROLE.ACCOUNTS ||
-              role.id === USER_ROLE.MD ||
-              role.id === USER_ROLE.SYS_ADMIN
+          userRoles.find((role) =>
+            [USER_ROLE.ACCOUNTS, USER_ROLE.MD, USER_ROLE.SYS_ADMIN].includes(
+              role.id
+            )
           )
         )
       )
