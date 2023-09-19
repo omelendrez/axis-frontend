@@ -53,7 +53,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
     }
   }, [userRoles])
 
-  const isCompleted = status !== TRAINING_STATUS.COMPLETED
+  const isCompleted = status === TRAINING_STATUS.COMPLETED
 
   return (
     <article className="card trainings" onClick={handleClick}>
