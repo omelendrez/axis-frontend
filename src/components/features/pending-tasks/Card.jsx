@@ -4,13 +4,14 @@ import './card.css'
 import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
 import { useEffect, useState } from 'react'
 
-export const Card = ({ item, onView, isSelected, onSelect }) => {
+export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   const {
     id,
     badge,
     company_name,
     course_name,
     full_name,
+
     instructor,
     start,
     status_name,
@@ -21,7 +22,7 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
 
   const { roles: userRoles } = user
 
-  const [multiple, setMultiple] = useState(false)
+  const [isMultiple, setIsMultiple] = useState(false)
 
   const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
 
@@ -39,7 +40,7 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
 
   useEffect(() => {
     if (userRoles?.length) {
-      setMultiple(
+      setIsMultiple(
         Boolean(
           userRoles.find(
             (role) =>
@@ -51,6 +52,8 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
       )
     }
   }, [userRoles])
+
+  const isCompleted = status !== TRAINING_STATUS.COMPLETED
 
   return (
     <article className="card trainings" onClick={handleClick}>
@@ -75,7 +78,7 @@ export const Card = ({ item, onView, isSelected, onSelect }) => {
           {status_name}
         </div>
       </div>
-      {status !== TRAINING_STATUS.COMPLETED && multiple && onSelect && (
+      {hasCheckboxes && isMultiple && onSelect && !isCompleted && (
         <div className="card-line-buttons">
           <label htmlFor={`chk_${id}`}>{id}</label>
           <input

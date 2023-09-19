@@ -3,6 +3,7 @@ import { Search, Pagination } from '@/components'
 
 import './cardList.css'
 import './card.css'
+import { useLocation } from 'react-router-dom'
 
 export const CardList = ({
   Card,
@@ -19,6 +20,8 @@ export const CardList = ({
 }) => {
   const [searchText, setSearchText] = useState('')
   const { page, limit, search } = pagination
+
+  const location = useLocation()
 
   const { rows: dataRows, count: dataCount } = data
 
@@ -47,6 +50,8 @@ export const CardList = ({
       setSelected((items) => items?.filter((it) => it.id !== item.id))
     }
   }
+
+  const hasCheckboxes = location.pathname === '/pending-tasks'
 
   return (
     <>
@@ -85,6 +90,7 @@ export const CardList = ({
                 : []
             }
             onSelect={handleSelectItem}
+            hasCheckboxes={hasCheckboxes}
           />
         ))}
       </div>
