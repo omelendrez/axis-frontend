@@ -4,6 +4,8 @@ import './card.css'
 import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
 import { useEffect, useState } from 'react'
 
+const rolesIncluded = [USER_ROLE.ACCOUNTS, USER_ROLE.MD, USER_ROLE.SYS_ADMIN]
+
 export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   const {
     id,
@@ -39,11 +41,6 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   }
 
   useEffect(() => {
-    const rolesIncluded = [
-      USER_ROLE.ACCOUNTS,
-      USER_ROLE.MD,
-      USER_ROLE.SYS_ADMIN
-    ]
     if (userRoles?.length) {
       setIsMultiple(
         Boolean(userRoles.find((role) => rolesIncluded.includes(role.id)))
