@@ -39,15 +39,14 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   }
 
   useEffect(() => {
+    const rolesIncluded = [
+      USER_ROLE.ACCOUNTS,
+      USER_ROLE.MD,
+      USER_ROLE.SYS_ADMIN
+    ]
     if (userRoles?.length) {
       setIsMultiple(
-        Boolean(
-          userRoles.find((role) =>
-            [USER_ROLE.ACCOUNTS, USER_ROLE.MD, USER_ROLE.SYS_ADMIN].includes(
-              role.id
-            )
-          )
-        )
+        Boolean(userRoles.find((role) => rolesIncluded.includes(role.id)))
       )
     }
   }, [userRoles])
