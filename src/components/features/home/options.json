@@ -1,35 +1,6 @@
 [
   {
-    "title": "Trainings",
-    "description": "Manage/view all existing training records.",
-    "path": "/trainings",
-    "icon": "local_library",
-    "roles": [
-      1,
-      2,
-      3,
-      6,
-      7,
-      9
-    ]
-  },
-  {
-    "title": "Learners",
-    "description": "Manage learners.",
-    "path": "/learners",
-    "icon": "person",
-    "roles": [
-      1,
-      2,
-      3,
-      6,
-      7,
-      9
-    ],
-    "separator": true
-  },
-  {
-    "title": "Pending Tasks",
+    "title": "My Pending Tasks",
     "description": "Act on your pending tasks.",
     "path": "/pending-tasks",
     "icon": "pending_actions",
@@ -44,7 +15,39 @@
       8,
       9,
       10
+    ],
+    "separator": true
+  },
+  {
+    "title": "All Training Records",
+    "description": "Manage/view all existing training records.",
+    "path": "/trainings",
+    "icon": "local_library",
+    "roles": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      9
     ]
+  },
+  {
+    "title": "Learners",
+    "description": "Manage learners.",
+    "path": "/learners",
+    "icon": "person",
+    "roles": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      9
+    ],
+    "separator": true
   },
   {
     "title": "Courses",
@@ -103,7 +106,7 @@
     ]
   },
   {
-    "title": "Roles",
+    "title": "User Roles",
     "description": "Manage user roles.",
     "path": "/roles",
     "icon": "local_police",

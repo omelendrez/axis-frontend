@@ -74,7 +74,9 @@ export const Navbar = () => {
       <ul>
         <li className="page-title">{page?.title}</li>
       </ul>
-      <ul></ul>
+      <ul>
+        <li className="user-info">{user?.name}</li>
+      </ul>
     </nav>
   )
 }

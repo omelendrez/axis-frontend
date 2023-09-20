@@ -59,3 +59,7 @@ nav.breadcrumb {
 nav.navbar ul:nth-child(2) {
   width: calc(100vw - 5rem);
 }
+
+nav.navbar ul li.user-info {
+  text-transform: capitalize;
+}
