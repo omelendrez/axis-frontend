@@ -9,6 +9,7 @@ import { defaultRoutes } from './defaultRoutes'
 import { docManagerRoutes } from './docManagerRoutes'
 import { homeRoutes } from './homeRoutes'
 import { learnerRoutes } from './learnerRoutes'
+import { opitoFileRoutes } from './opitoFileRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
 import { notFoundRoutes } from './notFoundRoutes'
 import { pendingTasksRoutes } from './pendingTasksRoutes'
@@ -32,6 +33,7 @@ export const AppRoutes = () => {
         {learnerRoutes}
         {nationalityRoutes}
         {notFoundRoutes}
+        {opitoFileRoutes}
         {pendingTasksRoutes}
         {roleRoutes}
         {stateRoutes}

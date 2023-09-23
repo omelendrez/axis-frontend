@@ -1,7 +1,7 @@
 [
   {
     "title": "My Pending Tasks",
-    "description": "Act on your pending tasks.",
+    "description": "Act on the pending tasks related to your Role by approving, rejecting or updating training data.",
     "path": "/pending-tasks",
     "icon": "pending_actions",
     "roles": [
@@ -19,10 +19,20 @@
     "separator": true
   },
   {
+    "title": "Opito Files",
+    "description": "Generate the CSV files that will be uploaded onto the OPITO official website for the generation of new certificates.",
+    "path": "/opito-files",
+    "icon": "attach_file",
+    "roles": [
+      1,
+      9
+    ]
+  },
+  {
     "title": "All Training Records",
-    "description": "Manage/view all existing training records.",
+    "description": "Manage/view all existing training records in the database.",
     "path": "/trainings",
-    "icon": "local_library",
+    "icon": "format_list_numbered",
     "roles": [
       1,
       2,
@@ -34,10 +44,10 @@
     ]
   },
   {
-    "title": "Learners",
-    "description": "Manage learners.",
+    "title": "Manage Learners",
+    "description": "Add, modify and remove learners, and assign them to courses.",
     "path": "/learners",
-    "icon": "person",
+    "icon": "local_library",
     "roles": [
       1,
       2,

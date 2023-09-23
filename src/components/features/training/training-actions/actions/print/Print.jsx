@@ -111,9 +111,12 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       .finally(() => setIsSubmitting(false))
   }
 
+  const embedClass = type === DOC_TYPE.CERTIFICATE ? 'certificate' : 'id-card'
+  const title = type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'
+
   return (
     <Task
-      title={type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'}
+      title={title}
       status={<Status trackingRecord={trackingRecord} />}
       className="print"
       description={
@@ -133,20 +136,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     >
       {isDoc && (
         <figure>
-          <object
-            data={documentUrl}
-            {...props}
-            className={
-              type === DOC_TYPE.CERTIFICATE ? 'certificate' : 'id-card'
-            }
-          >
-            <embed
-              src={documentUrl}
-              {...props}
-              className={
-                type === DOC_TYPE.CERTIFICATE ? 'certificate' : 'id-card'
-              }
-            />
+          <object data={documentUrl} {...props} className={embedClass}>
+            <embed src={documentUrl} {...props} className={embedClass} />
           </object>
         </figure>
       )}

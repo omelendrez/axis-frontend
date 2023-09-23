@@ -1,0 +1,16 @@
+article.opito-files-generator {
+  align-items: unset;
+}
+
+article.opito-files-generator div.card-body div.product {
+  color: var(--primary);
+}
+
+article.opito-files-generator div.card-body div.start {
+  font-weight: 900;
+}
+
+article.opito-files-generator div.button-area {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
