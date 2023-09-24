@@ -35,20 +35,17 @@ import '../components/features/pending-tasks/pendingTasks.css'
 const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
   REFRESH: 'REFRESH',
-  SELECTED_RADIO: 'SELECTED_RADIO',
   SHOW_INPUT_PARAMS: 'SHOW_INPUT_PARAMS'
 }
 
 const initialState = {
   authorizedStatuses: [],
   refresh: false,
-  selectedRadioOption: RADIO.NONE,
   showInputParameters: false
 }
 
 const reducer = (state, action) => {
-  const { AUTHORIZED_STATUSES, REFRESH, SELECTED_RADIO, SHOW_INPUT_PARAMS } =
-    REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH, SHOW_INPUT_PARAMS } = REDUCER_TYPES
 
   switch (action.type) {
     case AUTHORIZED_STATUSES:
@@ -61,12 +58,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         refresh: action.payload
-      }
-
-    case SELECTED_RADIO:
-      return {
-        ...state,
-        selectedRadioOption: action.payload
       }
 
     case SHOW_INPUT_PARAMS:
@@ -101,18 +92,13 @@ const PendingTasks = () => {
 
   const [pagination, setPagination] = useState(initialValues)
   const [selectedRows, setSelectedRows] = useState([])
+  const [selectedRadioOption, setSelectedRadioOption] = useState(RADIO.NONE)
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const {
-    authorizedStatuses,
-    showInputParameters,
-    selectedRadioOption,
-    refresh
-  } = state
+  const { authorizedStatuses, showInputParameters, refresh } = state
 
-  const { AUTHORIZED_STATUSES, REFRESH, SELECTED_RADIO, SHOW_INPUT_PARAMS } =
-    REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH, SHOW_INPUT_PARAMS } = REDUCER_TYPES
 
   useEffect(() => {
     setPage('My pending tasks')
@@ -185,7 +171,7 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination, selectedStatuses])
+  }, [pagination, selectedStatuses, refresh])
 
   const handleSelected = (payload) => {
     setSelectedRows(payload)
@@ -231,8 +217,7 @@ const PendingTasks = () => {
     }
   }
 
-  const handleRadioButtonsChange = (option) =>
-    dispatch({ type: SELECTED_RADIO, payload: option })
+  const handleRadioButtonsChange = (option) => setSelectedRadioOption(option)
 
   const buildPayload = (status) => ({
     records: selectedRows.map((r) => [r.id, status, user.id])
@@ -248,7 +233,7 @@ const PendingTasks = () => {
     )
       .then((res) => {
         apiMessage(res)
-        dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
+        setSelectedRadioOption(RADIO.NONE)
         dispatch({ type: REFRESH, payload: !refresh })
         navigate('/pending-tasks')
       })
@@ -259,8 +244,11 @@ const PendingTasks = () => {
     rejectMultiple(buildPayload(TRAINING_STATUS.CANCELLED))
       .then((res) => {
         apiMessage(res)
-        dispatch({ type: SELECTED_RADIO, payload: RADIO.NONE })
+
+        setSelectedRadioOption(RADIO.NONE)
+
         dispatch({ type: REFRESH, payload: !refresh })
+
         navigate('/pending-tasks')
       })
       .catch((e) => apiMessage(e))

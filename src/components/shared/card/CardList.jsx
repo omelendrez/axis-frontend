@@ -51,7 +51,7 @@ export const CardList = ({
     }
   }
 
-  const hasCheckboxes = location.pathname === '/pending-tasks'
+  const hasCheckboxes = location.pathname === '/pending-tasks' && setSelected
 
   return (
     <>
