@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Task } from '@/components'
+import { Divider, Task } from '@/components'
 import {
   generateCertificate,
   generateIdCard,
@@ -19,19 +19,21 @@ import './print.css'
 export const Print = ({ training, onUpdate, type, role, user }) => {
   const { apiMessage } = useApiMessages()
 
+  const isCertificate = type === DOC_TYPE.CERTIFICATE
+
   const { roles } = user
 
   const {
     id,
     status_id: status,
-    course: { id_card },
+    course: { id_card, cert_type },
     tracking
   } = training
 
   const trackingRecord = tracking.find(
     (t) =>
       t.status_id ===
-      (type === DOC_TYPE.CERTIFICATE
+      (isCertificate
         ? TRAINING_STATUS.CERT_PRINT_DONE
         : TRAINING_STATUS.ID_CARD_PRINT_DONE)
   )
@@ -47,22 +49,17 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const documentUrl =
-    type === DOC_TYPE.CERTIFICATE ? getCertificateUrl(id) : getIdCardUrl(id)
+  const documentUrl = isCertificate ? getCertificateUrl(id) : getIdCardUrl(id)
 
-  const generate =
-    type === DOC_TYPE.CERTIFICATE ? generateCertificate : generateIdCard
+  const generate = isCertificate ? generateCertificate : generateIdCard
 
-  const docExists =
-    type === DOC_TYPE.CERTIFICATE ? certificateExists : idCardExists
+  const docExists = isCertificate ? certificateExists : idCardExists
 
-  const markAsPrinted =
-    type === DOC_TYPE.CERTIFICATE ? certificatePrintDone : idCardPrintDone
+  const markAsPrinted = isCertificate ? certificatePrintDone : idCardPrintDone
 
-  const isPrinted =
-    type === DOC_TYPE.CERTIFICATE
-      ? status >= TRAINING_STATUS.CERT_PRINT_DONE
-      : status >= TRAINING_STATUS.ID_CARD_PRINT_DONE
+  const isPrinted = isCertificate
+    ? status >= TRAINING_STATUS.CERT_PRINT_DONE
+    : status >= TRAINING_STATUS.ID_CARD_PRINT_DONE
 
   useEffect(() => {
     docExists(id)
@@ -77,6 +74,14 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     const payload = {
       ...training,
       user
+    }
+
+    if (isOpito) {
+      const data = {
+        message: 'Anduvio!'
+      }
+      apiMessage({ data })
+      return console.log(payload)
     }
 
     generate(id, payload)
@@ -94,10 +99,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     type: 'application/pdf'
   }
 
-  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
-    return null
-  }
-
   const handleMarkAsPrinted = (e) => {
     e.preventDefault()
     const hasId = parseInt(id_card, 10)
@@ -111,8 +112,23 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  const embedClass = type === DOC_TYPE.CERTIFICATE ? 'certificate' : 'id-card'
-  const title = type === DOC_TYPE.CERTIFICATE ? 'Certificate' : 'ID Card'
+  const embedClass = isCertificate ? 'certificate' : 'id-card'
+  const title = isCertificate ? 'Certificate' : 'ID Card'
+  const isOpito = cert_type === 4
+
+  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
+    return null
+  }
+
+  let buttonLabel = ''
+
+  if (isCertificate) {
+    if (isOpito) {
+      buttonLabel = isDoc ? 'Re-upload' : 'Upload'
+    } else {
+      buttonLabel = isDoc ? 'Re-generate' : 'Generate'
+    }
+  }
 
   return (
     <Task
@@ -127,13 +143,27 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           </center>
         ) : null
       }
-      approveLabel={isDoc ? 'Re-generate' : 'Generate'}
+      approveLabel={buttonLabel}
       approveDisabled={!canUpdate || isCancelled || isSubmitting}
       rejectLabel="Mark as printed"
       rejectDisabled={!canUpdate || isCancelled || isSubmitting}
       onReject={isDoc && !isPrinted ? handleMarkAsPrinted : null}
       onApprove={canUpdate && !isCancelled ? handleGenerate : null}
     >
+      {isOpito && isCertificate && (
+        <div className="opito-fields">
+          <label htmlFor="learner_id">Learner:</label>
+          <input type="text" id="learner_id" placeholder="Enter learner Id" />
+          <label htmlFor="certificate_no">Certificate:</label>
+          <input
+            type="text"
+            id="certificate_no"
+            placeholder="Enter certificate #"
+          />
+          <button className="button">Save</button>
+          <Divider style={{ marginTop: '1rem' }} />
+        </div>
+      )}
       {isDoc && (
         <figure>
           <object data={documentUrl} {...props} className={embedClass}>
