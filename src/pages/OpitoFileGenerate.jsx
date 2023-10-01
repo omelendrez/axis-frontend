@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { CardList, Divider, Loading } from '@/components'
 
-import { getOpitoFileList } from '@/services'
+import { getOpitoFileList, getOpitoFileContent } from '@/services'
 
 import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
@@ -18,7 +18,7 @@ const Card = ({ item, onView }) => {
     onView(item)
   }
   return (
-    <article className="card opito-files-generator" onClick={handleClick}>
+    <article className="card opito-files-generator">
       <div className="card-body">
         <div className="product">
           {product_code} {name}
@@ -28,7 +28,9 @@ const Card = ({ item, onView }) => {
         <div className="small-font learners">{learners} record(s)</div>
       </div>
       <div className="button-area">
-        <button className="button">GENERATE</button>
+        <button className="button" onClick={handleClick}>
+          GENERATE
+        </button>
       </div>
     </article>
   )
@@ -53,13 +55,20 @@ const OpitoFileGenerate = () => {
   }, [pagination])
 
   const handleView = (item) => {
+    console.log(item)
     const { id } = item
     const [date, course] = id.split(' ')
     const params = {
       date,
       course: parseInt(course, 10)
     }
-    console.log(params)
+    getOpitoFileContent(params)
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
   }
 
   return (
