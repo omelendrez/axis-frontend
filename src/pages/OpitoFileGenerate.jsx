@@ -23,7 +23,7 @@ const Card = ({ item, onView }) => {
     onView(item)
   }
 
-  const csvFilePath = `${import.meta.env.VITE_ASSETS_URL}/${fileName}`
+  const csvFilePath = `${import.meta.env.VITE_ASSETS_URL}${fileName}`
 
   return (
     <article className="card opito-files-generator">
@@ -77,14 +77,17 @@ const OpitoFileGenerate = () => {
         const payload = { ...item, records: res.data.rows }
         generateOpitoCSVFile(payload)
           .then((res) => {
-            const fileName = res.data.fileName
-            const rows = data.rows.map((r) => {
-              if (r.id === item.id) {
-                return { ...r, fileName }
-              }
-              return r
-            })
-            setData((data) => ({ ...data, rows }))
+            const fileName = res.data.fileName.substring(1) // Remove "/" at the beginning of the string
+
+            setData((data) => ({
+              ...data,
+              rows: data.rows.map((r) => {
+                if (r.id === item.id) {
+                  return { ...r, fileName }
+                }
+                return r
+              })
+            }))
           })
           .catch((e) => {
             console.error(e)
