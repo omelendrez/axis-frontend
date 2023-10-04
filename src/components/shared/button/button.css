@@ -19,6 +19,7 @@ button {
   user-select: none;
   vertical-align: middle;
   appearance: none;
+  text-wrap: nowrap;
   text-decoration: none;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 500;

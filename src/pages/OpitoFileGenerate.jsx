@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { CardList, Divider, Loading } from '@/components'
 
-import { getOpitoFileList, getOpitoFileContent } from '@/services'
+import {
+  getOpitoFileList,
+  getOpitoFileContent,
+  generateOpitoCSVFile
+} from '@/services'
 
 import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
@@ -11,12 +16,15 @@ import { initialValues } from '@/helpers'
 import './opitoFileCard.css'
 
 const Card = ({ item, onView }) => {
-  const { name, start, learners, product_code } = item
+  const { name, start, learners, product_code, fileName } = item
 
   const handleClick = (e) => {
     e.preventDefault()
     onView(item)
   }
+
+  const csvFilePath = `${import.meta.env.VITE_ASSETS_URL}/${fileName}`
+
   return (
     <article className="card opito-files-generator">
       <div className="card-body">
@@ -28,9 +36,12 @@ const Card = ({ item, onView }) => {
         <div className="small-font learners">{learners} record(s)</div>
       </div>
       <div className="button-area">
-        <button className="button" onClick={handleClick}>
-          GENERATE
-        </button>
+        {fileName && <Link to={csvFilePath}>Download</Link>}
+        {!fileName && (
+          <button className="button" onClick={handleClick}>
+            get file
+          </button>
+        )}
       </div>
     </article>
   )
@@ -55,7 +66,6 @@ const OpitoFileGenerate = () => {
   }, [pagination])
 
   const handleView = (item) => {
-    console.log(item)
     const { id } = item
     const [date, course] = id.split(' ')
     const params = {
@@ -64,7 +74,21 @@ const OpitoFileGenerate = () => {
     }
     getOpitoFileContent(params)
       .then((res) => {
-        console.log(res.data)
+        const payload = { ...item, records: res.data.rows }
+        generateOpitoCSVFile(payload)
+          .then((res) => {
+            const fileName = res.data.fileName
+            const rows = data.rows.map((r) => {
+              if (r.id === item.id) {
+                return { ...r, fileName }
+              }
+              return r
+            })
+            setData((data) => ({ ...data, rows }))
+          })
+          .catch((e) => {
+            console.error(e)
+          })
       })
       .catch((e) => {
         console.error(e)
