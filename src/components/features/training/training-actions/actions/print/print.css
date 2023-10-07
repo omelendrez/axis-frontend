@@ -38,6 +38,17 @@ div.actions .print .children .opito-fields button {
   align-self: center;
 }
 
+div.actions .print .children .opito-fields .opito-field {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: var(--form-element-spacing-vertical)
+    var(--form-element-spacing-horizontal);
+  border-radius: 3px;
+  width: 12rem;
+  margin-bottom: var(--spacing);
+  color: var(--success);
+}
+
 @media screen and (min-width: 640px) {
   .print .children .certificate,
   .print .children .id-card {

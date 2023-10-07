@@ -80,6 +80,13 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (training.id) {
+      const { opito_learner, certificate } = training
+      setOpitoFields({ learnerId: opito_learner, certificateNo: certificate })
+    }
+  }, [training])
+
   const handleGenerate = (e) => {
     e.preventDefault()
     const payload = {
@@ -142,6 +149,9 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   let buttonLabel = ''
 
+  const opitoFieldsCompleted =
+    opitoFields.learnerId && opitoFields.certificateNo
+
   if (isCertificate) {
     if (isOpito) {
       buttonLabel = isDoc ? 'Re-upload' : 'Upload'
@@ -177,24 +187,39 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       {isOpito && isCertificate && (
         <div className="opito-fields">
           <label htmlFor="learnerId">Learner Id:</label>
-          <input
-            type="text"
-            id="learnerId"
-            placeholder="Enter learner Id"
-            onChange={handleOpitoFieldsChange}
-            value={opitoFields.learnerId}
-          />
+          {opitoFieldsCompleted && (
+            <div className="opito-field">{opitoFields.learnerId}</div>
+          )}
+          {!opitoFieldsCompleted && (
+            <input
+              type="text"
+              id="learnerId"
+              placeholder="Enter learner Id"
+              onChange={handleOpitoFieldsChange}
+              value={opitoFields.learnerId}
+              readOnly={opitoFieldsCompleted}
+            />
+          )}
           <label htmlFor="certificateNo">Certificate #:</label>
-          <input
-            type="text"
-            id="certificateNo"
-            placeholder="Enter certificate #"
-            onChange={handleOpitoFieldsChange}
-            value={opitoFields.certificateNo}
-          />
-          <button className="button" onClick={handleSaveFields}>
-            Save
-          </button>
+          {opitoFieldsCompleted && (
+            <div className="opito-field">{opitoFields.certificateNo}</div>
+          )}
+
+          {!opitoFieldsCompleted && (
+            <input
+              type="text"
+              id="certificateNo"
+              placeholder="Enter certificate #"
+              onChange={handleOpitoFieldsChange}
+              value={opitoFields.certificateNo}
+              readOnly={opitoFieldsCompleted}
+            />
+          )}
+          {!opitoFieldsCompleted && (
+            <button className="button" onClick={handleSaveFields}>
+              Save
+            </button>
+          )}
           <Divider style={{ marginTop: '1rem' }} />
         </div>
       )}
