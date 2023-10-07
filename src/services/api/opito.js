@@ -10,3 +10,6 @@ export const getOpitoFileList = (pagination) =>
 
 export const getOpitoFileContent = (params) =>
   api.get(`${endpoint}/content${setURLParams(params)}`)
+
+export const saveOpitoFields = (id, payload) =>
+  api.put(`${endpoint}/${id}`, payload)

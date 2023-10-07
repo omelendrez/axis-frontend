@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Divider, Task } from '@/components'
+import { Status } from '../status-container/Status'
+
 import {
   generateCertificate,
   generateIdCard,
@@ -8,13 +10,20 @@ import {
   certificateExists,
   idCardExists,
   certificatePrintDone,
-  idCardPrintDone
+  idCardPrintDone,
+  saveOpitoFields
 } from '@/services'
-import useApiMessages from '@/hooks/useApiMessages'
-import { Status } from '../status-container/Status'
 
-import { DOC_TYPE, TRAINING_STATUS, getUserAuth } from '@/helpers'
+import useApiMessages from '@/hooks/useApiMessages'
+
+import { CERT_TYPE, DOC_TYPE, TRAINING_STATUS, getUserAuth } from '@/helpers'
+
 import './print.css'
+
+const defaultOpitoFieldsValues = {
+  learnerId: '',
+  certificateNo: ''
+}
 
 export const Print = ({ training, onUpdate, type, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -48,6 +57,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   const [isDoc, setIsDoc] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const [opitoFields, setOpitoFields] = useState(defaultOpitoFieldsValues)
 
   const documentUrl = isCertificate ? getCertificateUrl(id) : getIdCardUrl(id)
 
@@ -114,10 +125,19 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const embedClass = isCertificate ? 'certificate' : 'id-card'
   const title = isCertificate ? 'Certificate' : 'ID Card'
-  const isOpito = cert_type === 4
+  const isOpito = cert_type === CERT_TYPE.OPITO
 
-  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
-    return null
+  const handleOpitoFieldsChange = (e) => {
+    e.preventDefault()
+    setOpitoFields((of) => ({ ...of, [e.target.id]: e.target.value }))
+  }
+
+  const handleSaveFields = (e) => {
+    e.preventDefault()
+
+    saveOpitoFields(id, opitoFields)
+      .then((res) => apiMessage(res))
+      .catch((e) => apiMessage(e))
   }
 
   let buttonLabel = ''
@@ -128,6 +148,10 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     } else {
       buttonLabel = isDoc ? 'Re-generate' : 'Generate'
     }
+  }
+
+  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
+    return null
   }
 
   return (
@@ -152,15 +176,25 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     >
       {isOpito && isCertificate && (
         <div className="opito-fields">
-          <label htmlFor="learner_id">Learner:</label>
-          <input type="text" id="learner_id" placeholder="Enter learner Id" />
-          <label htmlFor="certificate_no">Certificate:</label>
+          <label htmlFor="learnerId">Learner Id:</label>
           <input
             type="text"
-            id="certificate_no"
-            placeholder="Enter certificate #"
+            id="learnerId"
+            placeholder="Enter learner Id"
+            onChange={handleOpitoFieldsChange}
+            value={opitoFields.learnerId}
           />
-          <button className="button">Save</button>
+          <label htmlFor="certificateNo">Certificate #:</label>
+          <input
+            type="text"
+            id="certificateNo"
+            placeholder="Enter certificate #"
+            onChange={handleOpitoFieldsChange}
+            value={opitoFields.certificateNo}
+          />
+          <button className="button" onClick={handleSaveFields}>
+            Save
+          </button>
           <Divider style={{ marginTop: '1rem' }} />
         </div>
       )}
