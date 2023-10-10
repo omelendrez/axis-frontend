@@ -5,6 +5,7 @@ import { MenuOption } from './MenuOption'
 import options from './options.json'
 import { hasRequiredRole } from '@/helpers'
 import './home.css'
+import NoRoles from './NoRoles'
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -29,6 +30,7 @@ export const Home = () => {
               icon={o.icon}
             />
           ))}
+      {!user.roles.length && <NoRoles />}
     </main>
   )
 }

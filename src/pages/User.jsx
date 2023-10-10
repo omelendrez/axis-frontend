@@ -32,7 +32,7 @@ const User = ({ isViewing, isAdding, isEditing }) => {
   }, [params])
 
   const handleClose = (e) => {
-    e.preventDefault()
+    e?.preventDefault()
     navigate('/users')
   }
 

@@ -63,7 +63,7 @@ export const UserView = () => {
     deleteUser(id)
       .then((res) => {
         apiMessage(res)
-        navigate('/courses')
+        navigate('/users')
       })
       .catch((e) => apiMessage(e))
   }

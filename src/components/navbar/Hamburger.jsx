@@ -33,18 +33,19 @@ export const Hamburger = ({
       <details ref={detailsRef} role="list" dir="ltr">
         <summary aria-haspopup="listbox" role="link"></summary>
         <ul>
-          {appDefaultRoutes
-            .filter((r) => !r.role || r.role === user.role)
-            .map((r) => (
-              <LiElement
-                route={route}
-                path={r.path}
-                icon={r.icon}
-                key={r.label}
-                label={r.label}
-                onClick={onClick}
-              />
-            ))}
+          {user?.roles?.length > 0 &&
+            appDefaultRoutes
+              .filter((r) => !r.role || r.role === user.role)
+              .map((r) => (
+                <LiElement
+                  route={route}
+                  path={r.path}
+                  icon={r.icon}
+                  key={r.label}
+                  label={r.label}
+                  onClick={onClick}
+                />
+              ))}
           <Divider style={{ margin: '0.3rem 0' }} />
           {userAuthorizedRoutes.map((r) => (
             <LiElement

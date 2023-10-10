@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { SP } from '@/services'
 import { UserContext, NetworkContext } from '@/context'
 import { BackButton, Hamburger } from './'
@@ -16,8 +16,6 @@ export const Navbar = () => {
   const { page } = usePage()
 
   const { roles: rolesList, load: loadRoles } = useRoles()
-
-  const [roles, setRoles] = useState([])
 
   const isUserAuthenticated = Boolean(user?.id)
 
@@ -45,9 +43,7 @@ export const Navbar = () => {
   const location = useLocation()
 
   useEffect(() => {
-    if (rolesList.data.count) {
-      setRoles(rolesList.data.rows)
-    } else {
+    if (!rolesList.data) {
       loadRoles()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,6 +76,7 @@ export const Navbar = () => {
             onClick={handleClick}
             onLogout={handleLogout}
             detailsRef={detailsRef}
+            user={user}
           />
         ) : (
           !isLoginPage && <BackButton />
@@ -90,9 +87,10 @@ export const Navbar = () => {
       </ul>
       <ul>
         <li className="user-info">
-          {user?.name}{' '}
+          {user?.name}
           <div className="user-role">
-            {roles?.find((r) => user?.roles[0]?.id === r?.id)?.name}
+            {rolesList?.data?.rows?.find((r) => user?.roles[0]?.id === r?.id)
+              ?.name || 'No role assigned'}
           </div>
         </li>
       </ul>
