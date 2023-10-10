@@ -63,3 +63,9 @@ nav.navbar ul:nth-child(2) {
 nav.navbar ul li.user-info {
   text-transform: capitalize;
 }
+
+nav.navbar ul li.user-info div.user-role {
+  font-size: 0.85rem;
+  font-weight: 100;
+  white-space: nowrap;
+}

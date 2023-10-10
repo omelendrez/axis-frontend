@@ -150,7 +150,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   let buttonLabel = ''
 
   const opitoFieldsCompleted =
-    opitoFields.learnerId && opitoFields.certificateNo
+    opitoFields.learnerId || opitoFields.certificateNo
 
   if (isCertificate) {
     if (isOpito) {

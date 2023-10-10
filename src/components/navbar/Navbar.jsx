@@ -1,10 +1,11 @@
 import { useLocation } from 'react-router-dom'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { SP } from '@/services'
 import { UserContext, NetworkContext } from '@/context'
 import { BackButton, Hamburger } from './'
 import useNotification from '@/hooks/useNotification'
 import usePage from '@/hooks/usePage'
+import useRoles from '@/hooks/useRoles'
 import './navbar.css'
 
 export const Navbar = () => {
@@ -13,6 +14,10 @@ export const Navbar = () => {
   const { network } = useContext(NetworkContext)
 
   const { page } = usePage()
+
+  const { roles: rolesList, load: loadRoles } = useRoles()
+
+  const [roles, setRoles] = useState([])
 
   const isUserAuthenticated = Boolean(user?.id)
 
@@ -38,6 +43,15 @@ export const Navbar = () => {
   }
 
   const location = useLocation()
+
+  useEffect(() => {
+    if (rolesList.data.count) {
+      setRoles(rolesList.data.rows)
+    } else {
+      loadRoles()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rolesList])
 
   useEffect(() => {
     if (network !== null) {
@@ -75,7 +89,12 @@ export const Navbar = () => {
         <li className="page-title">{page?.title}</li>
       </ul>
       <ul>
-        <li className="user-info">{user?.name}</li>
+        <li className="user-info">
+          {user?.name}{' '}
+          <div className="user-role">
+            {roles?.find((r) => user?.roles[0]?.id === r?.id)?.name}
+          </div>
+        </li>
       </ul>
     </nav>
   )
