@@ -5,7 +5,7 @@ import { UserContext, NetworkContext } from '@/context'
 import { BackButton, Hamburger } from './'
 import useNotification from '@/hooks/useNotification'
 import usePage from '@/hooks/usePage'
-import useRoles from '@/hooks/useRoles'
+
 import './navbar.css'
 
 export const Navbar = () => {
@@ -14,8 +14,6 @@ export const Navbar = () => {
   const { network } = useContext(NetworkContext)
 
   const { page } = usePage()
-
-  const { roles: rolesList, load: loadRoles } = useRoles()
 
   const isUserAuthenticated = Boolean(user?.id)
 
@@ -41,13 +39,6 @@ export const Navbar = () => {
   }
 
   const location = useLocation()
-
-  useEffect(() => {
-    if (!rolesList.data) {
-      loadRoles()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rolesList])
 
   useEffect(() => {
     if (network !== null) {
@@ -89,8 +80,7 @@ export const Navbar = () => {
         <li className="user-info">
           {user?.name}
           <div className="user-role">
-            {rolesList?.data?.rows?.find((r) => user?.roles[0]?.id === r?.id)
-              ?.name || 'No role assigned'}
+            {(user?.roles && user.roles[0]?.name) || 'No role assigned'}
           </div>
         </li>
       </ul>
