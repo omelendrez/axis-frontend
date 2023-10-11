@@ -23,7 +23,10 @@ export const getUserAuth = (componentRole, userRoles, status, tracking) => {
 
   const isComplete = status === TRAINING_STATUS.COMPLETED
 
-  const canView = (isComplete || isApproved) && !isCancelled
+  const canView =
+    (isApproved ||
+      (!isApproved && userRoles.find((r) => r.id === componentRole))) &&
+    !isCancelled
 
   const canApprove = matchRoleStatus(userRoles, status) && !isApproved
 

@@ -29,10 +29,10 @@
     ]
   },
   {
-    "title": "All Training Records",
-    "description": "Manage/view all existing training records in the database.",
-    "path": "/trainings",
-    "icon": "format_list_numbered",
+    "title": "Manage Learners",
+    "description": "Add, modify and remove learners, and assign them to courses.",
+    "path": "/learners",
+    "icon": "local_library",
     "roles": [
       1,
       2,
@@ -44,10 +44,10 @@
     ]
   },
   {
-    "title": "Manage Learners",
-    "description": "Add, modify and remove learners, and assign them to courses.",
-    "path": "/learners",
-    "icon": "local_library",
+    "title": "All Training Records",
+    "description": "Manage/view all existing training records in the database.",
+    "path": "/trainings",
+    "icon": "format_list_numbered",
     "roles": [
       1,
       2,

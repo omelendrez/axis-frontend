@@ -96,7 +96,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
     if (isOpito) {
       const data = {
-        message: 'Anduvio!'
+        message: 'We should upload here!'
       }
       apiMessage({ data })
       return console.log(payload)
@@ -147,17 +147,15 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       .catch((e) => apiMessage(e))
   }
 
-  let buttonLabel = ''
-
   const opitoFieldsCompleted =
     opitoFields.learnerId || opitoFields.certificateNo
 
-  if (isCertificate) {
-    if (isOpito) {
-      buttonLabel = isDoc ? 'Re-upload' : 'Upload'
-    } else {
-      buttonLabel = isDoc ? 'Re-generate' : 'Generate'
-    }
+  let buttonLabel = ''
+
+  if (isOpito) {
+    buttonLabel = isDoc ? 'Re-upload' : 'Upload'
+  } else {
+    buttonLabel = isDoc ? 'Re-generate' : 'Generate'
   }
 
   if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
