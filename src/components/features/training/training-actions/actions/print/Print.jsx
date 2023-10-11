@@ -78,7 +78,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [training])
 
   useEffect(() => {
     if (training.id) {
@@ -101,7 +101,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       apiMessage({ data })
       return console.log(payload)
     }
-
+    setIsDoc(false)
     generate(id, payload)
       .then((res) => {
         const data = {
