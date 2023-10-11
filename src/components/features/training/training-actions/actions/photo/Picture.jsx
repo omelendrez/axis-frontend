@@ -144,6 +144,10 @@ export const Picture = ({ training, onUpdate, role, user }) => {
         <Modal open={isPhotoOpen} title="Take picture" onClose={handleClose}>
           <div className="form-container">
             <PhotoUpload onClose={handleClose} badge={badge} />
+            <ol className="photo-tip">
+              <li>Camera must be set to 3:4 aspect ratio.</li>
+              <li>Orientation must be landscape.</li>
+            </ol>
           </div>
         </Modal>
       </Task>
