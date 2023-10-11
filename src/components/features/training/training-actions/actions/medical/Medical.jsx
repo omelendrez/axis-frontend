@@ -93,7 +93,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>MEDIC TEST</strong>
 
-  if (!canView || !canApprove) {
+  if (!canView) {
     return null
   }
 

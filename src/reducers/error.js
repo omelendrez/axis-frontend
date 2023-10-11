@@ -10,7 +10,7 @@ export function handleError(error, dispatch, reset) {
     message: getApiErrorMessage(error)
   }
   log.error(error)
-  console.log(error)
+  console.error(error)
   dispatch(setMessage(message))
   setTimeout(() => {
     dispatch(reset())
