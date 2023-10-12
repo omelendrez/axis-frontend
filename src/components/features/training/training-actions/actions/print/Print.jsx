@@ -94,7 +94,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       user
     }
 
-    if (isOpito) {
+    if (isOpito && isCertificate) {
       const data = {
         message: 'We should upload here!'
       }
@@ -136,7 +136,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const handleOpitoFieldsChange = (e) => {
     e.preventDefault()
-    setOpitoFields((of) => ({ ...of, [e.target.id]: e.target.value }))
+    setOpitoFields((fields) => ({ ...fields, [e.target.id]: e.target.value }))
   }
 
   const handleSaveFields = (e) => {
@@ -150,12 +150,10 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   const opitoFieldsCompleted =
     opitoFields.learnerId || opitoFields.certificateNo
 
-  let buttonLabel = ''
+  let buttonLabel = isDoc ? 'Re-generate' : 'Generate'
 
-  if (isOpito) {
+  if (isCertificate && isOpito) {
     buttonLabel = isDoc ? 'Re-upload' : 'Upload'
-  } else {
-    buttonLabel = isDoc ? 'Re-generate' : 'Generate'
   }
 
   if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
