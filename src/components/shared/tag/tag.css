@@ -9,4 +9,22 @@
   font-size: var(--min-font-size);
   color: white;
   line-height: initial;
+  width: fit-content;
+}
+
+.tag.default {
+  color: var(--primary);
+}
+
+.tag.secondary {
+  background: var(--secondary);
+}
+
+.tag.info {
+  background: var(--info);
+}
+
+.tag.inverted {
+  color: var(--secondary);
+  background: white;
 }

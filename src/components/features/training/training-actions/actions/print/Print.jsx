@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Divider, Task } from '@/components'
+import { Divider, Modal, Task } from '@/components'
 import { Status } from '../status-container/Status'
 
 import {
@@ -16,9 +16,16 @@ import {
 
 import useApiMessages from '@/hooks/useApiMessages'
 
-import { CERT_TYPE, DOC_TYPE, TRAINING_STATUS, getUserAuth } from '@/helpers'
+import {
+  CERT_TYPE,
+  DOC_TYPE,
+  TRAINING_STATUS,
+  documentNumber,
+  getUserAuth
+} from '@/helpers'
 
 import './print.css'
+import { CertificateUpload } from './CertificateUpload'
 
 const defaultOpitoFieldsValues = {
   learnerId: '',
@@ -60,6 +67,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const [opitoFields, setOpitoFields] = useState(defaultOpitoFieldsValues)
 
+  const [isFormOpen, setIsFormOpen] = useState(false)
+
   const documentUrl = isCertificate ? getCertificateUrl(id) : getIdCardUrl(id)
 
   const generate = isCertificate ? generateCertificate : generateIdCard
@@ -89,28 +98,27 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const handleGenerate = (e) => {
     e.preventDefault()
+
+    setIsDoc(false)
+
     const payload = {
       ...training,
       user
     }
 
     if (isOpito && isCertificate) {
-      const data = {
-        message: 'We should upload here!'
-      }
-      apiMessage({ data })
-      return console.log(payload)
+      return setIsFormOpen(true)
+    } else {
+      generate(id, payload)
+        .then((res) => {
+          const data = {
+            message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
+          }
+          apiMessage({ data })
+          onUpdate()
+        })
+        .catch((e) => apiMessage(e))
     }
-    setIsDoc(false)
-    generate(id, payload)
-      .then((res) => {
-        const data = {
-          message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
-        }
-        apiMessage({ data })
-        onUpdate()
-      })
-      .catch((e) => apiMessage(e))
   }
 
   const props = {
@@ -145,6 +153,12 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     saveOpitoFields(id, opitoFields)
       .then((res) => apiMessage(res))
       .catch((e) => apiMessage(e))
+  }
+
+  const handleClose = (e) => {
+    e?.preventDefault()
+    setIsFormOpen(false)
+    onUpdate()
   }
 
   const opitoFieldsCompleted =
@@ -226,6 +240,14 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           </object>
         </figure>
       )}
+      <Modal open={isFormOpen} title="opito certificate" onClose={handleClose}>
+        <div className="form-container">
+          <CertificateUpload
+            onClose={handleClose}
+            fileName={documentNumber(id)}
+          />
+        </div>
+      </Modal>
     </Task>
   )
 }
