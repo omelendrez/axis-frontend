@@ -10,7 +10,7 @@ const Row = ({ label, value, className }) => (
   </div>
 )
 
-export const User = ({ user, onEdit, onDelete }) => {
+export const User = ({ user, onEdit, onDelete, onReset }) => {
   if (!user) {
     return null
   }
@@ -20,7 +20,12 @@ export const User = ({ user, onEdit, onDelete }) => {
   return (
     <article className="user">
       <h6 className="title">User data</h6>
-      <Buttons onEdit={onEdit} onDelete={onDelete} noCheckboxes />
+      <Buttons
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onReset={onReset}
+        noCheckboxes
+      />
       <Divider style={{ margin: '1rem 0' }} />
 
       <div>

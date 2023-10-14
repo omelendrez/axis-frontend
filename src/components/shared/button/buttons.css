@@ -28,8 +28,8 @@
 }
 
 .buttons-main button.delete {
-  color: var(--secondary);
-  border-color: var(--secondary);
+  color: var(--error);
+  border-color: var(--error);
 }
 
 .buttons-main button:disabled {

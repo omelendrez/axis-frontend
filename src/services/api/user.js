@@ -19,4 +19,6 @@ export const updateUser = (id, payload) => api.put(`${endpoint}/${id}`, payload)
 export const changePassword = (id, payload) =>
   api.put(`${endpoint}/${id}/chgpwd`, payload)
 
+export const resetPassword = (id) => api.post(`${endpoint}/${id}/reset`)
+
 export const deleteUser = (id) => api.delete(`${endpoint}/${id}`)

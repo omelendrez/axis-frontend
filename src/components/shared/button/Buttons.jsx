@@ -7,6 +7,7 @@ export const Buttons = ({
   onAdd,
   onEdit,
   onDelete,
+  onReset,
   onUndo,
   noCheckboxes
 }) => {
@@ -65,6 +66,16 @@ export const Buttons = ({
           onClick={onDelete}
         >
           <span className="material-icons">remove</span>
+        </button>
+      )}
+      {onReset && (
+        <button
+          data-tooltip="Reset password"
+          className="delete"
+          disabled={!forced && selected?.length !== 1}
+          onClick={onReset}
+        >
+          <span className="material-icons">lock_reset</span>
         </button>
       )}
       {onUndo && (

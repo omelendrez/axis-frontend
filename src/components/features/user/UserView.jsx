@@ -17,7 +17,8 @@ import {
   getAvailableRoles,
   getUser,
   getUserRoles,
-  getUserView
+  getUserView,
+  resetPassword
 } from '@/services'
 
 import './userView.css'
@@ -82,6 +83,17 @@ export const UserView = () => {
 
   const handleDeleteUserRole = (userRoleId) => {
     deleteUserRole(userRoleId)
+      .then((res) => {
+        apiMessage(res)
+
+        setUpdate((u) => !u)
+      })
+      .catch((e) => apiMessage(e))
+  }
+
+  const handlePasswordReset = (e) => {
+    e.preventDefault()
+    resetPassword(id)
       .then((res) => {
         apiMessage(res)
 
@@ -157,7 +169,12 @@ export const UserView = () => {
       <main className="user-view">
         {/* Data components */}
 
-        <User user={user} onEdit={handleEditUser} onDelete={handleDeleteUser} />
+        <User
+          user={user}
+          onEdit={handleEditUser}
+          onDelete={handleDeleteUser}
+          onReset={handlePasswordReset}
+        />
 
         <UserRoles
           items={userRoles}
