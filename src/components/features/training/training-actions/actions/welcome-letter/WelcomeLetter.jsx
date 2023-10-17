@@ -23,7 +23,7 @@ import './welcome-letter.css'
 export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
-  const { roles } = user
+  const { roles, email } = user
 
   const { id, status_id: status, tracking } = training
 
@@ -126,7 +126,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
     e.preventDefault()
     const payload = {
       ...training,
-      to: 'omar.melendrez@gmail.com',
+      to: email,
       user
     }
 
