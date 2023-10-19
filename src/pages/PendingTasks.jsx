@@ -224,13 +224,13 @@ const PendingTasks = () => {
   })
 
   const handleApprove = () => {
-    approveMultiple(
-      buildPayload(
-        userRoles.find((r) => r.id === USER_ROLE.ACCOUNTS) // Either Accounts role or MD role
-          ? TRAINING_STATUS.ACCOUNTS_DONE
-          : TRAINING_STATUS.MD_DONE
-      )
+    const payload = buildPayload(
+      userRoles.find((r) => r.id === USER_ROLE.ACCOUNTS) // Either Accounts role or MD role
+        ? TRAINING_STATUS.ACCOUNTS_DONE
+        : TRAINING_STATUS.MD_DONE
     )
+
+    approveMultiple(payload)
       .then((res) => {
         apiMessage(res)
         setSelectedRadioOption(RADIO.NONE)
