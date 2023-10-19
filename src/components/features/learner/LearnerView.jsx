@@ -12,12 +12,13 @@ import {
   getTraining,
   deleteTraining
 } from '@/services'
-import { Modal } from '@/components'
+import { Confirm, Modal } from '@/components'
 import { Photo, Learner, Trainings, Contacts } from './learner-view'
 import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '../..'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
+import useConfirm from '@/hooks/useConfirm'
 
 export const LearnerView = () => {
   const params = useParams()
@@ -36,6 +37,10 @@ export const LearnerView = () => {
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
   const [photoBadge, setPhotoBadge] = useState(null)
   const [update, setUpdate] = useState(false)
+  const [trainingId, setTrainingId] = useState(null)
+
+  const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
+    useConfirm()
 
   const badge = learner?.badge
 
@@ -108,13 +113,31 @@ export const LearnerView = () => {
       })
       .catch((e) => apiMessage(e))
 
-  const handleDeleteTraining = (id) =>
-    deleteTraining(id)
-      .then((res) => {
-        apiMessage(res)
+  const handleDeleteTraining = (id) => {
+    setTrainingId(id)
+
+    const message = (
+      <span>Are you sure you want to delete this training record?</span>
+    )
+
+    setMessage(message)
+  }
+
+  const handleDeleteConfirm = (e) => {
+    e.preventDefault()
+    closeConfirm()
+
+    deleteTraining(trainingId)
+      .then(() => {
+        const data = {
+          message: 'Training record has been deleted!'
+        }
+        apiMessage({ data })
+
         setUpdate((u) => !u)
       })
       .catch((e) => apiMessage(e))
+  }
 
   const handleDeleteContact = (id) =>
     deleteContact(id)
@@ -171,6 +194,12 @@ export const LearnerView = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, update])
 
+  const handleCancel = (e) => {
+    e.preventDefault()
+
+    closeConfirm()
+  }
+
   if (!learner) {
     return null
   }
@@ -220,6 +249,12 @@ export const LearnerView = () => {
           onEdit={handleEditContact}
           onDelete={handleDeleteContact}
           key={contactEditData?.id}
+        />
+        <Confirm
+          open={isConfirmOpen}
+          onCofirm={handleDeleteConfirm}
+          onCancel={handleCancel}
+          message={confirmMessage}
         />
       </main>
     </>

@@ -17,8 +17,6 @@
   --info: #0288d1;
   --success: #388e3c;
   --purple: #7c4dff;
-  --page-background-color: hsl(50deg 30% 96%);
-  background: var(--page-background-color);
 }
 
 /* @media screen and (min-width: 640px) {
@@ -48,7 +46,6 @@
 }
 
 div.routes-container {
-  background-color: var(--page-background-color);
   overflow: hidden;
   max-width: 1280px;
   margin: 0 auto;

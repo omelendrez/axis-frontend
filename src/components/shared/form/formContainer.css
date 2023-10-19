@@ -1,7 +1,3 @@
-article.form-container {
-  background-color: var(--page-background-color);
-}
-
 article.form-container .form-control {
   width: auto;
 }
