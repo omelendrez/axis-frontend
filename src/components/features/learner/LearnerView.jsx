@@ -19,10 +19,12 @@ import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
 import useConfirm from '@/hooks/useConfirm'
+import useUser from '@/hooks/useUser'
 
 export const LearnerView = () => {
   const params = useParams()
   const navigate = useNavigate()
+  const { user } = useUser()
 
   const { apiMessage } = useApiMessages()
   const [learner, setLearner] = useState(null)
@@ -41,6 +43,9 @@ export const LearnerView = () => {
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
     useConfirm()
+  const { roles } = user
+
+  const isAdmin = Boolean(roles.find((r) => r.id === 1))
 
   const badge = learner?.badge
 
@@ -239,7 +244,7 @@ export const LearnerView = () => {
           onView={handleViewTraining}
           onAdd={handleAddTraining}
           onEdit={handleEditTraining}
-          onDelete={handleDeleteTraining}
+          onDelete={isAdmin ? handleDeleteTraining : null}
           key={trainingEditData?.id}
         />
 
