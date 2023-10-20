@@ -54,7 +54,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
         : TRAINING_STATUS.ID_CARD_PRINT_DONE)
   )
 
-  const { isCancelled, canView, canUpdate } = getUserAuth(
+  const { isCancelled, canView, canUpdate, isComplete } = getUserAuth(
     role,
     roles,
     status,
@@ -161,9 +161,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     onUpdate()
   }
 
-  const opitoFieldsCompleted =
-    opitoFields.learnerId || opitoFields.certificateNo
-
   let buttonLabel = isDoc ? 'Re-generate' : 'Generate'
 
   if (isCertificate && isOpito) {
@@ -197,35 +194,35 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       {isOpito && isCertificate && (
         <div className="opito-fields">
           <label htmlFor="learnerId">Learner Id:</label>
-          {opitoFieldsCompleted && (
+          {isComplete && (
             <div className="opito-field">{opitoFields.learnerId}</div>
           )}
-          {!opitoFieldsCompleted && (
+          {!isComplete && (
             <input
               type="text"
               id="learnerId"
               placeholder="Enter learner Id"
               onChange={handleOpitoFieldsChange}
               value={opitoFields.learnerId}
-              readOnly={opitoFieldsCompleted}
+              readOnly={isComplete}
             />
           )}
           <label htmlFor="certificateNo">Certificate #:</label>
-          {opitoFieldsCompleted && (
+          {isComplete && (
             <div className="opito-field">{opitoFields.certificateNo}</div>
           )}
 
-          {!opitoFieldsCompleted && (
+          {!isComplete && (
             <input
               type="text"
               id="certificateNo"
               placeholder="Enter certificate #"
               onChange={handleOpitoFieldsChange}
               value={opitoFields.certificateNo}
-              readOnly={opitoFieldsCompleted}
+              readOnly={isComplete}
             />
           )}
-          {!opitoFieldsCompleted && (
+          {!isComplete && (
             <button className="button" onClick={handleSaveFields}>
               Save
             </button>
