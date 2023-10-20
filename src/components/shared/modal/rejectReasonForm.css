@@ -6,6 +6,10 @@
   background-color: #fff;
 }
 
+.reject-reason-container textarea::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
 .reject-reason-container footer {
   margin: 0;
   padding: 0;
@@ -18,4 +22,6 @@
 
 .reject-reason-container footer button {
   width: fit-content;
+  text-transform: uppercase;
+  margin-top: 1rem;
 }

@@ -12,7 +12,7 @@ import '../learner/learner-view/learner.css'
 import './trainingView.css'
 
 import { useNavigate } from 'react-router-dom'
-import { RejectReason } from './training-view/RejectReason'
+import { RejectReasonView } from './training-view/RejectReasonView'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -120,7 +120,7 @@ export const TrainingView = ({ training, onUpdate }) => {
 
   return (
     <main className="training-view">
-      {reason && <RejectReason reason={reason} />}
+      {reason && <RejectReasonView status={statusName} reason={reason} />}
       <StatusStamp status={{ statusId, statusName }} />
       <Photo {...training} />
       <Learner

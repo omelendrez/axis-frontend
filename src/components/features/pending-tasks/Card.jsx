@@ -14,7 +14,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
     company_name,
     course_name,
     full_name,
-
+    reject_reason,
     instructor,
     start,
     status_name,
@@ -65,7 +65,9 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
         <div className="ellipsis course">{course_name}</div>
         <div className="small-font">{start}</div>
 
-        <div className="small-font instructor">{instructor}</div>
+        {instructor && (
+          <div className="small-font instructor">{instructor}</div>
+        )}
 
         <div className="ellipsis name">{full_name}</div>
         <div className="small-font company">{company_name}</div>
@@ -73,6 +75,11 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
         <div className={`status status-${status} small-font`}>
           {status_name}
         </div>
+        {reject_reason && status !== TRAINING_STATUS.CANCELLED ? (
+          <div className="reject-reason">
+            <span className="material-icons">error</span>
+          </div>
+        ) : null}
       </div>
       {hasCheckboxes && isMultiple && onSelect && !isCompleted && (
         <div className="card-line-buttons">

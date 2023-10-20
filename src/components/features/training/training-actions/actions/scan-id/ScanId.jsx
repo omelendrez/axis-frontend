@@ -56,7 +56,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [training])
 
   const handleApprove = (e) => {
     e.preventDefault()

@@ -33,6 +33,18 @@
   color: var(--primary);
 }
 
+.card.trainings .card-body .reject-reason {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.5rem;
+  background-color: white;
+}
+
+.card.trainings .card-body .reject-reason span {
+  font-size: 2rem;
+  color: var(--warning);
+}
+
 .card.trainings .card-body .status {
   font-weight: 900;
   color: white;

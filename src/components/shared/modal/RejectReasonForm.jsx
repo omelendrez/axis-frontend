@@ -6,6 +6,7 @@ export const RejectReasonForm = ({
   title,
   placeholder,
   rejectLabel,
+  closeLabel,
   open,
   onReject,
   onCancel
@@ -36,7 +37,7 @@ export const RejectReasonForm = ({
           onClick={handleCancel}
           className="modal-close-button"
         />
-        <h3>{title}</h3>
+        <h3>{title || 'cancel or reject reason'}</h3>
         <textarea
           rows={3}
           cols={40}
@@ -46,10 +47,10 @@ export const RejectReasonForm = ({
         />
         <footer>
           <button className="secondary" onClick={handleCancel}>
-            Close
+            {closeLabel || 'close'}
           </button>
           <button onClick={handleReject} disabled={!reason}>
-            {rejectLabel}
+            {rejectLabel || 'reject'}
           </button>
         </footer>
       </article>

@@ -189,7 +189,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       <RejectReasonForm
         title="Cancel reason"
         placeholder="Enter the reason why you are cancelling this training record"
-        rejectLabel="Cancel"
+        rejectLabel="cancel"
+        closeLabel="exit"
         open={isRejectReasonOpen}
         onCancel={handleRejectReasonCancel}
         onReject={handleRejectReasonReject}
