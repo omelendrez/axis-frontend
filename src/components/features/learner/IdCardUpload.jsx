@@ -6,6 +6,7 @@ import { uploadLearnerId } from '@/services'
 import './photo.css'
 
 import useApiMessages from '@/hooks/useApiMessages'
+import { UPLOAD_ACCEPT } from '@/helpers'
 
 export const IdCardUpload = ({ badge, onClose }) => {
   const { apiMessage } = useApiMessages()
@@ -54,7 +55,12 @@ export const IdCardUpload = ({ badge, onClose }) => {
         <label htmlFor="file">
           Choose file to upload or take a picture (mobile)
         </label>
-        <input type="file" accept="image/*" id="file" onChange={handleChange} />
+        <input
+          type="file"
+          accept={UPLOAD_ACCEPT.JPG}
+          id="file"
+          onChange={handleChange}
+        />
       </div>
       <div className="preview">
         {preview ? <img src={preview} alt="selected" /> : <div></div>}

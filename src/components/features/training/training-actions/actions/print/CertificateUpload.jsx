@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '@/components'
 
+import useApiMessages from '@/hooks/useApiMessages'
+
 import { uploadCertificate } from '@/services'
 
-import useApiMessages from '@/hooks/useApiMessages'
+import { UPLOAD_ACCEPT } from '@/helpers'
 
 import './certificateUpload.css'
 
@@ -52,7 +54,12 @@ export const CertificateUpload = ({ fileName, onClose }) => {
     <div className="certificate-upload-form">
       <div>
         <label htmlFor="file">Choose file to upload</label>
-        <input type="file" accept=".pdf" id="file" onChange={handleChange} />
+        <input
+          type="file"
+          accept={UPLOAD_ACCEPT.PDF}
+          id="file"
+          onChange={handleChange}
+        />
       </div>
       <div className="preview">
         {preview ? <img src={preview} alt="selected" /> : <div></div>}

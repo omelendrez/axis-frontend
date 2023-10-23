@@ -47,3 +47,8 @@ export const RADIO = {
   ALL: 'all',
   NONE: 'none'
 }
+
+export const UPLOAD_ACCEPT = {
+  JPG: 'image/jpeg',
+  PDF: '.pdf'
+}

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '@/components'
 
+import useApiMessages from '@/hooks/useApiMessages'
+
 import { uploadFOET } from '@/services'
 
-import './foet.css'
+import { UPLOAD_ACCEPT } from '@/helpers'
 
-import useApiMessages from '@/hooks/useApiMessages'
+import './foet.css'
 
 export const FoetUpload = ({ fileName, onClose }) => {
   const { apiMessage } = useApiMessages()
@@ -16,7 +18,6 @@ export const FoetUpload = ({ fileName, onClose }) => {
     e.preventDefault()
     if (e.target.files) {
       const file = e.target.files[0]
-
       setSelectedFile(file)
     }
   }
@@ -55,7 +56,7 @@ export const FoetUpload = ({ fileName, onClose }) => {
         </label>
         <input
           type="file"
-          accept="image/jpeg"
+          accept={UPLOAD_ACCEPT.JPG}
           id="file"
           onChange={handleChange}
         />
