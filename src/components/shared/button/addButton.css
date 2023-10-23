@@ -9,6 +9,11 @@ div.add-button-container a {
   border-radius: 50%;
   cursor: pointer;
   border: none;
+  background-color: var(--purple);
+  color: white;
+}
+
+div.add-button-container a:hover {
   background-color: #aa00ff;
 }
 

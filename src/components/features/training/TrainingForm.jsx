@@ -10,7 +10,7 @@ import useNotification from '@/hooks/useNotification'
 import schema from './schema.json'
 import { USER_ROLE, loadSchema } from '@/helpers'
 
-const MANUAL_INPUT = 2
+const FOET_EXPIRY_TYPE = 2
 
 export const TrainingForm = ({ training, onClose }) => {
   const { trainings, add, modify } = useTrainings()
@@ -74,7 +74,7 @@ export const TrainingForm = ({ training, onClose }) => {
 
     const filteredSchema = schema.filter(
       (s) =>
-        (s.id === 'prev_expiry' && option?.expiry_type === MANUAL_INPUT) ||
+        (s.id === 'prev_expiry' && option?.expiry_type === FOET_EXPIRY_TYPE) ||
         s.id !== 'prev_expiry'
     )
     setFilteredSchema(filteredSchema)
