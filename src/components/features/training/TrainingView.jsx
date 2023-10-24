@@ -1,18 +1,20 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { RejectReasonView } from './training-view/RejectReasonView'
+
+import { Confirm, Divider, Modal, TrainingForm } from '@/components'
 import { Photo, Learner } from '../learner/learner-view'
 import { Course, StatusStamp } from './training-view'
 import { Action } from './training-actions'
-import { Confirm, Divider, Modal, TrainingForm } from '@/components'
-import { deleteTraining, getTraining, undoLastApproval } from '@/services'
+
 import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
 import useConfirm from '@/hooks/useConfirm'
 
+import { deleteTraining, getTraining, undoLastApproval } from '@/services'
+
 import '../learner/learner-view/learner.css'
 import './trainingView.css'
-
-import { useNavigate } from 'react-router-dom'
-import { RejectReasonView } from './training-view/RejectReasonView'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -20,11 +22,16 @@ export const TrainingView = ({ training, onUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
   const [trainingEditData, setTrainingEditData] = useState(null)
+  const [isRecordDeleted, setIsRecordDeleted] = useState(false)
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
     useConfirm()
 
   const navigate = useNavigate()
+
+  if (isRecordDeleted) {
+    navigate('/trainings')
+  }
 
   if (!training) {
     return (
@@ -83,10 +90,9 @@ export const TrainingView = ({ training, onUpdate }) => {
       .then(() => {
         const data = {
           message: 'Training record has been deleted!',
-          onClose: navigate('/trainings')
+          onClose: setIsRecordDeleted(true)
         }
         apiMessage({ data })
-
         onUpdate()
       })
       .catch((e) => apiMessage(e))
