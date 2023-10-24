@@ -59,7 +59,11 @@ function App() {
     if (data.type && data.message) {
       const delay = data.message.split(' ').length * 500
       // const delay = data.type === 'error' && ? 10000 : 5000
-      toast[data.type](data.message, { autoClose: delay })
+      toast[data.type](data.message, {
+        autoClose: delay,
+        pauseOnFocusLoss: false,
+        onClose: data.onClose || null
+      })
       if (data.message === 'Token expired') {
         navigate('/login')
       }

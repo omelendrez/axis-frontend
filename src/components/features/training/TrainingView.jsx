@@ -82,7 +82,8 @@ export const TrainingView = ({ training, onUpdate }) => {
     deleteTraining(id)
       .then(() => {
         const data = {
-          message: 'Training record has been deleted!'
+          message: 'Training record has been deleted!',
+          onClose: navigate('/trainings')
         }
         apiMessage({ data })
 

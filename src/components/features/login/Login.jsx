@@ -69,6 +69,7 @@ export const Login = () => {
           type: 'success',
           message: 'Welcome'
         }
+
         set(notification)
       })
       .catch((e) => apiMessage(e))
