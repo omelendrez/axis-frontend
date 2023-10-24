@@ -101,6 +101,14 @@ const OpitoFileGenerate = () => {
   return (
     <main className="container">
       {isLoading && <Loading />}
+      <nav aria-label="breadcrumb" className="breadcrumb">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>Opito Generate Files</li>
+        </ul>
+      </nav>
 
       <Divider style={{ height: '1rem' }} />
 

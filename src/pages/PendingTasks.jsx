@@ -1,5 +1,5 @@
 import { useEffect, useContext, useReducer, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import {
   Loading,
@@ -8,7 +8,8 @@ import {
   InputParameters,
   Card,
   FloatingButtons,
-  SelectAllRadioButtons
+  SelectAllRadioButtons,
+  Divider
 } from '@/components'
 
 import usePage from '@/hooks/usePage'
@@ -265,6 +266,18 @@ const PendingTasks = () => {
   return (
     <main className="container-fluid pending-tasks">
       {isLoading && <Loading />}
+
+      <nav aria-label="breadcrumb" className="breadcrumb">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>My Pending Tasks</li>
+        </ul>
+      </nav>
+
+      <Divider style={{ height: '1rem' }} />
+
       {!showInputParameters && (
         <SelectedDateView date={date} onClick={handleSelectedDateView} />
       )}
