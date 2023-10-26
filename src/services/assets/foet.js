@@ -5,7 +5,8 @@ const url = import.meta.env.VITE_ASSETS_URL
 
 const endpoint = 'foets'
 
-export const getFOETUrl = (data) => `${url}${endpoint}/${getFOETFilename(data)}`
+export const getFOETUrl = (data) =>
+  `${url}${endpoint}/${getFOETFilename(data)}?${new Date().getTime()}`
 
 export const uploadFOET = (formData) => api.post(`${url}${endpoint}`, formData)
 
