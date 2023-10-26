@@ -21,6 +21,7 @@ import { KEYS, SP } from '@/services'
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
+import { VerticalAlignTop } from './components/shared/button/VerticalAlignTop'
 
 const errorHandler = (error, info) => {
   console.info(info.componentStack)
@@ -54,6 +55,20 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 function App() {
   const { data, clear } = useNotification()
   const navigate = useNavigate()
+
+  const [showVerticalAlign, setShowVerticalAlign] = useState(0)
+
+  const handleScroll = () => setShowVerticalAlign(window.scrollY > 200)
+
+  useEffect(() => {
+    setShowVerticalAlign(window.scrollY > 200)
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window?.removeEventListener('scroll', handleScroll)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (data.type && data.message) {
@@ -156,6 +171,7 @@ function App() {
                   onError={errorHandler}
                 >
                   <AppRoutes />
+                  <VerticalAlignTop show={showVerticalAlign} />
                 </ErrorBoundary>
               </TrainingContext.Provider>
             </PendingTasksContext.Provider>

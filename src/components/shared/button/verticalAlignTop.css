@@ -1,0 +1,26 @@
+.vertical-align-top {
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+  opacity: 1;
+  transition: all 0.5s ease-out;
+  visibility: visible;
+}
+
+.vertical-align-top.hide-arrow {
+  visibility: hidden;
+  transition: all 0.5s ease-out;
+  opacity: 0;
+}
+
+.vertical-align-top button {
+  width: fit-content;
+  background-color: transparent;
+  border: none;
+}
+
+.vertical-align-top button span {
+  color: var(--primary);
+  font-size: 2rem;
+  font-weight: 900;
+}
