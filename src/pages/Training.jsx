@@ -25,10 +25,14 @@ const Training = () => {
     const id = params?.id
 
     loadView(id)
-    setPage(`${training?.full_name}`)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update, changes])
+
+  useEffect(() => {
+    setPage(`${training.full_name}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [training.full_name])
 
   return (
     <main className="container-fluid">
