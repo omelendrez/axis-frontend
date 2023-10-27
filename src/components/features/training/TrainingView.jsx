@@ -30,7 +30,7 @@ export const TrainingView = ({ training, onUpdate }) => {
   const navigate = useNavigate()
 
   if (isRecordDeleted) {
-    navigate('/trainings')
+    navigate('/pending-tasks')
   }
 
   if (!training) {

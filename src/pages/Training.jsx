@@ -42,7 +42,7 @@ const Training = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/trainings">Trainings</Link>
+            <Link to="/pending-tasks">Pending tasks</Link>
           </li>
           <li>Training</li>
         </ul>
