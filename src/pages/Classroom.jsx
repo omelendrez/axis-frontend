@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Loading, CardList } from '@/components'
 import { initialValues } from '@/helpers'
-import { getClassroomView, getPhotoUrl } from '@/services'
+import { getClassroomView, getListPhotoUrl } from '@/services'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
@@ -22,7 +22,7 @@ const Header = ({ classroom: { course, start } }) =>
 
 const Card = ({ item, onView }) => {
   const { badge, course, full_name, company, status_id, status } = item
-  const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
+  const photoUrl = badge ? getListPhotoUrl(badge) : '/assets/no-image-icon.png'
 
   const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 

@@ -8,6 +8,8 @@ const endpoint = 'pictures'
 export const getPhotoUrl = (badge) =>
   `${url}${endpoint}/${badge}.jpg?${new Date().getTime()}`
 
+export const getListPhotoUrl = (badge) => `${url}${endpoint}/${badge}.jpg`
+
 export const uploadPhoto = (formData) => api.post(`${url}${endpoint}`, formData)
 
 export const pictureExists = (id) =>

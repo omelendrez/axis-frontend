@@ -1,4 +1,4 @@
-import { getPhotoUrl } from '@/services'
+import { getListPhotoUrl } from '@/services'
 import useUser from '@/hooks/useUser'
 import './card.css'
 import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
@@ -27,7 +27,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
 
   const [isMultiple, setIsMultiple] = useState(false)
 
-  const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
+  const photoUrl = badge ? getListPhotoUrl(badge) : ''
 
   const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 

@@ -8,10 +8,10 @@ import usePage from '@/hooks/usePage'
 
 import { initialValues } from '@/helpers'
 
-import { getPhotoUrl } from '@/services'
+import { getListPhotoUrl } from '@/services'
 
 const Card = ({ item, onView }) => {
-  const photoUrl = getPhotoUrl(item.badge)
+  const photoUrl = getListPhotoUrl(item.badge)
 
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
