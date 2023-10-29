@@ -8,12 +8,24 @@ import usePage from '@/hooks/usePage'
 
 import { initialValues } from '@/helpers'
 
-import { getListPhotoUrl } from '@/services'
+import { getListPhotoUrl, pictureExists } from '@/services'
 
 const Card = ({ item, onView }) => {
-  const photoUrl = getListPhotoUrl(item.badge)
+  const [photoUrl, setPhotoUrl] = useState(null)
+
+  const { badge } = item
 
   const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
+
+  useEffect(() => {
+    pictureExists(badge).then((res) =>
+      setPhotoUrl(
+        res.data.exists ? getListPhotoUrl(badge) : '/assets/no-image-icon.png'
+      )
+    )
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [badge])
 
   return (
     <article className="card learners" onClick={() => onView(item)}>

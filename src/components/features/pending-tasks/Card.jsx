@@ -1,4 +1,4 @@
-import { getListPhotoUrl } from '@/services'
+import { getListPhotoUrl, pictureExists } from '@/services'
 import useUser from '@/hooks/useUser'
 import './card.css'
 import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
@@ -27,7 +27,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
 
   const [isMultiple, setIsMultiple] = useState(false)
 
-  const photoUrl = badge ? getListPhotoUrl(badge) : ''
+  const [photoUrl, setPhotoUrl] = useState(null)
 
   const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
 
@@ -40,6 +40,16 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
     e.stopPropagation()
     onSelect(item)
   }
+
+  useEffect(() => {
+    pictureExists(badge).then((res) =>
+      setPhotoUrl(
+        res.data.exists ? getListPhotoUrl(badge) : '/assets/no-image-icon.png'
+      )
+    )
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [badge])
 
   useEffect(() => {
     if (userRoles?.length) {
