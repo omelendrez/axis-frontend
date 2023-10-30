@@ -6,11 +6,12 @@ export const MenuOption = ({
   icon,
   path,
   onNavigate,
-  separator
+  separator,
+  color
 }) => (
   <>
     <article
-      className="card home-card"
+      className={`card home-card ${color || ''}`}
       onClick={(e) => {
         e.preventDefault()
         onNavigate(path)

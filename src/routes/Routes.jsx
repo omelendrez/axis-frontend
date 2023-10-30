@@ -13,6 +13,7 @@ import { opitoFileRoutes } from './opitoFileRoutes'
 import { nationalityRoutes } from './nationalityRoutes'
 import { notFoundRoutes } from './notFoundRoutes'
 import { pendingTasksRoutes } from './pendingTasksRoutes'
+import { reportingRoutes } from './reportingRoutes'
 import { roleRoutes } from './roleRoutes'
 import { stateRoutes } from './stateRoutes'
 import { trainingRoutes } from './trainingRoutes'
@@ -38,6 +39,7 @@ export const AppRoutes = () => {
         {roleRoutes}
         {stateRoutes}
         {trainingRoutes}
+        {reportingRoutes}
         {userRoutes}
       </Routes>
     </div>

@@ -17,6 +17,11 @@ export const getTrainings = ({ date, statuses, pagination }) =>
     ].join('/')
   )
 
+export const getCourseYears = () => api.get(`${endpoint}/course-years`)
+
+export const getCourseMonthByYear = (year) =>
+  api.get(`${endpoint}/course-month-by-year/${year}`)
+
 export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 
 export const getTraining = (id) => api.get(`${endpoint}/${id}`)
