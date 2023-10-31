@@ -1,12 +1,12 @@
 {
     "theme_color": "#417505",
     "background_color": "#ffffff",
-    "display": "fullscreen",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Axis",
-    "short_name": "Axis",
-    "description": "A Training Management Application",
+    "name": "Axis v2.0",
+    "short_name": "Axis v2.0",
+    "description": "A Training Management Application for Tolmann Allied Services Company Limited",
     "icons": [
         {
             "src": "/icon-192x192.png",
