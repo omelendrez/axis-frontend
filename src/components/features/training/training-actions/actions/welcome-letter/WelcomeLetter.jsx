@@ -23,9 +23,9 @@ import './welcome-letter.css'
 export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
-  const { roles, email } = user
+  const { roles } = user
 
-  const { id, status_id: status, tracking } = training
+  const { id, status_id: status, tracking, contact_info: emails } = training
 
   const trackingRecord = tracking.find(
     (t) => t.status_id === TRAINING_STATUS.ADMIN_DONE
@@ -124,6 +124,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   const handleSendLetter = (e) => {
     e.preventDefault()
+    const email = emails[0].value
     const payload = {
       ...training,
       to: email,
@@ -164,10 +165,23 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
               <button onClick={handleGenerate} disabled={isCancelled}>
                 {isDoc ? 'Re-generate' : 'generate'}
               </button>
-              {isDoc && (
-                <button onClick={handleSendLetter} disabled={isCancelled}>
-                  Send letter
+              {isDoc && emails.length === 0 ? (
+                <button disabled className="missing-email">
+                  No email address
                 </button>
+              ) : (
+                isDoc && (
+                  <div className="send-button-container">
+                    <button onClick={handleSendLetter} disabled={isCancelled}>
+                      Send letter
+                    </button>
+                    <div className="emails-list">
+                      {emails.map((e) => (
+                        <div key={e.value}>{e.value}</div>
+                      ))}
+                    </div>
+                  </div>
+                )
               )}
             </div>
           )
