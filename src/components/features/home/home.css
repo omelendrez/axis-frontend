@@ -10,6 +10,10 @@ main.home-list article.home-card {
   align-items: start;
 }
 
+main.home-list article.home-card.success * {
+  color: var(--success);
+}
+
 main.home-list article.home-card hgroup {
   margin: 0;
 }

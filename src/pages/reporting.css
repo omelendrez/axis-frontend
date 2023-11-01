@@ -1,0 +1,34 @@
+.reporting-chart-input {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.reporting-chart-input > * {
+  width: fit-content;
+}
+
+.reporting-chart-input input {
+  width: 6rem;
+  text-align: center;
+}
+
+.reporting-chart-container {
+  height: 400px;
+}
+
+#react-charts-portal table tr td {
+  padding: 0.5rem;
+}
+
+#react-charts-portal table tr td:nth-child(2),
+#react-charts-portal table tr td:nth-child(3) {
+  color: white;
+  font-size: 12px;
+}
+
+#react-charts-portal table tr td svg {
+  height: 1rem;
+  width: 1rem;
+}

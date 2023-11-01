@@ -39,3 +39,23 @@
 .welcome-letter .buttons {
   margin: 0 !important;
 }
+
+.welcome-letter .description .buttons .missing-email,
+.welcome-letter .buttons .missing-email {
+  background-color: var(--error);
+}
+
+.welcome-letter .description .buttons .send-button-container {
+  flex-direction: column;
+  row-gap: 0;
+}
+
+.welcome-letter .description .buttons .send-button-container button {
+  margin-bottom: 0;
+}
+
+.welcome-letter .description .emails-list {
+  justify-content: center;
+  font-size: 14px;
+  color: var(--secondary);
+}

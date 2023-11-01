@@ -28,6 +28,7 @@ export const Home = () => {
               separator={o.separator}
               title={o.title}
               icon={o.icon}
+              color={o.color}
             />
           ))}
       {!user.roles.length && <NoRoles />}

@@ -122,6 +122,18 @@
     "icon": "local_police",
     "roles": [
       1
+    ],
+    "separator": true
+  },
+  {
+    "title": "Reporting",
+    "description": "See training statistics",
+    "path": "/reporting",
+    "icon": "bar_chart",
+    "color": "success",
+    "roles": [
+      1,
+      8
     ]
   }
 ]
