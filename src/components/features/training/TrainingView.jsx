@@ -23,16 +23,11 @@ export const TrainingView = ({ training, onUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
   const [trainingEditData, setTrainingEditData] = useState(null)
-  const [isRecordDeleted, setIsRecordDeleted] = useState(false)
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
     useConfirm()
 
   const navigate = useNavigate()
-
-  if (isRecordDeleted) {
-    navigate('/pending-tasks')
-  }
 
   if (!training) {
     return (
@@ -93,7 +88,7 @@ export const TrainingView = ({ training, onUpdate }) => {
       .then(() => {
         const data = {
           message: 'Training record has been deleted!',
-          onClose: setIsRecordDeleted(true)
+          onClose: navigate('/pending-tasks')
         }
         apiMessage({ data })
         onUpdate()
