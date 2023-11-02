@@ -15,6 +15,7 @@ import { deleteTraining, getTraining, undoLastApproval } from '@/services'
 
 import '../learner/learner-view/learner.css'
 import './trainingView.css'
+import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
@@ -51,7 +52,9 @@ export const TrainingView = ({ training, onUpdate }) => {
 
   const { roles } = user
 
-  const isAdmin = Boolean(roles.find((r) => r.id === 1))
+  const isSysAdmin = Boolean(roles.find((r) => r.id === USER_ROLE.SYS_ADMIN))
+
+  const isAdmin = Boolean(roles.find((r) => r.id === USER_ROLE.ADMIN))
 
   const handleUndo = (e) => {
     e.preventDefault()
@@ -136,8 +139,12 @@ export const TrainingView = ({ training, onUpdate }) => {
       />
       <Course
         training={training}
-        onUndo={isAdmin ? handleUndo : null}
-        onDelete={isAdmin ? handleDelete : null}
+        onUndo={isSysAdmin ? handleUndo : null}
+        onDelete={
+          isSysAdmin || (isAdmin && [TRAINING_STATUS.NEW].includes(statusId))
+            ? handleDelete
+            : null
+        }
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}
         onEdit={handleEditTraining}
