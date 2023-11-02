@@ -17,6 +17,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
     reject_reason,
     instructor,
     start,
+    end,
     status_name,
     status
   } = item
@@ -73,7 +74,9 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
       </div>
       <div className="card-body">
         <div className="ellipsis course">{course_name}</div>
-        <div className="small-font">{start}</div>
+        <div className="small-font">
+          {start !== end ? `${start} - ${end}` : start}
+        </div>
 
         {instructor && (
           <div className="small-font instructor">{instructor}</div>
