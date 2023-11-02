@@ -24,15 +24,13 @@
     "type": "text",
     "id": "front_id_text",
     "label": "ID card front text",
-    "placeholder": "Enter ID card front text",
-    "required": true
+    "placeholder": "Enter ID card front text"
   },
   {
     "type": "text",
     "id": "back_id_text",
     "label": "ID card back text",
-    "placeholder": "Enter ID card back text",
-    "required": true
+    "placeholder": "Enter ID card back text"
   },
   {
     "type": "dropdown",
