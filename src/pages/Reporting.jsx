@@ -18,6 +18,8 @@ const Reporting = () => {
 
   const [isDisabled, setIsDisabled] = useState(true)
 
+  const [isHidding, setIsHidding] = useState(true)
+
   const [data, setData] = useState([])
 
   const { apiMessage } = useApiMessages()
@@ -39,6 +41,8 @@ const Reporting = () => {
     const value = e.target.value
 
     setYear(value)
+
+    setIsHidding(true)
 
     if (value <= max && value >= min) {
       setIsDisabled(false)
@@ -96,6 +100,7 @@ const Reporting = () => {
           }
         })
         setData(results)
+        setIsHidding(false)
       })
       .catch((e) => apiMessage(e))
 
@@ -143,7 +148,9 @@ const Reporting = () => {
         </Button>
       </div>
       {data.length > 0 && (
-        <div className="reporting-chart-container">
+        <div
+          className={`reporting-chart-container ${isHidding ? 'opaque' : ''}`}
+        >
           <Chart
             options={{
               data,
