@@ -38,9 +38,13 @@ const Reporting = () => {
 
     const value = e.target.value
 
-    setYear(value > max ? max : value < min ? min : value)
+    setYear(value)
 
-    setIsDisabled(false)
+    if (value <= max && value >= min) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
   }
 
   const defaultData = [
