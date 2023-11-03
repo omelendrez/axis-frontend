@@ -125,7 +125,7 @@ const Reporting = () => {
           <li>Reporting</li>
         </ul>
       </nav>
-      <h6>Monthly training courses statistics for a given year</h6>
+      <h6>TOP 10 Monthly training courses</h6>
       <div className="reporting-chart-input">
         <InputField
           type="number"
