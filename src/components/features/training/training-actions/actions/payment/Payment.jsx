@@ -1,18 +1,32 @@
-import { useState } from 'react'
-import { Task } from '@/components'
+import { useEffect, useState } from 'react'
+
+import { Modal, Preview, Task } from '@/components'
+import { PaymentUpload } from './PaymentUpload'
 
 import description from './description'
 import { Status } from '../status-container/Status'
 import useApiMessages from '@/hooks/useApiMessages'
-import { accountsApproval, cancelTraining, saveReason } from '@/services'
-import { TRAINING_STATUS, getUserAuth } from '@/helpers'
+import {
+  accountsApproval,
+  cancelTraining,
+  saveReason,
+  getPaymentUrl,
+  paymentExists
+} from '@/services'
+import { TRAINING_STATUS, documentNumber, getUserAuth } from '@/helpers'
 
 export const Payment = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
 
+  const [update, setUpdate] = useState(false)
+
+  const [isFormOpen, setIsFormOpen] = useState(false)
+
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const [isImage, setIsImage] = useState(false)
 
   const { id, status_id: status, tracking } = training
 
@@ -26,6 +40,28 @@ export const Payment = ({ training, onUpdate, role, user }) => {
     status,
     tracking
   )
+  const imageUrl = getPaymentUrl(id)
+
+  useEffect(() => {
+    paymentExists(id)
+      .then((res) => setIsImage(res.data.exists))
+      .catch((e) => apiMessage(e))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [update])
+
+  const handleScan = (e) => {
+    e.preventDefault()
+    setIsFormOpen(true)
+  }
+
+  const handleClose = (e) => {
+    e?.preventDefault()
+    setIsFormOpen(false)
+
+    onUpdate()
+    setUpdate((u) => !u)
+  }
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -93,6 +129,24 @@ export const Payment = ({ training, onUpdate, role, user }) => {
       approveLabel="Paid"
       rejectLabel="Not paid"
       isSubmitting={isSubmitting}
-    ></Task>
+    >
+      <div className="payment-children">
+        {isImage && <Preview imageUrl={imageUrl} />}
+
+        {canApprove && (
+          <div className="buttons">
+            <button onClick={handleScan} disabled={isCancelled}>
+              {isImage ? 'Re-upload' : 'upload'}
+            </button>
+          </div>
+        )}
+      </div>
+
+      <Modal open={isFormOpen} title="upload payment" onClose={handleClose}>
+        <div className="form-container">
+          <PaymentUpload onClose={handleClose} fileName={documentNumber(id)} />
+        </div>
+      </Modal>
+    </Task>
   )
 }

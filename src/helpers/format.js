@@ -42,4 +42,6 @@ export const getFilename = (id) => `${documentNumber(id)}.pdf`
 
 export const getFOETFilename = (id) => `${documentNumber(id)}.jpg`
 
+export const getPaymentFilename = (id) => `${documentNumber(id)}.jpg`
+
 export const getImageFilename = (badge) => `${badge}.jpg`
