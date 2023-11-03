@@ -34,7 +34,7 @@ const Course = ({ isViewing, isAdding, isEditing }) => {
   }, [params])
 
   const handleClose = (e) => {
-    e.preventDefault()
+    e?.preventDefault()
     navigate('/courses')
   }
 
