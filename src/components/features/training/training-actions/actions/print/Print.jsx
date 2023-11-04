@@ -54,7 +54,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
         : TRAINING_STATUS.ID_CARD_PRINT_DONE)
   )
 
-  const { isCancelled, canView, canUpdate, isComplete } = getUserAuth(
+  const { isCancelled, canView, isComplete } = getUserAuth(
     role,
     roles,
     status,
