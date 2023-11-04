@@ -46,7 +46,7 @@ export const Trainings = ({ trainings, onView, onAdd, onEdit, onDelete }) => {
         selected={selected}
         onView={handleView}
         onAdd={onAdd}
-        onEdit={handleEdit}
+        onEdit={onEdit ? handleEdit : null}
         onDelete={onDelete ? handleDelete : null}
       />
       <Divider style={{ margin: '1rem 0' }} />

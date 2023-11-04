@@ -6,7 +6,7 @@ export const Table = ({ items, fields, selected, onSelect }) => (
   <figure>
     <table role="grid">
       <thead>
-        <Headers fields={fields} />
+        <Headers fields={fields} onSelect={onSelect} />
       </thead>
 
       <tbody>

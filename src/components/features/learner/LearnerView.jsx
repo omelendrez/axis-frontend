@@ -20,6 +20,7 @@ import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
 import useConfirm from '@/hooks/useConfirm'
 import useUser from '@/hooks/useUser'
+import { USER_ROLE } from '@/helpers'
 
 export const LearnerView = () => {
   const params = useParams()
@@ -45,7 +46,12 @@ export const LearnerView = () => {
     useConfirm()
   const { roles } = user
 
-  const isAdmin = Boolean(roles.find((r) => r.id === 1))
+  const isSysAdmin = Boolean(roles.find((r) => r.id === USER_ROLE.SYS_ADMIN))
+
+  const isAdmin = Boolean(roles.find((r) => r.id === USER_ROLE.ADMIN))
+  const isTC = Boolean(
+    roles.find((r) => r.id === USER_ROLE.TRAINING_COORDINATOR)
+  )
 
   const badge = learner?.badge
 
@@ -209,6 +215,10 @@ export const LearnerView = () => {
     return null
   }
 
+  const canEdit = isSysAdmin || isAdmin || isTC
+
+  console.log(canEdit)
+
   return (
     <>
       {/* Edit modals  */}
@@ -231,28 +241,28 @@ export const LearnerView = () => {
       <main className="learner-view">
         {/* Data components */}
 
-        <Photo badge={photoBadge} onEdit={handleEditPhoto} />
+        <Photo badge={photoBadge} onEdit={canEdit ? handleEditPhoto : null} />
 
         <Learner
           learner={learner}
-          onEdit={handleEditLearner}
-          onDelete={handleDeleteLearner}
+          onEdit={canEdit ? handleEditLearner : null}
+          onDelete={canEdit ? handleDeleteLearner : null}
         />
 
         <Trainings
           trainings={trainings}
           onView={handleViewTraining}
-          onAdd={handleAddTraining}
-          onEdit={handleEditTraining}
-          onDelete={isAdmin ? handleDeleteTraining : null}
+          onAdd={canEdit ? handleAddTraining : null}
+          onEdit={canEdit ? handleEditTraining : null}
+          onDelete={canEdit ? handleDeleteTraining : null}
           key={trainingEditData?.id}
         />
 
         <Contacts
           contacts={contacts}
-          onAdd={handleAddContact}
-          onEdit={handleEditContact}
-          onDelete={handleDeleteContact}
+          onAdd={canEdit ? handleAddContact : null}
+          onEdit={canEdit ? handleEditContact : null}
+          onDelete={canEdit ? handleDeleteContact : null}
           key={contactEditData?.id}
         />
         <Confirm

@@ -1,8 +1,10 @@
-export const Headers = ({ fields }) => (
+export const Headers = ({ fields, onSelect }) => (
   <tr>
-    <th>
-      <span className="material-icons">check</span>
-    </th>
+    {onSelect && (
+      <th>
+        <span className="material-icons">check</span>
+      </th>
+    )}{' '}
     {fields.map((f) => (
       <th key={f.field} scope="col">
         {f.label}

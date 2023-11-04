@@ -69,8 +69,8 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
       <Buttons
         selected={selected}
         onAdd={onAdd}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
+        onEdit={onEdit ? handleEdit : null}
+        onDelete={onDelete ? handleDelete : null}
       />
       <Divider style={{ margin: '1rem 0' }} />
 
@@ -78,7 +78,7 @@ export const Contacts = ({ contacts, onAdd, onEdit, onDelete }) => {
         items={contacts}
         fields={fields}
         selected={selected}
-        onSelect={handleSelect}
+        onSelect={onAdd || onEdit || onDelete ? handleSelect : null}
       />
       <Confirm
         open={isConfirmOpen}
