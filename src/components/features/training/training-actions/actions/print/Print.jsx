@@ -185,11 +185,11 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
         ) : null
       }
       approveLabel={buttonLabel}
-      approveDisabled={!canUpdate || isCancelled || isSubmitting}
+      approveDisabled={isComplete || isSubmitting}
       rejectLabel="Mark as printed"
-      rejectDisabled={!canUpdate || isCancelled || isSubmitting}
+      rejectDisabled={isComplete || isSubmitting}
       onReject={isDoc && !isPrinted ? handleMarkAsPrinted : null}
-      onApprove={canUpdate && !isCancelled ? handleGenerate : null}
+      onApprove={!isComplete && !isCancelled ? handleGenerate : null}
     >
       {isOpito && isCertificate && (
         <div className="opito-fields">
