@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import fields from './course-item-fields.json'
+import fields from './course-module-fields.json'
 import { Table, Buttons, Confirm, Divider } from '@/components'
 import useConfirm from '@/hooks/useConfirm'
 
-export const CourseItems = ({ items, onAdd, onDelete }) => {
+export const CourseModules = ({ items, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
@@ -26,11 +26,11 @@ export const CourseItems = ({ items, onAdd, onDelete }) => {
     e.preventDefault()
 
     if (selected.length) {
-      const item = items.find((t) => t.id === parseInt(selected[0], 10))
+      const module = items.find((t) => t.id === parseInt(selected[0], 10))
       const message = (
         <span>
           Are you sure you want to delete{' '}
-          <span className="primary">{item?.name}</span>?
+          <span className="primary">{module?.name}</span>?
         </span>
       )
 
@@ -54,7 +54,7 @@ export const CourseItems = ({ items, onAdd, onDelete }) => {
 
   return (
     <article>
-      <h6 className="title">Course Description records</h6>
+      <h6 className="title">Course Module records</h6>
       <Buttons selected={selected} onAdd={onAdd} onDelete={handleDelete} />
       <Divider style={{ margin: '1rem 0' }} />
 

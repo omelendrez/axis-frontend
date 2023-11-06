@@ -3,21 +3,26 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import { Modal } from '@/components'
 
-import { Course, CourseItems } from './course-view'
+import { Course, CourseItems, CourseModules } from './course-view'
 import { CourseForm } from '../..'
 import { CourseItemRels as CourseItemRelList } from './course-item-rel'
+import { CourseModuleRels as CourseModuleRelList } from './course-module-rel'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
 import courseItemFields from './course-view/course-item-fields.json'
+import courseModuleFields from './course-view/course-module-fields.json'
 
 import {
-  deleteCourse,
-  deleteCourseItemRel,
   getCourse,
-  getCourseAvailableItems,
+  getCourseView,
+  deleteCourse,
   getCourseItemsRel,
-  getCourseView
+  getCourseAvailableItems,
+  deleteCourseItemRel,
+  getCourseModulesRel,
+  getCourseAvailableModules,
+  deleteCourseModuleRel
 } from '@/services'
 
 import './courseView.css'
@@ -38,6 +43,11 @@ export const CourseView = () => {
   const [courseItemEditData, setCourseItemEditData] = useState(null)
   const [courseItemsAvailable, setCourseItemsAvailable] = useState([])
   const [isCourseItemEdit, setIsCourseItemEdit] = useState(false)
+
+  const [courseModules, setCourseModules] = useState([])
+  const [courseModuleEditData, setCourseModuleEditData] = useState(null)
+  const [courseModulesAvailable, setCourseModulesAvailable] = useState([])
+  const [isCourseModuleEdit, setIsCourseModuleEdit] = useState(false)
 
   const id = params?.id
 
@@ -84,6 +94,27 @@ export const CourseView = () => {
       })
       .catch((e) => apiMessage(e))
 
+  // Course module
+  const handleAddCourseModule = (e) => {
+    e.preventDefault()
+
+    const fields = courseModuleFields.map((f) => f.field)
+
+    const fieldData = {}
+    fields.forEach((f) => (fieldData[f] = ''))
+
+    setCourseModuleEditData({ ...fieldData, course: id, id: undefined })
+    setIsCourseModuleEdit(true)
+  }
+
+  const handleDeleteCourseModule = (courseModuleId) =>
+    deleteCourseModuleRel(courseModuleId)
+      .then((res) => {
+        apiMessage(res)
+        setUpdate((u) => !u)
+      })
+      .catch((e) => apiMessage(e))
+
   const handleClose = (e) => {
     e?.preventDefault()
 
@@ -92,6 +123,11 @@ export const CourseView = () => {
     if (isCourseItemEdit) {
       setCourseItemEditData(null)
       setIsCourseItemEdit(false)
+    }
+
+    if (isCourseModuleEdit) {
+      setCourseModuleEditData(null)
+      setIsCourseModuleEdit(false)
     }
     if (isCourseEdit) {
       setCourseEditData(null)
@@ -103,22 +139,25 @@ export const CourseView = () => {
     if (id) {
       // Course
       getCourseView(id)
-        .then((res) => {
-          setCourse(res.data)
-        })
+        .then((res) => setCourse(res.data))
         .catch((e) => apiMessage(e))
 
       // Course item
       getCourseItemsRel(id)
-        .then((res) => {
-          setCourseItems(res.data)
-        })
+        .then((res) => setCourseItems(res.data))
         .catch((e) => apiMessage(e))
 
       getCourseAvailableItems(id)
-        .then((res) => {
-          setCourseItemsAvailable(res.data)
-        })
+        .then((res) => setCourseItemsAvailable(res.data))
+        .catch((e) => apiMessage(e))
+
+      // Course module
+      getCourseModulesRel(id)
+        .then((res) => setCourseModules(res.data))
+        .catch((e) => apiMessage(e))
+
+      getCourseAvailableModules(id)
+        .then((res) => setCourseModulesAvailable(res.data))
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,6 +175,8 @@ export const CourseView = () => {
         <CourseForm course={courseEditData} onClose={handleClose} />
       </Modal>
 
+      {/* Items */}
+
       <Modal
         open={isCourseItemEdit}
         title="Insert course items"
@@ -149,6 +190,20 @@ export const CourseView = () => {
         />
       </Modal>
 
+      {/* Modules */}
+
+      <Modal
+        open={isCourseModuleEdit}
+        title="Insert course modules"
+        onClose={handleClose}
+      >
+        <CourseModuleRelList
+          id={course.id}
+          items={courseModulesAvailable}
+          key={courseModuleEditData?.id}
+          onClose={handleClose}
+        />
+      </Modal>
       <main className="course-view">
         {/* Data components */}
 
@@ -156,6 +211,13 @@ export const CourseView = () => {
           course={course}
           onEdit={handleEditCourse}
           onDelete={handleDeleteCourse}
+        />
+
+        <CourseModules
+          items={courseModules}
+          onAdd={handleAddCourseModule}
+          onDelete={handleDeleteCourseModule}
+          key={courseModuleEditData?.id}
         />
 
         <CourseItems

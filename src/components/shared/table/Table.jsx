@@ -10,7 +10,7 @@ export const Table = ({ items, fields, selected, onSelect }) => (
       </thead>
 
       <tbody>
-        {items.map((t) => (
+        {items?.map((t) => (
           <Row
             key={t.id}
             item={t}
@@ -19,7 +19,7 @@ export const Table = ({ items, fields, selected, onSelect }) => (
             fields={fields}
           />
         ))}
-        {!items.length && (
+        {!items?.length && (
           <tr>
             <td colSpan={fields.length + 1}>
               <center>No records found</center>
