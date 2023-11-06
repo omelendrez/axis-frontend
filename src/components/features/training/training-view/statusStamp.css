@@ -1,6 +1,6 @@
 div.alert-status-container {
   position: fixed;
-  top: 2rem;
+  bottom: 1rem;
   right: 1rem;
   width: fit-content;
   height: fit-content;
@@ -9,35 +9,18 @@ div.alert-status-container {
 
 div.alert-status-container div.alert-status {
   border-radius: 3px;
-  border: 2px solid transparent;
-  box-shadow: 0 0 0 3px, 0 0 0 2px inset;
-  color: var(--primary);
-  font-family: 'Black Ops One', cursive;
-  opacity: 1;
+  box-shadow: 2px 4px 6px #cdcdcd;
+  color: white;
   padding: 0.5rem 1rem;
+  font-size: 14px;
   text-transform: uppercase;
-  transform: rotate(15deg);
-  background-color: white;
+  background-color: var(--primary);
 }
 
 div.alert-status-container div.alert-status.status-11 {
-  color: var(--success);
+  background-color: var(--success);
 }
 
 div.alert-status-container div.alert-status.status-12 {
-  color: var(--error);
-}
-
-@media screen and (min-width: 640px) {
-  div.alert-status-container {
-    top: 2rem;
-    right: 1rem;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  div.alert-status-container {
-    top: 2rem;
-    right: 1rem;
-  }
+  background-color: var(--error);
 }

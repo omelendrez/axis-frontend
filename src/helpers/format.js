@@ -35,6 +35,24 @@ export const formatFullDate = (date) => {
     : null
 }
 
+export const convertDateFormat = (date) =>
+  new Date(date.split('/').reverse().join('-'))
+
+export const invertDateFormat = (date) => date.split('-').reverse().join('/')
+
+export const getTrainingDates = (start, end) => {
+  const nStart = convertDateFormat(start)
+  const nEnd = convertDateFormat(end)
+  let dates = []
+  let nDate = nStart
+  while (nDate <= nEnd) {
+    nDate = addDays(nDate, 1)
+    dates = [...dates, { date: formatYMD(nDate) }]
+  }
+
+  return dates
+}
+
 export const documentNumber = (num) =>
   (parseInt(num, 10) + 10 ** 12).toString().substring(1)
 
