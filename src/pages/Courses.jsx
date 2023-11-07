@@ -14,6 +14,14 @@ const Card = ({ item, onView }) => (
   <article className="card courses" onClick={() => onView(item)}>
     <div className="card-body">
       <div className="ellipsis">{item.name}</div>
+      <div className="small-font">
+        Duration: {item.duration} day(s)
+        {item.validity ? `, validity ${item.validity} year(s)` : null}
+      </div>
+      <div className="small-font">{item.expiry_type_name}</div>
+      <div className="small-font">
+        {item.id_card === 'Yes' ? 'Includes ID card' : null}
+      </div>
       <div>
         <Tag className={item.cert_type_name}>{item.cert_type_name}</Tag>
         {item.opito_reg_code.trim() && (
@@ -61,10 +69,6 @@ const Courses = () => {
   const handleView = (course) => {
     navigate(`/course/${course.id}`)
   }
-
-  // const handleDelete = (course) => {
-  //   removeCourse(course.id)
-  // }
 
   const fields = [
     { name: 'name', label: 'Name' },

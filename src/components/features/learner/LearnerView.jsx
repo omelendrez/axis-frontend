@@ -217,8 +217,6 @@ export const LearnerView = () => {
 
   const canEdit = isSysAdmin || isAdmin || isTC
 
-  console.log(canEdit)
-
   return (
     <>
       {/* Edit modals  */}
