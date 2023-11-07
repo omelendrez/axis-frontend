@@ -33,6 +33,20 @@
   margin-right: 3px;
 }
 
+.card .card-body div.card-icon {
+  color: var(--primary);
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.card .card-body div.card-error {
+  color: var(--error);
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+}
+
 .card .card-body div.card-line-buttons {
   display: flex;
   justify-content: flex-end;
@@ -100,4 +114,11 @@
   .card .card-body div.card-line-buttons {
     max-width: var(--ellipsis-desktop);
   }
+}
+
+.card .card-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--error);
 }

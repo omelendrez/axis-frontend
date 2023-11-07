@@ -13,21 +13,28 @@ import usePage from '@/hooks/usePage'
 const Card = ({ item, onView }) => (
   <article className="card courses" onClick={() => onView(item)}>
     <div className="card-body">
-      <div className="ellipsis">{item.name}</div>
+      {item.id_card === 'Yes' ? (
+        <div className="card-icon">
+          <span className="material-icons">badge</span>
+        </div>
+      ) : null}
+      <div>{item.name}</div>
       <div className="small-font">
         Duration: {item.duration} day(s)
         {item.validity ? `, validity ${item.validity} year(s)` : null}
       </div>
-      <div className="small-font">{item.expiry_type_name}</div>
-      <div className="small-font">
-        {item.id_card === 'Yes' ? 'Includes ID card' : null}
-      </div>
+      <div className="small-font ellipsis">{item.expiry_type_name}</div>
       <div>
         <Tag className={item.cert_type_name}>{item.cert_type_name}</Tag>
         {item.opito_reg_code.trim() && (
           <Tag className="default">{item.opito_reg_code}</Tag>
         )}
       </div>
+      {item.validity < 0 || item.duration < 1 ? (
+        <div className="card-error">
+          <span className="material-icons">error</span>
+        </div>
+      ) : null}
     </div>
   </article>
 )
