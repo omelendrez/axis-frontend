@@ -35,19 +35,27 @@ export const formatFullDate = (date) => {
     : null
 }
 
-export const convertDateFormat = (date) =>
-  new Date(date.split('/').reverse().join('-'))
+export const convertDMYStringToDate = (date) => {
+  const values = date.split('/')
+  const day = parseInt(values[0], 10)
+  const month = parseInt(values[1], 10) - 1
+  const year = parseInt(values[2], 10)
+  return new Date(year, month, day)
+}
+
+export const convertDateFormat = (date) => date.split('/').reverse().join('-')
 
 export const invertDateFormat = (date) => date.split('-').reverse().join('/')
 
 export const getTrainingDates = (start, end) => {
-  const nStart = convertDateFormat(start)
-  const nEnd = convertDateFormat(end)
+  const nStart = convertDMYStringToDate(start)
+  const nEnd = convertDMYStringToDate(end)
+
   let dates = []
   let nDate = nStart
   while (nDate <= nEnd) {
-    nDate = addDays(nDate, 1)
     dates = [...dates, { date: formatYMD(nDate) }]
+    nDate = addDays(nDate, 1)
   }
 
   return dates
