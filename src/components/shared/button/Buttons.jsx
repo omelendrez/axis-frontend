@@ -9,6 +9,7 @@ export const Buttons = ({
   onDelete,
   onReset,
   onUndo,
+  onAssign,
   noCheckboxes
 }) => {
   let forced = false
@@ -56,6 +57,16 @@ export const Buttons = ({
           onClick={onEdit}
         >
           <span className="material-icons">edit</span>
+        </button>
+      )}
+      {onAssign && (
+        <button
+          data-tooltip="Assign instructors"
+          className="primary"
+          disabled={!forced && selected?.length !== 1}
+          onClick={onAssign}
+        >
+          <span className="material-icons">assignment_ind</span>
         </button>
       )}
       {onDelete && (

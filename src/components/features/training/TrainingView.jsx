@@ -4,7 +4,7 @@ import { RejectReasonView } from './training-view/RejectReasonView'
 
 import { Confirm, Divider, Modal, TrainingForm } from '@/components'
 import { Photo, Learner } from '../learner/learner-view'
-import { Course, StatusStamp } from './training-view'
+import { Course, StatusStamp, Assignments } from './training-view'
 import { Action } from './training-actions'
 
 import useApiMessages from '@/hooks/useApiMessages'
@@ -23,6 +23,8 @@ export const TrainingView = ({ training, onUpdate }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
   const [trainingEditData, setTrainingEditData] = useState(null)
+
+  const [isAssingmentEdit, setIsAssignmentEdit] = useState(false)
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
     useConfirm()
@@ -50,6 +52,10 @@ export const TrainingView = ({ training, onUpdate }) => {
   const isSysAdmin = Boolean(roles.find((r) => r.id === USER_ROLE.SYS_ADMIN))
 
   const isAdmin = Boolean(roles.find((r) => r.id === USER_ROLE.ADMIN))
+
+  const isTC = Boolean(
+    roles.find((r) => r.id === USER_ROLE.TRAINING_COORDINATOR)
+  )
 
   const handleUndo = (e) => {
     e.preventDefault()
@@ -102,19 +108,32 @@ export const TrainingView = ({ training, onUpdate }) => {
     navigate(`/learner/${learner_id}`)
   }
 
-  const handleEditTraining = () =>
+  const handleEditTraining = (e) => {
+    e?.preventDefault()
     getTraining(id)
       .then((res) => {
         setTrainingEditData(res.data)
         setIsTrainingEdit(true)
       })
       .catch((e) => apiMessage(e))
+  }
+
+  const handleAssignment = (e) => {
+    e?.preventDefault()
+    getTraining(id)
+      .then((res) => {
+        setTrainingEditData(res.data)
+        setIsAssignmentEdit(true)
+      })
+      .catch((e) => apiMessage(e))
+  }
 
   const handleClose = (e) => {
     e?.preventDefault()
     onUpdate()
     setTrainingEditData(null)
     setIsTrainingEdit(false)
+    setIsAssignmentEdit(false)
   }
 
   const handleCancel = (e) => {
@@ -143,14 +162,26 @@ export const TrainingView = ({ training, onUpdate }) => {
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}
         onEdit={handleEditTraining}
+        onAssign={isTC && handleAssignment}
       />
       <Divider />
+
       <div className="actions">
         <Action training={training} onUpdate={onUpdate} />
       </div>
+
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
         <TrainingForm training={trainingEditData} onClose={handleClose} />
       </Modal>
+
+      <Modal
+        open={isAssingmentEdit}
+        title="Assign instructors"
+        onClose={handleClose}
+      >
+        <Assignments training={id} onClose={handleClose} />
+      </Modal>
+
       <Confirm
         open={isConfirmOpen}
         onCofirm={handleDeleteConfirm}

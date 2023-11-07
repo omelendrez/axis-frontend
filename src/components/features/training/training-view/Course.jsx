@@ -15,7 +15,7 @@ const Row = ({ label, value, className, divider }) => {
   )
 }
 
-export const Course = ({ training, onEdit, onDelete, onUndo }) => {
+export const Course = ({ training, onEdit, onDelete, onUndo, onAssign }) => {
   if (!training) {
     return null
   }
@@ -30,6 +30,7 @@ export const Course = ({ training, onEdit, onDelete, onUndo }) => {
         onEdit={canEdit && onEdit}
         onDelete={onDelete}
         onUndo={onUndo}
+        onAssign={onAssign}
         noCheckboxes
       />
       <Divider style={{ margin: '1rem 0' }} />
