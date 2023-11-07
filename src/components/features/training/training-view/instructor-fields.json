@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Date",
+    "field": "date"
+  },
+  {
+    "label": "Module",
+    "field": "module"
+  },
+  {
+    "label": "Instructor",
+    "field": "instructor"
+  }
+]

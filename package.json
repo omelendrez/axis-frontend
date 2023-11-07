@@ -12,7 +12,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "update": "rm -rf node_modules && git pull && npm ci && npm run build",
-    "start": "set NODE_ENV=production && nodemon ./server.js",
+    "start": "nodemon ./server.js",
     "lint": "eslint ./src --ext .js,.jsx",
     "lint:fix": "eslint --fix ./src --ext .js,.jsx"
   },

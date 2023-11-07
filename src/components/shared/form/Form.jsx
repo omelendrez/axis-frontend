@@ -7,6 +7,8 @@ export const Form = ({
   isLoading,
   onChange,
   values,
+  min,
+  max,
   options,
   onSubmit,
   onClose
@@ -26,6 +28,8 @@ export const Form = ({
           values={values}
           onChange={onChange}
           options={options}
+          min={min}
+          max={max}
         />
       )
     })}

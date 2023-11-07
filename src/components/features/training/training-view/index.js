@@ -1,4 +1,4 @@
-export * from './Assignments'
+export * from './Instructors'
 export * from './Course'
 export * from './StatusStamp'
 export * from './Tracking'

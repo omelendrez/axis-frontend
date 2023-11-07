@@ -1,0 +1,22 @@
+[
+  {
+    "type": "date",
+    "id": "date",
+    "label": "Date",
+    "required": true
+  },
+  {
+    "type": "dropdown-search",
+    "id": "module",
+    "label": "Module",
+    "options": "moduleList",
+    "required": true
+  },
+  {
+    "type": "dropdown-search",
+    "id": "instructor",
+    "label": "Instructor",
+    "options": "instructorList",
+    "required": true
+  }
+]

@@ -1,35 +1,71 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { RejectReasonView } from './training-view/RejectReasonView'
 
+import { InstructorForm } from './insructor/InstructorForm'
+import { RejectReasonView } from './training-view/RejectReasonView'
 import { Confirm, Divider, Modal, TrainingForm } from '@/components'
 import { Photo, Learner } from '../learner/learner-view'
-import { Course, StatusStamp, Assignments } from './training-view'
+import { Course, StatusStamp, Instructors } from './training-view'
 import { Action } from './training-actions'
 
 import useApiMessages from '@/hooks/useApiMessages'
 import useUser from '@/hooks/useUser'
+import useUsers from '@/hooks/useUsers'
 import useConfirm from '@/hooks/useConfirm'
 
-import { deleteTraining, getTraining, undoLastApproval } from '@/services'
+import {
+  deleteTraining,
+  getTraining,
+  undoLastApproval,
+  deleteInstructor,
+  createInstructor,
+  getCourseModules
+} from '@/services'
+
+import { TRAINING_STATUS, USER_ROLE, convertDateFormat } from '@/helpers'
+
+import instructorFields from './training-view/instructor-fields.json'
 
 import '../learner/learner-view/learner.css'
 import './trainingView.css'
-import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
 
 export const TrainingView = ({ training, onUpdate }) => {
   const { apiMessage } = useApiMessages()
   const { user } = useUser()
+  const { users, load: loadUsers } = useUsers()
+
+  const [instructors, setInstructors] = useState([])
+  const [modules, setModules] = useState([])
+
   const [isSubmitting, setIsSubmitting] = useState(false)
+
   const [isTrainingEdit, setIsTrainingEdit] = useState(false)
   const [trainingEditData, setTrainingEditData] = useState(null)
 
-  const [isAssingmentEdit, setIsAssignmentEdit] = useState(false)
+  const [isInstructorEdit, setIsInstructorEdit] = useState(false)
+  const [instructorEditData, setInstructorEditData] = useState(null)
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
     useConfirm()
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    loadUsers()
+    getCourseModules(id).then((res) => setModules(res.data.rows))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    setInstructors(
+      users.data.rows
+        .filter((u) => u.roles.includes(USER_ROLE.INSTRUCTOR))
+        .map((u) => {
+          const { id, name } = u
+          return { id, name }
+        })
+    )
+  }, [users])
 
   if (!training) {
     return (
@@ -43,9 +79,14 @@ export const TrainingView = ({ training, onUpdate }) => {
     id,
     status_id: statusId,
     status: statusName,
+    start,
+    end,
     learner_id,
     reject_reason: reason
   } = training
+
+  const min = convertDateFormat(start)
+  const max = convertDateFormat(end)
 
   const { roles } = user
 
@@ -56,6 +97,8 @@ export const TrainingView = ({ training, onUpdate }) => {
   const isTC = Boolean(
     roles.find((r) => r.id === USER_ROLE.TRAINING_COORDINATOR)
   )
+
+  const canEdit = isTC
 
   const handleUndo = (e) => {
     e.preventDefault()
@@ -118,22 +161,45 @@ export const TrainingView = ({ training, onUpdate }) => {
       .catch((e) => apiMessage(e))
   }
 
-  const handleAssignment = (e) => {
-    e?.preventDefault()
-    getTraining(id)
+  const handleAddInstructor = (e) => {
+    e.preventDefault()
+
+    const fields = instructorFields.map((f) => f.field)
+
+    const fieldData = {}
+    fields.forEach((f) => (fieldData[f] = ''))
+
+    setInstructorEditData({ ...fieldData, training: id })
+    setIsInstructorEdit(true)
+  }
+
+  const handleSaveInstructor = (payload) => {
+    delete payload.id
+    createInstructor(payload)
       .then((res) => {
-        setTrainingEditData(res.data)
-        setIsAssignmentEdit(true)
+        apiMessage(res)
+        onUpdate()
+        setIsInstructorEdit(false)
       })
       .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
+
+  const handleDeleteInstructor = (id) =>
+    deleteInstructor(id)
+      .then((res) => {
+        apiMessage(res)
+        onUpdate()
+      })
+      .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
 
   const handleClose = (e) => {
     e?.preventDefault()
     onUpdate()
     setTrainingEditData(null)
     setIsTrainingEdit(false)
-    setIsAssignmentEdit(false)
+    setIsInstructorEdit(false)
   }
 
   const handleCancel = (e) => {
@@ -162,7 +228,13 @@ export const TrainingView = ({ training, onUpdate }) => {
         isSubmitting={isSubmitting}
         onUpdate={onUpdate}
         onEdit={handleEditTraining}
-        onAssign={isTC && handleAssignment}
+      />
+
+      <Instructors
+        training={training}
+        onAdd={canEdit ? handleAddInstructor : null}
+        onDelete={canEdit ? handleDeleteInstructor : null}
+        key={instructorEditData?.id}
       />
       <Divider />
 
@@ -175,11 +247,19 @@ export const TrainingView = ({ training, onUpdate }) => {
       </Modal>
 
       <Modal
-        open={isAssingmentEdit}
-        title="Assign instructors"
+        open={isInstructorEdit}
+        title="Edit instructor info"
         onClose={handleClose}
       >
-        <Assignments training={id} onClose={handleClose} />
+        <InstructorForm
+          instructor={instructorEditData}
+          instructors={instructors}
+          modules={modules}
+          onSave={handleSaveInstructor}
+          onClose={handleClose}
+          min={min}
+          max={max}
+        />
       </Modal>
 
       <Confirm

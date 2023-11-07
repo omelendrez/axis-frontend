@@ -1,7 +1,15 @@
 import { Dropdown, DropdownSearch, InputField, Switch } from '@/components'
 
-export const InputComponent = ({ field, values, options, onChange }) => {
+export const InputComponent = ({
+  field,
+  values,
+  min,
+  max,
+  options,
+  onChange
+}) => {
   let component
+
   switch (field.type) {
     case 'text':
     case 'date':
@@ -17,6 +25,8 @@ export const InputComponent = ({ field, values, options, onChange }) => {
           onChange={onChange}
           required={field.required}
           readOnly={field.readOnly}
+          min={min}
+          max={max}
         />
       )
       break
