@@ -116,10 +116,6 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner id card</strong>
 
-  if (!canView) {
-    return null
-  }
-
   const handleOpito = (e) => {
     e.preventDefault()
     getOpitoRecords()
@@ -158,6 +154,10 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
         }
       })
       .catch((e) => apiMessage(e))
+  }
+
+  if (!canView) {
+    return null
   }
 
   return (

@@ -113,7 +113,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner Picture</strong>
 
-  if (!canView) {
+  if (!canView || !canApprove) {
     return null
   }
 

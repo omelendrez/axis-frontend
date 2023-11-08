@@ -20,6 +20,7 @@ import {
   CERT_TYPE,
   DOC_TYPE,
   TRAINING_STATUS,
+  USER_ROLE,
   documentNumber,
   getUserAuth
 } from '@/helpers'
@@ -38,6 +39,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   const isCertificate = type === DOC_TYPE.CERTIFICATE
 
   const { roles } = user
+
+  const isPrinter = Boolean(roles.find((r) => r.id === USER_ROLE.PRINTER))
 
   const {
     id,
@@ -188,8 +191,10 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       approveDisabled={isComplete || isSubmitting}
       rejectLabel="Mark as printed"
       rejectDisabled={isComplete || isSubmitting}
-      onReject={isDoc && !isPrinted ? handleMarkAsPrinted : null}
-      onApprove={!isComplete && !isCancelled ? handleGenerate : null}
+      onReject={isDoc && !isPrinted && isPrinter ? handleMarkAsPrinted : null}
+      onApprove={
+        !isComplete && !isCancelled && isPrinter ? handleGenerate : null
+      }
     >
       {isOpito && isCertificate && (
         <div className="opito-fields">

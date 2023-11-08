@@ -26,7 +26,7 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.QA_DONE
   )
 
-  const { isApproved, isCancelled, canView } = getUserAuth(
+  const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
     roles,
     status,
@@ -86,7 +86,7 @@ export const QAApproval = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>QA/QC Approval</strong>
 
-  if (!canView) {
+  if (!canView || !canApprove) {
     return null
   }
 
