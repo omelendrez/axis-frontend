@@ -45,6 +45,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   const [isDoc, setIsDoc] = useState(false)
 
+  const [isSent, setIsSent] = useState(false)
+
   const documentUrl = getWelcomeLetterUrl(id)
 
   useEffect(() => {
@@ -138,6 +140,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
         }
         apiMessage({ data })
         setUpdate((u) => !u)
+        setIsSent(true)
         onUpdate()
       })
       .catch((e) => apiMessage(e))
@@ -172,7 +175,10 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
               ) : (
                 isDoc && (
                   <div className="send-button-container">
-                    <button onClick={handleSendLetter} disabled={isCancelled}>
+                    <button
+                      onClick={handleSendLetter}
+                      disabled={isCancelled || isSent}
+                    >
                       Send letter
                     </button>
                     <div className="emails-list">

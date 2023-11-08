@@ -229,23 +229,21 @@ export const TrainingView = ({ training, onUpdate }) => {
         onUpdate={onUpdate}
         onEdit={handleEditTraining}
       />
-
-      <Instructors
-        training={training}
-        onAdd={canEdit ? handleAddInstructor : null}
-        onDelete={canEdit ? handleDeleteInstructor : null}
-        key={instructorEditData?.id}
-      />
+      {statusId >= TRAINING_STATUS.MEDIC_DONE && (
+        <Instructors
+          training={training}
+          onAdd={canEdit ? handleAddInstructor : null}
+          onDelete={canEdit ? handleDeleteInstructor : null}
+          key={instructorEditData?.id}
+        />
+      )}{' '}
       <Divider />
-
       <div className="actions">
         <Action training={training} onUpdate={onUpdate} />
       </div>
-
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
         <TrainingForm training={trainingEditData} onClose={handleClose} />
       </Modal>
-
       <Modal
         open={isInstructorEdit}
         title="Edit instructor info"
@@ -261,7 +259,6 @@ export const TrainingView = ({ training, onUpdate }) => {
           max={max}
         />
       </Modal>
-
       <Confirm
         open={isConfirmOpen}
         onCofirm={handleDeleteConfirm}
