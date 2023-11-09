@@ -1,11 +1,9 @@
 import { Routes } from 'react-router-dom'
 
-// import { classroomRoutes } from './classroomRoutes'
 import { companyRoutes } from './companyRoutes'
 import { courseRoutes } from './courseRoutes'
 import { courseItemRoutes } from './courseItemRoutes'
 import { courseModuleRoutes } from './courseModuleRoutes'
-import { dashboardRoutes } from './dashboardRoutes'
 import { defaultRoutes } from './defaultRoutes'
 import { docManagerRoutes } from './docManagerRoutes'
 import { homeRoutes } from './homeRoutes'
@@ -24,12 +22,10 @@ export const AppRoutes = () => {
   return (
     <div className="routes-container">
       <Routes>
-        {/* {classroomRoutes} */}
         {companyRoutes}
         {courseRoutes}
         {courseItemRoutes}
         {courseModuleRoutes}
-        {dashboardRoutes}
         {defaultRoutes}
         {docManagerRoutes}
         {homeRoutes}
