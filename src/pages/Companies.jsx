@@ -26,12 +26,6 @@ const Companies = () => {
   }, [pagination])
 
   useEffect(() => {
-    loadCompanies(pagination)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
     if (isError) {
       const notification = {
         type: 'error',

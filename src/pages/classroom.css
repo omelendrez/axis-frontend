@@ -1,8 +1,0 @@
-section.classroom-header {
-  padding: 0.5rem 1rem;
-  background-color: var(--primary);
-  color: var(--primary-inverse);
-  width: fit-content;
-  text-align: center;
-  margin: 0 auto 1rem auto;
-}
