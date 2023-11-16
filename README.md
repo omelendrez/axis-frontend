@@ -101,3 +101,5 @@ If everything concludes without errors, you should see the last message as follo
 ![Screenshot 2023-04-18 085306](https://user-images.githubusercontent.com/7883563/232769575-32a0c721-d4b7-4b9d-9ab1-a2283be0b789.png)
 
 If this is the case, the new version of Axis UI is already running in the server.
+
+The app is running in the cloud with this path: https://axis-tolmann.vercel.app
