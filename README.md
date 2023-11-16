@@ -103,3 +103,9 @@ If everything concludes without errors, you should see the last message as follo
 If this is the case, the new version of Axis UI is already running in the server.
 
 The app is running in the cloud with this path: https://axis-tolmann.vercel.app
+
+## Node version
+
+We use `v20.9.0` and we will not upgrade yet due to a warning caused by the issue below which shows up starting with `v21.0.0`.
+
+https://github.com/forcedotcom/cli/issues/2535
