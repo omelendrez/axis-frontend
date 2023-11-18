@@ -80,8 +80,7 @@ export const Navbar = () => {
         <li className="user-info">
           {user?.name}
           <div className="user-role">
-            {(user?.roles && user.roles.map((r) => r.name).join(', ')) ||
-              'No role assigned'}
+            {(user?.roles && user.roles.map((r) => r.name).join(', ')) || ''}
           </div>
         </li>
       </ul>
