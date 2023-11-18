@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Tag } from '@/components'
 
+import useApiMessages from '@/hooks/useApiMessages'
+
 import { uploadPhoto } from '@/services'
 
 import './photo.css'
-
-import useApiMessages from '@/hooks/useApiMessages'
 
 export const PhotoUpload = ({ badge, onClose }) => {
   const { apiMessage } = useApiMessages()
