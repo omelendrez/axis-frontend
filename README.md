@@ -129,5 +129,5 @@ graph TD;
     Accounts-->CANCEL;
     MD-->Printer;
     MD-->CANCEL;
-    Printer-->END
+    Printer-->COMPLETED;
 ```
