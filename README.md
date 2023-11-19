@@ -109,3 +109,25 @@ The app is running in the cloud with this path: https://axis-tolmann.vercel.app
 We use `v20.9.0` and we will not upgrade yet due to a warning caused by the issue below which shows up starting with `v21.0.0`.
 
 https://github.com/forcedotcom/cli/issues/2535
+
+
+## Application Flow
+
+```mermaid
+graph TD;
+    Admin-->Frontdesk;
+    Admin-->CANCEL;
+    Frontdesk-->Admin;
+    Frontdesk-->Medic;
+    Frontdesk-->CANCEL;
+    Medic-->CANCEL;
+    Medic-->TrainingCoordinator;
+    TrainingCoordinator-->Medic;
+    TrainingCoordinator-->CANCEL;
+    TrainingCoordinator-->Accounts;
+    Accounts-->MD;
+    Accounts-->CANCEL;
+    MD-->Printer;
+    MD-->CANCEL;
+    Printer-->END
+```
