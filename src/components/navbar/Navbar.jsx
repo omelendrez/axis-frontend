@@ -8,6 +8,12 @@ import usePage from '@/hooks/usePage'
 
 import './navbar.css'
 
+const UserRoles = ({ user }) => (
+  <div className="user-role">
+    {(user?.roles && user.roles.map((r) => r.name).join(', ')) || ''}
+  </div>
+)
+
 export const Navbar = () => {
   const { user, setUser } = useContext(UserContext)
 
@@ -79,9 +85,7 @@ export const Navbar = () => {
       <ul>
         <li className="user-info">
           {user?.name}
-          <div className="user-role">
-            {(user?.roles && user.roles.map((r) => r.name).join(', ')) || ''}
-          </div>
+          <UserRoles user={user} />
         </li>
       </ul>
     </nav>
