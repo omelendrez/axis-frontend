@@ -28,9 +28,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
 
   const [isMultiple, setIsMultiple] = useState(false)
 
-  const [photoUrl, setPhotoUrl] = useState(null)
-
-  const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
+  const [photoUrl, setPhotoUrl] = useState('/assets/no-image-icon.png')
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -65,12 +63,7 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   return (
     <article className="card trainings" onClick={handleClick}>
       <div className="card-avatar-root">
-        <img
-          src={photoUrl}
-          alt={badge}
-          className="card-avatar-img"
-          onError={handleError}
-        />
+        <img src={photoUrl} alt={badge} className="card-avatar-img" />
       </div>
       <div className="card-body">
         <div className="ellipsis course">{course_name}</div>

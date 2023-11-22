@@ -11,11 +11,9 @@ import { initialValues } from '@/helpers'
 import { getListPhotoUrl, pictureExists } from '@/services'
 
 const Card = ({ item, onView }) => {
-  const [photoUrl, setPhotoUrl] = useState(null)
+  const [photoUrl, setPhotoUrl] = useState('/assets/no-image-icon.png')
 
   const { badge } = item
-
-  const handleImageError = (e) => (e.target.src = 'assets/no-image-icon.png')
 
   useEffect(() => {
     pictureExists(badge).then((res) =>
@@ -30,12 +28,7 @@ const Card = ({ item, onView }) => {
   return (
     <article className="card learners" onClick={() => onView(item)}>
       <div className="card-avatar-root">
-        <img
-          src={photoUrl}
-          alt={item.badge}
-          className="card-avatar-img"
-          onError={handleImageError}
-        />
+        <img src={photoUrl} alt={item.badge} className="card-avatar-img" />
       </div>
       <div className="card-body">
         <div className="ellipsis">{item.full_name}</div>
