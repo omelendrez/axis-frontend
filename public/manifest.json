@@ -28,5 +28,20 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/axis.png",
+      "sizes": "320x661",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Axis v2"
+    },
+    {
+      "src": "/axis.png",
+      "sizes": "320x661",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
   ]
 }

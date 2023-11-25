@@ -3,7 +3,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "https://www.axis-tolmann-vercel.com/",
   "name": "Axis v2.0",
   "short_name": "Axis v2.0",
   "description": "A Training Management Application for Tolmann Allied Services Company Limited",
@@ -27,6 +27,21 @@
       "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/axis.png",
+      "sizes": "320x661",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Axis v2"
+    },
+    {
+      "src": "/axis.png",
+      "sizes": "320x661",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ]
 }
