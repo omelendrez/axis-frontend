@@ -144,5 +144,15 @@
       1,
       8
     ]
+  },
+  {
+    "title": "Backup",
+    "description": "Run several backup processes",
+    "path": "/backup",
+    "icon": "bar_chart",
+    "color": "error",
+    "roles": [
+      1
+    ]
   }
 ]

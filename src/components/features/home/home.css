@@ -14,6 +14,10 @@ main.home-list article.home-card.success * {
   color: var(--success);
 }
 
+main.home-list article.home-card.error * {
+  color: var(--error);
+}
+
 main.home-list article.home-card hgroup {
   margin: 0;
 }

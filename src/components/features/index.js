@@ -1,3 +1,4 @@
+export * from './backup'
 export * from './change-password'
 export * from './company'
 export * from './contact'
