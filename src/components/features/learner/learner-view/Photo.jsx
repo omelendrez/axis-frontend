@@ -7,6 +7,7 @@ const NO_IMAGE = '/assets/no-image-icon.png'
 
 export const Photo = ({ badge, onEdit }) => {
   const [photo, setPhoto] = useState(null)
+  const [photoFound, setPhotoFound] = useState(false)
 
   useEffect(() => {
     const photoUrl = getListPhotoUrl(badge)
@@ -16,6 +17,7 @@ export const Photo = ({ badge, onEdit }) => {
       } else {
         setPhoto(NO_IMAGE)
       }
+      setPhotoFound(res.data.exists)
     })
   }, [badge])
 
@@ -26,7 +28,11 @@ export const Photo = ({ badge, onEdit }) => {
       <Divider style={{ margin: '1rem 0' }} />
 
       <div>
-        <Preview imageUrl={photo} width={400} />
+        {photoFound ? (
+          <Preview imageUrl={photo} width={400} />
+        ) : (
+          <img src={photo} alt={photo} width={768} height={576} />
+        )}
       </div>
     </article>
   )
