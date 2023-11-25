@@ -1,11 +1,23 @@
-import { getPhotoUrl } from '@/services'
-import { Buttons, Divider } from '@/components'
+import { getListPhotoUrl, pictureExists } from '@/services'
+import { Buttons, Divider, Preview } from '@/components'
 import './photo.css'
+import { useEffect, useState } from 'react'
+
+const NO_IMAGE = '/assets/no-image-icon.png'
 
 export const Photo = ({ badge, onEdit }) => {
-  const photoUrl = badge ? getPhotoUrl(badge) : '/assets/no-image-icon.png'
+  const [photo, setPhoto] = useState(null)
 
-  const handleError = (e) => (e.target.src = '/assets/no-image-icon.png')
+  useEffect(() => {
+    const photoUrl = getListPhotoUrl(badge)
+    pictureExists(badge).then((res) => {
+      if (res.data.exists) {
+        setPhoto(photoUrl)
+      } else {
+        setPhoto(NO_IMAGE)
+      }
+    })
+  }, [badge])
 
   return (
     <article className="photo">
@@ -14,13 +26,7 @@ export const Photo = ({ badge, onEdit }) => {
       <Divider style={{ margin: '1rem 0' }} />
 
       <div>
-        <img
-          src={photoUrl}
-          alt={photoUrl}
-          width={768}
-          height={576}
-          onError={handleError}
-        />
+        <Preview imageUrl={photo} width={400} />
       </div>
     </article>
   )
