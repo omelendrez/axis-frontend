@@ -6,11 +6,13 @@
     },
     {
       "id": "zip",
-      "label": "Zip files"
+      "label": "Zip files",
+      "disabled": true
     },
     {
       "id": "push",
-      "label": "Push files"
+      "label": "Push files",
+      "disabled": true
     },
     {
       "id": "test",
@@ -20,7 +22,8 @@
   "restore": [
     {
       "id": "unzip",
-      "label": "Unzip files"
+      "label": "Unzip files",
+      "disabled": true
     },
     {
       "id": "restore",
