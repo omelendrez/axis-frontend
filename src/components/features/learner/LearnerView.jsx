@@ -13,8 +13,20 @@ import {
   deleteTraining
 } from '@/services'
 import { Confirm, Modal } from '@/components'
-import { Photo, Learner, Trainings, Contacts } from './learner-view'
-import { LearnerForm, TrainingForm, Contact, PhotoUpload } from '../..'
+import {
+  Photo,
+  Learner,
+  Trainings,
+  Contacts,
+  LearnerIdCard
+} from './learner-view'
+import {
+  LearnerForm,
+  TrainingForm,
+  Contact,
+  PhotoUpload,
+  IdCardUpload
+} from '../..'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
 import './learnerView.css'
@@ -38,6 +50,7 @@ export const LearnerView = () => {
   const [isLearnerEdit, setIsLearnerEdit] = useState(false)
   const [isContactEdit, setIsContactEdit] = useState(false)
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
+  const [isCardOpen, setIsCardOpen] = useState(false)
   const [photoBadge, setPhotoBadge] = useState(null)
   const [update, setUpdate] = useState(false)
   const [trainingId, setTrainingId] = useState(null)
@@ -163,6 +176,11 @@ export const LearnerView = () => {
     setIsPhotoOpen(true)
   }
 
+  const handleEditId = (e) => {
+    e.preventDefault()
+    setIsCardOpen(true)
+  }
+
   const handleClose = (e) => {
     e?.preventDefault()
 
@@ -182,6 +200,9 @@ export const LearnerView = () => {
     }
     if (isPhotoOpen) {
       setIsPhotoOpen(false)
+    }
+    if (isCardOpen) {
+      setIsCardOpen(false)
     }
   }
 
@@ -233,13 +254,23 @@ export const LearnerView = () => {
       >
         <Contact contact={contactEditData} onClose={handleClose} />
       </Modal>
+
       <Modal open={isPhotoOpen} title="Profile picture" onClose={handleClose}>
         <PhotoUpload onClose={handleClose} badge={badge} />
       </Modal>
+
+      <Modal open={isCardOpen} title={'Learner ID'} onClose={handleClose}>
+        <IdCardUpload onClose={handleClose} badge={badge} />
+      </Modal>
+
       <main className="learner-view">
         {/* Data components */}
 
-        <Photo badge={photoBadge} onEdit={canEdit ? handleEditPhoto : null} />
+        <Photo
+          badge={photoBadge}
+          onEdit={canEdit ? handleEditPhoto : null}
+          update={update}
+        />
 
         <Learner
           learner={learner}
@@ -263,6 +294,13 @@ export const LearnerView = () => {
           onDelete={canEdit ? handleDeleteContact : null}
           key={contactEditData?.id}
         />
+
+        <LearnerIdCard
+          badge={photoBadge}
+          onEdit={canEdit ? handleEditId : null}
+          update={update}
+        />
+
         <Confirm
           open={isConfirmOpen}
           onCofirm={handleDeleteConfirm}

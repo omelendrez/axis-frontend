@@ -1,3 +1,5 @@
+import { UPLOAD_ACCEPT } from './constants'
+
 export const isValidEmail = (email) => {
   return String(email)
     .toLowerCase()
@@ -9,9 +11,7 @@ export const isValidEmail = (email) => {
 export const isValidUsername = (userName) => {
   return String(userName)
     .toLowerCase()
-    .match(
-      /^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
-    )
+    .match(/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/)
 }
 
 export const validateNotEmpty = (ids, setValues, values, errorsCount) => {
@@ -19,7 +19,10 @@ export const validateNotEmpty = (ids, setValues, values, errorsCount) => {
   ids.forEach((id) => {
     const data = values[id]
     if (!data.value) {
-      setValues(values => ({ ...values, [id]: { ...data, error: data.error || errMessage } }))
+      setValues((values) => ({
+        ...values,
+        [id]: { ...data, error: data.error || errMessage }
+      }))
       errorsCount.current++
     }
   })
@@ -30,7 +33,10 @@ export const validateUserName = (ids, setValues, values, errorsCount) => {
   ids.forEach((id) => {
     const data = values[id]
     if (!isValidUsername(data.value)) {
-      setValues(values => ({ ...values, [id]: { ...data, error: data.error || errMessage } }))
+      setValues((values) => ({
+        ...values,
+        [id]: { ...data, error: data.error || errMessage }
+      }))
       errorsCount.current++
     }
   })
@@ -41,31 +47,80 @@ export const validateEmail = (ids, setValues, values, errorsCount) => {
   ids.forEach((id) => {
     const data = values[id]
     if (!isValidEmail(data.value)) {
-      setValues(values => ({ ...values, [id]: { ...data, error: data.error || errMessage } }))
+      setValues((values) => ({
+        ...values,
+        [id]: { ...data, error: data.error || errMessage }
+      }))
       errorsCount.current++
     }
   })
 }
 
-export const validatePasswordLength = (ids, minLength, setValues, values, errorsCount) => {
+export const validatePasswordLength = (
+  ids,
+  minLength,
+  setValues,
+  values,
+  errorsCount
+) => {
   const errMessage = `Password should be at least ${minLength} characters long`
   ids.forEach((id) => {
     const data = values[id]
     if (data.value.length < minLength) {
-      setValues(values => ({ ...values, [id]: { ...data, error: data.error || errMessage } }))
+      setValues((values) => ({
+        ...values,
+        [id]: { ...data, error: data.error || errMessage }
+      }))
       errorsCount.current++
     }
   })
 }
 
-export const validateConfirmPassword = (ids, setValues, values, errorsCount) => {
+export const validateConfirmPassword = (
+  ids,
+  setValues,
+  values,
+  errorsCount
+) => {
   const errMessage = 'Passwords do not match'
   ids.forEach((id) => {
     const data = values[id]
     if (data.value !== values['password'].value) {
-      setValues(values => ({ ...values, [id]: { ...data, error: data.error || errMessage } }))
+      setValues((values) => ({
+        ...values,
+        [id]: { ...data, error: data.error || errMessage }
+      }))
       errorsCount.current++
     }
   })
-};
+}
 
+export const validateFileExtension = (selectedFile, type) =>
+  new Promise((resolve, reject) => {
+    let extension = ''
+    for (const [key, value] of Object.entries(UPLOAD_ACCEPT)) {
+      if (value === type) {
+        extension = key.toLowerCase()
+      }
+    }
+
+    const fileExtension = selectedFile.name.toLowerCase().split('.').pop()
+    if (fileExtension !== extension) {
+      reject({
+        response: {
+          data: {
+            type: 'error',
+            message: `File extension should be '.${extension}' and not '.${fileExtension}'`
+          }
+        }
+      })
+    } else {
+      resolve({
+        response: {
+          data: {
+            type: 'success'
+          }
+        }
+      })
+    }
+  })

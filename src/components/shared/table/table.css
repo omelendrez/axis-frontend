@@ -5,3 +5,7 @@ table[role='grid'] {
 table[role='grid'] td.action-cell {
   width: fit-content;
 }
+
+table[role='grid'] td.no-wrap {
+  white-space: nowrap;
+}

@@ -5,7 +5,7 @@ import useApiMessages from '@/hooks/useApiMessages'
 
 import { uploadFOET } from '@/services'
 
-import { UPLOAD_ACCEPT } from '@/helpers'
+import { UPLOAD_ACCEPT, validateFileExtension } from '@/helpers'
 
 import './foet.css'
 
@@ -13,6 +13,8 @@ export const FoetUpload = ({ fileName, onClose }) => {
   const { apiMessage } = useApiMessages()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState(null)
+
+  const accept = UPLOAD_ACCEPT.JPG
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -37,15 +39,21 @@ export const FoetUpload = ({ fileName, onClose }) => {
 
   const handleUpload = (e) => {
     e.preventDefault()
-    const formData = new FormData()
-    formData.append('name', fileName)
-    formData.append('file', selectedFile)
-    uploadFOET(formData)
-      .then((res) => {
-        apiMessage(res)
-        onClose()
+    validateFileExtension(selectedFile, accept)
+      .then(() => {
+        const formData = new FormData()
+        formData.append('name', fileName)
+        formData.append('file', selectedFile)
+        uploadFOET(formData)
+          .then((res) => {
+            apiMessage(res)
+            onClose()
+          })
+          .catch((e) => apiMessage(e))
       })
-      .catch((e) => apiMessage(e))
+      .catch((error) => {
+        apiMessage(error)
+      })
   }
 
   return (
@@ -54,12 +62,7 @@ export const FoetUpload = ({ fileName, onClose }) => {
         <label htmlFor="file">
           Choose file to upload or take a picture (mobile)
         </label>
-        <input
-          type="file"
-          accept={UPLOAD_ACCEPT.JPG}
-          id="file"
-          onChange={handleChange}
-        />
+        <input type="file" accept={accept} id="file" onChange={handleChange} />
       </div>
       <div className="preview">
         {preview ? <img src={preview} alt="selected" /> : <div></div>}

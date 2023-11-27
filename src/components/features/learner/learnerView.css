@@ -71,18 +71,17 @@
 }
 
 @media screen and (min-width: 992px) {
-  .learner-view article.trainings,
-  .learner-view article.contacts {
-    width: 100%;
-  }
-
   .learner-view article.photo,
+  .learner-view article.trainings,
+  .learner-view article.contacts,
+  .learner-view article.id-card,
   .learner-view article.learner {
     width: unset;
     flex-grow: unset;
   }
 
-  .learner-view article.learner {
+  .learner-view article.learner,
+  .learner-view article.id-card {
     flex-grow: 1;
   }
 

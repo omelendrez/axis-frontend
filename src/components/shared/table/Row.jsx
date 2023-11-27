@@ -12,7 +12,9 @@ export const Row = ({ fields, item, selected, onSelect }) => (
       </td>
     ) : null}
     {fields.map((f) => (
-      <td key={f.field}>{item[f.field]}</td>
+      <td key={f.field} className={f.nowrap ? 'no-wrap' : ''}>
+        {item[f.field]}
+      </td>
     ))}
   </tr>
 )

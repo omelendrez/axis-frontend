@@ -3,6 +3,8 @@ import { Tag } from '@/components'
 
 import useApiMessages from '@/hooks/useApiMessages'
 
+import { UPLOAD_ACCEPT, validateFileExtension } from '@/helpers'
+
 import { uploadPhoto } from '@/services'
 
 import './photo.css'
@@ -11,6 +13,8 @@ export const PhotoUpload = ({ badge, onClose }) => {
   const { apiMessage } = useApiMessages()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState(null)
+
+  const accept = UPLOAD_ACCEPT.JPG
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -35,23 +39,30 @@ export const PhotoUpload = ({ badge, onClose }) => {
 
   const handleUpload = (e) => {
     e.preventDefault()
-    const formData = new FormData()
-    formData.append('name', badge)
-    formData.append('file', selectedFile)
-    uploadPhoto(formData)
-      .then((res) => {
-        setPreview(res.data)
-        apiMessage(res)
-        onClose()
+    validateFileExtension(selectedFile, accept)
+      .then(() => {
+        const formData = new FormData()
+        formData.append('name', badge)
+        formData.append('file', selectedFile)
+        console.log(formData)
+        uploadPhoto(formData)
+          .then((res) => {
+            setPreview(res.data)
+            apiMessage(res)
+            onClose()
+          })
+          .catch((e) => apiMessage(e))
       })
-      .catch((e) => apiMessage(e))
+      .catch((error) => {
+        apiMessage(error)
+      })
   }
 
   return (
     <div className="photo-form">
       <div>
         <label htmlFor="file">Choose file to upload</label>
-        <input type="file" accept="image/*" id="file" onChange={handleChange} />
+        <input type="file" accept={accept} id="file" onChange={handleChange} />
       </div>
       <div className="preview">
         {preview ? <img src={preview} alt="selected" /> : <div></div>}

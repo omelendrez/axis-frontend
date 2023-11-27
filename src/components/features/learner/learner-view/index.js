@@ -1,4 +1,5 @@
 export * from './Contacts'
+export * from './LearnerIdCard'
 export * from './Learner'
 export * from './Photo'
 export * from './Trainings'

@@ -1,29 +1,30 @@
-import { getPhotoUrl, pictureExists } from '@/services'
+import { getLearnerIdUrl, learnerIdCardExists } from '@/services'
 import { Buttons, Divider, Preview } from '@/components'
 import './photo.css'
 import { useEffect, useState } from 'react'
 
-const NO_IMAGE = '/assets/no-image-icon.png'
+const NO_IMAGE = '/assets/id_card_img.jpg'
 
-export const Photo = ({ badge, onEdit, update }) => {
-  const [photo, setPhoto] = useState(null)
-  const [photoFound, setPhotoFound] = useState(false)
+export const LearnerIdCard = ({ badge, onEdit, update }) => {
+  const [photo, setIDCard] = useState(null)
+  const [photoFound, setIDCardFound] = useState(false)
 
   useEffect(() => {
-    const photoUrl = getPhotoUrl(badge)
-    pictureExists(badge).then((res) => {
+    const idUrl = getLearnerIdUrl(badge)
+
+    learnerIdCardExists(badge).then((res) => {
       if (res.data.exists) {
-        setPhoto(photoUrl)
+        setIDCard(idUrl)
       } else {
-        setPhoto(NO_IMAGE)
+        setIDCard(NO_IMAGE)
       }
-      setPhotoFound(res.data.exists)
+      setIDCardFound(res.data.exists)
     })
   }, [badge, update])
 
   return (
-    <article className="photo">
-      <h6 className="title">Learner picture</h6>
+    <article className="id-card">
+      <h6 className="title">ID Card</h6>
       <Buttons onEdit={onEdit} noCheckboxes />
       <Divider style={{ margin: '1rem 0' }} />
 

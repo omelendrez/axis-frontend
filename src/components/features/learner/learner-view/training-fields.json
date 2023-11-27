@@ -1,7 +1,8 @@
 [
   {
     "label": "Course",
-    "field": "course"
+    "field": "course",
+    "nowrap": true
   },
   {
     "label": "Instructor",
