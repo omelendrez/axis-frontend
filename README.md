@@ -110,7 +110,6 @@ We use `v20.9.0` and we will not upgrade yet due to a warning caused by the issu
 
 https://github.com/forcedotcom/cli/issues/2535
 
-
 ## Application Flow
 
 ```mermaid

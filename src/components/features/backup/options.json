@@ -1,0 +1,34 @@
+{
+  "backup": [
+    {
+      "id": "backup",
+      "label": "Backup data"
+    },
+    {
+      "id": "zip",
+      "label": "Zip files",
+      "disabled": true
+    },
+    {
+      "id": "push",
+      "label": "Push files",
+      "disabled": true
+    },
+    {
+      "id": "test",
+      "label": "Test files"
+    }
+  ],
+  "restore": [
+    {
+      "id": "unzip",
+      "label": "Unzip files",
+      "disabled": true
+    },
+    {
+      "id": "restore",
+      "label": "Restore data",
+      "disabled": true
+    }
+  ]
+}
