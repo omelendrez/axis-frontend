@@ -43,8 +43,7 @@
   gap: 1rem;
 }
 
-.learner-view .learner .row-line div:first-child:not(.tag),
-.learner-view article.id-card {
+.learner-view .learner .row-line div:first-child:not(.tag) {
   width: 5rem;
   text-align: right;
   margin-right: 1rem;
