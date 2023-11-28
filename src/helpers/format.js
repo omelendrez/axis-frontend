@@ -60,14 +60,16 @@ export const getTrainingDates = (start, end) => {
 
   return dates
 }
-
+//  returns a file name for a document associated to a training record
 export const documentNumber = (num) =>
   (parseInt(num, 10) + 10 ** 12).toString().substring(1)
 
-export const getFilename = (id) => `${documentNumber(id)}.pdf`
+// for certificates, id cards and welcome letters
+export const getPdfFileName = (id) => `${documentNumber(id)}.pdf`
 
-export const getFOETFilename = (id) => `${documentNumber(id)}.jpg`
+//  for scanned foets and payments
+export const getScannedDocName = (id) => `${documentNumber(id)}.jpg`
 
-export const getPaymentFilename = (id) => `${documentNumber(id)}.jpg`
-
+// for learner photographs and learners id cards
+// those documents are associated to a learner
 export const getImageFilename = (badge) => `${badge}.jpg`
