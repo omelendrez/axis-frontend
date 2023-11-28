@@ -12,4 +12,4 @@ export const uploadPayment = (formData) =>
   api.post(`${url}${endpoint}`, formData)
 
 export const paymentExists = (data) =>
-  api.get(`${endpoint}/${getPaymentFilename(data).toUpperCase()}/exists`)
+  api.get(`${endpoint}/${getPaymentFilename(data)}/exists`)

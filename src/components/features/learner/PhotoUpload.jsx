@@ -44,7 +44,7 @@ export const PhotoUpload = ({ badge, onClose }) => {
         const formData = new FormData()
         formData.append('name', badge)
         formData.append('file', selectedFile)
-        console.log(formData)
+
         uploadPhoto(formData)
           .then((res) => {
             setPreview(res.data)
