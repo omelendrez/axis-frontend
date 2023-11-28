@@ -86,7 +86,8 @@
     flex-grow: 1;
   }
 
-  .learner-view article.photo img {
+  .learner-view article.photo img,
+  .learner-view article.id-card img {
     max-width: 20rem;
     margin: 0 auto;
   }
