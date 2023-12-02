@@ -21,9 +21,10 @@
   color: var(--primary);
 }
 
-/* .pending-tasks .card.trainings .badge {
-  color: var(--secondary);
-} */
+/* .pending-tasks .card.trainings .badge { */
+.card.trainings .card-body .badge {
+  color: var(--info);
+}
 
 .pending-tasks .card.trainings .company {
   font-weight: 900;

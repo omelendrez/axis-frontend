@@ -14,7 +14,8 @@ import {
   learnerIdCardExists,
   getLearnerIdUrl,
   generateOpitoCertificate,
-  saveReason
+  saveReason,
+  getBucketDocumentUrl
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './scanId.css'
@@ -31,7 +32,9 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
-  const [isImage, setIsImage] = useState(false)
+  const [isIdCard, setIsIdCard] = useState(false)
+
+  const [idCard, setIDCard] = useState(null)
 
   const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
@@ -48,13 +51,17 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
     tracking
   )
 
-  const imageUrl = getLearnerIdUrl(badge)
-
   useEffect(() => {
+    const imageUrl = getLearnerIdUrl(badge)
     learnerIdCardExists(badge)
-      .then((res) => setIsImage(res.data.exists))
+      .then((res) => {
+        setIsIdCard(res.data.exists)
+        if (res.data.exists) {
+          getBucketDocumentUrl(imageUrl).then((res) => setIDCard(res.data))
+        }
+      })
       .catch((e) => apiMessage(e))
-
+    return () => setIDCard(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training])
 
@@ -173,7 +180,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
         isSubmitting={isSubmitting}
       >
         <div className="scan-id-children">
-          {isImage && <Preview imageUrl={imageUrl} />}
+          {isIdCard && <Preview imageUrl={idCard} />}
 
           {opitoFile && (
             <a
@@ -189,7 +196,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
           {canApprove && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
-                {isImage ? 'Re-scan Id' : 'Scan Id'}
+                {isIdCard ? 'Re-scan Id' : 'Scan Id'}
               </button>
               {false && <button onClick={handleOpito}>Generate xlsx</button>}
             </div>

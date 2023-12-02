@@ -13,6 +13,7 @@ export const PaymentUpload = ({ fileName, onClose }) => {
   const { apiMessage } = useApiMessages()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const accept = UPLOAD_ACCEPT.JPG
 
@@ -39,6 +40,8 @@ export const PaymentUpload = ({ fileName, onClose }) => {
 
   const handleUpload = (e) => {
     e.preventDefault()
+    setIsSubmitting(true)
+
     validateFileExtension(selectedFile, accept)
       .then(() => {
         const formData = new FormData()
@@ -50,6 +53,7 @@ export const PaymentUpload = ({ fileName, onClose }) => {
             onClose()
           })
           .catch((e) => apiMessage(e))
+          .finally(() => setIsSubmitting(false))
       })
       .catch((error) => {
         apiMessage(error)
@@ -57,7 +61,7 @@ export const PaymentUpload = ({ fileName, onClose }) => {
   }
 
   return (
-    <div className="foet-form">
+    <div className="photo-form">
       <div>
         <label htmlFor="file">
           Choose file to upload or take a picture (mobile)
@@ -68,7 +72,11 @@ export const PaymentUpload = ({ fileName, onClose }) => {
         {preview ? <img src={preview} alt="selected" /> : <div></div>}
       </div>
       <div className="button-container">
-        <button onClick={handleUpload} disabled={!selectedFile}>
+        <button
+          onClick={handleUpload}
+          disabled={!selectedFile || isSubmitting}
+          aria-busy={isSubmitting}
+        >
           Submit
         </button>
       </div>

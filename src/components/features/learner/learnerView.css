@@ -71,7 +71,6 @@
 }
 
 @media screen and (min-width: 992px) {
-  .learner-view article.photo,
   .learner-view article.trainings,
   .learner-view article.contacts,
   .learner-view article.id-card,
@@ -85,9 +84,11 @@
     flex-grow: 1;
   }
 
-  .learner-view article.photo img,
+  .learner-view article.photo,
   .learner-view article.id-card img {
     max-width: 20rem;
+    min-width: 20rem;
+    width: 20rem;
     margin: 0 auto;
   }
 }

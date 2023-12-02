@@ -11,7 +11,8 @@ import {
   generateWelcomeLetter,
   getWelcomeLetterUrl,
   welcomeLetterExists,
-  sendWelcomeLetter
+  sendWelcomeLetter,
+  getBucketDocumentUrl
 } from '@/services'
 
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
@@ -22,6 +23,8 @@ import './welcome-letter.css'
 
 export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
+
+  const [url, setUrl] = useState(null)
 
   const { roles } = user
 
@@ -51,7 +54,10 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   useEffect(() => {
     welcomeLetterExists(id)
-      .then((res) => setIsDoc(res.data.exists))
+      .then((res) => {
+        getBucketDocumentUrl(documentUrl).then((res) => setUrl(res.data))
+        setIsDoc(res.data.exists)
+      })
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -200,8 +206,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
       >
         {isDoc && (
           <figure>
-            <object data={documentUrl} {...props} className="welcome-letter">
-              <embed src={documentUrl} {...props} className="welcome-letter" />
+            <object data={url} {...props} className="welcome-letter">
+              <embed src={url} {...props} className="welcome-letter" />
             </object>
           </figure>
         )}

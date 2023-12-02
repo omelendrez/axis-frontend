@@ -1,4 +1,8 @@
-import { getListPhotoUrl, pictureExists } from '@/services'
+import {
+  getBucketDocumentUrl,
+  getListPhotoUrl,
+  pictureExists
+} from '@/services'
 import useUser from '@/hooks/useUser'
 import './card.css'
 import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
@@ -41,11 +45,12 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   }
 
   useEffect(() => {
-    pictureExists(badge).then((res) =>
-      setPhotoUrl(
-        res.data.exists ? getListPhotoUrl(badge) : '/assets/no-image-icon.png'
-      )
-    )
+    pictureExists(badge).then((res) => {
+      if (res.data.exists) {
+        const photoUrl = getListPhotoUrl(badge)
+        getBucketDocumentUrl(photoUrl).then((res) => setPhotoUrl(res.data))
+      }
+    })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [badge])
@@ -63,7 +68,11 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
   return (
     <article className="card trainings" onClick={handleClick}>
       <div className="card-avatar-root">
-        <img src={photoUrl} alt={badge} className="card-avatar-img" />
+        <img
+          src={photoUrl || '/assets/no-image-icon.png'}
+          alt={badge}
+          className="card-avatar-img"
+        />
       </div>
       <div className="card-body">
         <div className="ellipsis course">{course_name}</div>
@@ -74,6 +83,8 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
         {instructor && (
           <div className="small-font instructor">{instructor}</div>
         )}
+
+        <div className="small-font badge">{badge}</div>
 
         <div className="ellipsis name">{full_name}</div>
         <div className="small-font company">{company_name}</div>

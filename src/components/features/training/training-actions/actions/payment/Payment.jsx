@@ -11,7 +11,8 @@ import {
   cancelTraining,
   saveReason,
   getPaymentUrl,
-  paymentExists
+  paymentExists,
+  getBucketDocumentUrl
 } from '@/services'
 import { TRAINING_STATUS, documentNumber, getUserAuth } from '@/helpers'
 
@@ -26,7 +27,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const [isImage, setIsImage] = useState(false)
+  const [imageUrl, setImageUrl] = useState(null)
 
   const { id, status_id: status, tracking } = training
 
@@ -40,12 +41,18 @@ export const Payment = ({ training, onUpdate, role, user }) => {
     status,
     tracking
   )
-  const imageUrl = getPaymentUrl(id)
 
   useEffect(() => {
     paymentExists(id)
-      .then((res) => setIsImage(res.data.exists))
+      .then((res) => {
+        if (res.data.exists) {
+          const imageUrl = getPaymentUrl(id)
+          getBucketDocumentUrl(imageUrl).then((res) => setImageUrl(res.data))
+        }
+      })
       .catch((e) => apiMessage(e))
+
+    return () => setImageUrl(null)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update])
@@ -131,12 +138,12 @@ export const Payment = ({ training, onUpdate, role, user }) => {
       isSubmitting={isSubmitting}
     >
       <div className="payment-children">
-        {isImage && <Preview imageUrl={imageUrl} />}
+        {imageUrl && <Preview imageUrl={imageUrl} />}
 
         {canApprove && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-upload' : 'upload'}
+              {imageUrl ? 'Re-upload' : 'upload'}
             </button>
           </div>
         )}
