@@ -205,6 +205,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       approveDisabled={isComplete || isSubmitting}
       rejectLabel="Mark as printed"
       rejectDisabled={isComplete || isSubmitting}
+      isSubmitting={isSubmitting}
       onReject={isDoc && !isPrinted && isPrinter ? handleMarkAsPrinted : null}
       onApprove={
         !isComplete && !isCancelled && isPrinter ? handleGenerate : null

@@ -113,6 +113,8 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   const handleGenerate = (e) => {
     e.preventDefault()
+    setIsSubmitting(true)
+
     const payload = {
       ...training,
       user
@@ -128,6 +130,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
         onUpdate()
       })
       .catch((e) => apiMessage(e))
+      .finally(() => setIsSubmitting(false))
   }
 
   const handleSendLetter = (e) => {
@@ -171,7 +174,11 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
         description={
           canApprove && (
             <div className="buttons">
-              <button onClick={handleGenerate} disabled={isCancelled}>
+              <button
+                onClick={handleGenerate}
+                disabled={isCancelled}
+                aria-busy={isSubmitting}
+              >
                 {isDoc ? 'Re-generate' : 'generate'}
               </button>
               {isDoc && emails.length === 0 ? (
