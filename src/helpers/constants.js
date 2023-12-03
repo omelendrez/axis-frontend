@@ -50,5 +50,5 @@ export const RADIO = {
 
 export const UPLOAD_ACCEPT = {
   JPG: 'image/jpeg',
-  PDF: '.pdf'
+  PDF: 'application/pdf'
 }

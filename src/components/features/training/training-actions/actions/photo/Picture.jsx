@@ -12,7 +12,8 @@ import {
   pictureExists,
   getPhotoUrl,
   cancelTraining,
-  saveReason
+  saveReason,
+  getBucketDocumentUrl
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './picture.css'
@@ -25,9 +26,11 @@ export const Picture = ({ training, onUpdate, role, user }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const [isPhotoOpen, setIsPhotoOpen] = useState(false)
+  const [photo, setPhoto] = useState(null)
 
-  const [isImage, setIsImage] = useState(false)
+  const [photoFound, setPhotoFound] = useState(false)
+
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
   const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
@@ -37,8 +40,6 @@ export const Picture = ({ training, onUpdate, role, user }) => {
     (t) => t.status_id === TRAINING_STATUS.TRAINING_COORDINATOR_DONE
   )
 
-  const imageUrl = getPhotoUrl(badge)
-
   const { isApproved, isCancelled, canView, canApprove } = getUserAuth(
     role,
     roles,
@@ -47,12 +48,16 @@ export const Picture = ({ training, onUpdate, role, user }) => {
   )
 
   useEffect(() => {
-    pictureExists(badge)
-      .then((res) => setIsImage(res.data.exists))
-      .catch((e) => apiMessage(e))
+    const photoUrl = getPhotoUrl(badge)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    pictureExists(badge).then((res) => {
+      if (res.data.exists) {
+        getBucketDocumentUrl(photoUrl).then((res) => setPhoto(res.data))
+      }
+      setPhotoFound(res.data.exists)
+    })
+    return () => setPhoto(null)
+  }, [badge])
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -131,11 +136,11 @@ export const Picture = ({ training, onUpdate, role, user }) => {
         isSubmitting={isSubmitting}
       >
         <div className="picture-children">
-          {isImage && <Preview imageUrl={imageUrl} />}
+          {photoFound && <Preview imageUrl={photo} />}
           {canApprove && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
-                {isImage ? 'Re-take picture' : 'Take picture'}
+                {photoFound ? 'Re-take picture' : 'Take picture'}
               </button>
             </div>
           )}

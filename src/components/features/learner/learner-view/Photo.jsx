@@ -1,9 +1,7 @@
-import { getPhotoUrl, pictureExists } from '@/services'
+import { getBucketDocumentUrl, getPhotoUrl, pictureExists } from '@/services'
 import { Buttons, Divider, Preview } from '@/components'
 import './photo.css'
 import { useEffect, useState } from 'react'
-
-const NO_IMAGE = '/assets/no-image-icon.png'
 
 export const Photo = ({ badge, onEdit, update }) => {
   const [photo, setPhoto] = useState(null)
@@ -11,14 +9,14 @@ export const Photo = ({ badge, onEdit, update }) => {
 
   useEffect(() => {
     const photoUrl = getPhotoUrl(badge)
+
     pictureExists(badge).then((res) => {
       if (res.data.exists) {
-        setPhoto(photoUrl)
-      } else {
-        setPhoto(NO_IMAGE)
+        getBucketDocumentUrl(photoUrl).then((res) => setPhoto(res.data))
       }
       setPhotoFound(res.data.exists)
     })
+    return () => setPhoto(null)
   }, [badge, update])
 
   return (
@@ -26,12 +24,16 @@ export const Photo = ({ badge, onEdit, update }) => {
       <h6 className="title">Learner picture</h6>
       <Buttons onEdit={onEdit} noCheckboxes />
       <Divider style={{ margin: '1rem 0' }} />
-
       <div>
         {photoFound ? (
           <Preview imageUrl={photo} width={400} />
         ) : (
-          <img src={photo} alt={photo} width={768} height={576} />
+          <img
+            src="/assets/no-image-icon.png"
+            alt={badge}
+            width={768}
+            height={576}
+          />
         )}
       </div>
     </article>

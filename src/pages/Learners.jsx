@@ -8,7 +8,11 @@ import usePage from '@/hooks/usePage'
 
 import { initialValues } from '@/helpers'
 
-import { getListPhotoUrl, pictureExists } from '@/services'
+import {
+  getBucketDocumentUrl,
+  getListPhotoUrl,
+  pictureExists
+} from '@/services'
 
 const Card = ({ item, onView }) => {
   const [photoUrl, setPhotoUrl] = useState('/assets/no-image-icon.png')
@@ -16,19 +20,29 @@ const Card = ({ item, onView }) => {
   const { badge } = item
 
   useEffect(() => {
-    pictureExists(badge).then((res) =>
-      setPhotoUrl(
-        res.data.exists ? getListPhotoUrl(badge) : '/assets/no-image-icon.png'
-      )
-    )
+    pictureExists(badge).then((res) => {
+      if (res.data.exists) {
+        const photoUrl = getListPhotoUrl(badge)
+        getBucketDocumentUrl(photoUrl).then((res) => {
+          setPhotoUrl(res.data)
+        })
+      } else {
+        setPhotoUrl('/assets/no-image-icon.png')
+      }
+    })
 
+    return () => setPhotoUrl(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [badge])
 
   return (
     <article className="card learners" onClick={() => onView(item)}>
       <div className="card-avatar-root">
-        <img src={photoUrl} alt={item.badge} className="card-avatar-img" />
+        <img
+          src={photoUrl || '/assets/no-image-icon.png'}
+          alt={item.badge}
+          className="card-avatar-img"
+        />
       </div>
       <div className="card-body">
         <div className="ellipsis">{item.full_name}</div>

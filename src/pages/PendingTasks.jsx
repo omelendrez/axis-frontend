@@ -83,6 +83,7 @@ const PendingTasks = () => {
 
   const { pendingTasksParams: pending, setPendingTaksParams: setPending } =
     useContext(PendingContext)
+
   const { date, selectedStatuses } = pending
 
   const { statuses, load: loadStatuses } = useStatuses()
@@ -218,6 +219,11 @@ const PendingTasks = () => {
     }
   }
 
+  const handleClose = (e) => {
+    e.preventDefault()
+    dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
+  }
+
   const handleRadioButtonsChange = (option) => setSelectedRadioOption(option)
 
   const buildPayload = (status) => ({
@@ -290,6 +296,9 @@ const PendingTasks = () => {
           statuses={authorizedStatuses}
           selectedStatuses={selectedStatuses}
           onConfirm={handleConfirm}
+          onClose={handleClose}
+          selecteAllNone={setPending}
+          records={data.count}
         />
       )}
 

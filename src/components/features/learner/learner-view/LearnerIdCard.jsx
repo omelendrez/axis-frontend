@@ -1,25 +1,26 @@
-import { getLearnerIdUrl, learnerIdCardExists } from '@/services'
+import {
+  getBucketDocumentUrl,
+  getLearnerIdUrl,
+  learnerIdCardExists
+} from '@/services'
 import { Buttons, Divider, Preview } from '@/components'
 import './photo.css'
 import { useEffect, useState } from 'react'
 
-const NO_IMAGE = '/assets/id_card_img.jpg'
-
 export const LearnerIdCard = ({ badge, onEdit, update }) => {
-  const [photo, setIDCard] = useState(null)
-  const [photoFound, setIDCardFound] = useState(false)
+  const [idCard, setIDCard] = useState(null)
+  const [idCardFound, setIDCardFound] = useState(false)
 
   useEffect(() => {
     const idUrl = getLearnerIdUrl(badge)
 
     learnerIdCardExists(badge).then((res) => {
-      if (res.data.exists) {
-        setIDCard(idUrl)
-      } else {
-        setIDCard(NO_IMAGE)
-      }
       setIDCardFound(res.data.exists)
+      if (res.data.exists) {
+        getBucketDocumentUrl(idUrl).then((res) => setIDCard(res.data))
+      }
     })
+    return () => setIDCard(null)
   }, [badge, update])
 
   return (
@@ -29,10 +30,15 @@ export const LearnerIdCard = ({ badge, onEdit, update }) => {
       <Divider style={{ margin: '1rem 0' }} />
 
       <div>
-        {photoFound ? (
-          <Preview imageUrl={photo} width={400} />
+        {idCardFound ? (
+          <Preview imageUrl={idCard} width={400} />
         ) : (
-          <img src={photo} alt={photo} width={768} height={576} />
+          <img
+            src="/assets/id_card_img.jpg"
+            alt={badge}
+            width={768}
+            height={576}
+          />
         )}
       </div>
     </article>

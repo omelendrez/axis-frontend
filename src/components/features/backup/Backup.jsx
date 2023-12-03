@@ -54,6 +54,7 @@ export const Backup = () => {
             isSubmitting={isSubmitting}
             onClick={handleClick}
             current={current}
+            key={o.id}
           />
         ))}
       </section>
@@ -65,6 +66,7 @@ export const Backup = () => {
             isSubmitting={isSubmitting}
             onClick={handleClick}
             current={current}
+            key={o.id}
           />
         ))}
       </section>

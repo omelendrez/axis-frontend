@@ -11,7 +11,8 @@ import {
   idCardExists,
   certificatePrintDone,
   idCardPrintDone,
-  saveOpitoFields
+  saveOpitoFields,
+  getBucketDocumentUrl
 } from '@/services'
 
 import useApiMessages from '@/hooks/useApiMessages'
@@ -25,13 +26,9 @@ import {
   getUserAuth
 } from '@/helpers'
 
-import './print.css'
 import { CertificateUpload } from './CertificateUpload'
 
-const defaultOpitoFieldsValues = {
-  learnerId: '',
-  certificateNo: ''
-}
+import './print.css'
 
 export const Print = ({ training, onUpdate, type, role, user }) => {
   const { apiMessage } = useApiMessages()
@@ -66,11 +63,16 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const [isDoc, setIsDoc] = useState(false)
 
+  const [url, setUrl] = useState(null)
+
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const [opitoFields, setOpitoFields] = useState(defaultOpitoFieldsValues)
+  const [opitoFields, setOpitoFields] = useState({
+    learnerId: '',
+    certificateNo: ''
+  })
 
-  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [isUploadFormOpen, setIsUploadFormOpen] = useState(false)
 
   const documentUrl = isCertificate ? getCertificateUrl(id) : getIdCardUrl(id)
 
@@ -86,9 +88,15 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   useEffect(() => {
     docExists(id)
-      .then((res) => setIsDoc(res.data.exists))
+      .then((res) => {
+        setIsDoc(res.data.exists)
+        if (res.data.exists) {
+          getBucketDocumentUrl(documentUrl).then((res) => setUrl(res.data))
+        }
+      })
       .catch((e) => apiMessage(e))
 
+    return () => setIsDoc(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training])
 
@@ -110,7 +118,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     }
 
     if (isOpito && isCertificate) {
-      return setIsFormOpen(true)
+      return setIsUploadFormOpen(true)
     } else {
       generate(id, payload)
         .then((res) => {
@@ -160,7 +168,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const handleClose = (e) => {
     e?.preventDefault()
-    setIsFormOpen(false)
+    setIsUploadFormOpen(false)
     onUpdate()
   }
 
@@ -170,9 +178,15 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     buttonLabel = isDoc ? 'Re-upload' : 'Upload'
   }
 
-  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
+  if (
+    !canView ||
+    (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1) ||
+    !opitoFields?.learnerId
+  ) {
     return null
   }
+
+  const { learnerId, certificateNo } = opitoFields
 
   return (
     <Task
@@ -191,6 +205,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       approveDisabled={isComplete || isSubmitting}
       rejectLabel="Mark as printed"
       rejectDisabled={isComplete || isSubmitting}
+      isSubmitting={isSubmitting}
       onReject={isDoc && !isPrinted && isPrinter ? handleMarkAsPrinted : null}
       onApprove={
         !isComplete && !isCancelled && isPrinter ? handleGenerate : null
@@ -199,23 +214,19 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       {isOpito && isCertificate && (
         <div className="opito-fields">
           <label htmlFor="learnerId">Learner Id:</label>
-          {isComplete && (
-            <div className="opito-field">{opitoFields.learnerId}</div>
-          )}
+          {isComplete && <div className="opito-field">{learnerId}</div>}
           {!isComplete && (
             <input
               type="text"
               id="learnerId"
               placeholder="Enter learner Id"
               onChange={handleOpitoFieldsChange}
-              value={opitoFields.learnerId}
+              value={learnerId}
               readOnly={isComplete}
             />
           )}
           <label htmlFor="certificateNo">Certificate #:</label>
-          {isComplete && (
-            <div className="opito-field">{opitoFields.certificateNo}</div>
-          )}
+          {isComplete && <div className="opito-field">{certificateNo}</div>}
 
           {!isComplete && (
             <input
@@ -223,7 +234,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
               id="certificateNo"
               placeholder="Enter certificate #"
               onChange={handleOpitoFieldsChange}
-              value={opitoFields.certificateNo}
+              value={certificateNo}
               readOnly={isComplete}
             />
           )}
@@ -237,12 +248,16 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       )}
       {isDoc && (
         <figure>
-          <object data={documentUrl} {...props} className={embedClass}>
-            <embed src={documentUrl} {...props} className={embedClass} />
+          <object data={url} {...props} className={embedClass}>
+            <embed src={url} {...props} className={embedClass} />
           </object>
         </figure>
       )}
-      <Modal open={isFormOpen} title="opito certificate" onClose={handleClose}>
+      <Modal
+        open={isUploadFormOpen}
+        title="opito certificate"
+        onClose={handleClose}
+      >
         <div className="form-container">
           <CertificateUpload
             onClose={handleClose}

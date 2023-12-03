@@ -29,10 +29,10 @@ import {
 } from '../..'
 import trainingFields from './learner-view/training-fields.json'
 import contactFields from './learner-view/contact-fields.json'
-import './learnerView.css'
 import useConfirm from '@/hooks/useConfirm'
 import useUser from '@/hooks/useUser'
 import { USER_ROLE } from '@/helpers'
+import './learnerView.css'
 
 export const LearnerView = () => {
   const params = useParams()
@@ -184,8 +184,6 @@ export const LearnerView = () => {
   const handleClose = (e) => {
     e?.preventDefault()
 
-    setUpdate((u) => !u)
-
     if (isTrainingEdit) {
       setTrainingEditData(null)
       setIsTrainingEdit(false)
@@ -204,6 +202,8 @@ export const LearnerView = () => {
     if (isCardOpen) {
       setIsCardOpen(false)
     }
+
+    setUpdate((u) => !u)
   }
 
   useEffect(() => {

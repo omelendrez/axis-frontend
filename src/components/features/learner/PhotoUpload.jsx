@@ -13,6 +13,7 @@ export const PhotoUpload = ({ badge, onClose }) => {
   const { apiMessage } = useApiMessages()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const accept = UPLOAD_ACCEPT.JPG
 
@@ -39,6 +40,8 @@ export const PhotoUpload = ({ badge, onClose }) => {
 
   const handleUpload = (e) => {
     e.preventDefault()
+    setIsSubmitting(true)
+
     validateFileExtension(selectedFile, accept)
       .then(() => {
         const formData = new FormData()
@@ -52,6 +55,7 @@ export const PhotoUpload = ({ badge, onClose }) => {
             onClose()
           })
           .catch((e) => apiMessage(e))
+          .finally(() => setIsSubmitting(false))
       })
       .catch((error) => {
         apiMessage(error)
@@ -68,7 +72,11 @@ export const PhotoUpload = ({ badge, onClose }) => {
         {preview ? <img src={preview} alt="selected" /> : <div></div>}
       </div>
       <div className="button-container">
-        <button onClick={handleUpload} disabled={!selectedFile}>
+        <button
+          onClick={handleUpload}
+          disabled={!selectedFile || isSubmitting}
+          aria-busy={isSubmitting}
+        >
           Submit
         </button>
       </div>
