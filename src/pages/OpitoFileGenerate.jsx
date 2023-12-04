@@ -77,7 +77,7 @@ const OpitoFileGenerate = () => {
         const payload = { ...item, records: res.data.rows }
         generateOpitoCSVFile(payload)
           .then((res) => {
-            const fileName = res.data.fileName.substring(1) // Remove "/" at the beginning of the string
+            const fileName = res.data.fileName.split('/').pop() // Remove "/" at the beginning of the string
 
             setData((data) => ({
               ...data,
