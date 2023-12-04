@@ -178,11 +178,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     buttonLabel = isDoc ? 'Re-upload' : 'Upload'
   }
 
-  if (
-    !canView ||
-    (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1) ||
-    !opitoFields?.learnerId
-  ) {
+  if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
     return null
   }
 
