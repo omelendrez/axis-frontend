@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Modal, Preview, Task } from '@/components'
 import { FoetUpload } from './FoetUpload'
 import useApiMessages from '@/hooks/useApiMessages'
-import { foetExists, getFOETUrl } from '@/services'
+import { foetExists, getBucketDocumentUrl, getFOETUrl } from '@/services'
 import { documentNumber, getUserAuth } from '@/helpers'
 
 import './foet.css'
@@ -20,6 +20,8 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   const [isImage, setIsImage] = useState(false)
 
+  const [url, setUrl] = useState(null)
+
   const { id, status_id: status, tracking, course } = training
 
   const { expiry_type: expiryType } = course
@@ -35,7 +37,10 @@ export const Foet = ({ training, onUpdate, role, user }) => {
 
   useEffect(() => {
     foetExists(id)
-      .then((res) => setIsImage(res.data.exists))
+      .then((res) => {
+        getBucketDocumentUrl(imageUrl).then((res) => setUrl(res.data))
+        setIsImage(res.data.exists)
+      })
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +68,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   return (
     <Task title={title} className="foet">
       <div className="foet-children">
-        {isImage && <Preview imageUrl={imageUrl} />}
+        {isImage && <Preview imageUrl={url} />}
 
         {canApprove && (
           <div className="buttons">
