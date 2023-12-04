@@ -4,7 +4,7 @@ import './photo.css'
 import { useEffect, useState } from 'react'
 
 export const Photo = ({ badge, onEdit, update }) => {
-  const [photo, setPhoto] = useState(null)
+  const [url, setUrl] = useState(null)
   const [photoFound, setPhotoFound] = useState(false)
 
   useEffect(() => {
@@ -12,11 +12,11 @@ export const Photo = ({ badge, onEdit, update }) => {
 
     pictureExists(badge).then((res) => {
       if (res.data.exists) {
-        getBucketDocumentUrl(photoUrl).then((res) => setPhoto(res.data))
+        getBucketDocumentUrl(photoUrl).then((res) => setUrl(res.data))
       }
       setPhotoFound(res.data.exists)
     })
-    return () => setPhoto(null)
+    return () => setUrl(null)
   }, [badge, update])
 
   return (
@@ -26,7 +26,7 @@ export const Photo = ({ badge, onEdit, update }) => {
       <Divider style={{ margin: '1rem 0' }} />
       <div>
         {photoFound ? (
-          <Preview imageUrl={photo} width={400} />
+          <Preview imageUrl={url} width={400} />
         ) : (
           <img
             src="/assets/no-image-icon.png"
