@@ -94,6 +94,8 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     if (url) {
       setApprovalLabel(isCertificate && isOpito ? 'Re-upload' : 'Re-generate')
       setIsSubmitting(false)
+    } else {
+      setApprovalLabel(isCertificate && isOpito ? 'Upload' : 'Generate')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
