@@ -33,8 +33,6 @@ import './print.css'
 export const Print = ({ training, onUpdate, type, role, user }) => {
   const { apiMessage } = useApiMessages()
 
-  const isCertificate = type === DOC_TYPE.CERTIFICATE
-
   const { roles } = user
 
   const isPrinter = Boolean(roles.find((r) => r.id === USER_ROLE.PRINTER))
@@ -45,6 +43,12 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     course: { id_card, cert_type },
     tracking
   } = training
+
+  const isCertificate = type === DOC_TYPE.CERTIFICATE
+  const isOpito = cert_type === CERT_TYPE.OPITO
+
+  const embedClass = isCertificate ? 'certificate' : 'id-card'
+  const title = isCertificate ? 'Certificate' : 'ID Card'
 
   const trackingRecord = tracking.find(
     (t) =>
@@ -61,9 +65,11 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     tracking
   )
 
-  const [isDoc, setIsDoc] = useState(false)
-
   const [url, setUrl] = useState(null)
+
+  const [approvalLabel, setApprovalLabel] = useState(
+    isCertificate && isOpito ? 'Upload' : 'Generate'
+  )
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -87,16 +93,29 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     : status >= TRAINING_STATUS.ID_CARD_PRINT_DONE
 
   useEffect(() => {
+    if (url) {
+      let approvalLabel = 'Re-generate'
+
+      if (isCertificate && isOpito) {
+        approvalLabel = 'Re-upload'
+      }
+
+      setApprovalLabel(approvalLabel)
+      setIsSubmitting(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url])
+
+  useEffect(() => {
     docExists(id)
       .then((res) => {
-        setIsDoc(res.data.exists)
         if (res.data.exists) {
           getBucketDocumentUrl(documentUrl).then((res) => setUrl(res.data))
         }
       })
       .catch((e) => apiMessage(e))
 
-    return () => setIsDoc(false)
+    return () => setUrl(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training])
 
@@ -116,7 +135,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     }
 
     if (isOpito && isCertificate) {
-      return setIsUploadFormOpen(true)
+      setIsUploadFormOpen(true)
     } else {
       setIsSubmitting(true)
       generate(id, payload)
@@ -128,9 +147,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           onUpdate()
         })
         .catch((e) => apiMessage(e))
-        .finally(() => {
-          setIsSubmitting(false)
-        })
     }
   }
 
@@ -151,10 +167,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  const embedClass = isCertificate ? 'certificate' : 'id-card'
-  const title = isCertificate ? 'Certificate' : 'ID Card'
-  const isOpito = cert_type === CERT_TYPE.OPITO
-
   const handleOpitoFieldsChange = (e) => {
     e.preventDefault()
     setOpitoFields((fields) => ({ ...fields, [e.target.id]: e.target.value }))
@@ -172,12 +184,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     e?.preventDefault()
     setIsUploadFormOpen(false)
     onUpdate()
-  }
-
-  let buttonLabel = isDoc ? 'Re-generate' : 'Generate'
-
-  if (isCertificate && isOpito) {
-    buttonLabel = isDoc ? 'Re-upload' : 'Upload'
   }
 
   if (!canView || (type === DOC_TYPE.ID_CARD && parseInt(id_card, 10) !== 1)) {
@@ -199,12 +205,12 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           </center>
         ) : null
       }
-      approveLabel={buttonLabel}
+      approveLabel={approvalLabel}
       approveDisabled={isComplete || isSubmitting}
       rejectLabel="Mark as printed"
       rejectDisabled={isComplete || isSubmitting}
       isSubmitting={isSubmitting}
-      onReject={isDoc && !isPrinted && isPrinter ? handleMarkAsPrinted : null}
+      onReject={url && !isPrinted && isPrinter ? handleMarkAsPrinted : null}
       onApprove={
         !isComplete && !isCancelled && isPrinter ? handleGenerate : null
       }
@@ -244,7 +250,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           <Divider style={{ marginTop: '1rem' }} />
         </div>
       )}
-      {isDoc && (
+      {url && (
         <figure>
           <object data={url} {...props} className={embedClass}>
             <embed src={url} {...props} className={embedClass} />
