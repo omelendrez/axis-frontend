@@ -67,9 +67,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const [url, setUrl] = useState(null)
 
-  const [approvalLabel, setApprovalLabel] = useState(
-    isCertificate && isOpito ? 'Upload' : 'Generate'
-  )
+  const [approvalLabel, setApprovalLabel] = useState(null)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -94,13 +92,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   useEffect(() => {
     if (url) {
-      let approvalLabel = 'Re-generate'
-
-      if (isCertificate && isOpito) {
-        approvalLabel = 'Re-upload'
-      }
-
-      setApprovalLabel(approvalLabel)
+      setApprovalLabel(isCertificate && isOpito ? 'Re-upload' : 'Re-generate')
       setIsSubmitting(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,7 +107,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
       })
       .catch((e) => apiMessage(e))
 
-    return () => setUrl(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training])
 
