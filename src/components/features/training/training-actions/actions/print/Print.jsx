@@ -110,8 +110,6 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   const handleGenerate = (e) => {
     e.preventDefault()
 
-    setIsDoc(false)
-
     const payload = {
       ...training,
       user
@@ -120,6 +118,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
     if (isOpito && isCertificate) {
       return setIsUploadFormOpen(true)
     } else {
+      setIsSubmitting(true)
       generate(id, payload)
         .then((res) => {
           const data = {
@@ -129,6 +128,9 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           onUpdate()
         })
         .catch((e) => apiMessage(e))
+        .finally(() => {
+          setIsSubmitting(false)
+        })
     }
   }
 
