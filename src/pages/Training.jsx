@@ -13,7 +13,7 @@ const Training = () => {
 
   const { changes } = useContext(TrainingContext)
 
-  const { loadView, trainings } = useTrainings()
+  const { loadView, trainings, resetView } = useTrainings()
 
   const { view: training } = trainings
 
@@ -26,13 +26,19 @@ const Training = () => {
 
     loadView(id)
 
+    return () => resetView()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update, changes])
 
   useEffect(() => {
-    setPage(`${training.full_name}`)
+    setPage(`${training?.full_name}`)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [training.full_name])
+  }, [training?.full_name])
+
+  if (!training?.id) {
+    return null
+  }
 
   return (
     <main className="container-fluid">

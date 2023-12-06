@@ -4,7 +4,8 @@ import {
   modifyTraining,
   loadTrainings,
   removeTraining,
-  loadTrainingView
+  loadTrainingView,
+  resetTrainingView
 } from '../reducers/training/trainingSlice'
 
 const useTrainings = () => {
@@ -17,6 +18,7 @@ const useTrainings = () => {
   const load = (params) => dispatch(loadTrainings(params))
   const loadView = (id) => dispatch(loadTrainingView(id))
   const remove = (id) => dispatch(removeTraining(id))
+  const resetView = () => dispatch(resetTrainingView())
 
   return {
     add,
@@ -25,7 +27,8 @@ const useTrainings = () => {
     learnerTrainings,
     load,
     loadView,
-    remove
+    remove,
+    resetView
   }
 }
 
