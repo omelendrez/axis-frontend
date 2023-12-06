@@ -22,7 +22,7 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
 
     return () => setLearner(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
+  }, [params?.id])
 
   const handleClose = () => navigate('/learners')
 
