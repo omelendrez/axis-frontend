@@ -163,10 +163,13 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
     return null
   }
 
+  const title = <strong>Welcome Letter</strong>
+
   return (
     <>
       <Task
-        title="Welcome Letter"
+        key={title}
+        title={title}
         status={<Status trackingRecord={trackingRecord} />}
         className="welcome-letter"
         approveLabel="Approve"

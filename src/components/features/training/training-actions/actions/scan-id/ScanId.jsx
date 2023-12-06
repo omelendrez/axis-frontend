@@ -170,6 +170,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
   return (
     <>
       <Task
+        key={title}
         title={title}
         status={<Status trackingRecord={trackingRecord} />}
         className="scan-id"

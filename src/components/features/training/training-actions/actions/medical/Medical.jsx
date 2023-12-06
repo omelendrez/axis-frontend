@@ -121,6 +121,7 @@ export const Medical = ({ training, onUpdate, role, user }) => {
 
   return (
     <Task
+      key={title}
       title={title}
       status={<Status trackingRecord={trackingRecord} />}
       description={
