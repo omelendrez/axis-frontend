@@ -66,7 +66,7 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   }
 
   return (
-    <Task title={title} className="foet">
+    <Task title={title} className="foet" key={title}>
       <div className="foet-children">
         {isImage && <Preview imageUrl={url} />}
 

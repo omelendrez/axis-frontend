@@ -119,6 +119,7 @@ export const Payment = ({ training, onUpdate, role, user }) => {
 
   return (
     <Task
+      key={title}
       title={title}
       status={<Status trackingRecord={trackingRecord} />}
       description={

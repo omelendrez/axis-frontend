@@ -187,6 +187,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   return (
     <Task
+      key={title}
       title={title}
       status={<Status trackingRecord={trackingRecord} />}
       className="print"
@@ -218,7 +219,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
               id="learnerId"
               placeholder="Enter learner Id"
               onChange={handleOpitoFieldsChange}
-              value={learnerId}
+              value={learnerId || ''}
               readOnly={isComplete}
             />
           )}
@@ -231,7 +232,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
               id="certificateNo"
               placeholder="Enter certificate #"
               onChange={handleOpitoFieldsChange}
-              value={certificateNo}
+              value={certificateNo || ''}
               readOnly={isComplete}
             />
           )}

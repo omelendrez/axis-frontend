@@ -125,6 +125,7 @@ export const Picture = ({ training, onUpdate, role, user }) => {
   return (
     <>
       <Task
+        key={title}
         title={title}
         status={<Status trackingRecord={trackingRecord} />}
         className="picture"
