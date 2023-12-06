@@ -19,10 +19,16 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
         .then((res) => setLearner(res.data))
         .catch((e) => apiMessage(e))
     }
+
+    return () => setLearner(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
 
   const handleClose = () => navigate('/learners')
+
+  if (!learner?.id) {
+    return null
+  }
 
   return (
     <main className="container-fluid">

@@ -105,6 +105,18 @@ export function loadTrainingView(id) {
   }
 }
 
+export function resetTrainingView() {
+  const { setView, reset } = trainingSlice.actions
+
+  return async (dispatch) => {
+    try {
+      dispatch(setView(null))
+    } catch (error) {
+      handleError(error, dispatch, reset)
+    }
+  }
+}
+
 export function removeTraining(id) {
   const { setLoading, setSuccess, reset } = trainingSlice.actions
 
