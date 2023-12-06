@@ -140,6 +140,7 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           onUpdate()
         })
         .catch((e) => apiMessage(e))
+        .finally(() => setIsSubmitting(false))
     }
   }
 
