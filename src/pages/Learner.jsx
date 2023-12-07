@@ -26,7 +26,7 @@ const Learner = ({ isViewing, isAdding, isEditing }) => {
 
   const handleClose = () => navigate('/learners')
 
-  if (!learner?.id) {
+  if (!learner?.id && !isAdding) {
     return null
   }
 
