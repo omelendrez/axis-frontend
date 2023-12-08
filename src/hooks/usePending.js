@@ -12,11 +12,11 @@ const initialState = {
 const usePending = () => {
   const key = KEYS.pending
 
-  let lastPag = !session.get(key)
+  let lastPag = session.get(key)
 
   lastPag = !lastPag
     ? initialState
-    : { ...lastPag, date: new Date(lastPag.date) }
+    : { ...lastPag, date: !!lastPag.date ? new Date(lastPag.date) : null }
 
   const [pending, setPendings] = useState(lastPag)
 
