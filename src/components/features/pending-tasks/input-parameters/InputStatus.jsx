@@ -3,23 +3,12 @@ import { StatusSwitcher } from '..'
 
 import { Divider } from '@/components/shared'
 
-export const InputStatus = ({ statuses, onChange, selected, setPending }) => {
+export const InputStatus = ({ statuses, onChange, selected, setSelected }) => {
   const [allSelected, setAllSelected] = useState(false)
 
   const handleChange = (e) => {
     e.preventDefault()
-    if (allSelected) {
-      setPending({
-        selectedStatuses: [],
-        date: null
-      })
-    } else {
-      const selectedStatuses = statuses.map((s) => s.id)
-      setPending({
-        selectedStatuses,
-        date: null
-      })
-    }
+    setSelected(allSelected ? [] : statuses.map((s) => s.id))
   }
 
   useEffect(() => {

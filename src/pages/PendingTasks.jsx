@@ -1,4 +1,4 @@
-import { useEffect, useContext, useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import {
@@ -18,12 +18,9 @@ import useStatuses from '@/hooks/useStatuses'
 import useUser from '@/hooks/useUser'
 import useApiMessages from '@/hooks/useApiMessages'
 
-import { PendingTasksContext as PendingContext } from '@/context'
-
 import {
   formatYMD,
   matchRoleStatus,
-  initialValues,
   RADIO,
   TRAINING_STATUS,
   USER_ROLE
@@ -32,21 +29,21 @@ import {
 import { approveMultiple, rejectMultiple } from '@/services'
 
 import '../components/features/pending-tasks/pendingTasks.css'
+import usePagination from '@/hooks/usePagination'
+import usePending from '@/hooks/usePending'
 
 const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
-  REFRESH: 'REFRESH',
-  SHOW_INPUT_PARAMS: 'SHOW_INPUT_PARAMS'
+  REFRESH: 'REFRESH'
 }
 
 const initialState = {
   authorizedStatuses: [],
-  refresh: false,
-  showInputParameters: false
+  refresh: false
 }
 
 const reducer = (state, action) => {
-  const { AUTHORIZED_STATUSES, REFRESH, SHOW_INPUT_PARAMS } = REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH } = REDUCER_TYPES
 
   switch (action.type) {
     case AUTHORIZED_STATUSES:
@@ -61,12 +58,6 @@ const reducer = (state, action) => {
         refresh: action.payload
       }
 
-    case SHOW_INPUT_PARAMS:
-      return {
-        ...state,
-        showInputParameters: action.payload
-      }
-
     default:
       return state
   }
@@ -79,12 +70,10 @@ const PendingTasks = () => {
   const { roles: userRoles } = user
 
   const { apiMessage } = useApiMessages()
+
   const { set: setPage } = usePage()
 
-  const { pendingTasksParams: pending, setPendingTaksParams: setPending } =
-    useContext(PendingContext)
-
-  const { date, selectedStatuses } = pending
+  const [showInputParams, setShowInputParams] = useState(false)
 
   const { statuses, load: loadStatuses } = useStatuses()
   const { data: statusList } = statuses
@@ -92,25 +81,30 @@ const PendingTasks = () => {
   const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
+
+  const { pending, setPending } = usePending()
+
+  const { date, selectedStatuses } = pending
+
   const [selectedRows, setSelectedRows] = useState([])
+
   const [selectedRadioOption, setSelectedRadioOption] = useState(RADIO.NONE)
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const { authorizedStatuses, showInputParameters, refresh } = state
+  const { authorizedStatuses, refresh } = state
 
-  const { AUTHORIZED_STATUSES, REFRESH, SHOW_INPUT_PARAMS } = REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH } = REDUCER_TYPES
 
   useEffect(() => {
     setPage('My pending tasks')
     loadStatuses()
 
     return () => {
-      setPending((params) => ({
-        ...params,
-        date: null
-      }))
+      setPending({
+        ...pending
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -134,8 +128,8 @@ const PendingTasks = () => {
         parseInt(status.id, 10)
       )
 
-      setPending((params) => ({
-        ...params,
+      setPending((pending) => ({
+        ...pending,
         selectedStatuses
       }))
     }
@@ -144,7 +138,7 @@ const PendingTasks = () => {
   }, [authorizedStatuses, pagination])
 
   // useEffect(() => {
-  //   if (!showInputParameters) handleConfirm()
+  //   if (!showInputParams) handleConfirm()
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [selectedStatuses])
 
@@ -159,31 +153,27 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRadioOption])
+  }, [selectedRadioOption, date])
 
   useEffect(() => {
-    const payload = {
-      date: formatYMD(date),
-      statuses: selectedStatuses.join('-'),
-      pagination: { ...pagination }
-    }
-
     if (selectedStatuses.length) {
-      loadTrainings(payload)
+      loadTrainings({
+        date: formatYMD(date),
+        statuses: selectedStatuses.join('-'),
+        pagination: { ...pagination }
+      })
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination, selectedStatuses, refresh])
+  }, [pagination, pending, refresh])
 
-  const handleSelected = (payload) => {
-    setSelectedRows(payload)
-  }
+  const handleSelected = (payload) => setSelectedRows(payload)
 
   const handleView = (training) => navigate(`/training/${training}`)
 
   const handleSelectedDateView = (e) => {
     e.preventDefault()
-    dispatch({ type: SHOW_INPUT_PARAMS, payload: true })
+    setShowInputParams(true)
   }
 
   const setToday = (e) => {
@@ -191,23 +181,23 @@ const PendingTasks = () => {
     handleCalendarChange(new Date())
   }
 
-  const handleCalendarChange = (date) =>
-    setPending((params) => ({ ...params, date }))
+  const handleCalendarChange = (date) => setPending({ ...pending, date })
 
   const handleStatusChange = (e) => {
     const { id, checked } = e.target
+
     if (checked) {
-      setPending((p) => ({
-        ...p,
-        selectedStatuses: [...p.selectedStatuses, parseInt(id, 10)]
-      }))
+      setPending({
+        ...pending,
+        selectedStatuses: [...selectedStatuses, parseInt(id, 10)]
+      })
     } else {
-      setPending((p) => ({
-        ...p,
-        selectedStatuses: p.selectedStatuses.filter(
+      setPending({
+        ...pending,
+        selectedStatuses: selectedStatuses.filter(
           (status) => status !== parseInt(id, 10)
         )
-      }))
+      })
     }
   }
 
@@ -215,16 +205,22 @@ const PendingTasks = () => {
     e?.preventDefault()
     if (selectedStatuses?.length) {
       dispatch({ type: REFRESH, payload: !refresh })
-      dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
+      setShowInputParams(false)
     }
   }
 
   const handleClose = (e) => {
     e.preventDefault()
-    dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
+    setShowInputParams(false)
   }
 
   const handleRadioButtonsChange = (option) => setSelectedRadioOption(option)
+
+  const handleSelectAllNone = (selectedStatuses) =>
+    setPending({
+      ...pending,
+      selectedStatuses
+    })
 
   const buildPayload = (status) => ({
     records: selectedRows.map((r) => [r.id, status, user.id])
@@ -284,10 +280,10 @@ const PendingTasks = () => {
 
       <Divider style={{ height: '1rem' }} />
 
-      {!showInputParameters && (
+      {!showInputParams && (
         <SelectedDateView date={date} onClick={handleSelectedDateView} />
       )}
-      {showInputParameters && (
+      {showInputParams && (
         <InputParameters
           onCalendarChange={handleCalendarChange}
           onStatusChange={handleStatusChange}
@@ -297,7 +293,7 @@ const PendingTasks = () => {
           selectedStatuses={selectedStatuses}
           onConfirm={handleConfirm}
           onClose={handleClose}
-          selecteAllNone={setPending}
+          onSelecteAllNone={handleSelectAllNone}
           records={data.count}
         />
       )}

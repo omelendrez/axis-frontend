@@ -11,8 +11,8 @@ import {
 
 import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
+import usePagination from '@/hooks/usePagination'
 
-import { initialValues } from '@/helpers'
 import './opitoFileCard.css'
 
 const Card = ({ item, onView }) => {
@@ -50,7 +50,7 @@ const Card = ({ item, onView }) => {
 const OpitoFileGenerate = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState({ rows: [], count: 0 })
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const { set: setPage } = usePage()
   const { apiMessage } = useApiMessages()

@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, ListView, AddButton } from '@/components'
 
 import useNationalities from '@/hooks/useNationalities'
 import useNotification from '@/hooks/useNotification'
-
-import { initialValues } from '@/helpers'
+import usePagination from '@/hooks/usePagination'
 
 const Nationalities = () => {
   const {
@@ -15,7 +14,7 @@ const Nationalities = () => {
   } = useNationalities()
   const { data, isLoading, isSuccess, isError, error } = nationalities
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const navigate = useNavigate()
   const { set } = useNotification()

@@ -5,8 +5,7 @@ import { Loading, CardList, AddButton, Tag } from '@/components'
 import useLearners from '@/hooks/useLearners'
 import useNotification from '@/hooks/useNotification'
 import usePage from '@/hooks/usePage'
-
-import { initialValues } from '@/helpers'
+import usePagination from '@/hooks/usePagination'
 
 import {
   getBucketDocumentUrl,
@@ -60,7 +59,7 @@ const Learners = () => {
   const { learners, load: loadLearners } = useLearners()
   const { data, isLoading, isSuccess, isError, error } = learners
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const navigate = useNavigate()
   const { set } = useNotification()

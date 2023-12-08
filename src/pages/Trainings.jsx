@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList, Card } from '@/components'
 
 import useTrainings from '@/hooks/useTrainings'
-
-import { initialValues } from '@/helpers'
+import usePagination from '@/hooks/usePagination'
 
 import './trainings-card.css'
 import usePage from '@/hooks/usePage'
 
 const Trainings = () => {
-  const { trainings, load: loadTrainings } = useTrainings()
   const navigate = useNavigate()
+  const { pagination, setPagination } = usePagination()
+  const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
-  const [pagination, setPagination] = useState(initialValues)
 
   const { set: setPage } = usePage()
 

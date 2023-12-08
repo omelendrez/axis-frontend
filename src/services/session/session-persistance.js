@@ -4,7 +4,11 @@ export class SP {
   }
 
   get = function (key) {
-    return JSON.parse(sessionStorage.getItem(key))
+    try {
+      return JSON.parse(sessionStorage.getItem(key))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   delete = function (key) {
@@ -20,5 +24,6 @@ export const KEYS = {
   token: 'token',
   user: 'user',
   network: 'network',
-  pagination: 'pagination'
+  pagination: 'pagination',
+  pending: 'pending'
 }

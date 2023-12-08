@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList, AddButton, Tag } from '@/components'
 
 import useCourses from '@/hooks/useCourses'
 import useNotification from '@/hooks/useNotification'
-
-import { initialValues } from '@/helpers'
+import usePage from '@/hooks/usePage'
+import usePagination from '@/hooks/usePagination'
 
 import './course-card.css'
-import usePage from '@/hooks/usePage'
 
 const Card = ({ item, onView }) => (
   <article className="card courses" onClick={() => onView(item)}>
@@ -43,7 +42,7 @@ const Courses = () => {
   const { courses, load: loadCourses } = useCourses()
   const { data, isLoading, isSuccess, isError, error } = courses
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const navigate = useNavigate()
   const { set } = useNotification()

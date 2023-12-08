@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ListView, Loading, AddButton } from '@/components'
 
 import useCompanies from '@/hooks/useCompanies'
 import useNotification from '@/hooks/useNotification'
-
-import { initialValues } from '@/helpers'
+import usePagination from '@/hooks/usePagination'
 
 const Companies = () => {
   const {
@@ -15,7 +14,7 @@ const Companies = () => {
   } = useCompanies()
   const { data, isLoading, isSuccess, isError, error } = companies
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const navigate = useNavigate()
   const { set } = useNotification()

@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, CardList, AddButton, Tag } from '@/components'
 
 import useUsers from '@/hooks/useUsers'
 import useNotification from '@/hooks/useNotification'
 
-import { initialValues } from '@/helpers'
-
 import './user-card.css'
 import usePage from '@/hooks/usePage'
+import usePagination from '@/hooks/usePagination'
 
 const Card = ({ item, onView }) => {
   const roles = JSON.parse(item.roles)
@@ -47,7 +46,7 @@ const Users = () => {
   const { users, load: loadUsers } = useUsers()
   const { data, isLoading, isSuccess, isError, error } = users
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const navigate = useNavigate()
   const { set } = useNotification()
@@ -80,10 +79,6 @@ const Users = () => {
   const handleView = (user) => {
     navigate(`/user/${user.id}`)
   }
-
-  // const handleDelete = (user) => {
-  //   removeUser(user.id)
-  // }
 
   const fields = [
     { name: 'name', label: 'Name' },
