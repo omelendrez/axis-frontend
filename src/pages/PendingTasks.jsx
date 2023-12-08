@@ -23,7 +23,7 @@ import { PendingTasksContext as PendingContext } from '@/context'
 import {
   formatYMD,
   matchRoleStatus,
-  initialValues,
+  paginationInitialValues,
   RADIO,
   TRAINING_STATUS,
   USER_ROLE
@@ -35,18 +35,16 @@ import '../components/features/pending-tasks/pendingTasks.css'
 
 const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
-  REFRESH: 'REFRESH',
-  SHOW_INPUT_PARAMS: 'SHOW_INPUT_PARAMS'
+  REFRESH: 'REFRESH'
 }
 
 const initialState = {
   authorizedStatuses: [],
-  refresh: false,
-  showInputParameters: false
+  refresh: false
 }
 
 const reducer = (state, action) => {
-  const { AUTHORIZED_STATUSES, REFRESH, SHOW_INPUT_PARAMS } = REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH } = REDUCER_TYPES
 
   switch (action.type) {
     case AUTHORIZED_STATUSES:
@@ -59,12 +57,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         refresh: action.payload
-      }
-
-    case SHOW_INPUT_PARAMS:
-      return {
-        ...state,
-        showInputParameters: action.payload
       }
 
     default:
@@ -84,6 +76,8 @@ const PendingTasks = () => {
   const { pendingTasksParams: pending, setPendingTaksParams: setPending } =
     useContext(PendingContext)
 
+  const [showInputParams, setShowInputParams] = useState(false)
+
   const { date, selectedStatuses } = pending
 
   const { statuses, load: loadStatuses } = useStatuses()
@@ -92,15 +86,15 @@ const PendingTasks = () => {
   const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
 
-  const [pagination, setPagination] = useState(initialValues)
+  const [pagination, setPagination] = useState(paginationInitialValues)
   const [selectedRows, setSelectedRows] = useState([])
   const [selectedRadioOption, setSelectedRadioOption] = useState(RADIO.NONE)
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const { authorizedStatuses, showInputParameters, refresh } = state
+  const { authorizedStatuses, refresh } = state
 
-  const { AUTHORIZED_STATUSES, REFRESH, SHOW_INPUT_PARAMS } = REDUCER_TYPES
+  const { AUTHORIZED_STATUSES, REFRESH } = REDUCER_TYPES
 
   useEffect(() => {
     setPage('My pending tasks')
@@ -144,7 +138,7 @@ const PendingTasks = () => {
   }, [authorizedStatuses, pagination])
 
   // useEffect(() => {
-  //   if (!showInputParameters) handleConfirm()
+  //   if (!showInputParams) handleConfirm()
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [selectedStatuses])
 
@@ -183,7 +177,7 @@ const PendingTasks = () => {
 
   const handleSelectedDateView = (e) => {
     e.preventDefault()
-    dispatch({ type: SHOW_INPUT_PARAMS, payload: true })
+    setShowInputParams(true)
   }
 
   const setToday = (e) => {
@@ -215,13 +209,13 @@ const PendingTasks = () => {
     e?.preventDefault()
     if (selectedStatuses?.length) {
       dispatch({ type: REFRESH, payload: !refresh })
-      dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
+      setShowInputParams(false)
     }
   }
 
   const handleClose = (e) => {
     e.preventDefault()
-    dispatch({ type: SHOW_INPUT_PARAMS, payload: false })
+    setShowInputParams(false)
   }
 
   const handleRadioButtonsChange = (option) => setSelectedRadioOption(option)
@@ -284,10 +278,10 @@ const PendingTasks = () => {
 
       <Divider style={{ height: '1rem' }} />
 
-      {!showInputParameters && (
+      {!showInputParams && (
         <SelectedDateView date={date} onClick={handleSelectedDateView} />
       )}
-      {showInputParameters && (
+      {showInputParams && (
         <InputParameters
           onCalendarChange={handleCalendarChange}
           onStatusChange={handleStatusChange}

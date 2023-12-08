@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Loading, ListView, AddButton } from '@/components'
 
 import useRoles from '@/hooks/useRoles'
 import useNotification from '@/hooks/useNotification'
-
-import { initialValues } from '@/helpers'
+import usePagination from '@/hooks/usePagination'
 
 const Roles = () => {
   const { roles, load: loadRoles, remove: removeRole } = useRoles()
   const { data, isLoading, isSuccess, isError, error } = roles
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   const navigate = useNavigate()
   const { set } = useNotification()

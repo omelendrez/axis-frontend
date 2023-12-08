@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
 import useCourses from '@/hooks/useCourses'
 import useNotification from '@/hooks/useNotification'
-import { CardList, Loading, Tag } from '@/components'
+import usePagination from '@/hooks/usePagination'
 import usePage from '@/hooks/usePage'
-import { initialValues } from '@/helpers'
-import { Link, useNavigate } from 'react-router-dom'
+
+import { CardList, Loading, Tag } from '@/components'
+
 import './course-card.css'
 
 const Card = ({ item, onView }) => (
@@ -29,7 +32,7 @@ const DocManager = () => {
 
   const { data, isLoading, isSuccess } = courses
 
-  const [pagination, setPagination] = useState(initialValues)
+  const { pagination, setPagination } = usePagination()
 
   useEffect(() => {
     loadCourses(pagination)
