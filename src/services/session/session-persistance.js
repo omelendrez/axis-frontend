@@ -24,5 +24,6 @@ export const KEYS = {
   token: 'token',
   user: 'user',
   network: 'network',
-  pagination: 'pagination'
+  pagination: 'pagination',
+  pending: 'pending'
 }

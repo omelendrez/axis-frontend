@@ -9,7 +9,7 @@ export const InputParameters = ({
   selectedStatuses,
   onConfirm,
   onClose,
-  selecteAllNone,
+  onSelecteAllNone,
   records
 }) => {
   return (
@@ -23,7 +23,7 @@ export const InputParameters = ({
         statuses={statuses}
         onChange={onStatusChange}
         selected={selectedStatuses}
-        setPending={selecteAllNone}
+        setSelected={onSelecteAllNone}
       />
       <div className="pending-tasks-confirm-button-container">
         <button

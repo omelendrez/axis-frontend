@@ -1,4 +1,4 @@
-import { useEffect, useContext, useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import {
@@ -18,12 +18,9 @@ import useStatuses from '@/hooks/useStatuses'
 import useUser from '@/hooks/useUser'
 import useApiMessages from '@/hooks/useApiMessages'
 
-import { PendingTasksContext as PendingContext } from '@/context'
-
 import {
   formatYMD,
   matchRoleStatus,
-  paginationInitialValues,
   RADIO,
   TRAINING_STATUS,
   USER_ROLE
@@ -32,6 +29,8 @@ import {
 import { approveMultiple, rejectMultiple } from '@/services'
 
 import '../components/features/pending-tasks/pendingTasks.css'
+import usePagination from '@/hooks/usePagination'
+import usePending from '@/hooks/usePending'
 
 const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
@@ -71,14 +70,10 @@ const PendingTasks = () => {
   const { roles: userRoles } = user
 
   const { apiMessage } = useApiMessages()
+
   const { set: setPage } = usePage()
 
-  const { pendingTasksParams: pending, setPendingTaksParams: setPending } =
-    useContext(PendingContext)
-
   const [showInputParams, setShowInputParams] = useState(false)
-
-  const { date, selectedStatuses } = pending
 
   const { statuses, load: loadStatuses } = useStatuses()
   const { data: statusList } = statuses
@@ -86,8 +81,14 @@ const PendingTasks = () => {
   const { trainings, load: loadTrainings } = useTrainings()
   const { data, isLoading } = trainings
 
-  const [pagination, setPagination] = useState(paginationInitialValues)
+  const { pagination, setPagination } = usePagination()
+
+  const { pending, setPending } = usePending()
+
+  const { date, selectedStatuses } = pending
+
   const [selectedRows, setSelectedRows] = useState([])
+
   const [selectedRadioOption, setSelectedRadioOption] = useState(RADIO.NONE)
 
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -101,10 +102,9 @@ const PendingTasks = () => {
     loadStatuses()
 
     return () => {
-      setPending((params) => ({
-        ...params,
-        date: null
-      }))
+      setPending({
+        ...pending
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -128,8 +128,8 @@ const PendingTasks = () => {
         parseInt(status.id, 10)
       )
 
-      setPending((params) => ({
-        ...params,
+      setPending((pending) => ({
+        ...pending,
         selectedStatuses
       }))
     }
@@ -153,25 +153,21 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRadioOption])
+  }, [selectedRadioOption, date])
 
   useEffect(() => {
-    const payload = {
-      date: formatYMD(date),
-      statuses: selectedStatuses.join('-'),
-      pagination: { ...pagination }
-    }
-
     if (selectedStatuses.length) {
-      loadTrainings(payload)
+      loadTrainings({
+        date: formatYMD(date),
+        statuses: selectedStatuses.join('-'),
+        pagination: { ...pagination }
+      })
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination, selectedStatuses, refresh])
+  }, [pagination, pending, refresh])
 
-  const handleSelected = (payload) => {
-    setSelectedRows(payload)
-  }
+  const handleSelected = (payload) => setSelectedRows(payload)
 
   const handleView = (training) => navigate(`/training/${training}`)
 
@@ -185,23 +181,23 @@ const PendingTasks = () => {
     handleCalendarChange(new Date())
   }
 
-  const handleCalendarChange = (date) =>
-    setPending((params) => ({ ...params, date }))
+  const handleCalendarChange = (date) => setPending({ ...pending, date })
 
   const handleStatusChange = (e) => {
     const { id, checked } = e.target
+
     if (checked) {
-      setPending((p) => ({
-        ...p,
-        selectedStatuses: [...p.selectedStatuses, parseInt(id, 10)]
-      }))
+      setPending({
+        ...pending,
+        selectedStatuses: [...selectedStatuses, parseInt(id, 10)]
+      })
     } else {
-      setPending((p) => ({
-        ...p,
-        selectedStatuses: p.selectedStatuses.filter(
+      setPending({
+        ...pending,
+        selectedStatuses: selectedStatuses.filter(
           (status) => status !== parseInt(id, 10)
         )
-      }))
+      })
     }
   }
 
@@ -219,6 +215,12 @@ const PendingTasks = () => {
   }
 
   const handleRadioButtonsChange = (option) => setSelectedRadioOption(option)
+
+  const handleSelectAllNone = (selectedStatuses) =>
+    setPending({
+      ...pending,
+      selectedStatuses
+    })
 
   const buildPayload = (status) => ({
     records: selectedRows.map((r) => [r.id, status, user.id])
@@ -291,7 +293,7 @@ const PendingTasks = () => {
           selectedStatuses={selectedStatuses}
           onConfirm={handleConfirm}
           onClose={handleClose}
-          selecteAllNone={setPending}
+          onSelecteAllNone={handleSelectAllNone}
           records={data.count}
         />
       )}

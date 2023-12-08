@@ -16,6 +16,7 @@ const usePagination = () => {
   if (!lastPag) {
     lastPag = paginationInitialValues
   }
+
   const [pagination, setPag] = useState(lastPag)
 
   useEffect(() => {
