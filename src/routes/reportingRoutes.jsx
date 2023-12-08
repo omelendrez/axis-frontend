@@ -4,6 +4,8 @@ import { ProtectedRoute } from '@/guard'
 
 const Reporting = lazy(() => import('@/pages/Reporting'))
 const TopTrainingCourses = lazy(() => import('@/pages/TopTrainingCourses'))
+const LearnerByMonth = lazy(() => import('@/pages/LearnerByMonth'))
+const CourseByMonth = lazy(() => import('@/pages/CourseByMonth'))
 
 export const reportingRoutes = (
   <>
@@ -22,6 +24,24 @@ export const reportingRoutes = (
       element={
         <ProtectedRoute>
           <TopTrainingCourses />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      exact
+      path="/reporting/learner-by-month"
+      element={
+        <ProtectedRoute>
+          <LearnerByMonth />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      exact
+      path="/reporting/course-by-month"
+      element={
+        <ProtectedRoute>
+          <CourseByMonth />
         </ProtectedRoute>
       }
     />
