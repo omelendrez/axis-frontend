@@ -1,15 +1,23 @@
 [
   {
-    "id": "TopTrainingCourses",
-    "name": "Top Training Courses",
-    "description": "Top 10 most popular courses per month",
-    "path": "/reporting/top-training-courses",
-    "icon": "local_library"
+    "id": "CourseByMonth",
+    "name": "Courses By Month",
+    "description": "Total courses ran by month for a given year",
+    "path": "/reporting/course-by-month",
+    "icon": "pending_actions"
   },
   {
-    "id": "OtherReport",
-    "name": "Other Report",
-    "description": "Development in progress...",
+    "id": "LearnerByMonth",
+    "name": "Delegates By Month",
+    "description": "Total delegates trained by month for a given year",
+    "path": "/reporting/learner-by-month",
     "icon": "pending_actions"
+  },
+  {
+    "id": "TopTrainingCourses",
+    "name": "Top Training Courses",
+    "description": "Top 10 most popular courses by month for a given year",
+    "path": "/reporting/top-training-courses",
+    "icon": "local_library"
   }
 ]

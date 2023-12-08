@@ -22,6 +22,12 @@ export const getCourseYears = () => api.get(`${endpoint}/course-years`)
 export const getCourseMonthByYear = (year) =>
   api.get(`${endpoint}/course-month-by-year/${year}`)
 
+export const getMonthByYear = (year) =>
+  api.get(`${endpoint}/month-by-year/${year}`)
+
+export const getCourseByYear = (year) =>
+  api.get(`${endpoint}/course-by-year/${year}`)
+
 export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 
 export const getTraining = (id) => api.get(`${endpoint}/${id}`)
