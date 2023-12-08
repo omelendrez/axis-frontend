@@ -17,6 +17,8 @@ import useTrainings from '@/hooks/useTrainings'
 import useStatuses from '@/hooks/useStatuses'
 import useUser from '@/hooks/useUser'
 import useApiMessages from '@/hooks/useApiMessages'
+import usePagination from '@/hooks/usePagination'
+import usePending from '@/hooks/usePending'
 
 import {
   formatYMD,
@@ -29,8 +31,6 @@ import {
 import { approveMultiple, rejectMultiple } from '@/services'
 
 import '../components/features/pending-tasks/pendingTasks.css'
-import usePagination from '@/hooks/usePagination'
-import usePending from '@/hooks/usePending'
 
 const REDUCER_TYPES = {
   AUTHORIZED_STATUSES: 'AUTHORIZED_STATUSES',
@@ -101,11 +101,6 @@ const PendingTasks = () => {
     setPage('My pending tasks')
     loadStatuses()
 
-    return () => {
-      setPending({
-        ...pending
-      })
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -135,7 +130,7 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authorizedStatuses, pagination])
+  }, [authorizedStatuses])
 
   // useEffect(() => {
   //   if (!showInputParams) handleConfirm()
@@ -153,7 +148,7 @@ const PendingTasks = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRadioOption, date])
+  }, [selectedRadioOption])
 
   useEffect(() => {
     if (selectedStatuses.length) {
