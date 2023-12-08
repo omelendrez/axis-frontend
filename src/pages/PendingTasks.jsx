@@ -176,7 +176,13 @@ const PendingTasks = () => {
     handleCalendarChange(new Date())
   }
 
-  const handleCalendarChange = (date) => setPending({ ...pending, date })
+  const handleCalendarChange = (date) => {
+    if (formatYMD(pending.date) !== formatYMD(date)) {
+      setPending({ ...pending, date })
+    } else {
+      setPending({ ...pending, date: null })
+    }
+  }
 
   const handleStatusChange = (e) => {
     const { id, checked } = e.target
