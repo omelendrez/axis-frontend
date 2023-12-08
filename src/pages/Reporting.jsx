@@ -1,129 +1,42 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Chart } from 'react-charts'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { CardList } from '@/components'
+
+import usePagination from '@/hooks/usePagination'
 import usePage from '@/hooks/usePage'
-import { Link } from 'react-router-dom'
 
 import './reporting.css'
-import { getCourseMonthByYear, getCourseYears } from '@/services'
-import { Button, InputField } from '@/components'
-import useApiMessages from '@/hooks/useApiMessages'
+import { useEffect } from 'react'
+
+import reports from './reporting.json'
+
+const Card = ({ item, onView }) => (
+  <article className="card option" onClick={() => onView(item)}>
+    <div className="icon">
+      <span className="material-icons">{item.icon}</span>
+    </div>
+    <div className="card-body">
+      <div className="name">{item.name}</div>
+      <div className="description">{item.description}</div>
+    </div>
+  </article>
+)
 
 const Reporting = () => {
+  const navigate = useNavigate()
+  const { pagination, setPagination } = usePagination()
   const { set: setPage } = usePage()
-
-  const [years, setYears] = useState([])
-
-  const [year, setYear] = useState(null)
-
-  const [isDisabled, setIsDisabled] = useState(true)
-
-  const [isHidding, setIsHidding] = useState(true)
-
-  const [data, setData] = useState([])
-
-  const { apiMessage } = useApiMessages()
+  const handleView = (item) => navigate(item.path)
 
   useEffect(() => {
     setPage('Reporting')
-
-    getCourseYears()
-      .then((res) => setYears(res.data))
-      .catch((e) => apiMessage(e))
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleYearChange = (e) => {
-    e.preventDefault()
-    const { min, max } = years
-
-    const value = e.target.value
-
-    setYear(value)
-
-    setIsHidding(true)
-
-    if (value <= max && value >= min) {
-      setIsDisabled(false)
-    } else {
-      setIsDisabled(true)
-    }
+  const data = {
+    rows: reports,
+    count: reports.length
   }
-
-  const defaultData = [
-    { month: 'January', value: 0 },
-    { month: 'February', value: 0 },
-    { month: 'March', value: 0 },
-    { month: 'April', value: 0 },
-    { month: 'May', value: 0 },
-    { month: 'June', value: 0 },
-    { month: 'July', value: 0 },
-    { month: 'August', value: 0 },
-    { month: 'September', value: 0 },
-    { month: 'October', value: 0 },
-    { month: 'November', value: 0 },
-    { month: 'December', value: 0 }
-  ]
-
-  const handleLoadData = (e) => {
-    e.preventDefault()
-
-    getCourseMonthByYear(year)
-      .then((res) => {
-        const results = []
-        let { course } = res.data[0]
-        let data = defaultData
-        res.data.forEach((d) => {
-          if (course === d.course) {
-            const { month, value } = d
-            data = data.map((r) => {
-              if (r.month === month) {
-                return { month, value }
-              }
-              return r
-            })
-          } else {
-            const row = {
-              label: course,
-              data: data
-            }
-            results.push(row)
-            course = d.course
-            const { month, value } = d
-            data = defaultData.map((r) => {
-              if (r.month === month) {
-                return { month, value }
-              }
-              return r
-            })
-          }
-        })
-        setData(results)
-        setIsHidding(false)
-      })
-      .catch((e) => apiMessage(e))
-
-    setIsDisabled(true)
-  }
-
-  const primaryAxis = useMemo(
-    () => ({
-      getValue: (datum) => datum.month
-    }),
-    []
-  )
-
-  const secondaryAxes = useMemo(
-    () => [
-      {
-        getValue: (datum) => datum.value,
-        stacked: true
-      }
-    ],
-    []
-  )
-
   return (
     <main className="container reporting">
       <nav aria-label="breadcrumb" className="breadcrumb">
@@ -134,32 +47,16 @@ const Reporting = () => {
           <li>Reporting</li>
         </ul>
       </nav>
-      <h6>TOP 10 Monthly training courses</h6>
-      <div className="reporting-chart-input">
-        <InputField
-          type="number"
-          id="year"
-          label="Year"
-          value={year}
-          onChange={handleYearChange}
-        />
-        <Button onClick={handleLoadData} disabled={isDisabled}>
-          load
-        </Button>
-      </div>
-      {data.length > 0 && (
-        <div
-          className={`reporting-chart-container ${isHidding ? 'opaque' : ''}`}
-        >
-          <Chart
-            options={{
-              data,
-              primaryAxis,
-              secondaryAxes
-            }}
-          />
-        </div>
-      )}
+
+      <CardList
+        Card={Card}
+        data={data}
+        onView={handleView}
+        pagination={pagination}
+        onPagination={setPagination}
+        noSearch
+        noPagination
+      />
     </main>
   )
 }

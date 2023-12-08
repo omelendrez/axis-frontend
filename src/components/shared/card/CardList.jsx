@@ -8,8 +8,10 @@ import { useLocation } from 'react-router-dom'
 export const CardList = ({
   Card,
   data,
+  noSearch,
   pagination,
   onPagination,
+  noPagination,
   fields,
   onEdit,
   onDelete,
@@ -55,7 +57,7 @@ export const CardList = ({
 
   return (
     <>
-      {(dataCount > 0 || search.length > 0) && (
+      {(dataCount > 0 || search.length > 0) && !noSearch && (
         <Search
           onChange={handleSearchChange}
           value={searchText}
@@ -94,7 +96,7 @@ export const CardList = ({
           />
         ))}
       </div>
-      {dataCount > 0 && (
+      {dataCount > 0 && !noPagination && (
         <Pagination
           onPage={handlePageChange}
           page={page}

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "TopTrainingCourses",
+    "name": "Top Training Courses",
+    "description": "Top 10 most popular courses per month",
+    "path": "/reporting/top-training-courses",
+    "icon": "local_library"
+  },
+  {
+    "id": "OtherReport",
+    "name": "Other Report",
+    "description": "Development in progress...",
+    "icon": "pending_actions"
+  }
+]
