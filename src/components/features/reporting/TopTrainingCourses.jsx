@@ -100,6 +100,11 @@ export const TopTrainingCourses = () => {
             })
           }
         })
+        const row = {
+          label: course,
+          data: data
+        }
+        results.push(row)
         setData(results)
         setIsHidding(false)
       })
