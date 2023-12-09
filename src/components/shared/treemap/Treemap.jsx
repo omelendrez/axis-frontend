@@ -21,6 +21,7 @@ export const Treemap = ({ data, width, height }) => {
       .sort((a, b) => b.value - a.value)
 
     // create treemap layout
+
     const treemapRoot = d3.treemap().size([width, height]).padding(1)(root)
 
     // create 'g' element nodes based on data
@@ -32,7 +33,7 @@ export const Treemap = ({ data, width, height }) => {
 
     // create color scheme and fader
     const fader = (color) => d3.interpolateRgb(color, '#fff')(0.3)
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10.map(fader))
+    const colorScale = d3.scaleOrdinal(d3.schemeAccent.map(fader))
 
     function wrapText(selection) {
       selection.each(function () {

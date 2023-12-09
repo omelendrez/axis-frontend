@@ -10,6 +10,7 @@ import useReportYear from '@/hooks/useReportYear'
 import { getCourseByYear, getCourseYears } from '@/services'
 
 import './reportChart.css'
+import { capitalize } from '@/helpers'
 
 export const CourseByMonth = () => {
   const { set: setPage } = usePage()
@@ -60,7 +61,7 @@ export const CourseByMonth = () => {
       .then((res) => {
         const data = res.data.map((d) => {
           const { course, value } = d
-          return { course, value }
+          return { course: capitalize(course), value }
         })
 
         const results = [
