@@ -73,3 +73,6 @@ export const getScannedDocName = (id) => `${documentNumber(id)}.jpg`
 // for learner photographs and learners id cards
 // those documents are associated to a learner
 export const getImageFilename = (badge) => `${badge}.jpg`
+
+export const capitalize = (word) =>
+  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()

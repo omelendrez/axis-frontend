@@ -1,0 +1,18 @@
+.reporting-chart-input {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 1.5rem;
+}
+
+.reporting-chart-input > * {
+  width: fit-content;
+}
+
+.reporting-chart-input input {
+  width: 6rem;
+  text-align: center;
+}
