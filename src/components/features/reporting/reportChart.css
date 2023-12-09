@@ -1,5 +1,5 @@
 .reporting-chart-container {
-  height: 400px;
+  height: 540px;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }

@@ -107,7 +107,7 @@ export const CoursesTreemap = () => {
       <div
         className={`reporting-treemap-container ${isHidding ? 'opaque' : ''}`}
       >
-        <Treemap data={data} height={500} width={1200} />
+        <Treemap data={data} height={480} width={1000} />
       </div>
     </main>
   )
