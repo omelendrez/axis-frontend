@@ -25,5 +25,6 @@ export const KEYS = {
   user: 'user',
   network: 'network',
   pagination: 'pagination',
-  pending: 'pending'
+  pending: 'pending',
+  year: 'year-report'
 }

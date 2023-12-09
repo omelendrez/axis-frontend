@@ -16,9 +16,8 @@ const CourseByMonth = () => {
           <li>Courses by Month</li>
         </ul>
       </nav>
-      <article className="form-container">
-        <CourseByMonthComponent />
-      </article>
+
+      <CourseByMonthComponent />
     </main>
   )
 }

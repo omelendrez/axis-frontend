@@ -1,23 +1,26 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Chart } from 'react-charts'
 
+import { YearInput } from './YearInput'
+
 import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
-
-import { Button, InputField } from '@/components'
+import useReportYear from '@/hooks/useReportYear'
 
 import { getCourseYears, getMonthByYear } from '@/services'
 
-import './learnerByMonth.css'
+import { defaultReportData } from '@/helpers'
+
+import './reportChart.css'
 
 export const LearnerByMonth = () => {
   const { set: setPage } = usePage()
 
   const [years, setYears] = useState([])
 
-  const [year, setYear] = useState(null)
+  const { year, setYear } = useReportYear()
 
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const [isHidding, setIsHidding] = useState(true)
 
@@ -52,28 +55,13 @@ export const LearnerByMonth = () => {
     }
   }
 
-  const defaultData = [
-    { month: 'January', value: 0 },
-    { month: 'February', value: 0 },
-    { month: 'March', value: 0 },
-    { month: 'April', value: 0 },
-    { month: 'May', value: 0 },
-    { month: 'June', value: 0 },
-    { month: 'July', value: 0 },
-    { month: 'August', value: 0 },
-    { month: 'September', value: 0 },
-    { month: 'October', value: 0 },
-    { month: 'November', value: 0 },
-    { month: 'December', value: 0 }
-  ]
-
   const handleLoadData = (e) => {
     e.preventDefault()
 
     getMonthByYear(year)
       .then((res) => {
         const results = []
-        let data = defaultData
+        let data = defaultReportData
         res.data.forEach((d) => {
           const { month, value } = d
           data = data.map((r) => {
@@ -114,19 +102,14 @@ export const LearnerByMonth = () => {
   )
 
   return (
-    <main className="container reporting">
-      <div className="reporting-chart-input">
-        <InputField
-          type="number"
-          id="year"
-          label="Year"
-          value={year}
-          onChange={handleYearChange}
-        />
-        <Button onClick={handleLoadData} disabled={isDisabled}>
-          load
-        </Button>
-      </div>
+    <main className="reporting">
+      <YearInput
+        year={year}
+        onLoadClick={handleLoadData}
+        disabled={isDisabled}
+        onChange={handleYearChange}
+      />
+
       {data.length > 0 && (
         <div
           className={`reporting-chart-container ${isHidding ? 'opaque' : ''}`}

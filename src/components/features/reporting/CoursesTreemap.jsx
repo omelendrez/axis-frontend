@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Chart } from 'react-charts'
+import { useEffect, useState } from 'react'
 
 import { YearInput } from './YearInput'
 
@@ -7,11 +6,13 @@ import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
 import useReportYear from '@/hooks/useReportYear'
 
-import { getCourseByYear, getCourseYears } from '@/services'
+import { getCourseTypeByYear, getCourseYears } from '@/services'
 
 import './reportChart.css'
+import { Treemap } from '@/components/shared'
+import { capitalize } from '@/helpers'
 
-export const CourseByMonth = () => {
+export const CoursesTreemap = () => {
   const { set: setPage } = usePage()
 
   const [years, setYears] = useState([])
@@ -22,7 +23,7 @@ export const CourseByMonth = () => {
 
   const [isHidding, setIsHidding] = useState(true)
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
 
   const { apiMessage } = useApiMessages()
 
@@ -56,47 +57,46 @@ export const CourseByMonth = () => {
   const handleLoadData = (e) => {
     e.preventDefault()
 
-    getCourseByYear(year)
+    getCourseTypeByYear(year)
       .then((res) => {
-        const data = res.data.map((d) => {
-          const { course, value } = d
-          return { course, value }
-        })
-
-        const results = [
-          {
-            label: 'Courses',
-            data
+        const results = []
+        const rows = res.data
+        let { type } = rows[0]
+        let children = []
+        rows.forEach((r) => {
+          const { course, count } = r
+          if (type === r.type) {
+            children.push({
+              category: type,
+              name: capitalize(course),
+              value: count
+            })
+          } else {
+            const row = {
+              name: type,
+              children
+            }
+            results.push(row)
+            type = r.type
+            children = []
           }
-        ]
+        })
+        const row = {
+          name: type,
+          children
+        }
+        results.push(row)
 
-        setData(results)
+        setData({ name: 'Test', children: results })
+
         setIsHidding(false)
       })
       .catch((e) => apiMessage(e))
-
     setIsDisabled(true)
   }
 
-  const primaryAxis = useMemo(
-    () => ({
-      getValue: (datum) => datum.course
-    }),
-    []
-  )
-
-  const secondaryAxes = useMemo(
-    () => [
-      {
-        getValue: (datum) => datum.value,
-        stacked: true
-      }
-    ],
-    []
-  )
-
   return (
-    <main className="container reporting">
+    <main className="container-fluid">
       <YearInput
         year={year}
         onLoadClick={handleLoadData}
@@ -104,19 +104,11 @@ export const CourseByMonth = () => {
         onChange={handleYearChange}
       />
 
-      {data.length > 0 && (
-        <div
-          className={`reporting-chart-container ${isHidding ? 'opaque' : ''}`}
-        >
-          <Chart
-            options={{
-              data,
-              primaryAxis,
-              secondaryAxes
-            }}
-          />
-        </div>
-      )}
+      <div
+        className={`reporting-treemap-container ${isHidding ? 'opaque' : ''}`}
+      >
+        <Treemap data={data} height={500} width={1200} />
+      </div>
     </main>
   )
 }
