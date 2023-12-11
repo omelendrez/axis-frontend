@@ -28,7 +28,7 @@ export const CoursesTreemap = () => {
   const { apiMessage } = useApiMessages()
 
   useEffect(() => {
-    setPage('Total courses by month')
+    setPage('Courses treemap')
 
     getCourseYears()
       .then((res) => setYears(res.data))

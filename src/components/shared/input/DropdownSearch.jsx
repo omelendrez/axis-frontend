@@ -1,7 +1,14 @@
 import { useEffect, useState, useRef } from 'react'
 import './dropdownSearch.css'
 
-export const DropdownSearch = ({ id, label, onChange, value, options }) => {
+export const DropdownSearch = ({
+  id,
+  label,
+  onChange,
+  value,
+  options,
+  hideLabel
+}) => {
   const [filtered, setFiltered] = useState([])
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
@@ -62,7 +69,7 @@ export const DropdownSearch = ({ id, label, onChange, value, options }) => {
 
   return (
     <>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{!hideLabel && label}</label>
       <details role="list" open={open} className="dropdown-search">
         <summary
           aria-haspopup="listbox"

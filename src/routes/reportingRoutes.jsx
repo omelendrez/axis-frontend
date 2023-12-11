@@ -7,6 +7,7 @@ const TopTrainingCourses = lazy(() => import('@/pages/TopTrainingCourses'))
 const LearnerByMonth = lazy(() => import('@/pages/LearnerByMonth'))
 const CourseByMonth = lazy(() => import('@/pages/CourseByMonth'))
 const CoursesTreemap = lazy(() => import('@/pages/CoursesTreemap'))
+const TrainingRecords = lazy(() => import('@/pages/TrainingRecords'))
 
 export const reportingRoutes = (
   <>
@@ -52,6 +53,15 @@ export const reportingRoutes = (
       element={
         <ProtectedRoute>
           <CoursesTreemap />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      exact
+      path="/reporting/training-records"
+      element={
+        <ProtectedRoute>
+          <TrainingRecords />
         </ProtectedRoute>
       }
     />
