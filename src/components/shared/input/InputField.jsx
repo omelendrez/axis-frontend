@@ -11,13 +11,14 @@ const PasswordIcon = ({ password, onPasswordToggle }) => (
 )
 
 export const InputField = (props) => {
-  const { id, label, value, password } = props
+  const { id, label, value, password, hideLabel } = props
 
   const inputProps = {
     ...props,
     label: undefined,
     value: value || '',
-    type: password ? password : props.type
+    type: password ? password : props.type,
+    placeholder: label
   }
 
   delete inputProps.password
@@ -25,7 +26,7 @@ export const InputField = (props) => {
 
   return (
     <div className="form-control">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{!hideLabel && label}</label>
       <input {...inputProps} autoCorrect="off" />
       {props.onPasswordToggle && (
         <PasswordIcon

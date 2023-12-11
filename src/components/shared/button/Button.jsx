@@ -8,7 +8,7 @@ export const Button = ({
   ...props
 }) => (
   <button
-    className={`button ${className}`}
+    className={`button ${className || ''}`}
     onClick={onClick}
     disabled={disabled}
     {...props}

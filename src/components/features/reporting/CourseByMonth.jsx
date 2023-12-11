@@ -28,7 +28,7 @@ export const CourseByMonth = () => {
   const { apiMessage } = useApiMessages()
 
   useEffect(() => {
-    setPage('Total courses by month')
+    setPage('Courses by month')
 
     getCourseYears()
       .then((res) => setYears(res.data))
@@ -66,7 +66,7 @@ export const CourseByMonth = () => {
 
         const results = [
           {
-            label: 'Courses',
+            label: 'Total learners',
             data
           }
         ]

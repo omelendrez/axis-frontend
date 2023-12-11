@@ -1,5 +1,12 @@
 [
   {
+    "id": "TrainingRecords",
+    "name": "Training Records",
+    "description": "List of training records",
+    "path": "/reporting/training-records",
+    "icon": "file_download"
+  },
+  {
     "id": "CourseByMonth",
     "name": "Courses By Month",
     "description": "Total courses ran by month for a given year",
@@ -18,7 +25,7 @@
     "name": "Courses Treemap",
     "description": "A treemap representations of training courses taken in a given year",
     "path": "/reporting/courses-treemap",
-    "icon": "table_chart"
+    "icon": "gradient"
   },
   {
     "id": "TopTrainingCourses",

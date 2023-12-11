@@ -31,6 +31,9 @@ export const getCourseByYear = (year) =>
 export const getCourseTypeByYear = (year) =>
   api.get(`${endpoint}/course-type-by-year/${year}`)
 
+export const getTrainingRecords = (params) =>
+  api.get(`${endpoint}/training-records${setURLParams(params)}`)
+
 export const getTrainingView = (id) => api.get(`${endpoint}/${id}/view`)
 
 export const getTraining = (id) => api.get(`${endpoint}/${id}`)

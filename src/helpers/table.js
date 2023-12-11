@@ -7,12 +7,12 @@ export const paginationInitialValues = {
   offset: 0
 }
 
-export const setURLParams = (pagination) => {
-  if (!pagination) {
+export const setURLParams = (params) => {
+  if (!params) {
     return ''
   }
   const urls = []
-  Object.entries(pagination).forEach(([field, value]) => {
+  Object.entries(params).forEach(([field, value]) => {
     if (value) {
       urls.push(`${field}=${value}`)
     }
