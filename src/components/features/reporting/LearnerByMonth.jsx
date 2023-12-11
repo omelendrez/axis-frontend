@@ -29,7 +29,7 @@ export const LearnerByMonth = () => {
   const { apiMessage } = useApiMessages()
 
   useEffect(() => {
-    setPage('Top traingers by month')
+    setPage('Learners by month')
 
     getCourseYears()
       .then((res) => setYears(res.data))
