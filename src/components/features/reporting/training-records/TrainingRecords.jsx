@@ -254,7 +254,7 @@ const Value = ({ data }) => {
     case 'start':
     case 'end':
     case 'expiry':
-      v = formatShortDate(value)
+      v = value ? formatShortDate(value) : null
       break
     default:
       v = value
