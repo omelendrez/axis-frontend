@@ -1,7 +1,13 @@
 import { InputField, Button } from '@/components/shared'
 import './yearInput.css'
 
-export const YearInput = ({ year, onChange, onLoadClick, disabled }) => (
+export const YearInput = ({
+  year,
+  onChange,
+  onLoadClick,
+  disabled,
+  isLoading
+}) => (
   <div className="reporting-chart-input">
     <InputField
       type="number"
@@ -10,7 +16,7 @@ export const YearInput = ({ year, onChange, onLoadClick, disabled }) => (
       value={year}
       onChange={onChange}
     />
-    <Button onClick={onLoadClick} disabled={disabled}>
+    <Button onClick={onLoadClick} disabled={disabled} isLoading={isLoading}>
       load
     </Button>
   </div>

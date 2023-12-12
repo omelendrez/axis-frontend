@@ -1,0 +1,14 @@
+.treemap-tooltip {
+  position: absolute;
+  z-index: 1;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  transition: left 0.5s ease-in-out;
+  transition: top 0.5s ease-in-out;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px,
+    rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+  top: 0;
+  left: 0;
+}

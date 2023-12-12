@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 
-export const Treemap = ({ data, width, height }) => {
+export const Treemap = ({ data, width, height, onHover }) => {
   const svgRef = useRef(null)
   const legendRef = useRef(null)
 
@@ -78,6 +78,7 @@ export const Treemap = ({ data, width, height }) => {
       .attr('width', (d) => d.x1 - d.x0)
       .attr('height', (d) => d.y1 - d.y0)
       .attr('fill', (d) => colorScale(d.data.category))
+      .on('mouseover', (_, d) => onHover(d))
 
     const fontSize = 12
 
@@ -117,7 +118,7 @@ export const Treemap = ({ data, width, height }) => {
       .attr('transform', `translate(0, ${fontSize})`)
       .attr('x', fontSize * 3)
       .attr('y', (_, i) => fontSize * 2 * i)
-      .style('font-size', fontSize)
+      .style('font-size', fontSize + 2)
       .text((d) => d)
   }
 

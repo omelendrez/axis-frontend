@@ -1,5 +1,5 @@
 export * from './CourseByMonth'
-export * from './CoursesTreemap'
+export * from './courses-treemap/CoursesTreemap'
 export * from './LearnerByMonth'
 export * from './TopTrainingCourses'
 export * from './training-records/TrainingRecords'
