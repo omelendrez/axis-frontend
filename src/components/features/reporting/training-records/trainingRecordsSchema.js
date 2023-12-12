@@ -54,7 +54,7 @@ export const schema = [
     column: 'Expiry',
     type: Date,
     format: 'dd/mm/yyyy',
-    value: (record) => new Date(record.expiry),
+    value: (record) => (record.expiry ? new Date(record.expiry) : null),
     width: 10
   },
   {
