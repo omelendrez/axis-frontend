@@ -9,7 +9,7 @@ import useReportYear from '@/hooks/useReportYear'
 
 import { getCourseByYear, getCourseYears } from '@/services'
 
-import './reportChart.css'
+import './report-chart.css'
 import { capitalize } from '@/helpers'
 
 export const CourseByMonth = () => {

@@ -12,7 +12,8 @@ import { getCourseTypeByYear, getCourseYears } from '@/services'
 
 import { Treemap } from '@/components/shared'
 
-import '../reportChart.css'
+import '../report-chart.css'
+import './reporting-treemap.css'
 
 import { capitalize } from '@/helpers'
 
@@ -139,8 +140,8 @@ export const CoursesTreemap = () => {
       >
         <Treemap
           data={data}
-          height={480}
-          width={1000}
+          height={800}
+          width={1200}
           onHover={handleOnHover}
         />
       </div>

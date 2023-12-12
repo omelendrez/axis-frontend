@@ -11,7 +11,7 @@ import { getCourseMonthByYear, getCourseYears } from '@/services'
 
 import { defaultReportData } from '@/helpers'
 
-import './reportChart.css'
+import './report-chart.css'
 
 export const TopTrainingCourses = () => {
   const { set: setPage } = usePage()
@@ -62,7 +62,7 @@ export const TopTrainingCourses = () => {
       .then((res) => {
         const results = []
         let { course } = res.data[0]
-        let data = defaultReportData
+        let data = defaultReportData.reverse()
         res.data.forEach((d) => {
           if (course === d.course) {
             const { month, value } = d
@@ -93,7 +93,9 @@ export const TopTrainingCourses = () => {
           data: data
         }
         results.push(row)
+
         setData(results)
+
         setIsHidding(false)
       })
       .catch((e) => apiMessage(e))
@@ -111,13 +113,11 @@ export const TopTrainingCourses = () => {
   const secondaryAxes = useMemo(
     () => [
       {
-        getValue: (datum) => datum.value,
-        stacked: true
+        getValue: (datum) => datum.value
       }
     ],
     []
   )
-
   return (
     <main className="container reporting">
       <YearInput
