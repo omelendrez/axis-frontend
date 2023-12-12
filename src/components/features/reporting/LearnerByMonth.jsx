@@ -11,7 +11,7 @@ import { getCourseYears, getMonthByYear } from '@/services'
 
 import { defaultReportData } from '@/helpers'
 
-import './reportChart.css'
+import './report-chart.css'
 
 export const LearnerByMonth = () => {
   const { set: setPage } = usePage()
