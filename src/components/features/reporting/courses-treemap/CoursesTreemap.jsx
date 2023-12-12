@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { YearInput } from './YearInput'
+import { YearInput } from '../YearInput'
+
+import { Tooltip } from './Tooltip'
 
 import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
@@ -8,8 +10,10 @@ import useReportYear from '@/hooks/useReportYear'
 
 import { getCourseTypeByYear, getCourseYears } from '@/services'
 
-import './reportChart.css'
 import { Treemap } from '@/components/shared'
+
+import '../reportChart.css'
+
 import { capitalize } from '@/helpers'
 
 export const CoursesTreemap = () => {
@@ -23,7 +27,13 @@ export const CoursesTreemap = () => {
 
   const [isHidding, setIsHidding] = useState(true)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const [data, setData] = useState(null)
+
+  const [d, setD] = useState(null)
+
+  const [tooltipPosition, setTooltipPosition] = useState(null)
 
   const { apiMessage } = useApiMessages()
 
@@ -56,7 +66,7 @@ export const CoursesTreemap = () => {
 
   const handleLoadData = (e) => {
     e.preventDefault()
-
+    setIsLoading(true)
     getCourseTypeByYear(year)
       .then((res) => {
         const results = []
@@ -78,7 +88,13 @@ export const CoursesTreemap = () => {
             }
             results.push(row)
             type = r.type
-            children = []
+            children = [
+              {
+                category: type,
+                name: capitalize(course),
+                value: count
+              }
+            ]
           }
         })
         const row = {
@@ -87,12 +103,25 @@ export const CoursesTreemap = () => {
         }
         results.push(row)
 
-        setData({ name: 'Test', children: results })
+        setData({ name: 'Data', children: results })
 
         setIsHidding(false)
       })
       .catch((e) => apiMessage(e))
-    setIsDisabled(true)
+      .finally(() => {
+        setIsDisabled(true)
+        setIsLoading(false)
+      })
+  }
+
+  const handleOnHover = (d) => {
+    if (d) {
+      const data = d.data
+      const top = d.y0 + (d.y1 - d.y0)
+      const left = d.x0 + (d.x1 - d.x0) / 2
+      setD(data)
+      setTooltipPosition({ top, left })
+    }
   }
 
   return (
@@ -102,13 +131,20 @@ export const CoursesTreemap = () => {
         onLoadClick={handleLoadData}
         disabled={isDisabled}
         onChange={handleYearChange}
+        isLoading={isLoading}
       />
 
       <div
         className={`reporting-treemap-container ${isHidding ? 'opaque' : ''}`}
       >
-        <Treemap data={data} height={480} width={1000} />
+        <Treemap
+          data={data}
+          height={480}
+          width={1000}
+          onHover={handleOnHover}
+        />
       </div>
+      {d && tooltipPosition && <Tooltip data={d} position={tooltipPosition} />}
     </main>
   )
 }
