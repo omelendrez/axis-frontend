@@ -1,66 +1,69 @@
 import { Link } from 'react-router-dom'
 
-import { Divider, ToggleTheme } from '@/components'
-
 import links from './links.json'
 
-const LiElement = ({ route, path, label, icon, onClick }) => (
-  <li className={route === `${path}` ? 'active' : undefined}>
-    <Link to={path} onClick={onClick} className="link-option">
-      <span className="material-icons">{icon}</span>
-      <div>{label}</div>
-    </Link>
-  </li>
+import options from '../features/home/options.json'
+import { Divider } from '../shared'
+import { hasRequiredRole } from '@/helpers'
+
+const LiElement = ({ route, path, label, icon, onClick, color, separator }) => (
+  <>
+    <li className={route === `${path}` ? 'active' : undefined}>
+      <Link to={path} onClick={onClick} className="link-option">
+        <span className={`material-icons ${color ? `color-${color}` : null}`}>
+          {icon}
+        </span>
+        <div className={color ? `color-${color}` : null}>{label}</div>
+      </Link>
+    </li>
+    {separator ? <Divider style={{ margin: '0.3rem 0' }} /> : null}
+  </>
 )
 
 export const Hamburger = ({
   isUserAuthenticated,
-  onLogout,
   onClick,
-  detailsRef,
+  open,
   user,
-  route
+  route,
+  onHeaderClick
 }) => {
   const appDefaultRoutes = isUserAuthenticated
-    ? links.appRoutes.authorized
+    ? options
+        .filter((option) => hasRequiredRole(option.roles, user.roles))
+        .map((o) => ({
+          path: o.path,
+          label: o.title,
+          icon: o.icon,
+          separator: o.separator,
+          color: o.color
+        }))
     : links.appRoutes.notAuthorized
 
-  const userAuthorizedRoutes = isUserAuthenticated
-    ? links.userRoutes.authorized
-    : links.userRoutes.notAuthorized
   return (
     <li>
-      <details ref={detailsRef} role="list" dir="ltr">
-        <summary aria-haspopup="listbox" role="link"></summary>
+      <details open={open} role="list" dir="ltr">
+        <summary
+          aria-haspopup="listbox"
+          role="link"
+          onClick={onHeaderClick}
+        ></summary>
         <ul>
           {user?.roles?.length > 0 &&
             appDefaultRoutes
               .filter((r) => !r.role || r.role === user.role)
               .map((r) => (
                 <LiElement
+                  key={r.label}
                   route={route}
                   path={r.path}
                   icon={r.icon}
-                  key={r.label}
                   label={r.label}
                   onClick={onClick}
+                  color={r.color}
+                  separator={r.separator}
                 />
               ))}
-          <Divider style={{ margin: '0.3rem 0' }} />
-          {userAuthorizedRoutes.map((r) => (
-            <LiElement
-              route={route}
-              path={r.path}
-              icon={r.icon}
-              key={r.label}
-              label={r.label}
-              onClick={r.label === 'Logout' ? onLogout : onClick}
-            />
-          ))}
-          <Divider style={{ margin: '0.3rem 0' }} />
-          <li>
-            <ToggleTheme />
-          </li>
         </ul>
       </details>
     </li>
