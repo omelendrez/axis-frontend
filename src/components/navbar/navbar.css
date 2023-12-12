@@ -9,6 +9,11 @@ nav.navbar > * {
   color: #fff;
 }
 
+nav.navbar ul li details ul {
+  width: fit-content !important;
+  padding-top: 0.5rem;
+}
+
 summary {
   content: url(../../assets/menu_white_24dp.svg);
 }
@@ -31,8 +36,18 @@ nav.navbar li a.link-option {
   column-gap: 8px;
 }
 
+nav.navbar li a.link-option span {
+  color: var(--info);
+}
+
 nav.navbar li a.link-option img {
   margin-right: 1rem;
+}
+
+nav.navbar .user-role .div-option {
+  display: flex !important;
+  align-items: center;
+  column-gap: 8px;
 }
 
 nav.navbar li.active {
@@ -68,4 +83,11 @@ nav.navbar ul li.user-info div.user-role {
   font-size: 0.85rem;
   font-weight: 100;
   white-space: nowrap;
+}
+
+.color-success {
+  color: var(--success);
+}
+.color-error {
+  color: var(--error);
 }

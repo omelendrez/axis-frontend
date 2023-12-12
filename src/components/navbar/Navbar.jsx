@@ -1,18 +1,15 @@
-import { useLocation } from 'react-router-dom'
-import { useContext, useEffect, useRef } from 'react'
-import { SP } from '@/services'
+import { useContext, useEffect, useState } from 'react'
+
+import { Hamburger, UserActions } from './'
+
 import { UserContext, NetworkContext } from '@/context'
-import { BackButton, Hamburger } from './'
+
 import useNotification from '@/hooks/useNotification'
 import usePage from '@/hooks/usePage'
 
-import './navbar.css'
+import { SP } from '@/services'
 
-const UserRoles = ({ user }) => (
-  <div className="user-role">
-    {(user?.roles && user.roles.map((r) => r.name).join(', ')) || ''}
-  </div>
-)
+import './navbar.css'
 
 export const Navbar = () => {
   const { user, setUser } = useContext(UserContext)
@@ -24,27 +21,42 @@ export const Navbar = () => {
   const isUserAuthenticated = Boolean(user?.id)
 
   const logout = () => {
+    setIsUserActions(false)
+    setIsUserOptions(false)
     const session = new SP()
     session.clear()
     setUser(null)
     window.close()
   }
 
+  const [isUserActions, setIsUserActions] = useState(false)
+  const [isUserOptions, setIsUserOptions] = useState(false)
+
   const { set } = useNotification()
 
-  const detailsRef = useRef(null)
+  const handleOptionsClick = () => {
+    setIsUserOptions(false)
+  }
 
-  const handleClick = () => {
-    detailsRef.current.removeAttribute('open')
+  const handleActionsClick = (e) => {
+    e.preventDefault()
+    setIsUserActions(false)
   }
 
   const handleLogout = (e) => {
     e.preventDefault()
-    detailsRef.current.removeAttribute('open')
     logout()
   }
 
-  const location = useLocation()
+  const handleHeaderActionsClick = (e) => {
+    e.preventDefault()
+    setIsUserActions((a) => !a)
+  }
+
+  const handleHeaderOptionsClick = (e) => {
+    e.preventDefault()
+    setIsUserOptions((o) => !o)
+  }
 
   useEffect(() => {
     if (network !== null) {
@@ -60,33 +72,31 @@ export const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [network])
 
-  const showHamburger = location.pathname === '/'
-
-  const isLoginPage = location.pathname === '/login'
-
   return (
     <nav className="container-fluid navbar">
       <ul>
-        {showHamburger ? (
-          <Hamburger
-            isUserAuthenticated={isUserAuthenticated}
-            onClick={handleClick}
-            onLogout={handleLogout}
-            detailsRef={detailsRef}
-            user={user}
-          />
-        ) : (
-          !isLoginPage && <BackButton />
-        )}
+        <Hamburger
+          isUserAuthenticated={isUserAuthenticated}
+          onClick={handleOptionsClick}
+          onLogout={handleLogout}
+          user={user}
+          open={isUserOptions}
+          onHeaderClick={handleHeaderOptionsClick}
+        />
       </ul>
       <ul>
         <li className="page-title">{page?.title}</li>
       </ul>
       <ul>
-        <li className="user-info">
-          {user?.name}
-          <UserRoles user={user} />
-        </li>
+        <li className="user-info">{user?.name}</li>
+        <UserActions
+          isUserAuthenticated={isUserAuthenticated}
+          onClick={handleActionsClick}
+          onLogout={handleLogout}
+          user={user}
+          open={isUserActions}
+          onHeaderClick={handleHeaderActionsClick}
+        />
       </ul>
     </nav>
   )
