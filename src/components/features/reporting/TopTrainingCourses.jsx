@@ -62,7 +62,7 @@ export const TopTrainingCourses = () => {
       .then((res) => {
         const results = []
         let { course } = res.data[0]
-        let data = defaultReportData.reverse()
+        let data = defaultReportData
         res.data.forEach((d) => {
           if (course === d.course) {
             const { month, value } = d
