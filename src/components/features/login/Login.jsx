@@ -22,7 +22,7 @@ export const Login = () => {
   const [fieldType, setFieldType] = useState('password')
 
   useEffect(() => {
-    const input = document.getElementsByTagName('input')[0]
+    const input = document.getElementsByTagName('input')[1]
     input.focus()
   }, [])
 
