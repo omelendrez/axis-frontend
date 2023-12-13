@@ -84,10 +84,3 @@ nav.navbar ul li.user-info div.user-role {
   font-weight: 100;
   white-space: nowrap;
 }
-
-.color-success {
-  color: var(--success);
-}
-.color-error {
-  color: var(--error);
-}

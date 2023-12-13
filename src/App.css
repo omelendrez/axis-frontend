@@ -70,3 +70,23 @@ main article h6.title {
   padding: 0.3rem 0.6rem;
   border-radius: 0.3rem;
 }
+
+.color-success {
+  color: var(--success) !important;
+}
+
+.color-info {
+  color: var(--info) !important;
+}
+
+.color-warning {
+  color: var(--warning) !important;
+}
+
+.color-error {
+  color: var(--error) !important;
+}
+
+.color-purple {
+  color: var(--purple) !important;
+}
