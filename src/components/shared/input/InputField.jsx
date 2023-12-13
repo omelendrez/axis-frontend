@@ -23,6 +23,7 @@ export const InputField = (props) => {
 
   delete inputProps.password
   delete inputProps.onPasswordToggle
+  delete inputProps.hideLabel
 
   return (
     <div className="form-control">

@@ -15,8 +15,6 @@ import { getTrainingRecords } from '@/services'
 
 import { schema } from './trainingRecordsSchema'
 
-import expirationRanges from './expirationRanges.json'
-
 import './trainingRecords.css'
 
 export const TrainingRecords = () => {
@@ -29,8 +27,8 @@ export const TrainingRecords = () => {
   const [company, setCompany] = useState(null)
   const [course, setCourse] = useState(null)
   const [expiry, setExpiry] = useState(null)
-  const [start, setStart] = useState(null)
-  const [end, setEnd] = useState(null)
+  const [from, setFrom] = useState(null)
+  const [to, setTo] = useState(null)
 
   const [companiesList, setCompaniesList] = useState([])
   const [coursesList, setCoursesList] = useState([])
@@ -77,14 +75,19 @@ export const TrainingRecords = () => {
   }, [courseList])
 
   const handleLoadData = () => {
+    if ((from && !to) || (!from && to)) {
+      return apiMessage({
+        response: { data: { message: 'A date is missing' } }
+      })
+    }
     setRecords([])
     setIsLoading(true)
     const payload = {
       course,
       company,
       expiry,
-      start,
-      end
+      from,
+      to
     }
 
     getTrainingRecords(payload)
@@ -129,11 +132,11 @@ export const TrainingRecords = () => {
       case 'expiry':
         setExpiry(value)
         break
-      case 'start':
-        setStart(value)
+      case 'from':
+        setFrom(value)
         break
-      case 'end':
-        setEnd(value)
+      case 'to':
+        setTo(value)
         break
       default:
     }
@@ -143,8 +146,8 @@ export const TrainingRecords = () => {
     setCourse(null)
     setCompany(null)
     setExpiry(null)
-    setStart(null)
-    setEnd(null)
+    setFrom(null)
+    setTo(null)
     setRecords([])
     setIsFilterOpen(true)
   }
@@ -154,22 +157,14 @@ export const TrainingRecords = () => {
     setIsFilterOpen((f) => !f)
   }
 
-  const hasFilters = company || course || expiry || start || end
+  const hasFilters = company || course || expiry || from || to
 
   return (
     <main className="container-fluid training-records">
       <details open={isFilterOpen} onClick={handleToggle}>
         <summary>Filters</summary>
-        <p onClick={(e) => e.stopPropagation()}>
+        <div onClick={(e) => e.stopPropagation()}>
           <section className="form-area">
-            <DropdownSearch
-              id="expiry"
-              label="Expiry certificate range"
-              onChange={handleChange}
-              value={expiry}
-              options={expirationRanges}
-              hideLabel
-            />
             <DropdownSearch
               id="course"
               label="Course"
@@ -186,22 +181,26 @@ export const TrainingRecords = () => {
               options={companiesList}
               hideLabel
             />
-            <InputField
-              id="start"
-              label="Start"
-              type="date"
-              value={start}
-              onChange={handleChange}
-            />
-            <InputField
-              id="end"
-              label="End"
-              type="date"
-              value={end}
-              onChange={handleChange}
-            />
+            <div className="date-range">
+              <InputField
+                id="from"
+                label="From"
+                type="date"
+                value={from}
+                onChange={handleChange}
+                hideLabel
+              />
+              <InputField
+                id="to"
+                label="To"
+                type="date"
+                value={to}
+                onChange={handleChange}
+                hideLabel
+              />
+            </div>
           </section>
-        </p>
+        </div>
       </details>
 
       <div className="export-button-container">

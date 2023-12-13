@@ -5,6 +5,12 @@ main.training-records .form-area {
   font-size: 18px;
 }
 
+main.training-records .form-area .date-range {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+}
+
 main.training-records .export-button-container button {
   width: auto;
   margin-right: 1rem;
