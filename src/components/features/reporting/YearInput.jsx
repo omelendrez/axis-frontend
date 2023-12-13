@@ -15,6 +15,7 @@ export const YearInput = ({
       label="Year"
       value={year}
       onChange={onChange}
+      hideLabel
     />
     <Button onClick={onLoadClick} disabled={disabled} isLoading={isLoading}>
       load
