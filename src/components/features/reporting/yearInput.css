@@ -5,14 +5,11 @@
   justify-content: center;
   position: absolute;
   right: 1rem;
-  top: 2rem;
-}
-
-.reporting-chart-input > * {
-  width: fit-content;
+  top: 4rem;
 }
 
 .reporting-chart-input input {
   width: 6rem;
   text-align: center;
+  margin: 0;
 }
