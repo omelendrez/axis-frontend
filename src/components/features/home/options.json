@@ -142,6 +142,7 @@
     "color": "success",
     "roles": [
       1,
+      6,
       8
     ]
   },

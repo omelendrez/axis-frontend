@@ -13,20 +13,16 @@ import {
   undoLastApproval,
   learnerIdCardExists,
   getLearnerIdUrl,
-  generateOpitoCertificate,
   saveReason,
   getBucketDocumentUrl
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './scanId.css'
-import { getOpitoRecords } from '@/services/api/opito'
 
 export const ScanId = ({ training, onUpdate, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
-
-  const [opitoFile, setOpitoFile] = useState(null)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -123,46 +119,6 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const title = <strong>Learner id card</strong>
 
-  const handleOpito = (e) => {
-    e.preventDefault()
-    getOpitoRecords()
-      .then((res) => {
-        if (res.data.length === 0) {
-          const message = {
-            data: {
-              message: 'There are no records pending to be processed'
-            }
-          }
-          apiMessage(message)
-        } else {
-          const { data } = res
-          const invalidRecords = data.filter((r) => r.front_id === '')
-          if (invalidRecords.length > 0) {
-            const { opito_reg_code: code } = invalidRecords[0]
-            const message = {
-              response: {
-                data: {
-                  message: `Missing course Front ID text (Check course with Opito Reg. Code ${code})`
-                }
-              }
-            }
-            return apiMessage(message)
-          }
-
-          const payload = {
-            records: data
-          }
-          generateOpitoCertificate(payload)
-            .then((res) => {
-              setOpitoFile(res.data.file.substring(1))
-              apiMessage(res)
-            })
-            .catch((e) => apiMessage(e))
-        }
-      })
-      .catch((e) => apiMessage(e))
-  }
-
   if (!canView) {
     return null
   }
@@ -183,23 +139,11 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
         <div className="scan-id-children">
           {isIdCard && <Preview imageUrl={idCard} />}
 
-          {opitoFile && (
-            <a
-              href={`${import.meta.env.VITE_ASSETS_URL}${opitoFile}`}
-              alt={opitoFile}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {opitoFile}
-            </a>
-          )}
-
           {canApprove && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
                 {isIdCard ? 'Re-scan Id' : 'Scan Id'}
               </button>
-              {false && <button onClick={handleOpito}>Generate xlsx</button>}
             </div>
           )}
         </div>
@@ -210,6 +154,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
           </div>
         </Modal>
       </Task>
+
       <RejectReasonForm
         title="Reject reason"
         placeholder="Enter the reason why you are rejecting this training record"

@@ -7,7 +7,8 @@ export const DropdownSearch = ({
   onChange,
   value,
   options,
-  hideLabel
+  hideLabel,
+  readonly
 }) => {
   const [filtered, setFiltered] = useState([])
   const [open, setOpen] = useState(false)
@@ -58,7 +59,9 @@ export const DropdownSearch = ({
 
   const handleOpen = (e) => {
     e.preventDefault()
-    setOpen((o) => !o)
+    if (!readonly) {
+      setOpen((o) => !o)
+    }
   }
 
   useEffect(() => {
