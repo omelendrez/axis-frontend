@@ -2,14 +2,18 @@
   display: flex;
   column-gap: 1rem;
   align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 1rem;
-  top: 4rem;
+  /* justify-content: center; */
 }
 
 .reporting-chart-input input {
   width: 6rem;
+  text-align: center;
+  margin: 0;
+}
+
+.reporting-chart-input button {
+  width: 6rem;
+  height: 3rem;
   text-align: center;
   margin: 0;
 }

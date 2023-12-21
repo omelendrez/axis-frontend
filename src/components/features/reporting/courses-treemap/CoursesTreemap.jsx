@@ -8,7 +8,7 @@ import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
 import useReportYear from '@/hooks/useReportYear'
 
-import { getCourseTypeByYear, getCourseYears } from '@/services'
+import { getCourseTypeByYear, getActivePeriod } from '@/services'
 
 import { Treemap } from '@/components/shared'
 
@@ -41,7 +41,7 @@ export const CoursesTreemap = () => {
   useEffect(() => {
     setPage('Courses treemap')
 
-    getCourseYears()
+    getActivePeriod()
       .then((res) => setYears(res.data))
       .catch((e) => apiMessage(e))
 

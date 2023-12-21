@@ -17,8 +17,13 @@ const Trainings = () => {
   const { set: setPage } = usePage()
 
   useEffect(() => {
-    loadTrainings({ pagination })
     setPage('Trainings')
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    loadTrainings({ pagination })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])

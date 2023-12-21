@@ -66,8 +66,12 @@ const Learners = () => {
   const { set: setPage } = usePage()
 
   useEffect(() => {
-    loadLearners(pagination)
     setPage('Learners')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    loadLearners(pagination)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination])
 

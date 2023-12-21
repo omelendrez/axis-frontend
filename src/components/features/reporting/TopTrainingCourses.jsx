@@ -7,7 +7,7 @@ import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
 import useReportYear from '@/hooks/useReportYear'
 
-import { getCourseMonthByYear, getCourseYears } from '@/services'
+import { getCourseMonthByYear, getActivePeriod } from '@/services'
 
 import { defaultReportData } from '@/helpers'
 
@@ -31,7 +31,7 @@ export const TopTrainingCourses = () => {
   useEffect(() => {
     setPage('Top training courses')
 
-    getCourseYears()
+    getActivePeriod()
       .then((res) => setYears(res.data))
       .catch((e) => apiMessage(e))
 

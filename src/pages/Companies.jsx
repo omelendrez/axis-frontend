@@ -5,6 +5,7 @@ import { ListView, Loading, AddButton } from '@/components'
 import useCompanies from '@/hooks/useCompanies'
 import useNotification from '@/hooks/useNotification'
 import usePagination from '@/hooks/usePagination'
+import usePage from '@/hooks/usePage'
 
 const Companies = () => {
   const {
@@ -16,8 +17,15 @@ const Companies = () => {
 
   const { pagination, setPagination } = usePagination()
 
+  const { set: setPage } = usePage()
+
   const navigate = useNavigate()
   const { set } = useNotification()
+
+  useEffect(() => {
+    setPage('Companies')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     loadCompanies(pagination)
