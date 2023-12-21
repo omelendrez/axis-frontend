@@ -143,6 +143,13 @@ export const CourseByMonth = () => {
     setCurrentCourse(id)
   }
 
+  const options = courseList.filter((c) =>
+    mainData
+      .filter((r) => r.value > 0)
+      .map((r) => r.c)
+      .includes(c.id)
+  )
+
   return (
     <main className="container reporting">
       <YearInput
@@ -159,7 +166,7 @@ export const CourseByMonth = () => {
             label="Course"
             onChange={handleChangeCourse}
             value={currentCourse}
-            options={courseList}
+            options={options}
             hideLabel
           />
         </section>
