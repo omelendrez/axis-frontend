@@ -6,11 +6,15 @@ import { YearInput } from './YearInput'
 import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
 import useReportYear from '@/hooks/useReportYear'
+import useCourses from '@/hooks/useCourses'
 
-import { getCourseByYear, getCourseYears } from '@/services'
+import { getActivePeriod, getCourseMonthByYear } from '@/services'
 
 import './report-chart.css'
-import { capitalize } from '@/helpers'
+import './course-by-month.css'
+
+import { DropdownSearch } from '@/components/shared'
+import { defaultReportData } from '@/helpers'
 
 export const CourseByMonth = () => {
   const { set: setPage } = usePage()
@@ -19,23 +23,76 @@ export const CourseByMonth = () => {
 
   const { year, setYear } = useReportYear()
 
+  const [currentCourse, setCurrentCourse] = useState(null)
+
   const [isDisabled, setIsDisabled] = useState(false)
 
   const [isHidding, setIsHidding] = useState(true)
 
+  const [mainData, setMainData] = useState([])
+
   const [data, setData] = useState([])
+
+  const { courses, load: loadCourses } = useCourses()
+
+  const { data: coursesList } = courses
+
+  const [courseList, setCourseList] = useState([])
 
   const { apiMessage } = useApiMessages()
 
   useEffect(() => {
     setPage('Courses by month')
 
-    getCourseYears()
+    loadCourses()
+
+    getActivePeriod()
       .then((res) => setYears(res.data))
       .catch((e) => apiMessage(e))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (coursesList.count) {
+      const rows = coursesList?.rows?.map((c) => ({
+        id: c.id,
+        name: c.name
+      }))
+
+      setCourseList(rows)
+
+      setCurrentCourse(rows[0].id)
+    }
+  }, [coursesList])
+
+  useEffect(() => {
+    const results = []
+
+    if (mainData.length) {
+      let defaultData = defaultReportData
+
+      mainData
+        .filter((d) => d.c === currentCourse)
+        .forEach((d) => {
+          const { month, value } = d
+          defaultData = defaultData.map((r) => {
+            if (r.month === month) {
+              return { month, value }
+            }
+            return r
+          })
+        })
+
+      const row = {
+        label: 'Delegates',
+        data: defaultData
+      }
+      results.push(row)
+      setData(results)
+      setIsHidding(false)
+    }
+  }, [mainData, currentCourse])
 
   const handleYearChange = (e) => {
     e.preventDefault()
@@ -57,23 +114,8 @@ export const CourseByMonth = () => {
   const handleLoadData = (e) => {
     e.preventDefault()
 
-    getCourseByYear(year)
-      .then((res) => {
-        const data = res.data.map((d) => {
-          const { course, value } = d
-          return { course: capitalize(course), value }
-        })
-
-        const results = [
-          {
-            label: 'Total learners',
-            data
-          }
-        ]
-
-        setData(results)
-        setIsHidding(false)
-      })
+    getCourseMonthByYear(year)
+      .then((res) => setMainData(res.data))
       .catch((e) => apiMessage(e))
 
     setIsDisabled(true)
@@ -81,7 +123,7 @@ export const CourseByMonth = () => {
 
   const primaryAxis = useMemo(
     () => ({
-      getValue: (datum) => datum.course
+      getValue: (datum) => datum.month
     }),
     []
   )
@@ -96,6 +138,18 @@ export const CourseByMonth = () => {
     []
   )
 
+  const handleChangeCourse = (e) => {
+    const id = parseInt(e.target.value || 0)
+    setCurrentCourse(id)
+  }
+
+  const options = courseList.filter((c) =>
+    mainData
+      .filter((r) => r.value > 0)
+      .map((r) => r.c)
+      .includes(c.id)
+  )
+
   return (
     <main className="container reporting">
       <YearInput
@@ -104,6 +158,19 @@ export const CourseByMonth = () => {
         disabled={isDisabled}
         onChange={handleYearChange}
       />
+
+      {mainData.length > 0 && (
+        <section className="dropdown-container">
+          <DropdownSearch
+            id="course"
+            label="Course"
+            onChange={handleChangeCourse}
+            value={currentCourse}
+            options={options}
+            hideLabel
+          />
+        </section>
+      )}
 
       {data.length > 0 && (
         <div

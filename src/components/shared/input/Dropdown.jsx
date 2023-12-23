@@ -1,5 +1,5 @@
 export const Dropdown = ({ id, label, onChange, value, options }) => (
-  <div className={`form-control ${value.error ? 'error' : ''}`}>
+  <div className={`form-control ${value?.error ? 'error' : ''}`}>
     <label htmlFor={id}>{label}</label>
     <select id={id} onChange={onChange} required value={value}>
       <option value="" disabled>
@@ -11,6 +11,6 @@ export const Dropdown = ({ id, label, onChange, value, options }) => (
         </option>
       ))}
     </select>
-    <small>{value.error}</small>
+    <small>{value?.error}</small>
   </div>
 )

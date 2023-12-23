@@ -7,7 +7,7 @@ import usePage from '@/hooks/usePage'
 import useApiMessages from '@/hooks/useApiMessages'
 import useReportYear from '@/hooks/useReportYear'
 
-import { getCourseYears, getMonthByYear } from '@/services'
+import { getActivePeriod, getLearnersByMonth } from '@/services'
 
 import { defaultReportData } from '@/helpers'
 
@@ -31,7 +31,7 @@ export const LearnerByMonth = () => {
   useEffect(() => {
     setPage('Learners by month')
 
-    getCourseYears()
+    getActivePeriod()
       .then((res) => setYears(res.data))
       .catch((e) => apiMessage(e))
 
@@ -58,7 +58,7 @@ export const LearnerByMonth = () => {
   const handleLoadData = (e) => {
     e.preventDefault()
 
-    getMonthByYear(year)
+    getLearnersByMonth(year)
       .then((res) => {
         const results = []
         let data = defaultReportData
