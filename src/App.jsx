@@ -5,9 +5,12 @@ import { ToastContainer, toast } from 'react-toastify'
 import { io } from 'socket.io-client'
 
 import useNotification from '@/hooks/useNotification'
+import useIdle from './hooks/useIdle'
 
-import { Navbar } from '@/components'
+import { Navbar, VerticalAlignTop } from '@/components'
+
 import { AppRoutes } from '@/routes'
+
 import {
   UserContext,
   TrainingContext,
@@ -18,10 +21,11 @@ import {
 
 import { KEYS, SP } from '@/services'
 
+import { IDLE_TIME } from './helpers'
+
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
-import { VerticalAlignTop } from './components/shared/button/VerticalAlignTop'
 
 const errorHandler = (error, info) => {
   console.info(info.componentStack)
@@ -53,6 +57,8 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
+  const { isIdle } = useIdle(IDLE_TIME)
+
   const { data, clear } = useNotification()
   const navigate = useNavigate()
 
@@ -69,6 +75,20 @@ function App() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (isIdle && user.id) {
+      const message = 'Inactivity has been detected. You will be logged out'
+
+      toast(message, {
+        autoClose: 5000,
+        pauseOnFocusLoss: false,
+        position: toast.POSITION.BOTTOM_CENTER,
+        onClose: logout
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isIdle])
 
   useEffect(() => {
     if (data.type && data.message) {
@@ -131,6 +151,12 @@ function App() {
   })
 
   const [page, setPage] = useState(null)
+
+  const logout = () => {
+    const session = new SP()
+    session.clear()
+    setUser(null)
+  }
 
   const userContextValues = {
     user,
