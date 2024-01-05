@@ -52,3 +52,5 @@ export const UPLOAD_ACCEPT = {
   JPG: 'image/jpeg',
   PDF: 'application/pdf'
 }
+
+export const IDLE_TIME = 1000 * 60 * 15
