@@ -53,4 +53,4 @@ export const UPLOAD_ACCEPT = {
   PDF: 'application/pdf'
 }
 
-export const IDLE_TIME = 1000 * 5 // 60 * 15
+export const IDLE_TIME = 1000 * 60 * 15
