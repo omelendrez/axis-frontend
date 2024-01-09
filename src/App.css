@@ -90,3 +90,7 @@ main article h6.title {
 .color-purple {
   color: var(--purple) !important;
 }
+
+.app-container.locked {
+  pointer-events: none;
+}

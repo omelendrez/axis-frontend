@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
+import { IDLE_TIME } from '@/helpers'
+
 const USER_EVENTS = [
   'mousemove',
   'mousedown',
@@ -11,7 +13,7 @@ const USER_EVENTS = [
   'focus'
 ]
 
-const useIdle = (delay) => {
+const useIdle = (delay = IDLE_TIME) => {
   const [isIdle, setIsIdle] = useState(false)
 
   // create a new reference to track timer
@@ -52,8 +54,6 @@ const useIdle = (delay) => {
     for (const event of USER_EVENTS) {
       document.addEventListener(event, resetTimer, false)
     }
-
-    startTimer()
 
     //edge case
     //if tab is changed or is out of focus
