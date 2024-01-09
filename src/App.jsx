@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { io } from 'socket.io-client'
 
 import useNotification from '@/hooks/useNotification'
-import useIdle from './hooks/useIdle'
+// import useIdle from './hooks/useIdle'
 
 import { Navbar, VerticalAlignTop } from '@/components'
 
@@ -21,7 +21,7 @@ import {
 
 import { KEYS, SP } from '@/services'
 
-import { IDLE_TIME } from './helpers'
+// import { IDLE_TIME } from './helpers'
 
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
@@ -57,7 +57,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
-  const { isIdle } = useIdle(IDLE_TIME)
+  // const { isIdle } = useIdle(IDLE_TIME)
 
   const { data, clear } = useNotification()
   const navigate = useNavigate()
@@ -76,19 +76,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (isIdle && user.id) {
-      const message = 'Inactivity has been detected. You will be logged out'
+  // useEffect(() => {
+  //   if (isIdle && user.id) {
+  //     const message = 'Inactivity has been detected. You will be logged out'
 
-      toast(message, {
-        autoClose: 5000,
-        pauseOnFocusLoss: false,
-        position: toast.POSITION.BOTTOM_CENTER,
-        onClose: logout
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isIdle])
+  //     toast(message, {
+  //       autoClose: 5000,
+  //       pauseOnFocusLoss: false,
+  //       position: toast.POSITION.BOTTOM_CENTER,
+  //       onClose: logout
+  //     })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isIdle])
 
   useEffect(() => {
     if (data.type && data.message) {
@@ -152,11 +152,11 @@ function App() {
 
   const [page, setPage] = useState(null)
 
-  const logout = () => {
-    const session = new SP()
-    session.clear()
-    setUser(null)
-  }
+  // const logout = () => {
+  //   const session = new SP()
+  //   session.clear()
+  //   setUser(null)
+  // }
 
   const userContextValues = {
     user,
