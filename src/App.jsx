@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { io } from 'socket.io-client'
 
 import useNotification from '@/hooks/useNotification'
-// import useIdle from './hooks/useIdle'
+import useIdle from './hooks/useIdle'
 
 import { Navbar, VerticalAlignTop } from '@/components'
 
@@ -20,8 +20,6 @@ import {
 } from '@/context'
 
 import { KEYS, SP } from '@/services'
-
-// import { IDLE_TIME } from './helpers'
 
 // Styles
 import 'react-toastify/dist/ReactToastify.css'
@@ -57,12 +55,14 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
-  // const { isIdle } = useIdle(IDLE_TIME)
+  const { isIdle } = useIdle()
 
   const { data, clear } = useNotification()
   const navigate = useNavigate()
 
   const [showVerticalAlign, setShowVerticalAlign] = useState(0)
+
+  const [locked, setLocked] = useState(false)
 
   const handleScroll = () => setShowVerticalAlign(window.scrollY > 200)
 
@@ -76,19 +76,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // useEffect(() => {
-  //   if (isIdle && user.id) {
-  //     const message = 'Inactivity has been detected. You will be logged out'
-
-  //     toast(message, {
-  //       autoClose: 5000,
-  //       pauseOnFocusLoss: false,
-  //       position: toast.POSITION.BOTTOM_CENTER,
-  //       onClose: logout
-  //     })
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isIdle])
+  useEffect(() => {
+    if (isIdle && user?.id) {
+      const message = 'Inactivity has been detected. You will be logged out'
+      setLocked(true)
+      toast(message, {
+        autoClose: 5000,
+        pauseOnFocusLoss: false,
+        position: toast.POSITION.BOTTOM_CENTER,
+        onClose: logout
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isIdle])
 
   useEffect(() => {
     if (data.type && data.message) {
@@ -133,6 +133,7 @@ function App() {
       setNetwork(type)
       session.save(KEYS.network, type)
     })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -152,11 +153,12 @@ function App() {
 
   const [page, setPage] = useState(null)
 
-  // const logout = () => {
-  //   const session = new SP()
-  //   session.clear()
-  //   setUser(null)
-  // }
+  const logout = () => {
+    const session = new SP()
+    session.clear()
+    setUser(null)
+    setLocked(false)
+  }
 
   const userContextValues = {
     user,
@@ -184,7 +186,7 @@ function App() {
   }
 
   return (
-    <>
+    <main className={`app-container ${locked ? 'locked' : ''}`}>
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
       <UserContext.Provider value={userContextValues}>
         <NetworkContext.Provider value={networkContextValues}>
@@ -204,7 +206,7 @@ function App() {
           </PageContext.Provider>
         </NetworkContext.Provider>
       </UserContext.Provider>
-    </>
+    </main>
   )
 }
 
