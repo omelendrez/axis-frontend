@@ -135,6 +135,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
 
   const handleSendLetter = (e) => {
     e.preventDefault()
+    setIsSubmitting(true)
     const email = emails[0].value
     const payload = {
       ...training,
@@ -148,9 +149,10 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
           message: `${res.data.subject} email, sent Successfully!`
         }
         apiMessage({ data })
-        setUpdate((u) => !u)
+        // setUpdate((u) => !u)
         setIsSent(true)
-        onUpdate()
+        setIsSubmitting(false)
+        // onUpdate()
       })
       .catch((e) => apiMessage(e))
   }
@@ -194,6 +196,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
                     <button
                       onClick={handleSendLetter}
                       disabled={isCancelled || isSent}
+                      aria-busy={isSubmitting}
                     >
                       Send letter
                     </button>
