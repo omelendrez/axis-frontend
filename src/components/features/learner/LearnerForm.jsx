@@ -5,6 +5,7 @@ import useLearners from '@/hooks/useLearners'
 import useStates from '@/hooks/useStates'
 import useNationalities from '@/hooks/useNationalities'
 import useCompanies from '@/hooks/useCompanies'
+import useTitles from '@/hooks/useTitles'
 import useNotification from '@/hooks/useNotification'
 import { FOREIGNER, loadSchema } from '@/helpers'
 
@@ -25,6 +26,9 @@ export const LearnerForm = ({ learner, onClose }) => {
   const { states, load: loadStates } = useStates()
   const { data: statList } = states
 
+  const { titles, load: loadTitles } = useTitles()
+  const { data: titList } = titles
+
   const { nationalities, load: loadNationalities } = useNationalities()
   const { data: natList } = nationalities
 
@@ -34,6 +38,7 @@ export const LearnerForm = ({ learner, onClose }) => {
   const [nationalitiesList, setNationalitiesList] = useState([])
   const [companiesList, setCompaniesList] = useState([])
   const [statesList, setStatesList] = useState([])
+  const [titlesList, setTitlesList] = useState([])
 
   const [prevState, setPrevState] = useState(null)
 
@@ -57,6 +62,7 @@ export const LearnerForm = ({ learner, onClose }) => {
     loadStates()
     loadNationalities()
     loadCompanies()
+    loadTitles()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -82,7 +88,11 @@ export const LearnerForm = ({ learner, onClose }) => {
     if (statList.count) {
       setStatesList(statList.rows)
     }
-  }, [natList, compList, statList])
+
+    if (titList.count) {
+      setTitlesList(titList.rows.map((t) => ({ id: t.id, name: t.name })))
+    }
+  }, [natList, compList, statList, titList])
 
   useEffect(() => {
     if (isSuccess) {
@@ -187,7 +197,8 @@ export const LearnerForm = ({ learner, onClose }) => {
   if (
     !nationalitiesList.length ||
     !statesList.length ||
-    !companiesList.length
+    !companiesList.length ||
+    !titlesList.length
   ) {
     return null
   }
@@ -198,7 +209,8 @@ export const LearnerForm = ({ learner, onClose }) => {
     sexList,
     statesList,
     statusList,
-    typeList
+    typeList,
+    titlesList
   }
 
   return (

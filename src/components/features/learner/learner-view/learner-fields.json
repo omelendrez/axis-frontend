@@ -9,6 +9,10 @@
     "field": "badge"
   },
   {
+    "label": "Title",
+    "field": "title"
+  },
+  {
     "label": "Type",
     "field": "type"
   },
