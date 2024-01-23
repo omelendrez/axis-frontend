@@ -9,6 +9,7 @@ import courseItemSlice from './reducers/course-item/courseItemSlice'
 import courseModuleSlice from './reducers/course-module/courseModuleSlice'
 import courseSlice from './reducers/course/courseSlice'
 import learnerSlice from './reducers/learner/learnerSlice'
+import titleSlice from './reducers/title/titleSlice'
 import nationalitySlice from './reducers/nationality/nationalitySlice'
 import notificationReducer from './reducers/notification/notificationSlice'
 import roleSlice from './reducers/role/roleSlice'
@@ -28,6 +29,7 @@ export default configureStore({
     courseModules: courseModuleSlice,
     courses: courseSlice,
     learners: learnerSlice,
+    titles: titleSlice,
     nationalities: nationalitySlice,
     notification: notificationReducer,
     roles: roleSlice,

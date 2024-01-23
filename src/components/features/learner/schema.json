@@ -30,6 +30,13 @@
     "required": true
   },
   {
+    "type": "dropdown-search",
+    "id": "title",
+    "label": "Title",
+    "options": "titlesList",
+    "required": true
+  },
+  {
     "type": "dropdown",
     "id": "sex",
     "label": "Sex",
