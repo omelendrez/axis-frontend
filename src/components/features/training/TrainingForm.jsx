@@ -96,10 +96,25 @@ export const TrainingForm = ({ training, onClose }) => {
       .filter((id) => id !== 'id')
       .reduce((acc, [id, value]) => ({ ...acc, [id]: value.value }), {})
 
-    if (training?.id) {
-      modify(training.id, payload)
-    } else {
-      add(payload)
+    let failed = false
+
+    schema.forEach((f) => {
+      if (f.required && !payload[f.id]) {
+        const notification = {
+          type: 'error',
+          message: `${f.label} is a required field`
+        }
+        failed = true
+        set(notification)
+      }
+    })
+
+    if (!failed) {
+      if (training?.id) {
+        modify(training.id, payload)
+      } else {
+        add(payload)
+      }
     }
   }
 
