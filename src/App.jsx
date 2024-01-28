@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify'
@@ -11,13 +11,7 @@ import { Navbar, VerticalAlignTop } from '@/components'
 
 import { AppRoutes } from '@/routes'
 
-import {
-  UserContext,
-  TrainingContext,
-  NetworkContext,
-  PageContext,
-  PendingTasksContext
-} from '@/context'
+import { TrainingContext, NetworkContext } from '@/context'
 
 import { KEYS, SP } from '@/services'
 
@@ -61,6 +55,10 @@ function App() {
   const navigate = useNavigate()
 
   const [showVerticalAlign, setShowVerticalAlign] = useState(0)
+
+  const { setNetwork } = useContext(NetworkContext)
+
+  const { setChanges } = useContext(TrainingContext)
 
   // const [locked, setLocked] = useState(false)
 
@@ -138,75 +136,17 @@ function App() {
   }, [])
 
   const session = new SP()
-  const currentUser = session.get(KEYS.user) || null
-
-  const [user, setUser] = useState({
-    ...currentUser
-  })
-
-  const [changes, setChanges] = useState(null)
-  const [network, setNetwork] = useState(navigator.onLine)
-  const [pendingTasksParams, setPendingTaksParams] = useState({
-    date: null,
-    selectedStatuses: []
-  })
-
-  const [page, setPage] = useState(null)
-
-  // const logout = () => {
-  //   const session = new SP()
-  //   session.clear()
-  //   setUser(null)
-  //   setLocked(false)
-  // }
-
-  const userContextValues = {
-    user,
-    setUser
-  }
-
-  const trainingContextValues = {
-    changes,
-    setChanges
-  }
-
-  const networkContextValues = {
-    network,
-    setNetwork
-  }
-
-  const pageContextValues = {
-    page,
-    setPage
-  }
-
-  const pendingTasksContextValues = {
-    pendingTasksParams,
-    setPendingTaksParams
-  }
 
   return (
     // <main className={`app-container ${locked ? 'locked' : ''}`}>
     <>
       <ToastContainer theme={window.localStorage.getItem('theme') || 'light'} />
-      <UserContext.Provider value={userContextValues}>
-        <NetworkContext.Provider value={networkContextValues}>
-          <PageContext.Provider value={pageContextValues}>
-            <PendingTasksContext.Provider value={pendingTasksContextValues}>
-              <Navbar />
-              <TrainingContext.Provider value={trainingContextValues}>
-                <ErrorBoundary
-                  FallbackComponent={ErrorFallback}
-                  onError={errorHandler}
-                >
-                  <AppRoutes />
-                  <VerticalAlignTop show={showVerticalAlign} />
-                </ErrorBoundary>
-              </TrainingContext.Provider>
-            </PendingTasksContext.Provider>
-          </PageContext.Provider>
-        </NetworkContext.Provider>
-      </UserContext.Provider>
+      <Navbar />
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
+        <AppRoutes />
+        <VerticalAlignTop show={showVerticalAlign} />
+      </ErrorBoundary>
+
       {/* </main> */}
     </>
   )
