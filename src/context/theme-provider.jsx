@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from 'react'
 
 export const ThemeContext = createContext({
   theme: '',
-  toggle: () => {},
+  toggle: () => {}
 })
 
 const inititalTheme = window.localStorage.getItem('theme') || 'light'
@@ -23,14 +23,16 @@ export function ThemeProvider({ children }) {
   }
 
   const toggle = () => {
-    setTheme((theme) => (theme === 'light') ? 'dark' : 'light')
+    setTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
   }
 
   return (
-    <ThemeContext.Provider value={{
-      theme,
-      toggle,
-    }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        toggle
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   )
