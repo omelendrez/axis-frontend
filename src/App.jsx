@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify'
-import { io } from 'socket.io-client'
+// import { io } from 'socket.io-client'
 
 import useNotification from '@/hooks/useNotification'
 // import useIdle from './hooks/useIdle'
@@ -11,7 +11,8 @@ import { Navbar, VerticalAlignTop } from '@/components'
 
 import { AppRoutes } from '@/routes'
 
-import { TrainingContext, NetworkContext } from '@/context'
+// import { TrainingContext } from '@/context'
+import { NetworkContext } from '@/context'
 
 import { KEYS, SP } from '@/services'
 
@@ -58,7 +59,7 @@ function App() {
 
   const { setNetwork } = useContext(NetworkContext)
 
-  const { setChanges } = useContext(TrainingContext)
+  // const { setChanges } = useContext(TrainingContext)
 
   // const [locked, setLocked] = useState(false)
 
@@ -108,18 +109,18 @@ function App() {
   }, [data])
 
   useEffect(() => {
-    const server = import.meta.env.VITE_API_URL.replace('/api/', '')
-    const socket = io(server)
+    // const server = import.meta.env.VITE_API_URL.replace('/api/', '')
+    // const socket = io(server)
 
-    socket.on('training-status-changed', (changes) => {
-      navigator.vibrate([100, 200, 200, 200, 500])
-      setChanges(changes)
-    })
+    // socket.on('training-status-changed', (changes) => {
+    //   navigator.vibrate([100, 200, 200, 200, 500])
+    //   setChanges(changes)
+    // })
 
-    socket.on('connect_error', () => {
-      console.error('Socket connection error')
-      setTimeout(() => socket.connect(), 20000)
-    })
+    // socket.on('connect_error', () => {
+    //   console.error('Socket connection error')
+    //   setTimeout(() => socket.connect(), 20000)
+    // })
 
     window.addEventListener('online', (e) => {
       const { type } = e
