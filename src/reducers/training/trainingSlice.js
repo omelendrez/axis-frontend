@@ -72,6 +72,8 @@ export function loadTrainings({ date, statuses, pagination }) {
       dispatch(reset())
     } catch (error) {
       handleError(error, dispatch, reset)
+    } finally {
+      dispatch(reset())
     }
   }
 }
