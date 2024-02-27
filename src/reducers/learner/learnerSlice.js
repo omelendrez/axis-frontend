@@ -63,6 +63,8 @@ export function loadLearners(pagination) {
       dispatch(reset())
     } catch (error) {
       handleError(error, dispatch, reset)
+    } finally {
+      dispatch(reset())
     }
   }
 }
