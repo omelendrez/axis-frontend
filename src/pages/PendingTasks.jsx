@@ -152,11 +152,12 @@ const PendingTasks = () => {
 
   useEffect(() => {
     if (selectedStatuses.length) {
-      loadTrainings({
+      const params = {
         date: formatYMD(date),
         statuses: selectedStatuses.join('-'),
         pagination: { ...pagination }
-      })
+      }
+      loadTrainings(params)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -45,9 +45,7 @@ api.interceptors.request.use(
     }
     return { ...config, signal: controller.signal }
   },
-  (error) => {
-    Promise.reject(error)
-  }
+  (error) => Promise.reject(error)
 )
 
 api.interceptors.response.use(
@@ -57,10 +55,5 @@ api.interceptors.response.use(
     removeUrlFromPending(config.url)
     return response
   },
-  (error) => {
-    const { config } = error
-    // Error received, so we can remove the url from pending
-    removeUrlFromPending(config.url)
-    return Promise.reject(error)
-  }
+  (error) => Promise.reject(error)
 )
