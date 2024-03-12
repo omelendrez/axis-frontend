@@ -29,7 +29,7 @@ const User = ({ isViewing, isAdding, isEditing }) => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
+  }, [])
 
   const handleClose = (e) => {
     e?.preventDefault()

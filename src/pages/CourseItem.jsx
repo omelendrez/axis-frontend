@@ -19,7 +19,7 @@ const CourseItem = () => {
         .catch((e) => apiMessage(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
+  }, [])
 
   return (
     <main className="container-fluid">
