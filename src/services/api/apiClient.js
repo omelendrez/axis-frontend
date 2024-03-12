@@ -37,7 +37,9 @@ api.interceptors.request.use(
       controller.abort()
     } else {
       // We add the url to the pending responses
-      pending.push(config.url)
+      if (config.url !== '/user/login') {
+        pending.push(config.url)
+      }
     }
 
     if (token) {
