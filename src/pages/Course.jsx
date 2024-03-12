@@ -9,7 +9,6 @@ import usePage from '@/hooks/usePage'
 
 const Course = ({ isViewing, isAdding, isEditing }) => {
   const params = useParams()
-  const id = params?.id
 
   const { apiMessage } = useApiMessages()
   const { set: setPage } = usePage()
@@ -24,6 +23,7 @@ const Course = ({ isViewing, isAdding, isEditing }) => {
   }, [])
 
   useEffect(() => {
+    const id = params?.id
     if (id) {
       getCourse(id)
         .then((res) => setCourse(res.data))
@@ -31,7 +31,7 @@ const Course = ({ isViewing, isAdding, isEditing }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
+  }, [])
 
   const handleClose = (e) => {
     e?.preventDefault()

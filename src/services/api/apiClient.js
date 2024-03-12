@@ -2,7 +2,7 @@ import axios from 'axios'
 import { KEYS, SP } from '../session'
 
 const session = new SP()
-const pending = [] // we keep track of request made in order to abort when it was already fired
+let pending = [] // we keep track of request made in order to abort when it was already fired
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -20,10 +20,7 @@ export const api = axios.create({
  */
 
 const removeUrlFromPending = (url) => {
-  const index = pending.indexOf(url)
-  if (index) {
-    pending.splice(index, 1)
-  }
+  pending = pending.filter((u) => u !== url)
 }
 
 api.interceptors.request.use(
@@ -37,7 +34,9 @@ api.interceptors.request.use(
       controller.abort()
     } else {
       // We add the url to the pending responses
-      pending.push(config.url)
+      if (config.url !== '/user/login') {
+        pending.push(config.url)
+      }
     }
 
     if (token) {
@@ -45,7 +44,9 @@ api.interceptors.request.use(
     }
     return { ...config, signal: controller.signal }
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    Promise.reject(error)
+  }
 )
 
 api.interceptors.response.use(
