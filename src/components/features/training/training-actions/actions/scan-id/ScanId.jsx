@@ -11,15 +11,13 @@ import useApiMessages from '@/hooks/useApiMessages'
 import {
   frontdeskApproval,
   undoLastApproval,
-  learnerIdCardExists,
   getLearnerIdUrl,
-  saveReason,
-  getBucketDocumentUrl
+  saveReason
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './scanId.css'
 
-export const ScanId = ({ training, onUpdate, role, user }) => {
+export const ScanId = ({ training, onUpdate, update, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
@@ -28,9 +26,7 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
-  const [isIdCard, setIsIdCard] = useState(false)
-
-  const [idCard, setIDCard] = useState(null)
+  const [idCardUrl, setIdCardUrl] = useState(null)
 
   const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
@@ -49,17 +45,11 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
 
   useEffect(() => {
     const imageUrl = getLearnerIdUrl(badge)
-    learnerIdCardExists(badge)
-      .then((res) => {
-        setIsIdCard(res.data.exists)
-        if (res.data.exists) {
-          getBucketDocumentUrl(imageUrl).then((res) => setIDCard(res.data))
-        }
-      })
-      .catch((e) => apiMessage(e))
-    return () => setIDCard(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [training])
+
+    setIdCardUrl(imageUrl)
+
+    return () => setIdCardUrl(null)
+  }, [badge, update])
 
   const handleApprove = (e) => {
     e.preventDefault()
@@ -137,12 +127,12 @@ export const ScanId = ({ training, onUpdate, role, user }) => {
         isSubmitting={isSubmitting}
       >
         <div className="scan-id-children">
-          {isIdCard && <Preview imageUrl={idCard} />}
+          <Preview imageUrl={idCardUrl} />
 
           {canApprove && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
-                {isIdCard ? 'Re-scan Id' : 'Scan Id'}
+                Scan Id
               </button>
             </div>
           )}

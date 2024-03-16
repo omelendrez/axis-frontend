@@ -2,6 +2,7 @@ import compareDesc from 'date-fns/compareDesc'
 import formatDistance from 'date-fns/formatDistance'
 import format from 'date-fns/format'
 import addDays from 'date-fns/addDays'
+import { FILE_TYPE } from './constants'
 
 export const formatShortDate = (date) =>
   new Intl.DateTimeFormat('en-GB').format(new Date(date))
@@ -65,14 +66,15 @@ export const documentNumber = (num) =>
   (parseInt(num, 10) + 10 ** 12).toString().substring(1)
 
 // for certificates, id cards and welcome letters
-export const getPdfFileName = (id) => `${documentNumber(id)}.pdf`
+export const getPdfFileName = (id) => `${documentNumber(id)}.${FILE_TYPE.PDF}`
 
 //  for scanned foets and payments
-export const getScannedDocName = (id) => `${documentNumber(id)}.jpg`
+export const getScannedDocName = (id) =>
+  `${documentNumber(id)}.${FILE_TYPE.JPG}`
 
 // for learner photographs and learners id cards
 // those documents are associated to a learner
-export const getImageFilename = (badge) => `${badge}.jpg`
+export const getImageFilename = (badge) => `${badge}.${FILE_TYPE.JPG}`
 
 export const capitalize = (word) =>
   word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()

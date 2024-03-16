@@ -1,6 +1,5 @@
 export * from './assetsClient'
 export * from './certificate'
-export * from './common'
 export * from './email'
 export * from './foet'
 export * from './id_card'

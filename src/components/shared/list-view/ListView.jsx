@@ -139,7 +139,7 @@ export const ListView = ({
       )}
       <Confirm
         open={isConfirmOpen}
-        onCofirm={handleDeleteConfirm}
+        onConfirm={handleDeleteConfirm}
         onCancel={handleCancel}
         message={confirmMessage}
       />

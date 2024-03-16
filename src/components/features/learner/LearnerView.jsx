@@ -303,7 +303,7 @@ export const LearnerView = () => {
 
         <Confirm
           open={isConfirmOpen}
-          onCofirm={handleDeleteConfirm}
+          onConfirm={handleDeleteConfirm}
           onCancel={handleCancel}
           message={confirmMessage}
         />

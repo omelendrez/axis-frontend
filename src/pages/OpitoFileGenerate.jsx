@@ -23,7 +23,7 @@ const Card = ({ item, onView }) => {
     onView(item)
   }
 
-  const csvFilePath = `${import.meta.env.VITE_ASSETS_URL}${fileName}`
+  const csvFilePath = `${import.meta.env.VITE_ASSETS_URL}opito/csv/${fileName}`
 
   return (
     <article className="card opito-files-generator">

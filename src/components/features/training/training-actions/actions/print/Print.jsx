@@ -7,12 +7,11 @@ import {
   generateIdCard,
   getCertificateUrl,
   getIdCardUrl,
-  certificateExists,
-  idCardExists,
   certificatePrintDone,
   idCardPrintDone,
   saveOpitoFields,
-  getBucketDocumentUrl
+  certificateExists,
+  idCardExists
 } from '@/services'
 
 import useApiMessages from '@/hooks/useApiMessages'
@@ -30,7 +29,7 @@ import { CertificateUpload } from './CertificateUpload'
 
 import './print.css'
 
-export const Print = ({ training, onUpdate, type, role, user }) => {
+export const Print = ({ training, onUpdate, update, type, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
@@ -78,11 +77,11 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
 
   const [isUploadFormOpen, setIsUploadFormOpen] = useState(false)
 
-  const documentUrl = isCertificate ? getCertificateUrl(id) : getIdCardUrl(id)
-
   const generate = isCertificate ? generateCertificate : generateIdCard
 
-  const docExists = isCertificate ? certificateExists : idCardExists
+  const getDocExists = isCertificate ? certificateExists : idCardExists
+
+  const [isDoc, setIsDoc] = useState(null)
 
   const markAsPrinted = isCertificate ? certificatePrintDone : idCardPrintDone
 
@@ -101,16 +100,17 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
   }, [url])
 
   useEffect(() => {
-    docExists(id)
-      .then((res) => {
-        if (res.data.exists) {
-          getBucketDocumentUrl(documentUrl).then((res) => setUrl(res.data))
-        }
-      })
-      .catch((e) => apiMessage(e))
+    const documentUrl = isCertificate
+      ? getCertificateUrl(training?.id)
+      : getIdCardUrl(training?.id)
 
+    setUrl(documentUrl)
+
+    getDocExists(id).then((res) => setIsDoc(res.data.exists))
+
+    return () => setUrl(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [training])
+  }, [training, update])
 
   useEffect(() => {
     if (training.id) {
@@ -245,13 +245,13 @@ export const Print = ({ training, onUpdate, type, role, user }) => {
           <Divider style={{ marginTop: '1rem' }} />
         </div>
       )}
-      {url && (
+      {isDoc ? (
         <figure>
           <object data={url} {...props} className={embedClass}>
             <embed src={url} {...props} className={embedClass} />
           </object>
         </figure>
-      )}
+      ) : null}
       <Modal
         open={isUploadFormOpen}
         title="opito certificate"

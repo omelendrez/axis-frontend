@@ -7,11 +7,7 @@ import useNotification from '@/hooks/useNotification'
 import usePage from '@/hooks/usePage'
 import usePagination from '@/hooks/usePagination'
 
-import {
-  getBucketDocumentUrl,
-  getListPhotoUrl,
-  pictureExists
-} from '@/services'
+import { getPhotoUrl, getPictureExists } from '@/services'
 
 const Card = ({ item, onView }) => {
   const [photoUrl, setPhotoUrl] = useState('/assets/no-image-icon.png')
@@ -19,19 +15,15 @@ const Card = ({ item, onView }) => {
   const { badge } = item
 
   useEffect(() => {
-    pictureExists(badge).then((res) => {
+    const photoUrl = getPhotoUrl(badge)
+
+    getPictureExists(badge).then((res) => {
       if (res.data.exists) {
-        const photoUrl = getListPhotoUrl(badge)
-        getBucketDocumentUrl(photoUrl).then((res) => {
-          setPhotoUrl(res.data)
-        })
-      } else {
-        setPhotoUrl('/assets/no-image-icon.png')
+        setPhotoUrl(photoUrl)
       }
     })
 
     return () => setPhotoUrl(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [badge])
 
   return (

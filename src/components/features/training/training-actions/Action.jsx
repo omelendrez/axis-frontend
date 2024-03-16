@@ -14,7 +14,7 @@ import useUser from '@/hooks/useUser'
 
 import { DOC_TYPE, USER_ROLE } from '@/helpers'
 
-export const Action = ({ training, onUpdate }) => {
+export const Action = ({ training, onUpdate, update }) => {
   const { user } = useUser()
   const props = {
     training,
@@ -24,25 +24,39 @@ export const Action = ({ training, onUpdate }) => {
 
   return (
     <section className="training-view-actions">
-      <Foet {...props} role={USER_ROLE.ADMIN} />
+      <Foet {...props} role={USER_ROLE.ADMIN} update={update} />
 
-      <WelcomeLetter {...props} role={USER_ROLE.ADMIN} />
+      <WelcomeLetter {...props} role={USER_ROLE.ADMIN} update={update} />
 
-      <ScanId {...props} role={USER_ROLE.FRONTDESK} />
+      <ScanId {...props} role={USER_ROLE.FRONTDESK} update={update} />
 
-      <Medical {...props} role={USER_ROLE.MEDIC} />
+      <Medical {...props} role={USER_ROLE.MEDIC} update={update} />
 
-      <Picture {...props} role={USER_ROLE.TRAINING_COORDINATOR} />
+      <Picture
+        {...props}
+        role={USER_ROLE.TRAINING_COORDINATOR}
+        update={update}
+      />
 
-      <Payment {...props} role={USER_ROLE.ACCOUNTS} />
+      <Payment {...props} role={USER_ROLE.ACCOUNTS} update={update} />
 
-      <QAApproval {...props} role={USER_ROLE.QA} />
+      <QAApproval {...props} role={USER_ROLE.QA} update={update} />
 
-      <MDApproval {...props} role={USER_ROLE.MD} />
+      <MDApproval {...props} role={USER_ROLE.MD} update={update} />
 
-      <Print {...props} type={DOC_TYPE.CERTIFICATE} role={USER_ROLE.PRINTER} />
+      <Print
+        {...props}
+        type={DOC_TYPE.CERTIFICATE}
+        role={USER_ROLE.PRINTER}
+        update={update}
+      />
 
-      <Print {...props} type={DOC_TYPE.ID_CARD} role={USER_ROLE.PRINTER} />
+      <Print
+        {...props}
+        type={DOC_TYPE.ID_CARD}
+        role={USER_ROLE.PRINTER}
+        update={update}
+      />
     </section>
   )
 }

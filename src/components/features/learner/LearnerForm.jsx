@@ -217,7 +217,7 @@ export const LearnerForm = ({ learner, onClose }) => {
     <>
       <Confirm
         open={isConfirmOpen}
-        onCofirm={handleConfirm}
+        onConfirm={handleConfirm}
         onCancel={handleCancel}
         message={confirmMessage}
       />

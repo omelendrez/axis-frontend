@@ -10,18 +10,14 @@ import {
   accountsApproval,
   cancelTraining,
   saveReason,
-  getPaymentUrl,
-  paymentExists,
-  getBucketDocumentUrl
+  getPaymentUrl
 } from '@/services'
 import { TRAINING_STATUS, documentNumber, getUserAuth } from '@/helpers'
 
-export const Payment = ({ training, onUpdate, role, user }) => {
+export const Payment = ({ training, onUpdate, update, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
-
-  const [update, setUpdate] = useState(false)
 
   const [isFormOpen, setIsFormOpen] = useState(false)
 
@@ -43,19 +39,12 @@ export const Payment = ({ training, onUpdate, role, user }) => {
   )
 
   useEffect(() => {
-    paymentExists(id)
-      .then((res) => {
-        if (res.data.exists) {
-          const imageUrl = getPaymentUrl(id)
-          getBucketDocumentUrl(imageUrl).then((res) => setImageUrl(res.data))
-        }
-      })
-      .catch((e) => apiMessage(e))
+    const imageUrl = getPaymentUrl(id)
+
+    setImageUrl(imageUrl)
 
     return () => setImageUrl(null)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update])
+  }, [id, update])
 
   const handleScan = (e) => {
     e.preventDefault()
@@ -67,7 +56,6 @@ export const Payment = ({ training, onUpdate, role, user }) => {
     setIsFormOpen(false)
 
     onUpdate()
-    setUpdate((u) => !u)
   }
 
   const process = (payload) => {

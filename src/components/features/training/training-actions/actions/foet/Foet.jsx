@@ -1,24 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Modal, Preview, Task } from '@/components'
 import { FoetUpload } from './FoetUpload'
-import useApiMessages from '@/hooks/useApiMessages'
-import { foetExists, getBucketDocumentUrl, getFOETUrl } from '@/services'
+
+import { getFOETUrl } from '@/services'
 import { documentNumber, getUserAuth } from '@/helpers'
 
 import './foet.css'
 
 const FOET_EXPIRY_TYPE = 2
 
-export const Foet = ({ training, onUpdate, role, user }) => {
-  const { apiMessage } = useApiMessages()
-
+export const Foet = ({ training, onUpdate, update, role, user }) => {
   const { roles } = user
 
-  const [update, setUpdate] = useState(false)
-
   const [isFormOpen, setIsFormOpen] = useState(false)
-
-  const [isImage, setIsImage] = useState(false)
 
   const [url, setUrl] = useState(null)
 
@@ -33,18 +27,13 @@ export const Foet = ({ training, onUpdate, role, user }) => {
     tracking
   )
 
-  const imageUrl = getFOETUrl(id)
-
   useEffect(() => {
-    foetExists(id)
-      .then((res) => {
-        getBucketDocumentUrl(imageUrl).then((res) => setUrl(res.data))
-        setIsImage(res.data.exists)
-      })
-      .catch((e) => apiMessage(e))
+    const imageUrl = getFOETUrl(id)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update])
+    setUrl(imageUrl)
+
+    return () => setUrl(null)
+  }, [id, update])
 
   const handleScan = (e) => {
     e.preventDefault()
@@ -56,7 +45,6 @@ export const Foet = ({ training, onUpdate, role, user }) => {
     setIsFormOpen(false)
 
     onUpdate()
-    setUpdate((u) => !u)
   }
 
   const title = <strong>Previous FOET</strong>
@@ -68,12 +56,12 @@ export const Foet = ({ training, onUpdate, role, user }) => {
   return (
     <Task title={title} className="foet" key={title}>
       <div className="foet-children">
-        {isImage && <Preview imageUrl={url} />}
+        <Preview imageUrl={url} />
 
         {canApprove && (
           <div className="buttons">
             <button onClick={handleScan} disabled={isCancelled}>
-              {isImage ? 'Re-scan foet' : 'scan foet'}
+              scan foet
             </button>
           </div>
         )}
