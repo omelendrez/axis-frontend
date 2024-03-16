@@ -13,7 +13,7 @@ const Training = () => {
 
   const { changes } = useContext(TrainingContext)
 
-  const { loadView, trainings, resetView } = useTrainings()
+  const { loadView, trainings } = useTrainings()
 
   const { view: training } = trainings
 
@@ -25,8 +25,6 @@ const Training = () => {
     const id = params?.id
 
     loadView(id)
-
-    return () => resetView()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update, changes])
@@ -54,7 +52,11 @@ const Training = () => {
         </ul>
       </nav>
       {training?.id && (
-        <TrainingView training={training} onUpdate={updateView} />
+        <TrainingView
+          training={training}
+          onUpdate={updateView}
+          update={update}
+        />
       )}
     </main>
   )

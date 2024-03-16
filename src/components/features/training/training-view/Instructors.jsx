@@ -85,7 +85,7 @@ export const Instructors = ({ training, onAdd, onEdit, onDelete }) => {
       />
       <Confirm
         open={isConfirmOpen}
-        onCofirm={handleDeleteConfirm}
+        onConfirm={handleDeleteConfirm}
         onCancel={handleCancel}
         message={confirmMessage}
       />

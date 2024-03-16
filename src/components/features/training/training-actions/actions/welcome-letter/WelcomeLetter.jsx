@@ -10,9 +10,8 @@ import {
   saveReason,
   generateWelcomeLetter,
   getWelcomeLetterUrl,
-  welcomeLetterExists,
   sendWelcomeLetter,
-  getBucketDocumentUrl
+  getWelcomeLetterExists
 } from '@/services'
 
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
@@ -21,7 +20,7 @@ import { Status } from '../status-container/Status'
 
 import './welcome-letter.css'
 
-export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
+export const WelcomeLetter = ({ training, onUpdate, update, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const [url, setUrl] = useState(null)
@@ -44,24 +43,19 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isRejectReasonOpen, setIsRejectReasonOpen] = useState(false)
 
-  const [update, setUpdate] = useState(false)
-
   const [isDoc, setIsDoc] = useState(false)
 
   const [isSent, setIsSent] = useState(false)
 
-  const documentUrl = getWelcomeLetterUrl(id)
-
   useEffect(() => {
-    welcomeLetterExists(id)
-      .then((res) => {
-        getBucketDocumentUrl(documentUrl).then((res) => setUrl(res.data))
-        setIsDoc(res.data.exists)
-      })
-      .catch((e) => apiMessage(e))
+    const documentUrl = getWelcomeLetterUrl(id)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update])
+    setUrl(documentUrl)
+
+    getWelcomeLetterExists(id).then((res) => setIsDoc(res.data.exists))
+
+    return () => setUrl(null)
+  }, [id, update])
 
   const approve = (payload) => {
     setIsSubmitting(true)
@@ -126,7 +120,7 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
           message: `${res.data.Title} for ${res.data.Subject}, generated Successfully!`
         }
         apiMessage({ data })
-        setUpdate((u) => !u)
+
         onUpdate()
       })
       .catch((e) => apiMessage(e))
@@ -149,10 +143,9 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
           message: `${res.data.subject} email, sent Successfully!`
         }
         apiMessage({ data })
-        // setUpdate((u) => !u)
+
         setIsSent(true)
         setIsSubmitting(false)
-        // onUpdate()
       })
       .catch((e) => apiMessage(e))
   }
@@ -191,22 +184,20 @@ export const WelcomeLetter = ({ training, onUpdate, role, user }) => {
                   No email address
                 </button>
               ) : (
-                isDoc && (
-                  <div className="send-button-container">
-                    <button
-                      onClick={handleSendLetter}
-                      disabled={isCancelled || isSent}
-                      aria-busy={isSubmitting}
-                    >
-                      Send letter
-                    </button>
-                    <div className="emails-list">
-                      {emails.map((e) => (
-                        <div key={e.value}>{e.value}</div>
-                      ))}
-                    </div>
+                <div className="send-button-container">
+                  <button
+                    onClick={handleSendLetter}
+                    disabled={isCancelled || isSent}
+                    aria-busy={isSubmitting}
+                  >
+                    Send letter
+                  </button>
+                  <div className="emails-list">
+                    {emails.map((e) => (
+                      <div key={e.value}>{e.value}</div>
+                    ))}
                   </div>
-                )
+                </div>
               )}
             </div>
           )

@@ -9,26 +9,23 @@ import {
 import useApiMessages from '@/hooks/useApiMessages'
 import {
   trainingCoordinatorApproval,
-  pictureExists,
   getPhotoUrl,
   cancelTraining,
   saveReason,
-  getBucketDocumentUrl
+  getPictureExists
 } from '@/services'
 import { TRAINING_STATUS, getUserAuth } from '@/helpers'
 import './picture.css'
 import { Status } from '../status-container/Status'
 
-export const Picture = ({ training, onUpdate, role, user }) => {
+export const Picture = ({ training, onUpdate, update, role, user }) => {
   const { apiMessage } = useApiMessages()
 
   const { roles } = user
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const [photo, setPhoto] = useState(null)
-
-  const [photoFound, setPhotoFound] = useState(false)
+  const [photo, setPhotoUrl] = useState(null)
 
   const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
@@ -50,14 +47,16 @@ export const Picture = ({ training, onUpdate, role, user }) => {
   useEffect(() => {
     const photoUrl = getPhotoUrl(badge)
 
-    pictureExists(badge).then((res) => {
+    getPictureExists(badge).then((res) => {
       if (res.data.exists) {
-        getBucketDocumentUrl(photoUrl).then((res) => setPhoto(res.data))
+        setPhotoUrl(photoUrl)
+      } else {
+        setPhotoUrl('/assets/no-image-icon.png')
       }
-      setPhotoFound(res.data.exists)
     })
-    return () => setPhoto(null)
-  }, [badge])
+
+    return () => setPhotoUrl(null)
+  }, [badge, update])
 
   const process = (payload) => {
     setIsSubmitting(true)
@@ -137,11 +136,11 @@ export const Picture = ({ training, onUpdate, role, user }) => {
         isSubmitting={isSubmitting}
       >
         <div className="picture-children">
-          {photoFound && <Preview imageUrl={photo} />}
+          <Preview imageUrl={photo} />
           {canApprove && (
             <div className="buttons">
               <button onClick={handleScan} disabled={isCancelled}>
-                {photoFound ? 'Re-take picture' : 'Take picture'}
+                Take picture
               </button>
             </div>
           )}

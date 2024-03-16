@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { InstructorForm } from './insructor/InstructorForm'
+import { InstructorForm } from './instructor/InstructorForm'
 import { RejectReasonView } from './training-view/RejectReasonView'
 import { Confirm, Divider, Modal, TrainingForm } from '@/components'
 import { Photo, Learner } from '../learner/learner-view'
@@ -29,7 +29,7 @@ import instructorFields from './training-view/instructor-fields.json'
 import '../learner/learner-view/learner.css'
 import './trainingView.css'
 
-export const TrainingView = ({ training, onUpdate }) => {
+export const TrainingView = ({ training, onUpdate, update }) => {
   const { apiMessage } = useApiMessages()
   const { user } = useUser()
   const { users, load: loadUsers } = useUsers()
@@ -212,7 +212,7 @@ export const TrainingView = ({ training, onUpdate }) => {
     <main className="training-view">
       {reason && <RejectReasonView status={statusName} reason={reason} />}
       <StatusStamp status={{ statusId, statusName }} />
-      <Photo {...training} />
+      <Photo {...training} update={update} />
       <Learner
         learner={{ ...training, status: undefined }}
         onView={handleLearnerView}
@@ -229,17 +229,17 @@ export const TrainingView = ({ training, onUpdate }) => {
         onUpdate={onUpdate}
         onEdit={handleEditTraining}
       />
-      {statusId >= TRAINING_STATUS.MEDIC_DONE && (
+      {statusId >= TRAINING_STATUS.MEDIC_DONE ? (
         <Instructors
           training={training}
           onAdd={canEdit ? handleAddInstructor : null}
           onDelete={canEdit ? handleDeleteInstructor : null}
           key={instructorEditData?.id}
         />
-      )}{' '}
+      ) : null}
       <Divider />
       <div className="actions">
-        <Action training={training} onUpdate={onUpdate} />
+        <Action training={training} onUpdate={onUpdate} update={update} />
       </div>
       <Modal open={isTrainingEdit} title="Edit training" onClose={handleClose}>
         <TrainingForm training={trainingEditData} onClose={handleClose} />
@@ -261,7 +261,7 @@ export const TrainingView = ({ training, onUpdate }) => {
       </Modal>
       <Confirm
         open={isConfirmOpen}
-        onCofirm={handleDeleteConfirm}
+        onConfirm={handleDeleteConfirm}
         onCancel={handleCancel}
         message={confirmMessage}
       />

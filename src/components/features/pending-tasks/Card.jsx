@@ -1,8 +1,4 @@
-import {
-  getBucketDocumentUrl,
-  getListPhotoUrl,
-  pictureExists
-} from '@/services'
+import { getPhotoUrl, getPictureExists } from '@/services'
 import useUser from '@/hooks/useUser'
 import './card.css'
 import { TRAINING_STATUS, USER_ROLE } from '@/helpers'
@@ -43,16 +39,15 @@ export const Card = ({ item, onView, isSelected, onSelect, hasCheckboxes }) => {
     e.stopPropagation()
     onSelect(item)
   }
-
   useEffect(() => {
-    pictureExists(badge).then((res) => {
+    const photoUrl = getPhotoUrl(badge)
+    getPictureExists(badge).then((res) => {
       if (res.data.exists) {
-        const photoUrl = getListPhotoUrl(badge)
-        getBucketDocumentUrl(photoUrl).then((res) => setPhotoUrl(res.data))
+        setPhotoUrl(photoUrl)
       }
     })
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => setPhotoUrl(null)
   }, [badge])
 
   useEffect(() => {

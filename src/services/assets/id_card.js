@@ -1,5 +1,5 @@
-import { api } from './assetsClient'
 import { getPdfFileName } from '@/helpers'
+import { api } from './assetsClient'
 
 const url = import.meta.env.VITE_ASSETS_URL
 
@@ -12,4 +12,4 @@ export const generateIdCard = (id, payload) =>
   api.post(`${endpoint}/${id}`, payload)
 
 export const idCardExists = (id) =>
-  api.get(`${endpoint}/${getPdfFileName(id)}/exists`)
+  api.get(`${url}${endpoint}/${getPdfFileName(id)}/exists`)
