@@ -9,7 +9,7 @@
   {
     "type": "number",
     "id": "duration",
-    "label": "Couser duration (days)",
+    "label": "Course duration (days)",
     "placeholder": "Enter course duration",
     "required": true
   },
