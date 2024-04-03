@@ -50,7 +50,7 @@ export const getLearnersByMonth = (year) =>
 /**
  *
  * @param {numeric} year
- * @returns List of records for couser treemap
+ * @returns List of records for course treemap
  */
 export const getCourseTypeByYear = (year) =>
   api.get(`${endpoint}/course-type-by-year/${year}`)
@@ -82,5 +82,7 @@ export const getTrainingByDate = (date, statuses) =>
 
 export const updateTraining = (id, payload) =>
   api.put(`${endpoint}/${id}`, payload)
+
+export const verifyTrainingRecord = (id) => api.get(`${endpoint}/${id}/verify`)
 
 export const deleteTraining = (id) => api.delete(`${endpoint}/${id}`)

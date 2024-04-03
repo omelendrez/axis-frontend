@@ -1,0 +1,34 @@
+main.container {
+  font-weight: 700;
+  margin: 2rem;
+  padding: 2rem;
+  border: 5px solid green;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+main.container img {
+  margin-bottom: 2rem;
+}
+
+main.container p {
+  margin: 1rem 0;
+}
+
+main.container p span {
+  font-weight: bold;
+  font-size: larger;
+  color: var(--primary);
+}
+
+main.container div.error {
+  color: var(--error);
+}
+
+main.container div.valid-certificate {
+  color: var(--success);
+}
+
+main.container div.invalid-certificate {
+  color: var(--error);
+}
