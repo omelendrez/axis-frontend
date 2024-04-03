@@ -18,6 +18,7 @@ import { roleRoutes } from './roleRoutes'
 import { stateRoutes } from './stateRoutes'
 import { trainingRoutes } from './trainingRoutes'
 import { userRoutes } from './userRoutes'
+import { verifyRoutes } from './verifyRoutes'
 
 export const AppRoutes = () => {
   return (
@@ -41,6 +42,7 @@ export const AppRoutes = () => {
         {trainingRoutes}
         {reportingRoutes}
         {userRoutes}
+        {verifyRoutes}
       </Routes>
     </div>
   )

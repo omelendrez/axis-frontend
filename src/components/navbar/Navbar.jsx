@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
+
+import { useLocation } from 'react-router-dom'
 
 import { Hamburger, UserActions } from './'
 
-import { UserContext, NetworkContext } from '@/context'
+import { UserContext } from '@/context'
 
-import useNotification from '@/hooks/useNotification'
 import usePage from '@/hooks/usePage'
 
 import { SP } from '@/services'
@@ -12,9 +13,9 @@ import { SP } from '@/services'
 import './navbar.css'
 
 export const Navbar = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { pathname } = useLocation()
 
-  const { network } = useContext(NetworkContext)
+  const { user, setUser } = useContext(UserContext)
 
   const { page } = usePage()
 
@@ -31,8 +32,6 @@ export const Navbar = () => {
 
   const [isUserActions, setIsUserActions] = useState(false)
   const [isUserOptions, setIsUserOptions] = useState(false)
-
-  const { set } = useNotification()
 
   const handleOptionsClick = () => {
     setIsUserOptions(false)
@@ -58,19 +57,9 @@ export const Navbar = () => {
     setIsUserOptions((o) => !o)
   }
 
-  useEffect(() => {
-    if (network !== null) {
-      const notification = {
-        type: network === 'offline' ? 'error' : 'success',
-        message:
-          network === 'offline'
-            ? 'You are offline right now'
-            : 'Your are online'
-      }
-      set(notification)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [network])
+  if (pathname.includes('/verify')) {
+    return
+  }
 
   return (
     <nav className="container-fluid navbar">
