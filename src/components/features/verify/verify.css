@@ -23,6 +23,7 @@ main.container p span {
 
 main.container div.error {
   color: var(--error);
+  text-transform: uppercase;
 }
 
 main.container div.valid-certificate {
