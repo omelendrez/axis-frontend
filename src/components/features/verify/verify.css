@@ -26,9 +26,11 @@ main.container div.error {
 }
 
 main.container div.valid-certificate {
+  font-size: larger;
   color: var(--success);
 }
 
 main.container div.invalid-certificate {
+  font-size: larger;
   color: var(--error);
 }
