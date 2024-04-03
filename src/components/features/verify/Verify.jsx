@@ -32,11 +32,13 @@ export const Verify = () => {
       {!data.is_valid && !error && (
         <div className="invalid-certificate">CERTIFICATE IS NOT VALID!</div>
       )}
-      <p>
-        We can confirm that <span>{data.full_name}</span> received a certificate
-        for <span>{data.course}</span> on <span>{data.issued}</span>.
-      </p>
-
+      {!error && (
+        <p>
+          We can confirm that <span>{data.full_name}</span> received a
+          certificate for <span>{data.course}</span> on{' '}
+          <span>{data.issued}</span>.
+        </p>
+      )}
       {data.expiry && data.is_valid && (
         <div className="expiry">
           <p>
