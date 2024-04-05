@@ -8,8 +8,8 @@
     "url": "https://github.com/omelendrez/axis-frontend.git"
   },
   "engines": {
-    "node": "16.x",
-    "npm": "8.x"
+    "node": "18.x",
+    "npm": "9.x"
   },
   "scripts": {
     "dev": "vite",
