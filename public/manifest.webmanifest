@@ -1,46 +1,46 @@
 {
-    "theme_color": "#417505",
-    "background_color": "#ffffff",
-    "display": "standalone",
-    "start_url": "https://axis-tolmann.vercel.app",
-    "name": "Axis v2.0",
-    "short_name": "Axis v2.0",
-    "description": "A Training Management Application for Tolmann Allied Services Company Limited",
-    "icons": [
-        {
-            "src": "/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "screenshots": [
-        {
-            "src": "/axis.png",
-            "sizes": "320x661",
-            "type": "image/png",
-            "form_factor": "wide",
-            "label": "Axis v2"
-        },
-        {
-            "src": "/axis.png",
-            "sizes": "320x661",
-            "type": "image/png",
-            "form_factor": "narrow"
-        }
-    ]
+  "theme_color": "#417505",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": ".",
+  "name": "Axis v2.0",
+  "short_name": "Axis v2.0",
+  "description": "A Training Management Application for Tolmann Allied Services Company Limited",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/axis.png",
+      "sizes": "320x661",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Axis v2"
+    },
+    {
+      "src": "/axis.png",
+      "sizes": "320x661",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
 }
