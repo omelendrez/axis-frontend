@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import fields from './user-role-fields.json'
 import { Table, Buttons, Confirm, Divider } from '@/components'
 import useConfirm from '@/hooks/useConfirm'
+import useNotification from '@/hooks/useNotification'
 // Ok
 
 export const UserRoles = ({ items, onAdd, onDelete }) => {
   const [selected, setSelected] = useState([])
+
+  const { set } = useNotification()
 
   const { isConfirmOpen, confirmMessage, setMessage, closeConfirm } =
     useConfirm()
@@ -28,14 +31,22 @@ export const UserRoles = ({ items, onAdd, onDelete }) => {
 
     if (selected.length) {
       const item = items.find((t) => t.id === parseInt(selected[0], 10))
-      const message = (
-        <span>
-          Are you sure you want to delete{' '}
-          <span className="primary">{item?.name}</span>?
-        </span>
-      )
-
-      setMessage(message)
+      if (item.name === 'System Admin') {
+        const notification = {
+          type: 'error',
+          message: `${item.name} role cannot be removed`
+        }
+        set(notification)
+      } else {
+        const message = (
+          <span>
+            Are you sure you want to remove
+            <span className="primary"> {item?.name}</span> role from this users'
+            permissions?
+          </span>
+        )
+        setMessage(message)
+      }
     }
   }
 
