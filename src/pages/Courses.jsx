@@ -22,7 +22,13 @@ const Card = ({ item, onView }) => (
         Duration: {item.duration} day(s)
         {item.validity ? `, validity ${item.validity} year(s)` : null}
       </div>
+
       <div className="small-font ellipsis">{item.expiry_type_name}</div>
+
+      {item.foet_required === 'Yes' ? (
+        <div className="small-font color-info">FOET upload required</div>
+      ) : null}
+
       <div>
         <Tag className={item.cert_type_name}>{item.cert_type_name}</Tag>
         {item.opito_reg_code.trim() && (

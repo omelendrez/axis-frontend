@@ -54,6 +54,12 @@
   },
   {
     "type": "switch",
+    "id": "foet_required",
+    "label": "Is previous FOET required?",
+    "required": true
+  },
+  {
+    "type": "switch",
     "id": "id_card",
     "label": "ID card?",
     "required": true
