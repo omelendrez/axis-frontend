@@ -19,6 +19,10 @@
     "className": "highlighted"
   },
   {
+    "label": "Is previous FOET required?",
+    "field": "foet_required"
+  },
+  {
     "label": "Includes ID card printing?",
     "field": "card_id"
   },
