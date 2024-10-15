@@ -1,3 +1,6 @@
+.reporting {
+  width: 100% !important;
+}
 .reporting .dropdown-container {
   max-width: 40rem;
 }
